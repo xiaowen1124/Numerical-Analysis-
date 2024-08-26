@@ -1,0 +1,349 @@
+\newpage
+\section{解线性方程组的迭代法}
+
+\subsection{ 知识点概述}
+
+\textcolor{blue}{1. 迭代法的收敛}
+
+对任意给定的向量 $ x^{(0)} \in \mathbf{R}^{n} $, 若迭代法生成的序列 $ \left\{x^{(k)}\right\}_{k=0}^{\infty} $ 满足
+$$
+\lim _{k \rightarrow \infty} x^{(k)}=x^{*}, \quad \forall x^{(0)} \in \mathbf{R}^{n}
+$$
+则称迭代法是收敛的.
+
+\textcolor{blue}{2. Jacobi 迭代}
+迭代格式
+$
+\left\{\begin{array}{l} 
+x_{1}^{(k+1)}=\frac{1}{a_{11}}\left(-a_{12} x_{2}^{(k)}-\cdots-a_{1 n} x_{n}^{(k)}+b_{1}\right), \\
+x_{2}^{(k+1)}=\frac{1}{a_{22}}\left(-a_{21} x_{1}^{(k)}-\cdots-a_{2 n} x_{n}^{(k)}+b_{2}\right),  \\
+\cdots \cdots \\
+x_{n}^{(k+1)}=\frac{1}{a_{n n}}\left(-a_{n 1} x_{1}^{(k)}-\cdots-a_{n n-1} x_{n-1}^{(k)}+b_{n}\right),
+\end{array}\right.\quad k=0,1,2, \cdots
+$
+称为 Jacobi 迭代格式, 这里需要注意若某个 $ a_{i i}=0 $, 则可以交换两个方程 (行交换) 处理, 其迭代矩阵构造如下.
+
+将线性方程组的系数矩阵 $ A=\left[a_{i j}\right] \in \mathbf{R}^{n \times n} $ 分解为 $ A=D-L-U $, 其中
+$$
+\begin{array}{l}
+D=\left[\begin{array}{llll}
+a_{11} & & & \\
+& a_{22} & & \\
+& & \ddots & \\
+& & & a_{n n}
+\end{array}\right], \quad L=\left[\begin{array}{ccccc}
+0 & & & & \\
+-a_{21} & 0 & & & \\
+-a_{31} & -a_{32} & 0 & & \\
+\vdots & \vdots & \vdots & \ddots & \\
+-a_{n 1} & -a_{n 2} & \cdots & -a_{n n-1} & 0
+\end{array}\right] \\
+U=\left[\begin{array}{ccccc}
+0 & -a_{12} & -a_{13} & \cdots & -a_{1 n} \\
+& 0 & -a_{23} & \cdots & -a_{2 n} \\
+& & 0 & \ddots & \vdots \\
+& & & \ddots & -a_{n-1 n} \\
+& & & & 0
+\end{array}\right] \\
+\end{array}
+$$
+若系数矩阵 $ A $ 的对角元素 $ a_{i i} \neq 0, i=1,2, \cdots, n $, 则矩阵 $ D $ 非奇异, 因此 $ A x=b $ 化简成
+$$
+(D-L-U) x=b
+$$
+因此
+$$
+x=D^{-1}(L+U) x+D^{-1} b=B_{J} x+f_{J}
+$$
+因而, 构造的迭代格式为 $ x^{(k+1)}=D^{-1}(L+U) x^{(k)}+D^{-1} b, k=0,1,2, \cdots $, 其中
+$$
+B_{J}=D^{-1}(L+U), \quad f_{J}=D^{-1} b
+$$
+称为解线性方程组的 Jacobi 迭代法的迭代矩阵.
+
+\textcolor{blue}{3. Gauss-Seidel 迭代}
+
+基于 “实时更新” 思想可以对 Jacobi 迭代法进行修改, 利用最新分量去代替旧的分量来计算, 由此得到的迭代法称为 Gauss-Seidel 迭代法格式.
+$$
+\left\{\begin{array}{l} 
+x_{1}^{(k+1)}= \frac{1}{a_{11}}\left(-a_{12} x_{2}^{(k)}-\cdots-a_{1 n} x_{n}^{(k)}+b_{1}\right) \\
+x_{2}^{(k+1)}= \frac{1}{a_{22}}\left(-a_{21} x_{1}^{(k+1)}-a_{23} x_{3}^{(k)}-a_{24} x_{4}^{(k)}-\cdots-a_{2 n} x_{n}^{(k)}+b_{2}\right), \\
+x_{3}^{(k+1)}= \frac{1}{a_{33}}\left(-a_{31} x_{1}^{(k+1)}-a_{32} x_{2}^{(k+1)}-a_{34} x_{4}^{(k)}-\cdots-a_{3 n} x_{n}^{(k)}+b_{3}\right), \\
+\cdots \cdots \\
+x_{n}^{(k+1)}= \frac{1}{a_{n n}}\left(-a_{n 1} x_{1}^{(k+1)}-a_{n 2} x_{2}^{(k+1)}-a_{n 3} x_{3}^{(k+1)}-\cdots-a_{n n-1} x_{n-1}^{(k+1)}+b_{n}\right), \\
+k=0,1,2, \cdots
+\end{array}\right.
+$$
+其迭代矩阵构造如下 $ (D-L-U) x=b $, 因此
+$$
+x=(D-L)^{-1} U x+(D-L)^{-1} b \triangleq B_{G} x+f_{G}
+$$
+因而, 构造的迭代法为
+$$
+x^{(k+1)}=(D-L)^{-1} U x^{(k)}+(D-L)^{-1} b, \quad k=0,1,2, \cdots
+$$
+注意这里更新的是 Jacobi 迭代中的矩阵 $ L $, 或者也可以写成
+$$
+x^{(k+1)}=D^{-1} L x^{(k+1)}+D^{-1} U x^{(k)}+D^{-1} b
+$$
+其中, $ B_{G}=(D-L)^{-1} U, f_{G}=(D-L)^{-1} b $ 称为解线性方程组的 Gauss-Seidel 选代法的迭代矩阵.
+
+\textcolor{blue}{4. SOR 迭代}
+
+(1) 迭代格式
+$$
+x^{(k+1)}=(1-\omega) x^{(k)}+\omega D^{-1} L x^{(k+1)}+\omega D^{-1} U x^{(k)}+\omega D^{-1} b, k=0,1,2, \cdots
+$$
+或者
+$$
+\begin{array}{c}
+x^{(k+1)}=\left(I-\omega D^{-1} L\right)^{-1}\left((1-\omega) I+\omega D^{-1} U\right) x^{(k)}+\omega\left(I-\omega D^{-1} L\right)^{-1} D^{-1} b \quad k=0,1,2, \cdots
+\end{array}
+$$
+
+(2) 迭代矩阵
+$$
+B_{S}=\left(I-\omega D^{-1} L\right)^{-1}\left((1-\omega) I+\omega D^{-1} U\right), \quad f_{S}=\omega\left(I-\omega D^{-1} L\right)^{-1} D^{-1} b
+$$
+当 $ \omega=1 $ 时即为 Gauss-Seidel 迭代法; 当 $ 0<\omega<1 $ 时, 该方法称为低松驰;当 $ \omega>1 $ 时, 则称为超松他. 在实际中真正使用的 $ \omega $ 值通常的范围为 $ 1<\omega<2 $,因此被统称为逐次超松驰方法, 简称 SOR 方法.
+
+\textcolor{blue}{5. 迭代法收敛性}
+
+对任意的初始向量 $ x^{(0)} \in \mathbf{R}^{n} $ 和常向量 $ f \in \mathbf{R}^{n} $, 由迭代格式形成的向量序列 $ \left\{x^{(k)}\right\}_{k=0}^{\infty} $ 收敛的充要条件是 $ \rho(G)<1 $.
+
+设有线性方程组 $ A x=b $, 构造迭代格式 $ x^{(k+1)}=B x^{(k)}+f $, 如果对任意矩阵范数有 $ \|B\|<1 $, 则对任意初始向量 $ x^{(0)} $, 迭代序列 $ \left\{x^{(k)}\right\}_{k=0}^{\infty} $ 收敛于方程组的解 $ x^{*} $, 且满足下面误差界:
+
+(1) $\displaystyle \left\|x^{(k)}-x^{*}\right\| \leqslant \frac{\|B\|}{1-\|B\|}\left\|x^{(k)}-x^{(k-1)}\right\| $;
+
+(2) $\displaystyle \left\|x^{(k)}-x^{*}\right\| \leqslant \frac{\|B\|^{k}}{1-\|B\|}\left\|x^{(1)}-x^{(0)}\right\| $.
+
+设线性方程组 $ A x=b $, 则下列结论成立:\\
+(1) 若 $ A $ 为严格对角占优矩阵, 则 Jacobi 迭代法和 Gauss-Seidel 选代法均收敛;\\
+(2) 若 $ A $ 为严格对角占优矩阵, $ 0<\omega \leqslant 1 $, 则松驰法收敛;\\
+(3) 若 $ A $ 为对称正定矩阵, $ 0<\omega<2 $, 则松驰法收敛;\\
+(4) SOR 迭代法收敛, 松驰因子 $ 0<\omega<2 $.
+
+
+\subsection{补充}
+\subsubsection{收敛的基本定理}
+
+迭代收敛的充分必要条件需要用到矩阵谱半径的概念, 所以先介绍关于谱半径的定义和特点.
+
+定义: 矩阵 $ \boldsymbol{A} \in \mathbf{R}^{n \times n} $ 的所有特征值 $ \lambda_{i}(i=1,2, \cdots, n) $ 的模的最大值称为矩阵 $ \boldsymbol{A} $ 的谱半径 $ \rho(A) $, 即
+$$
+\rho(\boldsymbol{A})=\max _{1 \leqslant i \leqslant n}\left|\lambda_{i}\right|
+$$
+\begin{tcolorbox}[enhanced,colback=2,colframe=1,breakable,coltitle=black,title=定理]
+ 矩阵 $ \boldsymbol{A} $ 的谱半径不超过矩阵 $ \boldsymbol{A} $ 的任一种范数 $ \|\boldsymbol{A}\|$.
+ \end{tcolorbox}
+证: 设 $ \lambda $ 为 $ \boldsymbol{A} $ 的任一特征值, $ x $ 为对应于 $ \lambda $ 的 $ \boldsymbol{A} $ 的特征向量, 即
+$$
+A x=\lambda x \quad(x \neq 0)
+$$
+由范数的性质, 有
+$$
+|\lambda|\|x\|=\|\lambda x\|=\|A \boldsymbol{x}\| \leqslant\|\boldsymbol{A}\| \boldsymbol{x} \|
+$$
+由于 $ x $ 是非零向量, 故有
+$$
+|\lambda| \leqslant\|\boldsymbol{A}\|
+$$
+这表明 $ \boldsymbol{A} $ 的任一特征值的模不超过 $ \|\boldsymbol{A}\| $, 于是
+$$
+\rho(\boldsymbol{A}) \leqslant\|\boldsymbol{A}\|
+$$
+由于矩阵 $ \boldsymbol{A} $ 有些范数( 如 $ \|\boldsymbol{A}\|_{\infty} $ 和 $ \|\boldsymbol{A}\|_{1} $ ) 远比特征值容易计算, 故常用该定理来估计矩阵特征值的上界.
+\begin{tcolorbox}[enhanced,colback=2,colframe=1,breakable,coltitle=black,title=迭代法收敛基本定理]
+迭代过程 $ x^{(k+1)}=B x^{(k)}+f $ 对任给初始向量 $ x^{(0)} $ 收敛的充分必要条件是迭代矩阵的谱半径 $ \rho(B)<1 $, 且当 $ \rho(B)<1 $ 时, 迭代矩阵谱半径越小, 收敛速度越快.
+\end{tcolorbox}
+证明: (必要性) 设由迭代格式产生的向量序列 $ \left\{\boldsymbol{x}^{(k)}\right\} $ 收敛于 $ \boldsymbol{x}^{*} $, 则在迭代格式 的两边令 $ k \rightarrow \infty $, 有
+$$
+\boldsymbol{x}^{*}=\boldsymbol{B} \boldsymbol{x}^{*}+f
+$$
+记 $ \boldsymbol{\varepsilon}^{(k)}=\boldsymbol{x}^{*}-\boldsymbol{x}^{(k)} $, 则
+$$
+\begin{aligned}
+\boldsymbol{\varepsilon}^{(k)} & =\boldsymbol{x}^{*}-\boldsymbol{x}^{(k)}=\left(\boldsymbol{B} \boldsymbol{x}^{*}+\boldsymbol{f}\right)-\left(\boldsymbol{B} \boldsymbol{x}^{(k-1)}+\boldsymbol{f}\right) \\
+& =\boldsymbol{B}\left(\boldsymbol{x}^{*}-\boldsymbol{x}^{(k-1)}\right), \quad k=0,1,2, \cdots
+\end{aligned}
+$$
+递推得
+$$
+\boldsymbol{\varepsilon}^{(k)}=\boldsymbol{B} \boldsymbol{\varepsilon}^{(k-1)}=\cdots=\boldsymbol{B}^{k} \boldsymbol{\varepsilon}^{(0)}, \quad k=0,1,2, \cdots .
+$$
+由于 $ \boldsymbol{x}^{(0)} $ 是任意的, 因而 $ \boldsymbol{\varepsilon}^{(0)} $ 也是任意的, 故若 $ \lim\limits _{k \rightarrow \infty} \boldsymbol{B}^{k} \boldsymbol{\varepsilon}^{(0)}=\mathbf{0} $, 必有 $ \lim\limits _{k \rightarrow \infty} \boldsymbol{B}^{k}=\boldsymbol{O} $. 于是可得 $ \rho(\boldsymbol{B})<1 $.
+
+(充分性) 设 $ \rho(\boldsymbol{B})<1 $, 则 1 不是 $ \boldsymbol{B} $ 的特征值,因而 $ |\boldsymbol{I}-\boldsymbol{B}| \neq 0,(\boldsymbol{I}-\boldsymbol{B}) \boldsymbol{x}=f $
+有唯一解 $ \boldsymbol{x}^{*} $, 即
+$$
+\boldsymbol{x}^{*}=B x^{*}+f 
+$$
+于是
+$$
+\begin{aligned}
+\boldsymbol{\varepsilon}^{(k)} & =\boldsymbol{x}^{*}-\boldsymbol{x}^{(k)}=\left(\boldsymbol{B} \boldsymbol{x}^{*}+\boldsymbol{f}\right)-\left(\boldsymbol{B} \boldsymbol{x}^{(k-1)}+\boldsymbol{f}\right) \\
+& =\boldsymbol{B}\left(\boldsymbol{x}^{*}-\boldsymbol{x}^{(k-1)}\right)=\boldsymbol{B} \boldsymbol{\varepsilon}^{(k-1)}, \quad k=0,1,2, \cdots,
+\end{aligned}
+$$
+递推得
+$$
+\boldsymbol{\varepsilon}^{(k)}=\boldsymbol{B}^{k} \boldsymbol{\varepsilon}^{(0)}, \quad k=0,1,2, \cdots .
+$$
+可知 $ \lim\limits _{k \rightarrow \infty} \boldsymbol{B}^{k}=\boldsymbol{O} $, 所以 $ \lim\limits _{k \rightarrow \infty} \boldsymbol{\varepsilon}^{(k)}=\mathbf{0} $, 即 $ \lim\limits _{k \rightarrow \infty} \boldsymbol{x}^{(k)}=\boldsymbol{x}^{*} $.
+定理证毕.
+
+
+\subsubsection{迭代矩阵法}
+首先介绍一个引理, 然后证明判断收敛性的定理.
+
+\textcolor{red}{引理:}若方阵 $ \boldsymbol{B} $ 满足 $ \|\boldsymbol{B}\|<1 $, 则 $ \boldsymbol{I}-\boldsymbol{B} $ 为非奇异矩阵, 且
+$$
+\left\|(\boldsymbol{I} \pm \boldsymbol{B})^{-1}\right\| \leqslant \frac{1}{1-\|\boldsymbol{B}\|}
+$$
+
+证: 用反证法.若 $ \boldsymbol{I}-\boldsymbol{B} $ 为奇异矩阵, 则存在非零向量 $ \boldsymbol{x} $, 使即有
+$$
+\begin{array}{c}
+(I-B) x=0 \\
+x=B x
+\end{array}
+$$
+由相容性条件得
+$$
+\|x\|=\|B x\| \leqslant\|B\|\|x\|
+$$
+由于 $ \boldsymbol{x} \neq \mathbf{0} $, 两端消去 $ \|\boldsymbol{x}\| $, 有
+$$
+\|\boldsymbol{B}\| \geqslant 1
+$$
+和已知矛盾, 假设不成立.命题得证.
+
+又由于 $ (\boldsymbol{I}-\boldsymbol{B})(\boldsymbol{I}-\boldsymbol{B})^{-1}=\boldsymbol{I} $, 有
+$$
+\begin{array}{l}
+(\boldsymbol{I}-\boldsymbol{B})^{-1}-\boldsymbol{B}(\boldsymbol{I}-\boldsymbol{B})^{-1}=\boldsymbol{I} \\
+(\boldsymbol{I}-\boldsymbol{B})^{-1}=\boldsymbol{I}+\boldsymbol{B}(\boldsymbol{I}-\boldsymbol{B})^{-1}
+\end{array}
+$$
+将式中 $ B $ 分别取成 $ B $ 和 $ -\boldsymbol{B} $, 再取范数
+$$
+\left\|(\boldsymbol{I} \pm \boldsymbol{B})^{-1}\right\| \leqslant\|\boldsymbol{I}\|+\|\boldsymbol{B}\|\left\|(\boldsymbol{I} \pm \boldsymbol{B})^{-1}\right\|
+$$
+又已知 $ \|\boldsymbol{B}\|<1 $, 有
+$$
+\left\|(\boldsymbol{I} \pm \boldsymbol{B})^{-1}\right\| \leqslant \frac{1}{1-\|\boldsymbol{B}\|}
+$$
+
+下面给出用迭代法迭代矩阵判断收敛性的\textbf{充分条件}.
+
+\begin{tcolorbox}[enhanced,colback=2,colframe=1,breakable,coltitle=black,title=定理]
+ 若迭代矩阵 $ \boldsymbol{B} $ 满足 $ \|\boldsymbol{B}\|<1 $, 则迭代过程 $ \boldsymbol{x}^{(k+1)}=\boldsymbol{B} \boldsymbol{x}^{(k)}+\boldsymbol{f} $ 对任意初值 $ \boldsymbol{x}^{(0)} $ 均收敛于 $ \boldsymbol{x}=\boldsymbol{B} \boldsymbol{x}+\boldsymbol{f} $ 的根 $ \boldsymbol{x}^{*} $, 且有
+$$
+\begin{aligned}
+&\left\|\boldsymbol{x}^{*}-\boldsymbol{x}^{(k)}\right\| \leqslant \frac{\|\boldsymbol{B}\|}{1-\|\boldsymbol{B}\|}\left\|\boldsymbol{x}^{(k)}-\boldsymbol{x}^{(k-1)}\right\| \\
+&\left\|x^{*}-x^{(k)}\right\| \leqslant \frac{\|\boldsymbol{B}\|^{k}}{1-\|\boldsymbol{B}\|}\left\|\boldsymbol{x}^{(1)}-\boldsymbol{x}^{(0)}\right\|
+\end{aligned}
+$$
+\end{tcolorbox}
+证: 因为 $ \|\boldsymbol{B}\|<1 $, 则 $ \boldsymbol{I}-\boldsymbol{B} $ 为非奇异矩阵, 故 $ \boldsymbol{x}=\boldsymbol{B} \boldsymbol{x}+\boldsymbol{f} $ 有唯一解 $ \boldsymbol{x}^{*} $, 即
+$$
+x^{*}=B x^{*}+f
+$$
+和迭代过程 $ \boldsymbol{x}^{(k)}=\boldsymbol{B} \boldsymbol{x}^{(k-1)}+\boldsymbol{f} $ 相比较, 有
+$$
+\boldsymbol{x}^{*}-\boldsymbol{x}^{(k)}=\boldsymbol{B}\left(\boldsymbol{x}^{*}-\boldsymbol{x}^{(k-1)}\right)
+$$
+取范数
+$$
+\left\|\boldsymbol{x}^{*}-\boldsymbol{x}^{(k)}\right\| \leqslant\|\boldsymbol{B}\|\left\|\boldsymbol{x}^{*}-\boldsymbol{x}^{(k-1)}\right\|
+$$
+反复递推
+$$
+\left\|\boldsymbol{x}^{*}-\boldsymbol{x}^{(k)}\right\| \leqslant\|\boldsymbol{B}\|^{k}\left\|\boldsymbol{x}^{*}-\boldsymbol{x}^{(0)}\right\|
+$$
+当 $ k \rightarrow+\infty $, 并注意 $ \|\boldsymbol{B}\|<1 $, 有
+$$
+\left\|\boldsymbol{x}^{*}-\boldsymbol{x}^{(k)}\right\| \rightarrow 0(k \rightarrow+\infty)
+$$
+即$\lim\limits _{k \rightarrow+\infty} \boldsymbol{x}^{(k)}=\boldsymbol{x}^{*}$.于是
+$$
+\begin{array}{l}
+\left\|\boldsymbol{x}^{*}-\boldsymbol{x}^{(k)}\right\|=\left\|\boldsymbol{B}\left(\boldsymbol{x}^{*}-\boldsymbol{x}^{(k-1)}\right)\right\| \leqslant\|\boldsymbol{B}\|\left\|\boldsymbol{x}^{*}-\boldsymbol{x}^{(k-1)}\right\| \\
+=\|\boldsymbol{B}\|\left\|\boldsymbol{x}^{*}-\boldsymbol{x}^{(k)}+\boldsymbol{x}^{(k)}-\boldsymbol{x}^{(k-1)}\right\| \\
+\leqslant\|\boldsymbol{B}\|\left\|\boldsymbol{x}^{*}-\boldsymbol{x}^{(k)}\right\|+\|\boldsymbol{B}\|\left\|\boldsymbol{x}^{(k)}-\boldsymbol{x}^{(k-1)}\right\|
+\end{array}
+$$
+$$(1-\|\boldsymbol{B}\|)\left\|\boldsymbol{x}^{*}-\boldsymbol{x}^{(k)}\right\| \leqslant\|\boldsymbol{B}\|\left\|\boldsymbol{x}^{(k)}-\boldsymbol{x}^{(k-1)}\right\| \Rightarrow
+\left\|\boldsymbol{x}^{*}-\boldsymbol{x}^{(k)}\right\| \leqslant \frac{\|\boldsymbol{B}\|}{1-\|\boldsymbol{B}\|}\left\|\boldsymbol{x}^{(k)}-\boldsymbol{x}^{(k-1)}\right\|$$
+
+
+同理, 有
+$$
+\begin{aligned}
+\boldsymbol{x}^{(k)}-\boldsymbol{x}^{(k-1)} & =\boldsymbol{B}\left(\boldsymbol{x}^{(k-1)}-\boldsymbol{x}^{(k-2)}\right)=\boldsymbol{B}^{2}\left(\boldsymbol{x}^{(k-2)}-\boldsymbol{x}^{(k-3)}\right) \\
+& =\cdots=\boldsymbol{B}^{k-1}\left(\boldsymbol{x}^{(1)}-\boldsymbol{x}^{(0)}\right)
+\end{aligned}
+$$
+代入上式，得
+$$
+\left\|\boldsymbol{x}^{*}-\boldsymbol{x}^{(k)}\right\| \leqslant \frac{\|\boldsymbol{B}\|^{k}}{1-\|\boldsymbol{B}\|}\left\|\boldsymbol{x}^{(1)}-\boldsymbol{x}^{(0)}\right\|
+$$
+由定理知, 当 $ \|\boldsymbol{B}\|<1 $ 时, 其值越小, 迭代收敛越快.当 $ \boldsymbol{B} $ 的某一种范数满足 $ \|\boldsymbol{B}\|<1 $ 时, 如果相邻两次迭代 $ \left\|\boldsymbol{x}^{(k)}-\boldsymbol{x}^{(k-1)}\right\|<\varepsilon, \varepsilon $ 为给定的精度要求, 则 $ \left\|\boldsymbol{x}^{*}-\boldsymbol{x}^{(k)}\right\|<\frac{\|\boldsymbol{B}\|}{1-\|\boldsymbol{B}\|} \varepsilon $, 所以, 在计算中通常用 $ \left\|x^{(k)}-x^{(k-1)}\right\|<\varepsilon $ 作为控制迭代结束的条件.
+
+\subsubsection{严格对角占优阵非奇异的证明}
+\textbf{严格对角占优阵非奇异}
+
+证: 严格对角占优阵其主对角线元素 $ a_{i i} $ 全部不为 0 , 故对角阵 $ \boldsymbol{D}=\operatorname{diag}\left(a_{i i}\right) $ 为非奇异矩阵.构造矩阵
+$$
+\boldsymbol{I}-\boldsymbol{D}^{-1} \boldsymbol{A}=\left(\begin{array}{cccc}
+0 & -\frac{a_{12}}{a_{11}} & \cdots & -\frac{a_{1 n}}{a_{11}} \\
+-\frac{a_{21}}{a_{22}} & 0 & \cdots & -\frac{a_{2 n}}{a_{22}} \\
+\vdots & \vdots & & \vdots \\
+-\frac{a_{n 1}}{a_{n n}} & -\frac{a_{n 2}}{a_{n n}} & \cdots & 0
+\end{array}\right)
+$$
+由严格对角占优条件知
+$$
+\left\|\boldsymbol{I}-\boldsymbol{D}^{-1} \boldsymbol{A}\right\|_{\infty}=\max _{1 \leqslant i \leqslant n} \sum_{\substack{j=1 \\ j \neq i}} \frac{\left|a_{i j}\right|}{\left|a_{i i}\right|}=\max _{1 \leqslant i \leqslant n} \frac{\sum_{\substack{j=1 \\ j \neq i}}^{n}\left|a_{i j}\right|}{\left|a_{i i}\right|}<1
+$$
+由前面引理知 $ \boldsymbol{D}^{-1} \boldsymbol{A} $ 非奇异, 从而 $ \boldsymbol{A} $ 非奇异.
+
+ \colorbox{yellow}{反证法} 设 $ \operatorname{det} A=0 $, 则齐次线性方程组 $ A x=0 $ 一定有非零解, 记为 $ \boldsymbol{x}= $ $ \left(x_{1}, x_{2}, \cdots, x_{n}\right)^{\mathrm{T}} $. 因为 $ \boldsymbol{x} \neq \mathbf{0} $, 所以存在 $ \boldsymbol{x} $ 的分量 $ x_{k} $, 使得 $ \left|x_{k}\right|=\max\limits _{1 \leqslant i \leqslant n}\left|x_{i}\right| \neq 0 $.
+将齐次线性方程组 $ A x=0 $ 中第 $ k $ 个方程
+$$
+a_{k 1} x_{1}+\cdots+a_{k k} x_{k}+\cdots+a_{k n} x_{n}=0
+$$
+的非对角元素移至等式右端, 得
+$$
+a_{k k} x_{k}=-a_{k 1} x_{1}-\cdots-a_{k, k-1} x_{k-1}-a_{k, k+1} x_{k+1}-\cdots-a_{k n} x_{n},
+$$
+于是
+$$
+\left|a_{k k}\right|\left|x_{k}\right|=\left|a_{k k} x_{k}\right| \leqslant \sum_{\substack{j=1 \\ j \neq k}}^{n}\left|-a_{k j} x_{j}\right|=\sum_{\substack{j=1 \\ j \neq k}}^{n}\left|a_{k j}\right|\left|x_{j}\right| \leqslant\left|x_{k}\right| \sum_{\substack{j=1 \\ j \neq k}}^{n}\left|a_{k j}\right| \text {, }
+$$
+即 $ \left|a_{k k}\right| \leqslant \sum_{\substack{j=1 \\ j \neq k}}^{n}\left|a_{k j}\right| $, 这与 $ \boldsymbol{A} $ 是严格对角占优矩阵的假设矛盾, 故 $ \operatorname{det} \boldsymbol{A} \neq 0 $,证毕!
+
+
+
+\subsubsection{松弛法收敛的必要条件}
+解线性方程组 $ A x=b $ 的松弛法收敛的必要条件是 $ 0<\omega<2 $.
+
+证: 当松弛法收玫则有 $ \rho\left(\boldsymbol{L}_{\omega}\right)<1 $, 设 $ \boldsymbol{L}_{\omega} $ 的特征值为 $ \lambda_{1}, \lambda_{2}, \cdots, \lambda_{n} $, 则
+$$
+\begin{array}{c}
+\left|\operatorname{det}\left(\boldsymbol{L}_{\omega}\right)\right|=\left|\lambda_{1} \lambda_{2} \cdots \lambda_{n}\right| \leqslant\left[\rho\left(\boldsymbol{L}_{\omega}\right)\right]^{n} \\
+\left|\operatorname{det}\left(\boldsymbol{L}_{\omega}\right)\right|^{\frac{1}{n}} \leqslant \rho\left(\boldsymbol{L}_{\omega}\right)<1
+\end{array}
+$$
+另一方面
+$$
+\begin{array}{c}
+\left.\operatorname{det}\left(\boldsymbol{L}_{\omega}\right)=\operatorname{det}\left[(\boldsymbol{D}-\omega \boldsymbol{L})^{-1}\right] \operatorname{det}[(1-\omega) \boldsymbol{D}+\omega \boldsymbol{U})\right]=(1-\omega)^{n} \\
+\left|\operatorname{det}\left(\boldsymbol{L}_{\omega}\right)\right|^{\frac{1}{n}}=|1-\omega|<1 \\
+0<\omega<2
+\end{array}
+$$
+
+
+
+

@@ -1,0 +1,287 @@
+\newpage
+\section{数值积分与数值微分}
+\subsection{课后习题}
+\begin{tcolorbox}[breakable,enhanced,arc=0mm,outer arc=0mm,
+		boxrule=0pt,toprule=1pt,leftrule=0pt,bottomrule=1pt, rightrule=0pt,left=0.2cm,right=0.2cm,
+		titlerule=0.5em,toptitle=0.1cm,bottomtitle=-0.1cm,top=0.2cm,
+		colframe=white!10!biru,colback=white!90!biru,coltitle=white,
+            coltext=black,title =2024-05, title style={white!10!biru}, before skip=8pt, after skip=8pt,before upper=\hspace{2em},
+		fonttitle=\bfseries,fontupper=\normalsize]
+
+ 1. 给定求积公式 $ \displaystyle\int_{0}^{1} f(x) d x \approx \frac{1}{2} f\left(x_{0}\right)+c f\left(x_{1}\right) $, 试确定 $ x_{0}, x_{1}, c $,使求积公式的代数精度尽可能高, 并指出代数精度的次数.
+
+ \tcblower
+  当 $ f(x)=1 $ 时, 左边 $ =\int_{0}^{1} 1 \mathrm{~d} x=1 $, 右边 $ =\frac{1}{2}+c $;
+  
+  当 $ f(x)=x $ 时, 左边 $ =\int_{0}^{1} x \mathrm{~d} x=\frac{1}{2} $, 右边 $ =\frac{1}{2} x_{0}+c x_{1} $;
+  
+  当 $ f(x)=x^{2} $ 时, 左边 $ =\int_{0}^{1} x^{2} \mathrm{~d} x=\frac{1}{3} $, 右边 $ =\frac{1}{2} x_{0}^{2}+c x_{1}^{2} $.
+  
+  要使求积公式至少具有 2 次代数精度, 当且仅当
+$$
+\left\{\begin{array}{l}
+\frac{1}{2}+c=1, \\
+\frac{1}{2} x_{0}+c x_{1}=\frac{1}{2}, \\
+\frac{1}{2} x_{0}^{2}+c x_{1}^{2}=\frac{1}{3},
+\end{array}\right.
+$$
+求得 $ c=\frac{1}{2}, x_{0}=\frac{1}{2}\left(1-\frac{1}{\sqrt{3}}\right), x_{1}=\frac{1}{2}\left(1+\frac{1}{\sqrt{3}}\right) $, 所以求积公式为
+$$
+\int_{0}^{1} f(x) \mathrm{d} x \approx \frac{1}{2} f\left(\frac{1}{2}\left(1-\frac{1}{\sqrt{3}}\right)\right)+\frac{1}{2} f\left(\frac{1}{2}\left(1+\frac{1}{\sqrt{3}}\right)\right) .
+$$
+当 $ f(x)=x^{3} $ 时, 左边 $ =\int_{0}^{1} x^{3} \mathrm{~d} x=\frac{1}{4} $,
+$$
+\text { 右边 }=\frac{1}{2}\left[\frac{1}{2}\left(1-\frac{1}{\sqrt{3}}\right)\right]^{3}+\frac{1}{2}\left[\frac{1}{2}\left(1+\frac{1}{\sqrt{3}}\right)\right]^{3}=\frac{1}{4} \text {; }
+$$
+当 $ f(x)=x^{4} $ 时, 左边 $ =\int_{0}^{1} x^{4} \mathrm{~d} x=\frac{1}{5} $,
+$$
+\text { 右边 }=\frac{1}{2}\left[\frac{1}{2}\left(1-\frac{1}{\sqrt{3}}\right)\right]^{4}+\frac{1}{2}\left[\frac{1}{2}\left(1+\frac{1}{\sqrt{3}}\right)\right]^{4}=\frac{7}{36} \text {, }
+$$
+因为左边 $ \neq $ 右边, 所以求积公式的代数精度为 3 .
+\end{tcolorbox}
+
+  \begin{tcolorbox}[breakable,enhanced,arc=0mm,outer arc=0mm,
+		boxrule=0pt,toprule=1pt,leftrule=0pt,bottomrule=1pt, rightrule=0pt,left=0.2cm,right=0.2cm,
+		titlerule=0.5em,toptitle=0.1cm,bottomtitle=-0.1cm,top=0.2cm,
+		colframe=white!10!biru,colback=white!90!biru,coltitle=white,
+            coltext=black,title =2024-05, title style={white!10!biru}, before skip=8pt, after skip=8pt,before upper=\hspace{2em},
+		fonttitle=\bfseries,fontupper=\normalsize]
+
+2. 已知函数 $ f(x) \in C^{3}[0,2] $, 给定求积公式
+$$
+\int_{0}^{2} f(x) d x \approx A f(0)+B f\left(x_{0}\right)
+$$
+
+(1) 试确定 $ A, B, x_{0} $, 使该求积公式的代数精度尽可能高, 并指出代数精度的次数；
+
+(2) 给出参数确定后该求积公式的截断误差表达式.
+\tcblower
+ (1) 当 $f(x) = 1$ 时,左边 $ = {\int}_{0}^{2}1\mathrm{\ d}x = 2$ ,右边 $ = A + B$ ;
+
+当 $f(x) = x$ 时,左边 $ = {\int}_{0}^{2}x\mathrm{\ d}x = 2$ ,右边 $ = Bx_{0}$ ;
+
+当 $f(x) = x^{2}$ 时,左边 $ = {\int}_{0}^{2}x^{2}\mathrm{\ d}x = \frac{8}{3}$ ,右边 $ = Bx_{0}^{2}$ .
+
+求积公式至少具有 2 次代数精度的充分必要条件为:$\left\{\begin{array}{l} A + B = 2, \\ Bx_{0} = 2, \\ Bx_{0}^{2} = \frac{8}{3}, \end{array} \right.$
+
+求解得$A = \frac{1}{2},B = \frac{3}{2},x_{0} = \frac{4}{3}.$
+
+当 $f(x) = x^{3}$ 时,左边 $ = {\int}_{0}^{2}x^{3}\mathrm{\ d}x = 4$ ,右边 $ = \frac{32}{9}$ ,左边 $ {\neq} $ 右边,所以该求积公 式的代数精度为 2 .
+
+(2) 作 $f(x)$ 的 2 次插值多项式 $H(x)$ ,满足
+
+$$H(0) = f(0),\quad H\left( \frac{4}{3} \right) = f\left( \frac{4}{3} \right),\quad H^{{\prime}}\left( \frac{4}{3} \right) = f^{{\prime}}\left( \frac{4}{3} \right),$$
+
+由于求积公式有 2 次代数精度, 所以有
+
+$${\int}_{0}^{2}H(x)\mathrm{d}x = \frac{1}{2}H(0) + \frac{3}{2}H\left( \frac{4}{3} \right) = \frac{1}{2}f(0) + \frac{3}{2}f\left( \frac{4}{3} \right),$$
+
+所以截断误差为
+
+$$\begin{aligned}
+    {\int}_{0}^{2}f(x)\mathrm{d}x {-} \left( \frac{1}{2}f(0) + \frac{3}{2}f\left( \frac{4}{3} \right) \right) &= {\int}_{0}^{2}\left\lbrack f(x) {-} H(x) \right\rbrack\mathrm{d}x\\ &= {\int}_{0}^{2}\frac{f^{{\prime}{\prime}{\prime}}(\xi)}{3!}x{\left( x {-} \frac{4}{3} \right)}^{2}\mathrm{\ d}x\\&= \frac{4}{9} {\cdot} \frac{f^{{\prime}{\prime}{\prime}}(\eta)}{6} = \frac{2}{27}f^{{\prime}{\prime}{\prime}}(\eta),\quad\eta {\in} (0,2).
+\end{aligned}$$
+
+\end{tcolorbox}
+
+\begin{tcolorbox}[breakable,enhanced,arc=0mm,outer arc=0mm,
+		boxrule=0pt,toprule=1pt,leftrule=0pt,bottomrule=1pt, rightrule=0pt,left=0.2cm,right=0.2cm,
+		titlerule=0.5em,toptitle=0.1cm,bottomtitle=-0.1cm,top=0.2cm,
+		colframe=white!10!biru,colback=white!90!biru,coltitle=white,
+            coltext=black,title =2024-05, title style={white!10!biru}, before skip=8pt, after skip=8pt,before upper=\hspace{2em},
+		fonttitle=\bfseries,fontupper=\normalsize]
+  
+ 3. 设 $ f(x) \in C^{3}[a, b] $, 且 $ f(a)=f(b)=f^{\prime}(b)=0 $. 证明: 存在 $ \xi \in(a, b) $, 使得
+$$
+\int_{a}^{b} f(x) \mathrm{d} x=\frac{(b-a)^{4}}{72} f^{\prime \prime \prime}(\xi)
+$$
+\tcblower
+
+ 作 2 次 Hermite 插值多项式 $ H(x) $, 使其满足
+$$
+H(a)=f(a), \quad H(b)=f(b), \quad H^{\prime}(b)=f^{\prime}(b),
+$$
+$$H(x)=f(a)+f[a,b](x-a)+f[a,b,b](x-a)(x-b)$$
+
+
+由于 $ f(a)=f(b)=f^{\prime}(b)=0 $, 所以 $ H(x)=0 $. 
+
+
+由 Hermite 插值多项式的余项得
+$$
+f(x)-H(x)=f(x)=\frac{f^{\prime \prime \prime}(\xi)}{6}(x-a)(x-b)^{2}, \quad \xi \in(a, b)
+$$
+
+所以
+$$
+\begin{aligned}
+\int_{a}^{b} f(x) \mathrm{d} x & =\int_{a}^{b} \frac{f^{\prime \prime \prime}(\xi)}{6}(x-a)(x-b)^{2} \mathrm{~d} x\\&=\frac{f^{\prime \prime \prime}(\eta)}{6} \int_{a}^{b}(x-a)(x-b)^{2} \mathrm{~d} x  =\frac{(b-a)^{4}}{72} f^{\prime \prime \prime}(\eta), \quad \eta \in(a, b)
+\end{aligned}
+$$
+  \end{tcolorbox}
+
+   \begin{tcolorbox}[breakable,enhanced,arc=0mm,outer arc=0mm,
+		boxrule=0pt,toprule=1pt,leftrule=0pt,bottomrule=1pt, rightrule=0pt,left=0.2cm,right=0.2cm,
+		titlerule=0.5em,toptitle=0.1cm,bottomtitle=-0.1cm,top=0.2cm,
+		colframe=white!10!biru,colback=white!90!biru,coltitle=white,
+            coltext=black,title =2024-05, title style={white!10!biru}, before skip=8pt, after skip=8pt,before upper=\hspace{2em},
+		fonttitle=\bfseries,fontupper=\normalsize]
+  
+4. 考虑积分 $ I(f)=\displaystyle\int_{-\sqrt{3}}^{\sqrt{3}} f(x) d x $ 及对应的求积公式
+$
+S(f)=\sqrt{3}(f(-1)+f(1)) .
+$
+
+(1) 证明求积公式 $ S(f) $ 是以 $ x_{0}=-1, x_{1}=0, x_{2}=1 $ 为求积节点的插值型求积公式.
+
+（2）求积公式 $ I(f) \approx S(f) $ 的 代数精度
+
+(3) 设 $ f(x) \in C^{4}[-\sqrt{3}, \sqrt{3}] $, 求截断误差形如 $ \alpha f^{(\beta)}(\xi) $ 的表达式, 其中 $ \xi \in[-\sqrt{3}, \sqrt{3}], \alpha, \beta $ 为常数
+\tcblower
+
+
+ (1) 我们先构造以 $x_{0}=-1, x_{1}=0, x_{2}=1$ 为插值节点的拉格朗日插值基函数：
+
+\[
+l_{0}(x) = \frac{(x-0)(x-1)}{(-1-0)(-1-1)} = \frac{(x)(x-1)}{2},
+\]
+
+\[
+l_{1}(x) = \frac{(x+1)(x-1)}{(0+1)(0-1)} = -(x+1)(x-1),
+\]
+
+\[
+l_{2}(x) = \frac{(x+1)(x-0)}{(1+1)(1-0)} = \frac{(x+1)(x)}{2}.
+\]
+
+插值多项式为：
+\[
+P(x) = f(-1)l_{0}(x) + f(0)l_{1}(x) + f(1)l_{2}(x).
+\]
+
+我们现在计算 $\displaystyle\int_{-\sqrt{3}}^{\sqrt{3}} l_{i}(x) \, dx$：
+
+\[
+\int_{-\sqrt{3}}^{\sqrt{3}} l_{0}(x) \, dx = \int_{-\sqrt{3}}^{\sqrt{3}} \frac{x(x-1)}{2} \, dx =\sqrt{3}
+\]
+
+\[
+\int_{-\sqrt{3}}^{\sqrt{3}} l_{1}(x) \, dx = \int_{-\sqrt{3}}^{\sqrt{3}} -(x+1)(x-1) \, dx = \int_{-\sqrt{3}}^{\sqrt{3}} -(x^2-1) \, dx = 0,
+\]
+
+\[
+\int_{-\sqrt{3}}^{\sqrt{3}} l_{2}(x) \, dx = \int_{-\sqrt{3}}^{\sqrt{3}} \frac{(x+1)x}{2} \, dx = \frac{1}{2} \int_{-\sqrt{3}}^{\sqrt{3}} x^2 + x \, dx = \sqrt{3}.
+\]
+
+因此，求积公式 $S(f) = \sqrt{3}(f(-1) + f(1))$ 是以 $x_{0} = -1, x_{1} = 0, x_{2} = 1$ 为求积节点的插值型求积公式.
+
+ (2) 令 $f(x) = 1$，
+\[
+I(f) = \int_{-\sqrt{3}}^{\sqrt{3}} 1 \, dx = 2\sqrt{3}, \quad S(f) = \sqrt{3}(1 + 1) = 2\sqrt{3}.
+\]
+
+令 $f(x) = x$，
+\[
+I(f) = \int_{-\sqrt{3}}^{\sqrt{3}} x \, dx = 0, \quad S(f) = \sqrt{3}(-1 + 1) = 0.
+\]
+
+令 $f(x) = x^2$，
+\[
+I(f) = \int_{-\sqrt{3}}^{\sqrt{3}} x^2 \, dx = 2 \sqrt{3} ,
+\quad S(f) = \sqrt{3}((-1)^2 + 1^2) = \sqrt{3}(1 + 1) = 2\sqrt{3}.
+\]
+
+
+ 令 $f(x)=x^{3}$,
+$$I(f)=\int_{-\sqrt{3}}^{\sqrt{3}} x^{3} d x=0,\quad S(f)=\sqrt{3}(-1+1)=0 .$$
+
+
+ 令 $f(x)=x^{4}$,
+$$I(f)=\int_{-\sqrt{3}}^{\sqrt{3}} x^{4} d x=\frac{18\sqrt{3}}{5}, \quad S(f)=\sqrt{3}(1+1)= 2\sqrt{3}.$$
+
+所以求积公式的代数精度为 3 .
+
+
+ (3) 构造 $f(x)$ 的三次插值多项式 $H(x)$，使其满足
+
+\[
+H(-1) = f(-1), \quad H(1) = f(1), \quad H'(-1) = f'(-1), \quad H'(1) = f'(1).
+\]
+
+则 $H(x)$ 存在且唯一，有：
+
+\[
+f(x) - H(x) = \frac{f^{(4)}(\eta)}{4!}(x+1)^2(x-1)^2, \quad \eta \in (-1, 1).
+\]
+
+因此，
+
+\[\begin{aligned}
+    I(f) - S(f) &= \int_{-\sqrt{3}}^{\sqrt{3}} f(x) \, dx - \sqrt{3}[f(-1) + f(1)] \\&= \int_{-\sqrt{3}}^{\sqrt{3}} f(x) \, dx - \sqrt{3}[H(-1) + H(1)] \\&=\int_{-\sqrt{3}}^{\sqrt{3}} f(x) \, dx -\int_{-\sqrt{3}}^{\sqrt{3}}H(x)\, dx \\&=\int_{-\sqrt{3}}^{\sqrt{3}} [f(x)-H(x)] \, dx \\&= \int_{-\sqrt{3}}^{\sqrt{3}}  \frac{f^{(4)}(\eta)}{4!}(x+1)^2(x-1)^2 \, dx\\&= \frac{f^{(4)}(\xi)}{4!}\int_{-\sqrt{3}}^{\sqrt{3}}(x+1)^2(x-1)^2= \frac{\sqrt{3}}{15} f^{(4)}(\xi)\quad \xi \in (-\sqrt{3}, \sqrt{3}).
+\end{aligned}
+\]
+
+因此截断误差形如 $\alpha f^{(\beta)}(\xi)$ 的表达式为：
+
+\[
+I(f) - S(f) = \frac{\sqrt{3}}{15} f^{(4)}(\xi), \quad \xi \in (-\sqrt{3}, \sqrt{3}), \alpha = \frac{\sqrt{3}}{15}, \beta = 4.
+\]
+
+  \end{tcolorbox}
+
+
+\begin{tcolorbox}[breakable,enhanced,arc=0mm,outer arc=0mm,
+		boxrule=0pt,toprule=1pt,leftrule=0pt,bottomrule=1pt, rightrule=0pt,left=0.2cm,right=0.2cm,
+		titlerule=0.5em,toptitle=0.1cm,bottomtitle=-0.1cm,top=0.2cm,
+		colframe=white!10!biru,colback=white!90!biru,coltitle=white,
+            coltext=black,title =2024-05, title style={white!10!biru}, before skip=8pt, after skip=8pt,before upper=\hspace{2em},
+		fonttitle=\bfseries,fontupper=\normalsize]
+
+5. 已知 $ f^{(4)}(x) $ 在 $ [a, b] $ 上连续, 此时 Simpson 数值求积公式的余项为 $ \displaystyle R(S)=-\frac{1}{90}\left(\frac{b-a}{2}\right)^{5} f^{(4)}(\xi)$,
+
+(1)  证明: 复合 Simpson 公式的余项为 $\displaystyle \int_{a}^{b} f(x) \mathrm{d} x-S_{n}=-\frac{b-a}{180}\left(\frac{h}{2}\right)^{4} f^{(4)}(\eta) $, 其中 $ h=\dfrac{b-a}{n} ; $
+
+(2) 利用复合 Simpson 公式求解积分 $\displaystyle \int_{0}^{\frac{1}{2}} \sin x \mathrm{d} x $, 至少需要多少求积节点才能保证误差不超过 $ 10^{-7} $.
+\tcblower
+(1)记 $ x_{k+\frac{1}{2}}=\frac{1}{2}\left(x_{k}+x_{k+1}\right) $. 对每一个积分 $ I_{k}(f) $ 应用Simpson公式, 得到复化Simpson公式
+
+$$
+S_{n}(f)=\sum_{k=0}^{n-1} \frac{h}{6}\left[f\left(x_{k}\right)+4 f\left(x_{k+\frac{1}{2}}\right)+f\left(x_{k+1}\right)\right]
+$$
+或
+$$
+S_{n}(f)=\frac{h}{6}\left[f\left(a\right)+2 \sum_{k=1}^{n-1} f\left(x_{k}\right)+f\left(b\right)+4 \sum_{k=0}^{n-1} f\left(x_{k+\frac{1}{2}}\right)\right] .
+$$
+则
+$$
+ \int_{x_{k}}^{x_{k+1}} f(x) \mathrm{d} x-\frac{h}{6}\left[f\left(x_{k}\right)+4 f\left(x_{k+\frac{1}{2}}\right)+f\left(x_{k+1}\right)\right] =  -\frac{h}{180}\left(\frac{h}{2}\right)^{4} f^{(4)}\left(\eta_{k}\right), \quad \eta_{k} \in\left(x_{k}, x_{k+1}\right),
+$$
+于是在 $ [a, b] $ 上复化Simpson公式的截断误差为
+$$
+\begin{aligned}
+I(f)-S_{n}(f) & =\sum_{k=0}^{n-1}\left\{\int_{x_{k}}^{x_{k+1}} f(x) \mathrm{d} x-\frac{h}{6}\left[f\left(x_{k}\right)+4 f\left(x_{k+\frac{1}{2}}\right)+f\left(x_{k+1}\right)\right]\right\} \\
+& =\sum_{k=0}^{n-1}\left[-\frac{h}{180}\left(\frac{h}{2}\right)^{4} f^{(4)}\left(\eta_{k}\right)\right] \\
+& =-\frac{h}{180}\left(\frac{h}{2}\right)^{4} \sum_{k=0}^{n-1} f^{(4)}\left(\eta_{k}\right) .
+\end{aligned}
+$$
+设 $ f(x) \in C^{4}[a, b] $, 则由连续函数的介值定理知, 存在 $ \eta \in(a, b) $, 使得
+$$
+\frac{1}{n} \sum_{k=0}^{n-1} f^{(4)}\left(\eta_{k}\right)=f^{(4)}(\eta)
+$$
+因此有
+$$
+I(f)-S_{n}(f)  =-\frac{h}{180}\left(\frac{h}{2}\right)^{4} n f^{(4)}(\eta)  =\textcolor{red}{\bm{-\frac{b-a}{180} f^{(4)}(\eta)\left(\frac{h}{2}\right)^{4}}}, \quad \eta \in(a, b) .
+$$
+
+(2) 取 $f(x)=\sin x$,则易知$f^{(4)}(x)=\sin x$,因此$f^{(4)}(\eta)\leqslant \frac 12,\eta \in(0,\frac 12)$.根据题意得：
+
+$$ \left|R_n\left(f\right)\right|=\left|-\frac{(b-a)^{5}}{2880 n^{4}} f^{(4)}(\eta)\right| \leqslant \frac 12\cdot\frac{2^{-5}}{2880 n^{4}}  \leqslant  10^{-7} \Rightarrow n^4\geqslant \frac{15624}{288}\approx 54.253\Rightarrow n\geqslant 2.714$$
+
+%可取 $ n=4 $, 即用 $ n=4 $ 的复合辛普森公式  计算即可达到精度要求, 此时区间 $ [0,\frac12] $ 实际上应分为 8 等份. 只需计算 9 个函数值，即需要9个求积节点.
+
+因此，需要至少 $n=3$ 个子区间,即用 $ n=3 $ 的复合辛普森公式计算即可达到精度要求.注意，每个子区间包含两个端点，总节点数为 $2n+1$，即 $7$ 个节点.
+
+  \end{tcolorbox}
+
+
+  

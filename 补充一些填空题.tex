@@ -1,0 +1,182 @@
+\clearpage
+\section{填空题（复习题）}
+
+
+
+  \begin{tcolorbox}[colback=yellow!5!white,colframe=yellow!50!black,
+ colbacktitle=yellow!75!black,title=填空题]
+
+
+ (1) 利用辛普森公式求 $\displaystyle \int_{1}^{2} x^{2} d x $.
+
+\vspace{\baselineskip}
+
+(2) $ l_{0}(x), l_{1}(x), \cdots, l_{n}(x) $ 是以 $ x_{0}, x_{1}, \cdots, x_{n} $ 为插值节点的Lagrange 插值基函数，则 $\displaystyle \sum_{i=0}^{n} l_{i}(x)= $ $\underline{\hspace{1cm}}$.
+
+\vspace{\baselineskip}
+
+(3) 如果 $ f^{\prime \prime}(x)<0 $, 则利用梯形公式计算积分 $\displaystyle \int_{a}^{b} f(x) d x $ 的值比精确值要大, 该说法是 $\underline{\hspace{1cm}}$ 的. (正确或者错误)
+
+\vspace{\baselineskip}
+
+(4) 设 $ A=\left[\begin{array}{ll}1 & 2 \\ 0 & 1\end{array}\right] $, 则 $ \operatorname{cond}(A)_{\infty}= $ $\underline{\hspace{1cm}}$.
+
+\vspace{\baselineskip}
+
+(5) 求非线性方程的Newton迭代法至少是 $\underline{\hspace{1cm}}$ 阶收敛的.
+
+\vspace{\baselineskip}
+
+(6) 已知 $ f(4)=2, f(9)=3 $,则 $ f(x) $ 的线性插值多项式为
+$\underline{\hspace{1cm}}$ ,且用线性插值可得 $ f(7) \approx $ $\underline{\hspace{1cm}}$.
+
+\vspace{\baselineskip}
+
+(7) 已知 $ f(2)=3, f(3)=5, f(4)=4 $, 则函数 $ f(x) $ 在此三点的 Lagrange 插值公式为 $\underline{\hspace{1cm}}$ .
+
+\vspace{\baselineskip}
+
+(8)在插值区间内，使用插值节点的个数越多，则插值误差越小.该说法是 $\underline{\hspace{1cm}}$ 的.（错或对）
+
+\vspace{\baselineskip}
+
+(9) 数值微分公式中步长越小计算结果越精确.该说法是 $\underline{\hspace{1cm}}$ 的. （错或对）
+ \tcblower
+ (1) $\frac 73$ ;\; 
+  (2) 1 ;\; 
+   (3) 错误 ;\; 
+    (4) 9 ;\; 
+     (5) 一 ;\; 
+      (6) $ \frac{1}{5} x + \frac{6}{5} $， $ 2.6 $;\; 
+       (7)$-\frac{3}{2} x^{2}+\frac{19}{2} x-10$ ;\; 
+        (8)错 ;\; 
+         (9)错\; 
+ \end{tcolorbox}
+
+
+
+(1) 辛普森公式的代数精度是3，这意味着它可以精确地积分任何不超过三次的多项式函数.
+辛普森公式适用于数值积分，公式为：
+$$
+\int_{a}^{b} f(x) \, dx \approx \frac{b - a}{6} \left[ f(a) + 4 f\left( \frac{a + b}{2} \right) + f(b) \right]
+$$
+对于积分 $\displaystyle\int_{1}^{2} x^2 \, dx$，我们有： $a = 1$, $b = 2$
+首先，计算各个点的函数值：$f(a) = f(1) = 1^2 = 1$, $f(b) = f(2) = 2^2 = 4$,
+$f\left( \frac{a + b}{2} \right) = f\left( \frac{1 + 2}{2} \right) = f\left( \frac{3}{2} \right) = \left( \frac{3}{2} \right)^2 = \frac{9}{4}$.
+将这些值代入辛普森公式中：
+$$
+\int_{1}^{2} x^2 \, dx \approx \frac{2 - 1}{6} \left[ 1 + 4 \cdot \frac{9}{4} + 4 \right]= \frac{1}{6} \left[ 14 \right]
+= \frac{7}{3}
+$$
+因此，利用辛普森公式计算的积分 $\displaystyle\int_{1}^{2} x^2 \, dx$ 的结果是 $\frac{7}{3}$.
+我们可以验证这个结果,实际积分 $\displaystyle\int_{1}^{2} x^2 \, dx$ 的精确值是：
+$$
+\int_{1}^{2} x^2 \, dx = \left[ \frac{x^3}{3} \right]_{1}^{2} = \frac{2^3}{3} - \frac{1^3}{3} = \frac{8}{3} - \frac{1}{3} = \frac{7}{3}
+$$
+因此，利用辛普森公式计算的结果与实际积分值一致，都是 $\frac{7}{3}$.
+
+\vspace{\baselineskip}
+
+(2) 令 $ f(x)\equiv1,$ 则 $ y_{i}=f\left(x_{i}\right)=1, i=0,1, \cdots, n $;且函数 $ f(x) $ 的 $ n $ 次Lagrange插值多项式为
+$$
+L_{n}(x)=\sum_{i=0}^{n}  y_i \cdot l_{i}(x)=\sum_{i=0}^{n}   l_{i}(x)
+$$
+插值余项为
+$$
+R_{n}(x)=f(x)-L_{n}(x)=\frac{f^{(n+1)}(\xi)}{(n+1) !}  \omega_{n+1}(x)
+$$
+因为 $f(x)\equiv 1$,故$f^{(n+1)}(\xi)=0,$于是$R_{n}(x)=0 .$即$f(x)-L_{n}(x)=0$.亦即
+$$
+\sum_{i=0}^{n}  l_{i}(x)=1
+$$
+
+\vspace{\baselineskip}
+
+(3) 错误.
+梯形公式用于近似计算定积分 $\int_{a}^{b} f(x) \, dx$ 的公式为：$T = \dfrac{b-a}{2} [f(a) + f(b)]$.
+梯形公式的误差项（余项）为：
+$$
+R(f) = -\frac{(b-a)^3}{12} f''(\eta), \quad \eta \in (a, b)
+$$
+如果 $f''(x) < 0$，则 $f''(\eta) < 0$，因此：
+$$
+R(f) = -\frac{(b-a)^3}{12} f''(\eta) > 0
+$$
+所以，梯形公式的近似值 $T$ 加上误差项 $R(f)$ 得到真实积分值：
+$$
+\int_{a}^{b} f(x) \, dx = T + R(f)
+$$
+因为 $R(f) > 0$，所以：
+$$
+\int_{a}^{b} f(x) \, dx > T
+$$
+这意味着用梯形公式计算积分的结果 $T$ 比实际积分值要小.
+
+几何意义：当 $f''(x) < 0$ 时，函数 $f(x)$ 是上凸的（即凸向上）.在这种情况下，连接 $ (a, f(a)) $ 和 $ (b, f(b)) $ 的直线位于曲线 $f(x)$ 的下方.因此，梯形公式计算的面积实际上小于实际的曲边梯形面积.
+
+综上所述，如果 $f''(x) < 0$，则利用梯形公式计算积分 $\int_{a}^{b} f(x) \, dx$ 的值比精确值要小.因此，该说法是错误的.
+
+\textcolor{blue}{当 $ f^{\prime \prime}(x)>0 $ 时，函数 $ f(x) $ 是下凸的（即凸向下）.在这种情况下，连接 $ (a, f(a)) $ 和 $ (b, f(b)) $的直线位于曲线 $ f(x) $ 的上方.因此，梯形公式计算的面积实际上大于实际的曲边梯形面积.如果 $ f^{\prime \prime}(x)>0 $ ，则利用梯形公式计算积分 $ \int_{a}^{b} f(x) d x $ 的值比精确值要大.因此，该说法是正确的.}
+
+\vspace{\baselineskip}
+
+(4) $\operatorname{cond}(A)_{\infty}=\left\|A^{-1}\right\|_{\infty} \cdot\|A\|_{\infty}$ .
+$$
+\begin{array}{l}
+A=\left(\begin{array}{ll}
+1 & 2 \\
+0 & 1
+\end{array}\right) \quad A^{-1}=\left(\begin{array}{cc}
+1 & -2 \\
+0 & 1
+\end{array}\right) \\
+\end{array}
+$$
+$$\|A\|_{1}=\max _{1 \leqslant i \leqslant n} \sum_{j=1}^{n}\left|a_{i j}\right|=\max \{|1|+|2|,|0|+|1|\} 
+=\max \{3,1\}=3 $$
+
+同理 $ \left\|A^{-1}\right\|_{1}=\max \{|1|+|-2|,|0|+|1|\}=3 $.
+因此 $ \operatorname{cond}_{1}(A)=\left\|A^{-1}\right\|_{\infty}\|A\|_{\infty}=9 $.
+
+\vspace{\baselineskip}
+
+(5) 求非线性方程的Newton迭代法至少是 一 阶收敛的.对于具有简单根的非线性方程，Newton迭代法通常是二阶收敛的，即误差的平方项主导收敛速度.但是，当非线性方程存在重根时，Newton迭代法的收敛速度会降到一阶.因此，考虑所有情况，包括重根的情况，Newton迭代法至少是一阶收敛的.
+
+\vspace{\baselineskip}
+
+(6) 线性插值多项式的通用形式为：
+
+$$
+L(x) = f(x_0) \frac{x - x_1}{x_0 - x_1} + f(x_1) \frac{x - x_0}{x_1 - x_0}
+$$
+其中，$ x_0 = 4 $，$ x_1 = 9 $，$ f(x_0) = 2 $，$ f(x_1) = 3 $.将这些值代入公式：
+$$
+L(x) = 2\cdot  \frac{x - 9}{4 - 9} + 3\cdot  \frac{x - 4}{9 - 4} = -\frac{2}{5} (x - 9) + \frac{3}{5} (x - 4) = \frac{1}{5} x + \frac{6}{5}
+$$
+因此，线性插值多项式 $ L(x) $ 为：$L(x) = \frac{1}{5} x + \frac{6}{5}$.
+接下来，我们用这个插值多项式计算 $ f(7) $ 的近似值：
+$$
+f(7) \approx L(7) = \frac{1}{5} \cdot 7 + \frac{6}{5} = \frac{13}{5} = 2.6
+$$
+因此，$ f(x) $ 的线性插值多项式为 $ \frac{1}{5} x + \frac{6}{5} $，且用线性插值可得 $ f(7) \approx 2.6 $.
+
+\vspace{\baselineskip}
+
+(7) $x_{0}  =2, x_{1}=3, x_{2}=4 , y_{0}  =3, y_{1}=5, y_{2}=4 $.于是
+$$
+\begin{aligned}
+L_{2}(x) & =3 \cdot \frac{(x-3)(x-4)}{(2-3)(2-4)}+5 \cdot \frac{(x-2)(x-4)}{(3-2)(3-4)}+4 \cdot \frac{(x-2)(x-3)}{(4-2)(4-3)} \\
+& =\frac 32 (x-3)(x-4)+(-(x-2)(x-4)+2(x-2)(x-3) \\
+& =-\frac{3}{2} x^{2}+\frac{19}{2} x-10
+\end{aligned}
+$$
+
+\vspace{\baselineskip}
+
+(8) 错.虽然在一定范围内增加插值节点的数量可以减少插值误差，但是如果节点数过多，特别是使用等距节点时，会导致龙格现象，这会使误差显著增大.因此，尽管增加插值节点的数量有时可以提高精度，但它并不总是减少插值误差，尤其是在使用多项式插值时.因此，这一说法是错的.
+
+\vspace{\baselineskip}
+
+(9)错. 虽然较小的步长可以减少截断误差，从而在某些情况下提高结果的精确度，但过小的步长会增加舍入误差.舍入误差是由于计算机有限的精度所导致的.当步长太小时，数值微分的计算结果会受到舍入误差的显著影响，反而会降低精确度.因此，选择适当的步长是平衡截断误差和舍入误差的关键.
+
+综上所述，步长越小计算结果越精确的说法是错的.

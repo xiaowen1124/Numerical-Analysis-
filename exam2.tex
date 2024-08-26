@@ -1,0 +1,324 @@
+\newpage
+\section{期末试题二}
+\begin{tcolorbox}[breakable,
+		colframe=white!10!jingga, coltitle=white!90!jingga, colback=white!95!jingga, coltext=black, colbacktitle=white!10!jingga, enhanced, fonttitle=\bfseries,fontupper=\normalsize, attach boxed title to top left={yshift=-2mm}, before skip=8pt, after skip=8pt,
+		title=填空题]
+ 
+
+1. $ n $ 阶方阵 $ \mathrm{A} $ 满足 $\underline{\hspace{4em}}$,则 $ \mathrm{A} $ 的 $ \mathrm{LU} $ 分解式存在且唯一.
+
+2. 常微分方程初值问题的 Euler 法具有$\underline{\hspace{4em}}$ 阶精度.
+
+3. 迭代法 $ X^{(k+1)}=B X^{(k)}+f $ 求解线性方程组对任意 $ X^{(0)} $ 和 $ f $ 均收敛的充要条件为 $\underline{\hspace{4em}}$.
+
+4. Newton 迭代法至少是 $\underline{\hspace{4em}}$ 收敛的.
+
+5. 函数 $ f $ 的 $ n $ 次插值多项式余项为 $ \left(R_{n} f\right)(x)= $ $\underline{\hspace{4em}}$.
+
+
+ \tcblower
+1. 顺序主子式 det $A_k\neq 0\; k=1,2,\cdots n$
+
+2. 一
+
+3. 迭代矩阵的谱半径 $\rho (B)<1$
+
+4. 1
+
+5. $ \dfrac{f^{(n+1)}\left(\xi_{x}\right)}{(n+1)!} \omega_{n+1}(x)$ , 其中$ \omega_{n+1}(x)=\left(x-x_{0}\right)\left(x-x_{1}\right) \cdots\left(x-x_{n}\right)$.
+\end{tcolorbox}
+
+\begin{tcolorbox}[breakable,
+		colframe=white!10!jingga, coltitle=white!90!jingga, colback=white!95!jingga, coltext=black, colbacktitle=white!10!jingga, enhanced, fonttitle=\bfseries,fontupper=\normalsize, attach boxed title to top left={yshift=-2mm}, before skip=8pt, after skip=8pt,
+		title=解答题]
+
+1. 设 $ A \in R^{n \times n} $ 的特征值为 $ \lambda_{i}(i=1,2, \cdots, n) $, 若 $ \rho(A)=\max\limits _{1\leqslant i\leqslant  n}\left|\lambda_{i}\right| $
+证明: $ \rho(A) \leqslant \|A\|, \quad(\|\cdot \| $ 为矩阵 $A$ 的任何一种范数）
+   \tcblower
+证 \; 设 $ \lambda $ 为 $ \boldsymbol{A} $ 的任一特征值, $ x $ 为对应于 $ \lambda $ 的 $ \boldsymbol{A} $ 的特征向量, 即
+$$
+A x=\lambda x \quad(x \neq 0)
+$$
+由范数的性质, 有
+$$
+|\lambda|\|x\|=\|\lambda x\|=\|A x\| \leqslant\|A\| x \|
+$$
+由于 $ x $ 是非零向量, 故有
+$$
+|\lambda| \leqslant\|\boldsymbol{A}\|
+$$
+这表明 $ \boldsymbol{A} $ 的任一特征值的模不超过 $ \|\boldsymbol{A}\| $, 于是
+$$
+\rho(\boldsymbol{A}) \leqslant\|\boldsymbol{A}\|
+$$
+\end{tcolorbox}
+
+
+
+\begin{tcolorbox}[breakable,
+		colframe=white!10!jingga, coltitle=white!90!jingga, colback=white!95!jingga, coltext=black, colbacktitle=white!10!jingga, enhanced, fonttitle=\bfseries,fontupper=\normalsize, attach boxed title to top left={yshift=-2mm}, before skip=8pt, after skip=8pt,
+		title=解答题]
+
+2. 证明 Simpson(辛普森)数值求积公式的代数精度为 3.
+   \tcblower
+Simpson 公式:
+
+$${\int}_{a}^{b}f(x)\mathrm{d}x {\approx} \frac{b {-} a}{6}\left\lbrack f(a) + 4f\left( \frac{a + b}{2} \right) + f(b) \right\rbrack.$$
+
+%容易验证: 以 $f(x) = 1,x,x^{2},x^{3}$ 分别代入 Simpson 公式两边,结果相等, 而以 $x^{4}$ 代入 Simpson 公式两边,其结果不相等,故 Simpson 求积公式的代数精度 为 3 .
+
+我们要证明其代数精度为3，意味着此方法可以准确积分直到三次多项式的任何多项式，但对四次或更高次多项式则可能无法准确积分.为了证明这一点，我们将一步一步检验Simpson求积公式对不同次数的多项式的积分是否精确.
+
+  当$f(x) = 1$时，原积分：
+$$\int_a^b 1 \, dx = b - a.$$
+
+使用Simpson公式：
+$$\frac{b-a}{6} \left[1 + 4 \times 1 + 1\right] = \frac{b-a}{6} \times 6 = b - a.$$
+
+这说明对于$f(x) = 1$，Simpson公式给出了精确结果.
+
+当 $f(x) = x$ 时，原积分：
+$$\int_a^b x \, dx = \frac{1}{2}(b^2 - a^2).$$
+
+使用Simpson公式：
+$$\frac{b-a}{6} \left[a + 4\frac{a+b}{2} + b\right] = \frac{b-a}{6} \left[a + 2(a+b) + b\right] = \frac{b-a}{6} \left[3a + 3b\right] = \frac{b-a}{2} \times \frac{3(a+b)}{3} = \frac{1}{2}(b^2 - a^2).$$
+
+这说明对于$f(x) = x$，Simpson公式同样给出了精确结果.
+
+当$f(x) = x^2$时，原积分：
+$$\int_a^b x^2 \, dx = \frac{b^3 - a^3}{3}.$$
+
+使用Simpson公式：
+$$\frac{b-a}{6} \left[a^2 + 4\left(\frac{a+b}{2}\right)^2 + b^2\right] = \frac{b-a}{6} \left[a^2 + (a+b)^2 + b^2\right] = \frac{b-a}{6} \left[2a^2 + 2ab + 2b^2\right] = \frac{b^3 - a^3}{3}.$$
+
+这也说明Simpson公式对于$f(x) = x^2$是精确的.
+
+当$f(x) = x^3$时，原积分：
+$$\int_a^b x^3 \, dx = \frac{b^4 - a^4}{4}.$$
+
+使用Simpson公式：
+$$\frac{b-a}{6} \left[a^3 + 4\left(\frac{a+b}{2}\right)^3 + b^3\right] = \frac{b-a}{6} \left[a^3 + \frac{a^3 + 3a^2b + 3ab^2 + b^3}{2} + b^3\right] = \frac{b^4 - a^4}{4}.$$
+
+这证明了Simpson公式对于$f(x) = x^3$也是精确的.
+
+当 $f(x) = x^4$ 时，原积分：
+$$\int_a^b x^4 \, dx = \frac{b^5 - a^5}{5}.$$
+使用Simpson公式计算：
+$$\frac{b-a}{6} \left[a^4 + 4\left(\frac{a+b}{2}\right)^4 + b^4\right].$$
+
+我们需要展开并简化$\left(\frac{a+b}{2}\right)^4$：
+$$\left(\frac{a+b}{2}\right)^4 = \frac{(a+b)^4}{16} = \frac{a^4 + 4a^3b + 6a^2b^2 + 4ab^3 + b^4}{16}.$$
+
+因此，代入Simpson公式中：
+$$\frac{b-a}{6} \left[a^4 + 4\frac{a^4 + 4a^3b + 6a^2b^2 + 4ab^3 + b^4}{16} + b^4\right] = \frac{b-a}{6} \left[a^4 + \frac{a^4 + 4a^3b + 6a^2b^2 + 4ab^3 + b^4}{4} + b^4\right].$$
+
+继续简化：
+$$= \frac{b-a}{24} \left[5a^4 + 4a^3b + 6a^2b^2 + 4ab^3 + 5b^4\right].$$
+其结果与$\frac{b^5 - a^5}{5}$不同，这证明了Simpson规则的代数精度为3，不能精确积分四次及以上的多项式.
+\end{tcolorbox}
+
+
+
+\begin{tcolorbox}[breakable,
+		colframe=white!10!jingga, coltitle=white!90!jingga, colback=white!95!jingga, coltext=black, colbacktitle=white!10!jingga, enhanced, fonttitle=\bfseries,fontupper=\normalsize, attach boxed title to top left={yshift=-2mm}, before skip=8pt, after skip=8pt,
+		title=解答题]
+
+1. 证明解微分方程初值问题的中点方法 $ y_{n+1}=y_{n-1}+2 h f\left(x_{n}, y_{n}\right) $ 是二阶方法.
+   \tcblower
+考虑对应的离散关系式
+$$
+y\left(x_{n+1}\right) \approx y\left(x_{n-1}\right)+2 h y^{\prime}\left(x_{n}\right)
+$$
+泰勒展开有
+$$
+y\left(x_{n-1}\right)=y\left(x_{n}\right)-h y^{\prime}\left(x_{n}\right)+\frac{h^{2}}{2} y^{\prime \prime}\left(x_{n}\right)-\frac{h^{3}}{6} y^{\prime \prime \prime}\left(x_{n}\right)+O\left(h^{4}\right)
+$$
+代入离散关系式右端, 并记所得结果为 $ y_{n+1}^{*} $, 则有
+$$
+y_{n+1}^{*}=y\left(x_{n}\right)+h y^{\prime}\left(x_{n}\right)+\frac{h^{2}}{2} y^{\prime \prime}\left(x_{n}\right)-\frac{h^{3}}{6} y^{\prime \prime \prime}\left(x_{n}\right)+O\left(h^{4}\right)
+$$
+而
+$$
+y\left(x_{n+1}\right)=y\left(x_{n}\right)+h y^{\prime}\left(x_{n}\right)+\frac{h^{2}}{2} y^{\prime \prime}\left(x_{n}\right)+\frac{h^{3}}{6} y^{\prime \prime \prime}\left(x_{n}\right)+O\left(h^{4}\right)
+$$
+故局部截断误差
+$$
+\begin{aligned}
+y\left(x_{n+1}\right)-y_{n+1}^{*} & =\left(\frac{1}{6}+\frac{1}{6}\right) h^{3} y^{\prime \prime \prime}\left(x_{n}\right)+O\left(h^{4}\right) \\
+& = \frac{h^{3}}{3} y^{\prime \prime \prime}\left(x_{n}\right)+O\left(h^{4}\right)
+\end{aligned}
+$$
+可见中点方法是二阶的.
+
+\end{tcolorbox}
+
+\begin{tcolorbox}[breakable,
+		colframe=white!10!jingga, coltitle=white!90!jingga, colback=white!95!jingga, coltext=black, colbacktitle=white!10!jingga, enhanced, fonttitle=\bfseries,fontupper=\normalsize, attach boxed title to top left={yshift=-2mm}, before skip=8pt, after skip=8pt,
+		title=解答题]
+
+2. 证明，当 $ x_{0}=1.5 $ 时, 迭代法 $ x_{k+1}=\sqrt{\frac{10}{4+x_{k}}} $ 收敛于方程 $ f(x)=x^{3}+4 x^{2}-10=0 $ 在区间 $ [1,2] $ 内唯一实根 $ x^{*} $
+   \tcblower
+首先，我们建立迭代公式：
+$$
+\left\{
+\begin{array}{l}
+x_{k+1}=\sqrt{\frac{10}{4+x_{k}}} \\
+x_{0}=1.5
+\end{array}
+\right.
+$$
+设迭代函数为$\varphi(x)=\sqrt{\frac{10}{4+x}}$，我们很容易验证$x=\varphi(x)$与$f(x)=x^{3}+4x^{2}-10=0$是等价的方程.
+显然$\varphi(x)$在区间$[1,2]$上是单调递减的,当 $ {x}=1 $ 时, $ \varphi(1)=\sqrt{2} $, 当 $ {x}=2 $ 时, $ \varphi(2)=\sqrt{\frac{5}{3}} $ .所以当 $ {x} \in[1,2] $ 时, $ 1<\varphi(2) \leqslant \varphi({x}) \leqslant \varphi(1)<2 $, 即 $ \varphi({x}) \in[1,2] $ .而
+$$ \varphi ^{\prime}(x)=-\frac{\sqrt{10}}{2\sqrt{(4+x)^{3}}}$$
+易知$ \varphi ^{\prime}(x)$是一个增函数, 则有（注意添了绝对值）
+$$
+\max _{1 \leqslant x \leqslant 2}\left|\varphi^{\prime}(x)\right|=|\varphi^{\prime}(1)|=\left|- \frac{\sqrt{10}}{2\sqrt{(4+1)^{3}}}\right|=\left|-\sqrt{\frac{1}{50}}\right|<1
+$$
+
+ 所以 $|\varphi^{\prime}({x})|<1 $.依照收敛性定理, 迭代法 $ {x}_{{k}+1}=\sqrt{\frac{10}{4+{x}_{{k}}}} $ 收敛于方程 $ f(x)=x^{3}+4 x^{2}-10=0 $ 在区间 $ [1,2] $ 内唯一实根 $ x^{*} $.
+\end{tcolorbox}
+
+
+\begin{tcolorbox}[breakable,
+		colframe=white!10!jingga, coltitle=white!90!jingga, colback=white!95!jingga, coltext=black, colbacktitle=white!10!jingga, enhanced, fonttitle=\bfseries,fontupper=\normalsize, attach boxed title to top left={yshift=-2mm}, before skip=8pt, after skip=8pt,
+		title=解答题]
+
+求一个次数不超过 4 次的插值多项式 $ p(x) $, 使它满足：
+$$
+\begin{array}{l}
+p(0)=f(0)=0, p(1)=f(1)=1, p^{\prime}(0)=f^{\prime}(0)=0, \\
+p^{\prime}(1)=f^{\prime}(1)=1, p^{\prime}(1)=f^{\prime}(1)=0
+\end{array}
+$$
+并求其余项表达式（设 $ f(x) $ 存在 5 阶导数）
+\tcblower
+根据插值条件，我们设插值多项式为 $ p(x)=x^{2}(ax^{2}+bx+c) $. 解得 $ a=1, b=-3, c=3 $.
+
+设$x_0=0,x_1=1$,为求出余项 $ R(x)=f(x)-p(x) $, 根据 $ R\left(x_{i}\right)=0 $ , $R^{\prime}\left(x_{i}\right)=0(i=0,1) $ 和$R^{\prime\prime}\left(x_{1}\right)=0 $, 设
+$$
+R(x)=K(x)\left(x-x_{0}\right)^2\left(x-x_{1}\right)^{3}
+$$
+为确定 $ K(x) $, 构造
+$$
+\varphi(t)=f(t)-p(t)-K(x)\left(x-x_{0}\right)^2\left(x-x_{1}\right)^{3}
+$$
+显然 $\varphi(x)=0, \varphi\left(x_{i}\right)=0, i=0,1 $, 且 $\varphi^{\prime}\left(x_{1}\right)=0,\varphi^{\prime\prime}\left(x_{1}\right)=0 $, 
+
+反复应用罗尔定理得 $ \varphi^{(5)}(t) $ 在区间 $ [0, 1] $ 上至少有一个零点 $ \xi $, 故有
+$$
+\varphi^{(5)}(\xi)=f^{(5)}(\xi)-5 ! K(x)=0
+$$
+于是
+$$
+K(x)=\frac{1}{5 !} f^{(5)}(\xi)
+$$
+故余项表达式
+$$
+R(x)=\frac{1}{5 !} f^{(5)}(\xi)\left(x-x_{0}\right)^2\left(x-x_{1}\right)^{3}=\frac{f^{(5)}(\xi)}{5!}x^{2}(x-1)^{3}
+$$
+\end{tcolorbox}
+
+
+
+
+
+\begin{tcolorbox}[breakable,
+		colframe=white!10!jingga, coltitle=white!90!jingga, colback=white!95!jingga, coltext=black, colbacktitle=white!10!jingga, enhanced, fonttitle=\bfseries,fontupper=\normalsize, attach boxed title to top left={yshift=-2mm}, before skip=8pt, after skip=8pt,
+		title=解答题]
+
+
+线性方程组的迭代公式为 $ X^{(k+1)}=B X^{(k)}+f(k=0,1,2, \cdots) $
+证明: 若 $ \|B\|<1 $, 则迭代法收敛, 且有
+$ \left\|X^{(k)}-X^{*}\right\| \leqslant \dfrac{\|B\|}{1-\|B\|}\left\|X^{(k)}-X^{(k-1)}\right\| $ (其中 $ X^{*} $ 为 $ \mathrm{AX}=\mathrm{b} $ 的精确解)
+
+\tcblower
+证: 因为 $ \|\boldsymbol{B}\|<1 $, 则 $ \boldsymbol{I}-\boldsymbol{B} $ 为非奇萁矩阵, 故 $ \boldsymbol{x}=\boldsymbol{B} \boldsymbol{x}+\boldsymbol{f} $ 有唯一解 $ \boldsymbol{x}^{*} $, 即
+$$
+x^{*}=B x^{*}+f
+$$
+和迭代过程 $ \boldsymbol{x}^{(k)}=\boldsymbol{B} \boldsymbol{x}^{(k-1)}+\boldsymbol{f} $ 相比较, 有
+$$
+\boldsymbol{x}^{*}-\boldsymbol{x}^{(k)}=\boldsymbol{B}\left(\boldsymbol{x}^{*}-\boldsymbol{x}^{(k-1)}\right)
+$$
+取范数
+$$
+\left\|\boldsymbol{x}^{*}-\boldsymbol{x}^{(k)}\right\| \leqslant\|B\|\left\|\boldsymbol{x}^{*}-\boldsymbol{x}^{(k-1)}\right\|
+$$
+反复递推
+$$
+\left\|x^{*}-x^{(k)}\right\| \leqslant\|B\|^{k}\left\|x^{*}-x^{(0)}\right\|
+$$
+当 $ k \rightarrow+\infty $, 并注意 $ \|B\|<1 $, 有
+$$
+\left\|\boldsymbol{x}^{*}-\boldsymbol{x}^{(k)}\right\| \rightarrow 0(k \rightarrow+\infty)
+$$
+即 $ \lim\limits _{k \rightarrow+\infty} x^{(k)}=x^{*} $,即迭代格式收敛到唯一解$x^{*}$. 于是
+$$
+\begin{array}{c}
+\left\|x^{*}-x^{(k)}\right\|=\left\|B\left(x^{*}-x^{(k-1)}\right)\right\| \leqslant\|B\|\left\|x^{*}-x^{(k-1)}\right\| \\
+=\|B\|\left\|x^{*}-x^{(k)}+x^{(k)}-x^{(k-1)}\right\| \\
+\leqslant\|B\|\left\|x^{*}-x^{(k)}\right\|+\|B\|\left\|x^{(k)}-x^{(k-1)}\right\|
+\end{array}
+$$
+$$(1-\|B\|)\left\|x^{*}-x^{(k)}\right\| \leqslant\|B\|\left\|x^{(k)}-x^{(k-1)}\right\| \Rightarrow\left\|x^{*}-x^{(k)}\right\| \leqslant \frac{\|B\|}{1-\|B\|}\left\|x^{(k)}-x^{(k-1)}\right\|$$
+\end{tcolorbox}
+
+\begin{tcolorbox}[breakable,
+		colframe=white!10!jingga, coltitle=white!90!jingga, colback=white!95!jingga, coltext=black, colbacktitle=white!10!jingga, enhanced, fonttitle=\bfseries,fontupper=\normalsize, attach boxed title to top left={yshift=-2mm}, before skip=8pt, after skip=8pt,
+		title=解答题]
+
+设 $ A=\left[\begin{array}{ccc}3 & 7 & 1 \\ 0 & 4 & t+1 \\ 0 & -t+1 & -1\end{array}\right] \quad b=\left[\begin{array}{l}1 \\ 1 \\ 0\end{array}\right], \quad A X=b, \quad $ 其中 $ t $ 为实参数.
+
+（1）求用 Jacobi 法解 $ A X=b $ 时迭代矩阵;
+
+（2） $ t $ 在什么范围内 Jacobi 迭代法收敛.
+
+\tcblower
+(1)
+$$
+\boldsymbol{B}_{J}=\boldsymbol{D}^{-1}(\boldsymbol{L}+\boldsymbol{U})=\left[\begin{array}{ccc}
+\frac{1}{3} &  &  \\
+ & \frac{1}{4} &  \\
+ &  & -1
+\end{array}\right]\left[\begin{array}{ccc}
+0 & -7 & -1 \\
+0 & 0 & -(t+1) \\
+0 & t-1 & 0
+\end{array}\right]=\left[\begin{array}{ccc}
+0 & -\frac{7}{3} & -\frac{1}{3} \\
+0 & 0 & -\frac{1}{4}(t+1) \\
+0 & 1-t & 0
+\end{array}\right]
+$$
+
+(2)
+$$\operatorname{det}\left(\lambda \boldsymbol{I}-\boldsymbol{B}_{J}\right)=\left|\begin{array}{ccc}
+\lambda & \frac{7}{3} & \frac{1}{3} \\
+0 & \lambda & \frac{1}{4}(t+1) \\
+0 & t-1 & \lambda
+\end{array}\right|=\lambda^{3}-\frac{\lambda}{4}\left(t^{2}-1\right)=0$$
+所以 $ \lambda_1=0 $, $ \lambda_{2,3}=\pm\frac{1}{2} \sqrt{t^{2}-1} $, 由 $ \rho\left(\boldsymbol{B}_{J}\right)=\frac{1}{2} |\sqrt{t^{2}-1}|<1 $, 解得 $  -\sqrt{5}<t<\sqrt{5} $.
+\end{tcolorbox}
+
+
+\begin{tcolorbox}[breakable,
+		colframe=white!10!jingga, coltitle=white!90!jingga, colback=white!95!jingga, coltext=black, colbacktitle=white!10!jingga, enhanced, fonttitle=\bfseries,fontupper=\normalsize, attach boxed title to top left={yshift=-2mm}, before skip=8pt, after skip=8pt,
+		title=解答题]
+
+设 $ l_{k}(x)(k=0,1,2, \ldots, n) $ 是 $ n+1 $ 个互异节点 $ x_{0}, x_{1}, \ldots, x_{n} $ 上的 $ n $ 次基本插值多项式, 即 $ l_{k}(x)=\prod\limits_{\substack{i=1}}^{n} \dfrac{\left(x-x_{i}\right)}{\left(x_{k}-x_{i}\right)} \quad $ 证明: $ \sum\limits_{i=0}^{n} x_{k}^{m} l_{k}(x)=x^{m} \quad(m=0,1,2, \ldots, n) $
+
+\tcblower
+令 $ f(x)=x^{m}, m=0,1, \cdots, n $.则 $ y_{k}=f\left(x_{k}\right)=x_k^m$,  于是函数 $ f(x) $ 的 $ n $ 次插值多项式为
+$$
+L_{n}(x)=\sum_{j=0}^{n}  y_k \cdot l_{k}(x)=\sum_{k=0}^{n} x_{k}^{m} l_{k}(x)
+$$
+插值余项为
+$$
+R_{n}(x)=f(x)-L_{n}(x)=\frac{f^{(n+1)}(\xi)}{(n+1) !}  \omega_{n+1}(x)
+$$
+因为 $ m \leqslant n $, 则 $ f^{(n+1)}(x)=\dfrac{\mathrm{d}^{n+1}}{\mathrm{~d} x^{n+1}} x^{m}=0 $,
+故$f^{(n+1)}(\xi)=0,$于是$R_{n}(x)=0 .$即$f(x)-L_{n}(x)=0$.亦即
+$$
+\sum_{k=0}^{n} x_{k}^{m} l_{k}(x)=x^{m}, \quad m=0,1, \cdots, n
+$$
+\end{tcolorbox}

@@ -1,0 +1,1104 @@
+\newpage
+\section{数值积分与数值微分练习题}
+\subsection{课后习题}
+\begin{tcolorbox}[breakable,enhanced,arc=0mm,outer arc=0mm,
+		boxrule=0pt,toprule=1pt,leftrule=0pt,bottomrule=1pt, rightrule=0pt,left=0.2cm,right=0.2cm,
+		titlerule=0.5em,toptitle=0.1cm,bottomtitle=-0.1cm,top=0.2cm,
+		colframe=white!10!biru,colback=white!90!biru,coltitle=white,
+            coltext=black,title =2024-05, title style={white!10!biru}, before skip=8pt, after skip=8pt,before upper=\hspace{2em},
+		fonttitle=\bfseries,fontupper=\normalsize]
+
+ 1. 给定求积公式 $ \displaystyle\int_{0}^{1} f(x) d x \approx \frac{1}{2} f\left(x_{0}\right)+c f\left(x_{1}\right) $, 试确定 $ x_{0}, x_{1}, c $,使求积公式的代数精度尽可能高, 并指出代数精度的次数.
+
+ \tcblower
+  当 $ f(x)=1 $ 时, 左边 $ =\int_{0}^{1} 1 \mathrm{~d} x=1 $, 右边 $ =\frac{1}{2}+c $;
+  
+  当 $ f(x)=x $ 时, 左边 $ =\int_{0}^{1} x \mathrm{~d} x=\frac{1}{2} $, 右边 $ =\frac{1}{2} x_{0}+c x_{1} $;
+  
+  当 $ f(x)=x^{2} $ 时, 左边 $ =\int_{0}^{1} x^{2} \mathrm{~d} x=\frac{1}{3} $, 右边 $ =\frac{1}{2} x_{0}^{2}+c x_{1}^{2} $.
+  
+  要使求积公式至少具有 2 次代数精度, 当且仅当
+$$
+\left\{\begin{array}{l}
+\frac{1}{2}+c=1, \\
+\frac{1}{2} x_{0}+c x_{1}=\frac{1}{2}, \\
+\frac{1}{2} x_{0}^{2}+c x_{1}^{2}=\frac{1}{3},
+\end{array}\right.
+$$
+求得 $ c=\frac{1}{2}, x_{0}=\frac{1}{2}\left(1-\frac{1}{\sqrt{3}}\right), x_{1}=\frac{1}{2}\left(1+\frac{1}{\sqrt{3}}\right) $, 所以求积公式为
+$$
+\int_{0}^{1} f(x) \mathrm{d} x \approx \frac{1}{2} f\left(\frac{1}{2}\left(1-\frac{1}{\sqrt{3}}\right)\right)+\frac{1}{2} f\left(\frac{1}{2}\left(1+\frac{1}{\sqrt{3}}\right)\right) .
+$$
+当 $ f(x)=x^{3} $ 时, 左边 $ =\int_{0}^{1} x^{3} \mathrm{~d} x=\frac{1}{4} $,
+$$
+\text { 右边 }=\frac{1}{2}\left[\frac{1}{2}\left(1-\frac{1}{\sqrt{3}}\right)\right]^{3}+\frac{1}{2}\left[\frac{1}{2}\left(1+\frac{1}{\sqrt{3}}\right)\right]^{3}=\frac{1}{4} \text {; }
+$$
+当 $ f(x)=x^{4} $ 时, 左边 $ =\int_{0}^{1} x^{4} \mathrm{~d} x=\frac{1}{5} $,
+$$
+\text { 右边 }=\frac{1}{2}\left[\frac{1}{2}\left(1-\frac{1}{\sqrt{3}}\right)\right]^{4}+\frac{1}{2}\left[\frac{1}{2}\left(1+\frac{1}{\sqrt{3}}\right)\right]^{4}=\frac{7}{36} \text {, }
+$$
+因为左边 $ \neq $ 右边, 所以求积公式的代数精度为 3 .
+\end{tcolorbox}
+
+  \begin{tcolorbox}[breakable,enhanced,arc=0mm,outer arc=0mm,
+		boxrule=0pt,toprule=1pt,leftrule=0pt,bottomrule=1pt, rightrule=0pt,left=0.2cm,right=0.2cm,
+		titlerule=0.5em,toptitle=0.1cm,bottomtitle=-0.1cm,top=0.2cm,
+		colframe=white!10!biru,colback=white!90!biru,coltitle=white,
+            coltext=black,title =2024-05, title style={white!10!biru}, before skip=8pt, after skip=8pt,before upper=\hspace{2em},
+		fonttitle=\bfseries,fontupper=\normalsize]
+
+2. 已知函数 $ f(x) \in C^{3}[0,2] $, 给定求积公式
+$$
+\int_{0}^{2} f(x) d x \approx A f(0)+B f\left(x_{0}\right)
+$$
+
+(1) 试确定 $ A, B, x_{0} $, 使该求积公式的代数精度尽可能高, 并指出代数精度的次数；
+
+(2) 给出参数确定后该求积公式的截断误差表达式.
+\tcblower
+ (1) 当 $f(x) = 1$ 时,左边 $ = {\int}_{0}^{2}1\mathrm{\ d}x = 2$ ,右边 $ = A + B$ ;
+
+当 $f(x) = x$ 时,左边 $ = {\int}_{0}^{2}x\mathrm{\ d}x = 2$ ,右边 $ = Bx_{0}$ ;
+
+当 $f(x) = x^{2}$ 时,左边 $ = {\int}_{0}^{2}x^{2}\mathrm{\ d}x = \frac{8}{3}$ ,右边 $ = Bx_{0}^{2}$ .
+
+求积公式至少具有 2 次代数精度的充分必要条件为:$\left\{\begin{array}{l} A + B = 2, \\ Bx_{0} = 2, \\ Bx_{0}^{2} = \frac{8}{3}, \end{array} \right.$
+
+求解得$A = \frac{1}{2},B = \frac{3}{2},x_{0} = \frac{4}{3}.$
+
+当 $f(x) = x^{3}$ 时,左边 $ = {\int}_{0}^{2}x^{3}\mathrm{\ d}x = 4$ ,右边 $ = \frac{32}{9}$ ,左边 $ {\neq} $ 右边,所以该求积公 式的代数精度为 2 .
+
+(2) 作 $f(x)$ 的 2 次插值多项式 $H(x)$ ,满足
+
+$$H(0) = f(0),\quad H\left( \frac{4}{3} \right) = f\left( \frac{4}{3} \right),\quad H^{{\prime}}\left( \frac{4}{3} \right) = f^{{\prime}}\left( \frac{4}{3} \right),$$
+
+由于求积公式有 2 次代数精度, 所以有
+
+$${\int}_{0}^{2}H(x)\mathrm{d}x = \frac{1}{2}H(0) + \frac{3}{2}H\left( \frac{4}{3} \right) = \frac{1}{2}f(0) + \frac{3}{2}f\left( \frac{4}{3} \right),$$
+
+所以截断误差为
+
+$$\begin{aligned}
+    {\int}_{0}^{2}f(x)\mathrm{d}x {-} \left( \frac{1}{2}f(0) + \frac{3}{2}f\left( \frac{4}{3} \right) \right) &= {\int}_{0}^{2}\left\lbrack f(x) {-} H(x) \right\rbrack\mathrm{d}x\\ &= {\int}_{0}^{2}\frac{f^{{\prime}{\prime}{\prime}}(\xi)}{3!}x{\left( x {-} \frac{4}{3} \right)}^{2}\mathrm{\ d}x\\&= \frac{4}{9} {\cdot} \frac{f^{{\prime}{\prime}{\prime}}(\eta)}{6} = \frac{2}{27}f^{{\prime}{\prime}{\prime}}(\eta),\quad\eta {\in} (0,2).
+\end{aligned}$$
+
+\end{tcolorbox}
+
+\begin{tcolorbox}[breakable,enhanced,arc=0mm,outer arc=0mm,
+		boxrule=0pt,toprule=1pt,leftrule=0pt,bottomrule=1pt, rightrule=0pt,left=0.2cm,right=0.2cm,
+		titlerule=0.5em,toptitle=0.1cm,bottomtitle=-0.1cm,top=0.2cm,
+		colframe=white!10!biru,colback=white!90!biru,coltitle=white,
+            coltext=black,title =2024-05, title style={white!10!biru}, before skip=8pt, after skip=8pt,before upper=\hspace{2em},
+		fonttitle=\bfseries,fontupper=\normalsize]
+  
+ 3. 设 $ f(x) \in C^{3}[a, b] $, 且 $ f(a)=f(b)=f^{\prime}(b)=0 $. 证明: 存在 $ \xi \in(a, b) $, 使得
+$$
+\int_{a}^{b} f(x) \mathrm{d} x=\frac{(b-a)^{4}}{72} f^{\prime \prime \prime}(\xi)
+$$
+\tcblower
+
+ 作 2 次 Hermite 插值多项式 $ H(x) $, 使其满足
+$$
+H(a)=f(a), \quad H(b)=f(b), \quad H^{\prime}(b)=f^{\prime}(b),
+$$
+
+于是有$H(x)=f(a)+f[a,b](x-a)+f[a,b,b](x-a)(x-b)$，其中
+$$f[a,b]=\frac{f(b)-f(a)}{b-a}=0,f[a,b,b]=\frac{f[b,b]-f[a,b]}{b-a}=\frac{f^{\prime}(b)-0}{b-a}=0$$
+ 所以 $ H(x)=0 $. 
+
+
+由 Hermite 插值多项式的余项得
+$$
+f(x)-H(x)=f(x)=\frac{f^{\prime \prime \prime}(\xi)}{6}(x-a)(x-b)^{2}, \quad \xi \in(a, b)
+$$
+
+所以
+$$
+\begin{aligned}
+\int_{a}^{b} f(x) \mathrm{d} x & =\int_{a}^{b} \frac{f^{\prime \prime \prime}(\xi)}{6}(x-a)(x-b)^{2} \mathrm{~d} x\\&=\frac{f^{\prime \prime \prime}(\eta)}{6} \int_{a}^{b}(x-a)(x-b)^{2} \mathrm{~d} x  =\frac{(b-a)^{4}}{72} f^{\prime \prime \prime}(\eta), \quad \eta \in(a, b)
+\end{aligned}
+$$
+  \end{tcolorbox}
+
+   \begin{tcolorbox}[breakable,enhanced,arc=0mm,outer arc=0mm,
+		boxrule=0pt,toprule=1pt,leftrule=0pt,bottomrule=1pt, rightrule=0pt,left=0.2cm,right=0.2cm,
+		titlerule=0.5em,toptitle=0.1cm,bottomtitle=-0.1cm,top=0.2cm,
+		colframe=white!10!biru,colback=white!90!biru,coltitle=white,
+            coltext=black,title =2024-05, title style={white!10!biru}, before skip=8pt, after skip=8pt,before upper=\hspace{2em},
+		fonttitle=\bfseries,fontupper=\normalsize]
+  
+4. 考虑积分 $ I(f)=\displaystyle\int_{-\sqrt{3}}^{\sqrt{3}} f(x) d x $ 及对应的求积公式
+$
+S(f)=\sqrt{3}(f(-1)+f(1)) .
+$
+
+(1) 证明求积公式 $ S(f) $ 是以 $ x_{0}=-1, x_{1}=0, x_{2}=1 $ 为求积节点的插值型求积公式.
+
+（2）求积公式 $ I(f) \approx S(f) $ 的 代数精度
+
+(3) 设 $ f(x) \in C^{4}[-\sqrt{3}, \sqrt{3}] $, 求截断误差形如 $ \alpha f^{(\beta)}(\xi) $ 的表达式, 其中 $ \xi \in[-\sqrt{3}, \sqrt{3}], \alpha, \beta $ 为常数
+\tcblower
+
+
+ (1) 我们先构造以 $x_{0}=-1, x_{1}=0, x_{2}=1$ 为插值节点的拉格朗日插值基函数：
+
+\[
+l_{0}(x) = \frac{(x-0)(x-1)}{(-1-0)(-1-1)} = \frac{(x)(x-1)}{2},
+\]
+
+\[
+l_{1}(x) = \frac{(x+1)(x-1)}{(0+1)(0-1)} = -(x+1)(x-1),
+\]
+
+\[
+l_{2}(x) = \frac{(x+1)(x-0)}{(1+1)(1-0)} = \frac{(x+1)(x)}{2}.
+\]
+
+插值多项式为：
+\[
+P(x) = f(-1)l_{0}(x) + f(0)l_{1}(x) + f(1)l_{2}(x).
+\]
+
+我们现在计算 $\displaystyle\int_{-\sqrt{3}}^{\sqrt{3}} l_{i}(x) \, dx$：
+
+\[
+\int_{-\sqrt{3}}^{\sqrt{3}} l_{0}(x) \, dx = \int_{-\sqrt{3}}^{\sqrt{3}} \frac{x(x-1)}{2} \, dx =\sqrt{3}
+\]
+
+\[
+\int_{-\sqrt{3}}^{\sqrt{3}} l_{1}(x) \, dx = \int_{-\sqrt{3}}^{\sqrt{3}} -(x+1)(x-1) \, dx = \int_{-\sqrt{3}}^{\sqrt{3}} -(x^2-1) \, dx = 0,
+\]
+
+\[
+\int_{-\sqrt{3}}^{\sqrt{3}} l_{2}(x) \, dx = \int_{-\sqrt{3}}^{\sqrt{3}} \frac{(x+1)x}{2} \, dx = \frac{1}{2} \int_{-\sqrt{3}}^{\sqrt{3}} x^2 + x \, dx = \sqrt{3}.
+\]
+
+因此，求积公式 $S(f) = \sqrt{3}(f(-1) + f(1))$ 是以 $x_{0} = -1, x_{1} = 0, x_{2} = 1$ 为求积节点的插值型求积公式.
+
+ (2) 令 $f(x) = 1$，
+\[
+I(f) = \int_{-\sqrt{3}}^{\sqrt{3}} 1 \, dx = 2\sqrt{3}, \quad S(f) = \sqrt{3}(1 + 1) = 2\sqrt{3}.
+\]
+
+令 $f(x) = x$，
+\[
+I(f) = \int_{-\sqrt{3}}^{\sqrt{3}} x \, dx = 0, \quad S(f) = \sqrt{3}(-1 + 1) = 0.
+\]
+
+令 $f(x) = x^2$，
+\[
+I(f) = \int_{-\sqrt{3}}^{\sqrt{3}} x^2 \, dx = 2 \sqrt{3} ,
+\quad S(f) = \sqrt{3}((-1)^2 + 1^2) = \sqrt{3}(1 + 1) = 2\sqrt{3}.
+\]
+
+
+ 令 $f(x)=x^{3}$,
+$$I(f)=\int_{-\sqrt{3}}^{\sqrt{3}} x^{3} d x=0,\quad S(f)=\sqrt{3}(-1+1)=0 .$$
+
+
+ 令 $f(x)=x^{4}$,
+$$I(f)=\int_{-\sqrt{3}}^{\sqrt{3}} x^{4} d x=\frac{18\sqrt{3}}{5}, \quad S(f)=\sqrt{3}(1+1)= 2\sqrt{3}.$$
+
+所以求积公式的代数精度为 3 .
+
+
+ (3) 构造 $f(x)$ 的三次插值多项式 $H(x)$，使其满足
+
+\[
+H(-1) = f(-1), \quad H(1) = f(1), \quad H'(-1) = f'(-1), \quad H'(1) = f'(1).
+\]
+
+则 $H(x)$ 存在且唯一，有：
+
+\[
+f(x) - H(x) = \frac{f^{(4)}(\eta)}{4!}(x+1)^2(x-1)^2, \quad \eta \in (-1, 1).
+\]
+
+因此，
+
+\[\begin{aligned}
+    I(f) - S(f) &= \int_{-\sqrt{3}}^{\sqrt{3}} f(x) \, dx - \sqrt{3}[f(-1) + f(1)] \\&= \int_{-\sqrt{3}}^{\sqrt{3}} f(x) \, dx - \sqrt{3}[H(-1) + H(1)] \\&=\int_{-\sqrt{3}}^{\sqrt{3}} f(x) \, dx -\int_{-\sqrt{3}}^{\sqrt{3}}H(x)\, dx \\&=\int_{-\sqrt{3}}^{\sqrt{3}} [f(x)-H(x)] \, dx \\&= \int_{-\sqrt{3}}^{\sqrt{3}}  \frac{f^{(4)}(\eta)}{4!}(x+1)^2(x-1)^2 \, dx\\&= \frac{f^{(4)}(\xi)}{4!}\int_{-\sqrt{3}}^{\sqrt{3}}(x+1)^2(x-1)^2= \frac{\sqrt{3}}{15} f^{(4)}(\xi)\quad \xi \in (-\sqrt{3}, \sqrt{3}).
+\end{aligned}
+\]
+
+因此截断误差形如 $\alpha f^{(\beta)}(\xi)$ 的表达式为：
+
+\[
+I(f) - S(f) = \frac{\sqrt{3}}{15} f^{(4)}(\xi), \quad \xi \in (-\sqrt{3}, \sqrt{3}), \alpha = \frac{\sqrt{3}}{15}, \beta = 4.
+\]
+
+  \end{tcolorbox}
+
+
+\begin{tcolorbox}[breakable,enhanced,arc=0mm,outer arc=0mm,
+		boxrule=0pt,toprule=1pt,leftrule=0pt,bottomrule=1pt, rightrule=0pt,left=0.2cm,right=0.2cm,
+		titlerule=0.5em,toptitle=0.1cm,bottomtitle=-0.1cm,top=0.2cm,
+		colframe=white!10!biru,colback=white!90!biru,coltitle=white,
+            coltext=black,title =2024-05, title style={white!10!biru}, before skip=8pt, after skip=8pt,before upper=\hspace{2em},
+		fonttitle=\bfseries,fontupper=\normalsize]
+
+5. 已知 $ f^{(4)}(x) $ 在 $ [a, b] $ 上连续, 此时 Simpson 数值求积公式的余项为 $ \displaystyle R(S)=-\frac{1}{90}\left(\frac{b-a}{2}\right)^{5} f^{(4)}(\xi)$,
+
+(1)  证明: 复合 Simpson 公式的余项为 $\displaystyle \int_{a}^{b} f(x) \mathrm{d} x-S_{n}=-\frac{b-a}{180}\left(\frac{h}{2}\right)^{4} f^{(4)}(\eta) $, 其中 $ h=\dfrac{b-a}{n} ; $
+
+(2) 利用复合 Simpson 公式求解积分 $\displaystyle \int_{0}^{\frac{1}{2}} \sin x \mathrm{d} x $, 至少需要多少求积节点才能保证误差不超过 $ 10^{-7} $.
+\tcblower
+(1)将区间 $ [a, b] $ 划分为 $ n $ 等份, 分点 $ x_{k}=a+k h, h=\frac{b-a}{n}, k=0,1, \cdots, n $, 在每个子区间 $ \left[x_{k}, x_{k+1}\right](k=0,1, \cdots, n-1) $ 上采用辛普森公式$ S=\frac{b-a}{6}\left[f(a)+4 f\left(\frac{a+b}{2}\right)+f(b)\right] $, 若记 $ x_{k+\frac 1 2}=x_{k}+\frac{1}{2} h $, 则得
+$$
+\begin{aligned}
+I & =\int_{a}^{b} f(x) \mathrm{d} x=\sum_{k=0}^{n-1} \int_{x_{k}}^{x_{k+1}} f(x) \mathrm{d} x  =\frac{h}{6} \sum_{k=0}^{n-1}\left[f\left(x_{k}\right)+4 f\left(x_{k+\frac 1 2}\right)+f\left(x_{k+1}\right)\right]+R_{n}(f) .
+\end{aligned}
+$$
+其中复合辛普森求积公式
+$$
+\begin{aligned}
+S_{n} & =\frac{h}{6} \sum_{k=0}^{n-1}\left[f\left(x_{k}\right)+4 f\left(x_{k+\frac 12}\right)+f\left(x_{k+1}\right)\right]  =\frac{h}{6}\left[f(a)+4 \sum_{k=0}^{n-1} f\left(x_{k+\frac1  2}\right)+2 \sum_{k=1}^{n-1} f\left(x_{k}\right)+f(b)\right].
+\end{aligned}
+$$
+ 由于Simpson 数值求积公式的余项为 $ \displaystyle R(S)=-\frac{1}{90}\left(\frac{b-a}{2}\right)^{5} f^{(4)}(\xi)$,则复合辛普森求积公式余项
+$$
+R_{n}(f)=I-S_{n}=-\frac{h}{180}\left(\frac{h}{2}\right)^{4} \sum_{k=0}^{n-1} f^{(4)}\left(\eta_{k}\right), \quad \eta_{k} \in\left(x_{k}, x_{k+1}\right) .
+$$
+由于 $ f(x) \in C^{4}[a, b] $, 且
+$$
+\min _{0 \leqslant k \leqslant n-1} f^{(4)}\left(\eta_{k}\right) \leqslant \frac{1}{n} \sum_{k=0}^{n-1} f^{(4)}\left(\eta_{k}\right) \leqslant \max _{0 \leqslant k \leqslant n-1} f^{(4)}\left(\eta_{k}\right),
+$$
+所以根据介值定理知 $ \exists \eta \in(a, b) $ 使
+$$
+f^{(4)}(\eta)=\frac{1}{n} \sum_{k=0}^{n-1} f^{(4)}\left(\eta_{k}\right) .
+$$
+于是当  $ f^{(4)}(x) $ 在 $ [a, b] $ 上连续时, 有
+$$
+R_{n}(f)=I-S_{n}=-\frac{b-a}{180}\left(\frac{h}{2}\right)^{4} f^{(4)}(\eta), \quad \eta \in(a, b) .
+$$
+
+(2) 取 $f(x)=\sin x$,则易知$f^{(4)}(x)=\sin x$,因此$f^{(4)}(\eta)\leqslant \frac 12,\eta \in(0,\frac 12)$.根据题意得：
+
+$$ \left|R_n\left(f\right)\right|=\left|-\frac{(b-a)^{5}}{2880 n^{4}} f^{(4)}(\eta)\right| \leqslant \frac 12\cdot\frac{2^{-5}}{2880 n^{4}}  \leqslant  10^{-7} \Rightarrow n^4\geqslant \frac{15624}{288}\approx 54.253\Rightarrow n\geqslant 2.714$$
+
+%可取 $ n=4 $, 即用 $ n=4 $ 的复合辛普森公式  计算即可达到精度要求, 此时区间 $ [0,\frac12] $ 实际上应分为 8 等份. 只需计算 9 个函数值，即需要9个求积节点.
+
+因此，需要至少 $n=3$ 个子区间,即用 $ n=3 $ 的复合辛普森公式计算即可达到精度要求.注意，每个子区间包含两个端点，总节点数为 $2n+1$，即 $7$ 个节点.
+
+  \end{tcolorbox}
+
+\subsection{补充习题}
+  \begin{tcolorbox}[enhanced,colback=10,colframe=9,breakable,coltitle=green!25!black,title=2024]
+
+
+1. 确定求积公式中的待定参数, 使其代数精度尽量高
+$$
+\int_{0}^{h} f(x) d x \approx \frac{h}{2}[f(0)+f(h)]+\alpha h^{2}\left[f^{\prime}(0)-f^{\prime}(h)\right]
+$$
+
+\tcblower
+ 求积公式只含有一个待定参数$\alpha$, 将 $ f(x)=1, x $ 代入公式, 有
+$$
+\begin{aligned}
+h=\int_{0}^{h} 1 \mathrm{~d} x=\frac{h}{2}[1+1]+0=h, \\
+\frac{h^{2}}{2}=\int_{0}^{h} x \mathrm{~d} x=\frac{h}{2}[0+h]+\alpha h^{2}[1-1]=\frac{h^{2}}{2},
+\end{aligned}
+$$
+
+令$ f(x)=x^{2} $对求积公式 准确成立, 即
+$$
+\frac{h^{3}}{3}=\int_{0}^{h} x^{2} \mathrm{~d} x=\frac{h}{2}\left[0+h^{2}\right]+\alpha h^{2}[2 \times 0-2 h],
+$$
+
+解得 $ \alpha=\frac{1}{12} $.
+将 $ f(x)=x^{3}, x^{4} $ 代入上述确定的求积公式, 有
+$$
+\begin{aligned}
+\frac{h^{4}}{4}=\int_{0}^{h} x^{3} \mathrm{~d} x=\frac{h}{2}\left[0+h^{3}\right]+\frac{h^{2}}{12}\left[0-3 h^{2}\right]=\frac{h^{4}}{4}, \\
+\frac{h^{5}}{5}=\int_{0}^{h} x^{4} \mathrm{~d} x \neq \frac{1}{6} h^{5}=\frac{h}{2}\left[0+h^{4}\right]+\frac{h^{2}}{12}\left[0-4 h^{3}\right],
+\end{aligned}
+$$
+
+故求积公式具有 3 次代数精度.
+  \end{tcolorbox}
+
+
+ \begin{tcolorbox}[enhanced,colback=10,colframe=9,breakable,coltitle=green!25!black,title=2024]
+
+2. 证明：证明 Simpson(辛普森)数值求积公式的代数精度为 3.
+\tcblower
+Simpson 公式:
+
+$${\int}_{a}^{b}f(x)\mathrm{d}x {\approx} \frac{b {-} a}{6}\left\lbrack f(a) + 4f\left( \frac{a + b}{2} \right) + f(b) \right\rbrack.$$
+
+%容易验证: 以 $f(x) = 1,x,x^{2},x^{3}$ 分别代入 Simpson 公式两边,结果相等, 而以 $x^{4}$ 代入 Simpson 公式两边,其结果不相等,故 Simpson 求积公式的代数精度 为 3 .
+
+我们要证明其代数精度为3，意味着此方法可以准确积分直到三次多项式的任何多项式，但对四次或更高次多项式则可能无法准确积分.为了证明这一点，我们将一步一步检验Simpson求积公式对不同次数的多项式的积分是否精确.
+
+  当$f(x) = 1$时，原积分：
+$$\int_a^b 1 \, dx = b - a.$$
+
+使用Simpson公式：
+$$\frac{b-a}{6} \left[1 + 4 \times 1 + 1\right] = \frac{b-a}{6} \times 6 = b - a.$$
+
+这说明对于$f(x) = 1$，Simpson公式给出了精确结果.
+
+当 $f(x) = x$ 时，原积分：
+$$\int_a^b x \, dx = \frac{1}{2}(b^2 - a^2).$$
+
+使用Simpson公式：
+$$\frac{b-a}{6} \left[a + 4\frac{a+b}{2} + b\right] = \frac{b-a}{6} \left[a + 2(a+b) + b\right] = \frac{b-a}{6} \left[3a + 3b\right] = \frac{b-a}{2} \times \frac{3(a+b)}{3} = \frac{1}{2}(b^2 - a^2).$$
+
+这说明对于$f(x) = x$，Simpson公式同样给出了精确结果.
+
+当$f(x) = x^2$时，原积分：
+$$\int_a^b x^2 \, dx = \frac{b^3 - a^3}{3}.$$
+
+使用Simpson公式：
+$$\frac{b-a}{6} \left[a^2 + 4\left(\frac{a+b}{2}\right)^2 + b^2\right] = \frac{b-a}{6} \left[a^2 + (a+b)^2 + b^2\right] = \frac{b-a}{6} \left[2a^2 + 2ab + 2b^2\right] = \frac{b^3 - a^3}{3}.$$
+
+这也说明Simpson公式对于$f(x) = x^2$是精确的.
+
+当$f(x) = x^3$时，原积分：
+$$\int_a^b x^3 \, dx = \frac{b^4 - a^4}{4}.$$
+
+使用Simpson公式：
+$$\frac{b-a}{6} \left[a^3 + 4\left(\frac{a+b}{2}\right)^3 + b^3\right] = \frac{b-a}{6} \left[a^3 + \frac{a^3 + 3a^2b + 3ab^2 + b^3}{2} + b^3\right] = \frac{b^4 - a^4}{4}.$$
+
+这证明了Simpson公式对于$f(x) = x^3$也是精确的.
+
+当 $f(x) = x^4$ 时，原积分：
+$$\int_a^b x^4 \, dx = \frac{b^5 - a^5}{5}.$$
+使用Simpson公式计算：
+$$\frac{b-a}{6} \left[a^4 + 4\left(\frac{a+b}{2}\right)^4 + b^4\right].$$
+
+我们需要展开并简化$\left(\frac{a+b}{2}\right)^4$：
+$$\left(\frac{a+b}{2}\right)^4 = \frac{(a+b)^4}{16} = \frac{a^4 + 4a^3b + 6a^2b^2 + 4ab^3 + b^4}{16}.$$
+
+因此，代入Simpson公式中：
+$$\frac{b-a}{6} \left[a^4 + 4\frac{a^4 + 4a^3b + 6a^2b^2 + 4ab^3 + b^4}{16} + b^4\right] = \frac{b-a}{6} \left[a^4 + \frac{a^4 + 4a^3b + 6a^2b^2 + 4ab^3 + b^4}{4} + b^4\right].$$
+
+继续简化：
+$$= \frac{b-a}{24} \left[5a^4 + 4a^3b + 6a^2b^2 + 4ab^3 + 5b^4\right].$$
+其结果与$\frac{b^5 - a^5}{5}$不同，这证明了Simpson规则的代数精度为3，不能精确积分四次及以上的多项式.
+
+  \end{tcolorbox}
+
+\begin{tcolorbox}[enhanced,colback=10,colframe=9,breakable,coltitle=green!25!black,title=2024]
+
+3. Newton-Cotes 求积公式 $\displaystyle \int_{a}^{b} f(x) d x \approx \sum_{k=0}^{n} A_{k} f\left(x_{k}\right) $, 则 $
+\displaystyle\sum_{k=0}^{n} A_{k}= $
+
+\tcblower
+求积公式 $\displaystyle \int_{a}^{b} f(x) \, dx \approx \sum_{k=0}^{n} A_{k} f\left(x_{k}\right)$，其中$A_k$是权重系数，$x_k$是节点位置.要找出$\sum\limits_{k=0}^{n} A_{k}$的值，我们可以选择一个简单的函数$f(x)$来代入求积公式中，并与精确的积分结果对比.一个合适的选择是常数函数$f(x) = 1$，因为其积分易于计算.
+
+ 当$f(x) = 1$时: 原积分为：$\displaystyle \int_a^b 1  d x = b - a.$
+   
+ 使用函数 $f(x) = 1$ 代入求积公式，得到：
+     $$
+     \sum_{k=0}^{n} A_{k} f\left(x_{k}\right) = \sum_{k=0}^{n} A_{k} \times 1 = \sum_{k=0}^{n} A_{k}.
+     $$
+   
+ 根据积分近似公式，我们有：
+     $$
+     \int_a^b 1 \, dx \approx \sum_{k=0}^{n} A_{k}.
+     $$
+ 代入常数函数的积分结果：
+     $$
+     b - a \approx \sum_{k=0}^{n} A_{k}.
+     $$
+   
+
+   因此，由于这是在所有情况下都必须成立的近似关系，我们可以得出：
+     $$
+     \sum_{k=0}^{n} A_{k} = b - a.
+     $$
+    这意味着权重系数$A_k$的总和等于积分区间的长度.
+
+%这一结果对任何基于线性组合的求积公式都是通用的，无论是Simpson公式、梯形规则还是其他数值积分方法.总和$\sum\limits_{k=0}^{n} A_{k}$必须与区间长度相等，以保证对常数函数的积分是精确的.
+
+  \end{tcolorbox}
+
+\begin{tcolorbox}[enhanced,colback=10,colframe=9,breakable,coltitle=green!25!black,title=2024]
+
+4. 给定求积公式 $\displaystyle \int_{a}^{b} f(x) d x \approx(b-a) f\left(\frac{a+b}{2}\right) $.
+
+(1) 求该求积公式的代数精度；
+
+(2) 证明： 存在 $ \eta \in(a, b) $ ，使得
+$$
+\int_{a}^{b} f(x) d x-(b-a) f\left(\frac{a+b}{2}\right)=\frac{(b-a)^{3}}{24} f^{\prime \prime}(\eta)
+$$
+\tcblower
+(1)当 $f(x)=1$,左边$=\int_a^b1 \mathrm{d}x=b-a$,右边$=b-a$;
+
+
+当 $f(x)=x$,左边$=\int_a^bx \mathrm{d}x=\frac12(b^2-a^2)$, 右边$=\frac12(b^2-a^2)$
+
+当 $f(x)=x^{2}$,左边$=\int_{a}^{b}x^{2} \mathrm{d}x=\frac{b^{3}-a^{3}}{3}$,右边$=(b-a)\left(\frac{a+b}{2}\right)^{2}\neq$左边. 
+
+故求积公式的代数精度是1. 
+
+(2) 作 $f(x)$ 的 1 次插值多项式 $H(x)$,满足 
+$$H\left(\frac{a+b}{2}\right)=f\left(\frac{a+b}{2}\right),\quad H'\left(\frac{a+b}{2}\right)=f'\left(\frac{a+b}{2}\right).$$
+由 Hermite 插值多项式的余项得
+$$f(x)-H(x)=\frac{f''(\xi)}{2}\left(x-\frac{a+b}{2}\right)^{2},\quad\xi\in(a,b), $$
+因此 
+$$\begin{aligned}
+\int_a^bf(x) \mathrm{d}x-(b-a)f\left(\frac{a+b}2\right) 
+&=\int_a^bf(x) \mathrm{d}x-(b-a)H\left(\frac{a+b}2\right) \\
+&=\int_a^bf(x) \mathrm{d}x-\int_a^bH(x) \mathrm{d}x=\int_a^b\frac{f''(\xi)}{2}\left(x-\frac{a+b}{2}\right)^2 \mathrm{d}x \\
+&=\frac{f^{\prime\prime}(\eta)}2\int_a^b\left(x-\frac{a+b}2\right)^2 \mathrm{d}x=\frac{(b-a)^3}{24}f^{\prime\prime}(\eta),\quad\eta\in(a,b).
+\end{aligned}$$
+
+方法二：假设 $f(x)$在$[a,b]$上二次连续可微.将 $f(x)$在 $x=\frac{a+b}2$处泰勒展开，有
+$$f(x)=f\Big(\frac{a+b}{2}\Big)+f'\Big(\frac{a+b}{2}\Big)\Big(x-\frac{a+b}{2}\Big)+\frac{1}{2}f''(\xi)\Big(x-\frac{a+b}{2}\Big)^{2},\quad\xi\in(a,b),$$
+注意到 $f^{\prime\prime}(\xi)$是 $x$ 的函数，$\left(x-\frac {a+b}{2}\right)^2$ 在$[a,b]$上非负 ,两边同时在$[a,b]$上积分并利用积分中
+
+值定理，得
+$$\begin{aligned}\int_{a}^{b}f\left(x\right)\mathrm{d}x&=f\left(\frac{a+b}{2}\right)(b-a)+f^{\prime}\left(\frac{a+b}{2}\right)\int_{a}^{b}\left(x-\frac{a+b}{2}\right)\mathrm{d}x+\frac{1}{2}\int_{a}^{b}f^{\prime\prime}(\xi)\left(x-\frac{a+b}{2}\right)^{2}\mathrm{d}x\\&=(b-a)f\left(\frac{a+b}{2}\right)+\frac{1}{2}f^{\prime\prime}(\eta)\int_{a}^{b}\left(x-\frac{a+b}{2}\right)^{2}\mathrm{d}x\\&=(b-a)f\left(\frac{a+b}{2}\right)+\frac{1}{24}f^{\prime\prime}(\eta)(b-a)^{3},\quad\eta\in(a,b).\end{aligned}$$
+
+
+  \end{tcolorbox}
+
+\begin{tcolorbox}[enhanced,colback=10,colframe=9,breakable,coltitle=green!25!black,title=2024]
+
+6. 考虑积分 $ I(f)=\displaystyle\int_{a}^{b} f(x) d x $, 取正整数 $ n \geq 2 $, 记
+$$
+h=\frac{(b-a)}{n}, x_{k}=a+k h, k=0,1, \cdots, n,
+$$
+
+设 $ f(x) \in C^{2}[a, b] $,
+
+(1) 写出计算积分 $ I(f) $ 的复化梯形公式 $ T_{n}(f) $ 及截断误差表达式
+
+(2) 求极限 $\displaystyle \lim _{h \rightarrow 0} \frac{I(f)-T_{n}(f)}{h^{2}} $
+
+(3) 如果 $ f^{\prime}(a) \neq f^{\prime}(b) $ ，求极限 $\displaystyle \lim _{h \rightarrow 0} \frac{T_{n}-T_{2 n}}{T_{2 n}-T_{4 n}} $.
+\tcblower
+ (1) 复化梯形公式为
+
+$$T_{n}(f) = \mathop{{\sum}}\limits_{k = 0}^{n {-} 1}\frac{h}{2}\left\lbrack f\left( x_{k} \right) + f\left( x_{k + 1} \right) \right\rbrack,$$
+
+其截断误差为
+
+$$I(f) {-} T_{n}(f) = {-} \frac{b {-} a}{12}h^{2}f^{{\prime}{\prime}}(\eta),\quad\eta {\in} (a,b).$$
+
+(2) 利用梯形公式及其截断误差可得
+
+$$I(f) {-} T_{n}(f) = \mathop{{\sum}}\limits_{k = 0}^{n {-} 1}\left\{{\int}_{x_{k}}^{x_{k + 1}}f(x)\mathrm{d}x {-} \frac{h}{2}\left\lbrack f\left( x_{k} \right) + f\left( x_{k + 1} \right) \right\rbrack \right\} = \mathop{{\sum}}\limits_{k = 0}^{n {-} 1}\left\lbrack {-}\frac{h^{3}}{12}f^{{\prime}{\prime}}\left( {\xi}_{k} \right) \right\rbrack,{\xi}_{k} {\in} \left( x_{k},x_{k + 1} \right),$$
+
+因此
+
+$$\mathop{\lim}\limits_{h {\rightarrow} 0}\frac{I(f) {-} T_{n}(f)}{h^{2}} = {-} \frac{1}{12}\mathop{{\sum}}\limits_{k = 0}^{n {-} 1}hf^{{\prime}{\prime}}\left( {\xi}_{k} \right) =-\frac{1}{12}\int_{a}^{b}f^{{\prime}{\prime}}(x)\mathrm{d}x = \frac{1}{12}\left\lbrack f^{{\prime}}(a) {-} f^{{\prime}}(b) \right\rbrack.$$
+
+(3) 
+
+$$T_{n} = \mathop{{\sum}}\limits_{k = 0}^{n {-} 1}\frac{h}{2}\left\lbrack f\left( x_{k} \right) + f\left( x_{k + 1} \right) \right\rbrack, \quad T_{2n} = \mathop{{\sum}}\limits_{k = 0}^{n {-} 1}\frac{h}{4}\left\lbrack f\left( x_{k} \right) + 2f\left( x_{k + \frac{1}{2}} \right) + f\left( x_{k + 1} \right) \right\rbrack.$$
+
+ 由梯形公式的截断误差得
+
+$$I {-} T_{n} = {-} \frac{1}{12}\mathop{{\sum}}\limits_{k = 0}^{n {-} 1}h^{3}f^{{\prime}{\prime}}\left( {\xi}_{k} \right),{\xi}_{k} {\in} \left( x_{k},x_{k + 1} \right),$$
+
+因此有
+
+$$\mathop{\lim}\limits_{h {\rightarrow} 0}\frac{I {-} T_{n}}{h^{2}} = {-} \frac{1}{12}\mathop{\lim}\limits_{h {\rightarrow} 0}\mathop{{\sum}}\limits_{k = 0}^{n {-} 1}hf^{{\prime}{\prime}}\left( {\xi}_{k} \right) = {-} \frac{1}{12}{{\int}}_{a}^{b}f^{{\prime}{\prime}}(x)\mathrm{d}x = \frac{1}{12}\left\lbrack f^{{\prime}}(a) {-} f^{{\prime}}(b) \right\rbrack,$$
+
+从而有
+
+$$\mathop{\lim}\limits_{h {\rightarrow} 0}\frac{I {-} T_{2n}}{{\left( \frac{h}{2} \right)}^{2}} = \frac{1}{12}\left\lbrack f^{{\prime}}(a) {-} f^{{\prime}}(b) \right\rbrack,\quad \mathop{\lim}\limits_{h {\rightarrow} 0}\frac{I {-} T_{4n}}{{\left( \frac{h}{4} \right)}^{2}} = \frac{1}{12}\left\lbrack f^{{\prime}}(a) {-} f^{{\prime}}(b) \right\rbrack.$$
+
+记$c = \frac{1}{12}\left\lbrack f^{{\prime}}(a) {-} f^{{\prime}}(b) \right\rbrack,$ 所以有
+
+$$\mathop{\lim}\limits_{h {\rightarrow} 0}\frac{T_{n} {-} T_{2n}}{T_{2n} {-} T_{4n}} = \mathop{\lim}\limits_{h {\rightarrow} 0}\frac{\frac{I {-} T_{n}}{h^{2}} {-} \frac{I {-} T_{2n}}{h^{2}}}{\frac{I {-} T_{2n}}{h^{2}} {-} \frac{I {-} T_{4n}}{h^{2}}}= \frac{c {-} c/4}{c/4 {-} c/16} = 4.$$
+  \end{tcolorbox}
+
+\begin{tcolorbox}
+当我们对网格进行细化时（即将$n$变为$2n$，$h$变为$h/2$），误差的行为会有显著变化.梯形规则的误差通常与步长的平方成比例，这一事实是理解这些极限的关键.
+
+ 复化梯形规则的误差行为:
+
+对于复化梯形规则，我们已经知道：
+$$
+I(f) - T_n(f) = -\frac{(b-a)}{12} h^2 f''(\xi) \quad  \xi \in (a, b),
+$$
+其中 $h = \frac{b-a}{n}$.
+
+ $T_{2n}$ 和 $T_{4n}$ 的误差:
+
+当我们将步长$h$改为$h/2$，每个小区间的长度减半，区间数量加倍，导致 $T_{2n}$ 的误差变为：
+$$
+I(f) - T_{2n}(f) = -\frac{(b-a)}{12} \left(\frac{h}{2}\right)^2 f''(\xi') = -\frac{(b-a)}{48} h^2 f''(\xi'),
+$$
+同理，对于$T_{4n}$，步长进一步减半到$h/4$，误差则变为：
+$$
+I(f) - T_{4n}(f) = -\frac{(b-a)}{12} \left(\frac{h}{4}\right)^2 f''(\xi'') = -\frac{(b-a)}{192} h^2 f''(\xi'').
+$$
+
+
+对于极限$\displaystyle\lim_{h \rightarrow 0} \frac{I - T_{2n}}{\left(\frac{h}{2}\right)^2}$，我们将$T_{2n}$的误差表达式中的$h^2$项提取出来，得：
+$$
+\lim_{h \rightarrow 0} \frac{I - T_{2n}}{\left(\frac{h}{2}\right)^2} = \lim_{h \rightarrow 0} \frac{-\frac{(b-a)}{48} h^2 f''(\xi')}{\frac{h^2}{4}} = -\frac{(b-a)}{12} f''(\xi'),
+$$
+由于$f''(x)$是连续的，并且当$h \rightarrow 0$时，$\xi'$趋于整个区间$(a, b)$，我们可以使用积分表示：
+$$
+-\frac{1}{12} \int_{a}^{b} f''(x) \, dx = \frac{1}{12} [f'(a) - f'(b)],
+$$
+因此得到：
+$$
+\lim_{h \rightarrow 0} \frac{I - T_{2n}}{\left(\frac{h}{2}\right)^2} = \frac{1}{12} [f'(a) - f'(b)].
+$$
+同样的推理也适用于$T_{4n}$，从而有：
+$$
+\lim_{h \rightarrow 0} \frac{I - T_{4n}}{\left(\frac{h}{4}\right)^2} = \frac{1}{12} [f'(a) - f'(b)].
+$$
+
+这些极限展示了，无论步长如何减半，每次细化步长后，调整过的误差表达式（归一化后的误差）都收敛到同一值，这一值与函数在区间端点导数的差有关.
+\end{tcolorbox}
+
+\begin{tcolorbox}
+在梯形规则中，区间$[a, b]$被分割为$n$个等宽的子区间，每个子区间的宽度为$h = \frac{b-a}{n}$.对于每个子区间$[x_k, x_{k+1}]$，梯形规则的积分近似是：
+$$
+\int_{x_k}^{x_{k+1}} f(x) \, dx \approx \frac{h}{2} \left[ f(x_k) + f(x_{k+1}) \right],
+$$
+其中$x_k = a + kh$，$x_{k+1} = x_k + h$.
+
+将所有子区间的积分近似相加，我们得到：
+$$
+T_{n} = \sum_{k=0}^{n-1} \frac{h}{2} \left[ f(x_k) + f(x_{k+1}) \right].
+$$
+
+
+当我们希望提高积分的精度时，一种方法是细化网格.如果原来的梯形规则使用$n$个区间，我们可以将每个区间进一步划分为两个更小的区间，每个更小的区间的宽度为$\frac{h}{2}$.因此，新的节点$x_{k+\frac{1}{2}} = x_k + \frac{h}{2}$出现在每个原始区间的中点.
+
+对于每对新的小区间$[x_k, x_{k+\frac{1}{2}}]$和$[x_{k+\frac{1}{2}}, x_{k+1}]$，使用梯形规则的形式为：
+$$
+\frac{h/2}{2} \left[f(x_k) + f(x_{k+\frac{1}{2}})\right] + \frac{h/2}{2} \left[f(x_{k+\frac{1}{2}}) + f(x_{k+1})\right] = \frac{h}{4} \left[f(x_k) + 2f(x_{k+\frac{1}{2}}) + f(x_{k+1})\right].
+$$
+
+将所有这样的小区间相加，我们得到：
+$$
+T_{2n} = \sum_{k=0}^{n-1} \frac{h}{4} \left[ f(x_k) + 2f(x_{k + \frac{1}{2}}) + f(x_{k+1}) \right].
+$$
+
+这表明，$T_{2n}$是一个更精细的积分近似，通过增加中点的计算并调整权重来提高数值积分的精确度.
+
+对于$T_{4n}$，这是在$T_{2n}$基础上进一步细分每个小区间，并应用梯形规则的情况.此时，我们将每个从$T_{2n}$得到的小区间$[x_k, x_{k+\frac{1}{2}}]$和$[x_{k+\frac{1}{2}}, x_{k+1}]$再次划分为两个更小的区间.这意味着我们现在有$4n$个子区间，每个区间的宽度为$\frac{h}{4}$，其中$h = \frac{b-a}{n}$是原始的梯形规则中一个子区间的宽度.
+
+在进一步细分的过程中，我们引入新的中点.对于原始区间$[x_k, x_{k+1}]$，我们已经有中点$x_{k+\frac{1}{2}}$，现在我们还需要定义： $x_{k+\frac{1}{4}} = x_k + \frac{h}{4}$ 和 $x_{k+\frac{3}{4}} = x_k + 3\frac{h}{4}$
+
+对于每个更小的区间$[x_k, x_{k+\frac{1}{4}}]$, $[x_{k+\frac{1}{4}}, x_{k+\frac{1}{2}}]$, $[x_{k+\frac{1}{2}}, x_{k+\frac{3}{4}}]$, 和$[x_{k+\frac{3}{4}}, x_{k+1}]$，应用梯形规则给出：
+$$
+\frac{h/4}{2} \left[f(x_k) + f(x_{k+\frac{1}{4}})\right] + \frac{h/4}{2} \left[f(x_{k+\frac{1}{4}}) + f(x_{k+\frac{1}{2}})\right] + \frac{h/4}{2} \left[f(x_{k+\frac{1}{2}}) + f(x_{k+\frac{3}{4}})\right] + \frac{h/4}{2} \left[f(x_{k+\frac{3}{4}}) + f(x_{k+1})\right].
+$$
+
+合并以上四个小区间的梯形近似，得到每个原始半区间的近似：
+$$
+\frac{h}{8} \left[f(x_k) + 2f(x_{k+\frac{1}{4}}) + 2f(x_{k+\frac{1}{2}}) + 2f(x_{k+\frac{3}{4}}) + f(x_{k+1})\right].
+$$
+
+由于整个区间[a, b]被划分为$n$个原始区间，每个原始区间进一步划分为四个更小的区间，因此$T_{4n}$的形式为：
+$$
+T_{4n} = \sum_{k=0}^{n-1} \frac{h}{8} \left[f(x_k) + 2f(x_{k+\frac{1}{4}}) + 2f(x_{k+\frac{1}{2}}) + 2f(x_{k+\frac{3}{4}}) + f(x_{k+1})\right].
+$$
+
+这提供了对原积分$\int_{a}^{b} f(x) \, dx$的一个更精确的近似，通过增加评估点来减少每个区间中函数行为的近似误差.
+\end{tcolorbox}
+
+
+\begin{tcolorbox}[enhanced,colback=10,colframe=9,breakable,coltitle=green!25!black,title=2024]
+含有 $ n+1 $ 个互异节点的插值型求积公式的代数精确度为
+\tcblower
+ 如果求积公式是插值型, 则
+$$
+R(f)=\int_{a}^{b} \frac{f^{(n+1)}(\xi)}{(n+1)!} \omega_{n+1}(x) d x
+$$
+其中, $ \xi $ 依赖于 $ x $, 这里 $ \omega_{n+1}(x)=\left(x-x_{0}\right)\left(x-x_{1}\right) \cdots\left(x-x_{n}\right) $. 若被积函数 $ f(x) $是一个不高于 $ n $ 次的多项式, 由于 $ f^{(n+1)}(x)=0 $, 其积分余项 $ R(f)=0 $, 因此, $ n $阶插值多项式形式的数值积分公式至少有 $ n $ 阶代数精度.
+\end{tcolorbox}
+
+ 
+\begin{tcolorbox}[enhanced,colback=10,colframe=9,breakable,coltitle=green!25!black,title=2024]
+设 $ A_{k}(k=0,1, \cdots, n) $ 是区间 $ [a, b] $ 上的插值型求积公式的系数, 则 $ \sum\limits_{k=0}^{n} A_{k}=(\quad) $.
+\tcblower
+ 由题意可知, 如为插值型求积公式, 则 $ I(f)=\int_{a}^{b} f(x) d x \approx \sum\limits_{k=0}^{n} A_{k} f\left(x_{k}\right) $,该求积公式代数精确度至少为 $ n $ 次, 因此不妨取 $ f(x)=1 $, 则
+$$
+b-a=\int_{a}^{b} 1 d x=\sum_{k=0}^{n} A_{k}
+$$
+\end{tcolorbox}
+  
+
+\begin{tcolorbox}[enhanced,colback=10,colframe=9,breakable,coltitle=green!25!black,title=2024]
+
+考虑积分 $I(f) = {{\int}}_{0}^{3}f(x)\mathrm{d}x$ 及对应的求积公式 $Q(f) = \frac{3}{4}f(0) + \frac{9}{4}f(2)$ .
+
+(1) 证明: 求积公式 $Q(f)$ 是以 $x_{0} = 0,x_{1} = 1,x_{2} = 2$ 为求积节点的插值型求积公式;
+
+(2) 求求积公式 $I(f) {\approx} Q(f)$ 的代数精度;
+
+(3) 设 $f(x) {\in} C^{3}\lbrack 0,3\rbrack$ ,求截断误差 $I(f) {-} Q(f)$ 形如 $\alpha f^{(\beta)}(\xi)$ 的表达式,其中 $\xi {\in} (0,3),\alpha,\beta$ 为常数.
+\tcblower
+
+ (1) 以 $0,1,2$ 为节点的插值基函数是
+$$l_{0}(x) = \frac{1}{2}(x {-} 1)(x {-} 2),\quad l_{1}(x) = {-} x(x {-} 2),\quad l_{2}(x) = \frac{1}{2}x(x {-} 1),$$
+因为
+$${{\int}}_{0}^{3}l_{0}(x)\mathrm{d}x = \frac{1}{2}{{\int}}_{0}^{3}(x {-} 1)(x {-} 2)\mathrm{d}x = \frac{3}{4},$$
+
+$${{\int}}_{0}^{3}l_{1}(x)\mathrm{d}x = {-} {{\int}}_{0}^{3}x(x {-} 2)\mathrm{d}x = 0,$$
+
+$${{\int}}_{0}^{3}l_{2}(x)\mathrm{d}x = \frac{1}{2}{{\int}}_{0}^{3}x(x {-} 1)\mathrm{d}x = \frac{9}{4},$$
+所以 $Q(f)$ 是以 $0,1,2$ 为节点的插值型求积公式.
+
+(2) 令 $f(x) = 1$ ,则 $I(f) = {{\int}}_{0}^{3}1\mathrm{\ d}x = 3,Q(f) = 3$ ;
+
+令 $f(x) = x$ ,则 $I(f) = {{\int}}_{0}^{3}x\mathrm{\ d}x = \frac{9}{2},Q(f) = \frac{9}{2}$ ;
+
+令 $f(x) = x^{2}$ ,则 $I(f) = {{\int}}_{0}^{3}x^{2}\mathrm{\ d}x = 9,Q(f) = 9$ ;
+
+令 $f(x) = x^{3}$ ,则 $I(f) = {{\int}}_{0}^{3}x^{3}\mathrm{\ d}x = \frac{81}{4},Q(f) = 18$ .
+
+所以求积公式的代数精度是 2 .
+
+(3) 作 $f(x)$ 的一个 2 次插值多项式 $H(x)$ ,使其满足
+
+$$H(0) = f(0),\quad H(2) = f(2),\quad H^{{\prime}}(2) = f^{{\prime}}(2),$$
+
+则 $H(x)$ 唯一存在,且有
+$$f(x) {-} H(x) = \frac{f^{{\prime}{\prime}{\prime}}(\eta)}{6}x{(x {-} 2)}^{2},\quad\eta {\in} (0,2),$$
+
+因此
+$$\begin{aligned}
+    I(f) {-} Q(f) &= {{\int}}_{0}^{3}f(x)\mathrm{d}x {-} \left\lbrack \frac{3}{4}f(0) + \frac{9}{4}f(2) \right\rbrack\\&= {{\int}}_{0}^{3}f(x)\mathrm{d}x {-} \left\lbrack \frac{3}{4}H(0) + \frac{9}{4}H(2) \right\rbrack\\&= {{\int}}_{0}^{3}f(x)\mathrm{d}x {-} {{\int}}_{0}^{3}H(x)\mathrm{d}x = {{\int}}_{0}^{3}\frac{f^{{\prime}{\prime}{\prime}}(\eta)}{6}x{(x {-} 2)}^{2}\mathrm{\ d}x\\&= \frac{f^{{\prime}{\prime}{\prime}}(\xi)}{6}{{\int}}_{0}^{3}x{(x {-} 2)}^{2}\mathrm{\ d}x = \frac{3}{8}f^{{\prime}{\prime}{\prime}}(\xi),\quad\xi {\in} (0,3).
+\end{aligned}$$
+
+
+\end{tcolorbox}
+
+
+
+\begin{tcolorbox}[enhanced,colback=10,colframe=9,breakable,coltitle=green!25!black,title=2024]
+求一个在闭区间 $\lbrack 0,3\rbrack$ 上一阶导数连续的函数 $p(x)$ ,使之满足以下条件:
+
+(1) 函数 $p(x)$ 在区间 $\lbrack 0,2\rbrack$ 和 $\lbrack 2,3\rbrack$ 上均为 2 次多项式;
+
+(2) $p(0) = 1,p(2) = 3,p(3) = 5$ ;
+
+(3) 积分 ${{\int}}_{0}^{2}p(x)\mathrm{d}x = 0$ .
+\tcblower
+ 设 $p^{{\prime}}(2) = m$ . 在区间 $\lbrack 0,2\rbrack$ 上以 $p(0) = 1,p(2) = 3,p^{{\prime}}(2) = m$ 为插值条件 建立 2 次多项式得
+
+$$p_{2}(x) = 1 + x + \frac{m {-} 1}{2}x(x {-} 2),$$
+
+在区间 $\lbrack 2,3\rbrack$ 上以 $p(2) = 3,p^{{\prime}}(2) = m,p(3) = 5$ 为插值条件建立 2 次多项式得
+
+$${\widetilde{p}}_{2}(x) = 3 + m(x {-} 2) + (2 {-} m)(x {-} 2)(x {-} 2).$$
+
+根据 ${{\int}}_{0}^{2}p(x)\mathrm{d}x = 0$ ,可得
+
+$${{\int}}_{0}^{2}\left\lbrack 1 + x + \frac{m {-} 1}{2}x(x {-} 2) \right\rbrack\mathrm{d}x = 0,$$
+
+即
+
+$${\left. \left\lbrack x + \frac{x^{2}}{2} + \frac{m {-} 1}{2}\left( \frac{x^{3}}{3} {-} x^{2} \right) \right\rbrack \right|}_{0}^{2} = 0,$$
+
+求得 $m = 7$ . 所以
+
+$$p(x) = \begin{cases} 1 + x + 3x(x {-} 2), & x {\in} \lbrack 0,2\rbrack; \\ 3 + 7(x {-} 2) {-} 5{(x {-} 2)}^{2}, & x {\in} \lbrack 2,3\rbrack. \end{cases}$$
+\end{tcolorbox}
+
+
+
+\begin{tcolorbox}[enhanced,colback=10,colframe=9,breakable,coltitle=green!25!black,title=2024]
+确定下面公式中的参数 $c$ ,使求积公式
+$${\int}_{a}^{b}f(x)\mathrm{d}x {\approx} \frac{b {-} a}{2}\left\lbrack f(a) + f(b) \right\rbrack + c{(b {-} a)}^{2}\left\lbrack f^{{\prime}}(a) {-} f^{{\prime}}(b) \right\rbrack$$
+具有尽可能高的代数精度, 并指出所达到的最高次代数精度.
+\tcblower
+当 $f(x) = 1$ ,左边 $ = b {-} a$ ,右边 $ = b {-} a$ ;
+
+当 $f(x) = x$ ,左边 $ = \frac{1}{2}\left( b^{2} {-} a^{2} \right)$ ,右边 $ = \frac{1}{2}\left( b^{2} {-} a^{2} \right)$ ;
+
+当 $f(x) = x^{2}$ ,左边 $ = \frac{1}{3}\left( b^{3} {-} a^{3} \right)$ ,右边 $ = \frac{b {-} a}{2}\left( a^{2} + b^{2} \right) + c{(b {-} a)}^{2}(2a {-} 2b)$ .
+
+要使公式具有尽可能高的代数精度, 则
+
+$$\frac{b {-} a}{2}\left( a^{2} + b^{2} \right) + c{(b {-} a)}^{2}(2a {-} 2b) = \frac{1}{3}\left( b^{3} {-} a^{3} \right),$$
+
+求得 $c = \frac{1}{12}$ . 所以求积公式为
+
+$${\int}_{a}^{b}f(x)\mathrm{d}x {\approx} \frac{b {-} a}{2}\left\lbrack f(a) + f(b) \right\rbrack + \frac{1}{12}{(b {-} a)}^{2}\left\lbrack f^{{\prime}}(a) {-} f^{{\prime}}(b) \right\rbrack.$$
+
+当 $f(x) = x^{3}$ ,左边 $ = \frac{1}{4}\left( b^{4} {-} a^{4} \right)$ ,右边 $ = \frac{b {-} a}{2}\left( a^{3} + b^{3} \right) + \frac{{(b {-} a)}^{2}}{12}\left( 3a^{2} {-} 3b^{2} \right) = \frac{1}{4}\left( b^{4} {-} a^{4} \right)$ ;
+
+当 $f(x) = x^{4}$ ,左边 $ = \frac{1}{5}\left( b^{5} {-} a^{5} \right)$ ,而右边$= \frac{b {-} a}{2}\left( a^{4} + b^{4} \right) + \frac{1}{12}{(b {-} a)}^{2}\left( 4a^{3} {-} 4b^{3} \right) {\neq}$左边,所以求积公式的代数精度是 3.
+
+
+\end{tcolorbox}
+
+\begin{tcolorbox}[enhanced,colback=10,colframe=9,breakable,coltitle=green!25!black,title=2024]
+设 $ f(x) \in C^{4}[-1,1] $.
+
+(1) 求一个 3 次多项式 $ H(x) $, 使其满足
+$$
+H(-1)=f(-1), \quad H(1)=f(1), \quad H^{\prime}(-1)=f^{\prime}(-1), \quad H^{\prime}(1)=f^{\prime}(1),
+$$
+并写出 $ f(x)-H(x) $ 的表达式;
+
+(2) 给出数值积分公式 $\displaystyle\int_{-1}^{1} f(x) \mathrm{d} x \approx \int_{-1}^{1} H(x) \mathrm{d} x $ 的具体表达式以及其截断误差
+$\displaystyle\int_{-1}^{1} f(x) \mathrm{d} x-\int_{-1}^{1} H(x) \mathrm{d} x$的表达式;
+
+(3) 设 $ f \in C^{4}[a, b] $, 基于问题 (2) 中的公式, 给出计算积分 $ \int_{a}^{b} f(x) \mathrm{d} x $ 的数值积分公式.
+\tcblower
+
+(1) 根据题意可得
+$$
+\begin{aligned}
+H(x)= & f(-1)+f[-1,-1](x+1)+f[-1,-1,1](x+1)^{2} \\
+& +f[-1,-1,1,1](x+1)^{2}(x-1)
+\end{aligned}
+$$
+其中
+$$
+\begin{array}{c}
+f[-1,-1]=f^{\prime}(-1), \\
+f[-1,-1,1]=\frac{1}{2}\left[\frac{f(1)-f(-1)}{2}-f^{\prime}(-1)\right], \\
+f[-1,-1,1,1]=\frac{f[-1,1,1]-f[-1,-1,1]}{2}=\frac{1}{4}\left[f^{\prime}(1)-f(1)+f(-1)+f^{\prime}(-1)\right] .
+\end{array}
+$$
+插值余项为 $ f(x)-H(x)=\frac{1}{4!} f^{(4)}(\xi)(x+1)^{2}(x-1)^{2}, \xi \in(-1,1) $.
+
+(2) 由 (1) 可知
+$$
+\begin{aligned}
+\int_{-1}^{1} H(x) \mathrm{d} x= & 2 f(-1)+f^{\prime}(-1) \int_{-1}^{1}(x+1) \mathrm{d} x+f[-1,-1,1] \int_{-1}^{1}(x+1)^{2} \mathrm{~d} x \\
+& +f[-1,-1,1,1] \int_{-1}^{1}(x+1)^{2}(x-1) \mathrm{d} x \\
+= & 2 f(-1)+2 f^{\prime}(-1)+\frac{8}{3} f[-1,-1,1]-\frac{4}{3} f[-1,-1,1,1] \\
+= & {[f(-1)+f(1)]+\frac{1}{3}\left[f^{\prime}(-1)-f^{\prime}(1)\right] }
+\end{aligned}
+$$
+截断误差为
+$$
+\begin{aligned}
+\int_{-1}^{1} f(x) \mathrm{d} x-\int_{-1}^{1} H(x) \mathrm{d} x & =\int_{-1}^{1} \frac{1}{24} f^{(4)}(\xi)(x+1)^{2}(x-1)^{2} \mathrm{~d} x \\
+& =\frac{1}{24} f^{(4)}(\eta) \int_{-1}^{1}(x+1)^{2}(x-1)^{2} \mathrm{~d} x \\
+& =\frac{1}{720}(1+1)^{5} f^{(4)}(\eta)=\frac{2}{45} f^{(4)}(\eta), \quad \eta \in(-1,1) .
+\end{aligned}
+$$
+(3)令  $x=\frac{a+b}{2}+\frac{b-a}{2} t, f\left(\frac{a+b}{2}+\frac{b-a}{2} t\right)=g(t)$ , 则有 
+$$
+\begin{aligned}
+\int_{a}^{b} f(x) \mathrm{d} x &\approx \frac{b-a}{2} \int_{-1}^{1} f\left(\frac{a+b}{2}+\frac{b-a}{2} t\right) \mathrm{d} t=\frac{b-a}{2} \int_{-1}^{1} g(t) \mathrm{d} t \\
+&=\frac{b-a}{2}\left\{g(-1)+g(1)+\frac{1}{3}\left[g^{\prime}(-1)-g^{\prime}(1)\right]\right\} \\
+&=\frac{b-a}{2}\left\{f(a)+f(b)+\frac{1}{3}\left[f^{\prime}(a) \frac{b-a}{2}-f^{\prime}(b) \frac{b-a}{2}\right]\right\} \\
+&=\frac{b-a}{2}[f(a)+f(b)]+\frac{(b-a)^{2}}{12}\left[f^{\prime}(a)-f^{\prime}(b)\right] \text {. } \\
+\end{aligned}
+$$
+
+\end{tcolorbox}
+
+\begin{tcolorbox}[enhanced,colback=10,colframe=9,breakable,coltitle=green!25!black,title=2024]
+已知函数 $f(x) {\in} C^{4}\lbrack a,b\rbrack,I(f) = \displaystyle\int_{a}^{b}f(x)\mathrm{d}x$ .
+
+(1) 写出以 $a,b$ 为二重节点的 $f(x)$ 的 3 次 Hermite 插值多项式 $H(x)$ 及插值 余项;
+
+(2) 根据 $f(x) {\approx} H(x)$ 建立一个求解 $I(f)$ 的数值求积公式 $I_{H}(f)$ ,并分析该公 式的截断误差和代数精度.
+\tcblower
+
+
+ (1) 由条件知$H(a) = f(a),\quad H^{{\prime}}(a) = f^{{\prime}}(a),\quad H(b) = f(b),\quad H^{{\prime}}(b) = f^{{\prime}}(b),$ 
+
+$$H(x) = f(a) +f[a,a](x-a)+f[a,a,b](x-a)^2+f[a,a,b,b](x-a)^2(x-b)$$
+
+其中$f[a,a]=f^{{\prime}}(a),f[a,a,b]=\dfrac{f[a,b]-f^{\prime}(a)}{b-a},f[a,a,b,b]= \dfrac{f^{{\prime}}(b) - 2f[ a,b]+f^{\prime}(a)}{(b-a)^2}$. 所以
+$$H(x) = f(a) + f^{{\prime}}(a)(x {-} a) + \frac{f\lbrack a,b\rbrack {-} f^{{\prime}}(a)}{b {-} a}{(x {-} a)}^{2} + \frac{f^{\prime}(b) {-} 2f\lbrack a,b\rbrack + f^{\prime}(a)}{{(b - a)}^{2}}{(x {-} a)}^{2}(x {-} b),$$
+
+$$f(x) {-} H(x) = \frac{f^{(4)}(\xi)}{4!}{(x {-} a)}^{2}{(x {-} b)}^{2},\quad\xi {\in} (a,b).$$
+
+(2) 根据题意, 有
+$$I(f) {\approx} {{\int}}_{a}^{b}H(x)\mathrm{d}x,$$
+
+$$
+\begin{aligned}
+ \int_{a}^{b} H(x) \mathrm{d} x= & f(a)(b-a)+\frac{f^{\prime}(a)}{2}(b-a)^{2}+\frac{f[a, b]-f^{\prime}(a)}{3(b-a)}(b-a)^{3} \\ & +\frac{f^{\prime}(b)-2 f[a, b]+f^{\prime}(a)}{(b-a)^{2}}\left(\frac{b-a}{2}\right)^{4}\left(-\frac{4}{3}\right)\\
+& =\frac{b-a}{2}[f(a)+f(b)]+\frac{(b-a)^{2}}{12}\left[f^{\prime}(a)-f^{\prime}(b)\right], \\
+R(f)&=  \int_{a}^{b}[f(x)-H(x)] \mathrm{d} x=\int_{a}^{b} \frac{f^{(4)}(\xi)}{4!}(x-a)^{2}(x-b)^{2} \mathrm{~d} x \\
+&=  \frac{f^{(4)}(\eta)}{4!} \int_{a}^{b}(x-a)^{2}(x-b)^{2} \mathrm{~d} x \\
+&=  \frac{f^{(4)}(\eta)}{720}(b-a)^{5}, \quad \eta \in(a, b) .
+\end{aligned}
+$$
+
+再求代数精度. 由插值余项知, 当 $ f(x)=1, x, x^{2}, x^{3} $ 时, $ R(f)=0, I_{H}(f)=I(f) $;当 $ f(x)=x^{4} $ 时, $ R(f) \neq 0, I_{H}(f) \neq I(f) $. 故 $ I_{H}(f) $ 具有 3 次代数精度.
+\end{tcolorbox}
+
+ 
+
+
+
+
+ \begin{tcolorbox}[enhanced,colback=10,colframe=9,breakable,coltitle=green!25!black,title=2024]
+ 设 $ f(x) \in C^{4}[a, b], I(f)=\int_{a}^{b} f(x) \mathrm{d} x $, 而
+$$
+S(f)=\frac{b-a}{6}\left[f(a)+f\left(\frac{a+b}{2}\right)+f(b)\right]
+$$
+为计算 $ I(f) $ 的 Simpson 公式. 将 $ [a, b] $ 进行 $ n $ 等分, 记 $ h=(b-a) / n, x_{i}=a+i h $, $ 0 \leqslant i \leqslant n ; x_{i+\frac{1}{2}}=\left(x_{i}+x_{i+1}\right) / 2,0 \leqslant i \leqslant n-1 $.
+
+(1) 写出计算积分 $ I(f) $ 的复化 Simpson 公式 $ S_{n}(f) $;
+
+(2) 已知
+$$
+I(f)-S(f)=-\frac{b-a}{180}\left(\frac{b-a}{2}\right)^{4} f^{(4)}(\xi), \quad \xi \in(a, b)
+$$
+证明: 存在 $ \eta \in(a, b) $, 使得
+$$
+I(f)-S_{n}(f)=-\frac{b-a}{180}\left(\frac{h}{2}\right)^{4} f^{(4)}(\eta) .
+$$
+\tcblower
+ (1) 复化 Simpson 公式为
+$$
+S_{n}(f)=\sum_{k=0}^{n-1} \frac{h}{6}\left[f\left(x_{k}\right)+4 f\left(x_{k+\frac{1}{2}}\right)+f\left(x_{k+1}\right)\right] .
+$$
+(2) 利用 Simpson 公式的截断误差得
+$$
+\begin{aligned}
+I(f)-S_{n}(f) & =\sum_{k=0}^{n-1}\left\{\int_{x_{k}}^{x_{k+1}} f(x) \mathrm{d} x-\frac{h}{6}\left[f\left(x_{k}\right)+4 f\left(x_{k+\frac{1}{2}}\right)+f\left(x_{k+1}\right)\right]\right\} \\
+& =\sum_{k=0}^{n-1}\left[-\frac{h}{180}\left(\frac{h}{2}\right)^{4} f^{(4)}\left(\xi_{k}\right)\right], \quad \xi_{k} \in\left(x_{k}, x_{k+1}\right) \\
+& =-\frac{b-a}{180}\left(\frac{h}{2}\right)^{4} \frac{1}{n} \sum_{k=0}^{n-1} f^{(4)}\left(\xi_{k}\right) \\
+& =-\frac{b-a}{180}\left(\frac{h}{2}\right)^{4} f^{(4)}(\eta), \quad \eta \in(a, b) .
+\end{aligned}
+$$
+\end{tcolorbox}
+
+ 
+\begin{tcolorbox}[enhanced,colback=10,colframe=9,breakable,coltitle=green!25!black,title=2024]
+给定求积公式 $\displaystyle \int_{a}^{b} f(x) \mathrm{d} x \approx(b-a) f\left(\frac{a+b}{2}\right) $.
+
+(1) 求该求积公式的代数精度;
+
+(2) 证明: 存在 $ \eta \in(a, b) $, 使得
+$$
+\int_{a}^{b} f(x) \mathrm{d} x-(b-a) f\left(\frac{a+b}{2}\right)=\frac{(b-a)^{3}}{24} f^{\prime \prime}(\eta) .
+$$
+\tcblower
+
+ (1) 当 $ f(x)=1 $, 左边 $ =\int_{a}^{b} 1 \mathrm{~d} x=b-a $, 右边 $ =b-a $;
+ 
+当 $ f(x)=x $, 左边 $ =\int_{a}^{b} x \mathrm{~d} x=\frac{1}{2}\left(b^{2}-a^{2}\right) $, 右边 $ =\frac{1}{2}\left(b^{2}-a^{2}\right) $;
+
+当 $ f(x)=x^{2} $, 左边 $ =\int_{a}^{b} x^{2} \mathrm{~d} x=\frac{b^{3}-a^{3}}{3} $, 右边 $ =(b-a)\left(\frac{a+b}{2}\right)^{2} \neq $ 左边.
+故求积公式的代数精度是 1 .
+
+(2) 作 $ f(x) $ 的 1 次插值多项式 $ H(x) $, 满足
+$$
+H\left(\frac{a+b}{2}\right)=f\left(\frac{a+b}{2}\right), \quad H^{\prime}\left(\frac{a+b}{2}\right)=f^{\prime}\left(\frac{a+b}{2}\right) .
+$$
+由 Hermite 插值多项式的余项得
+$$
+f(x)-H(x)=\frac{f^{\prime \prime}(\xi)}{2}\left(x-\frac{a+b}{2}\right)^{2}, \quad \xi \in(a, b),
+$$
+因此
+$$
+\begin{aligned}
+& \int_{a}^{b} f(x) \mathrm{d} x-(b-a) f\left(\frac{a+b}{2}\right) \\
+= & \int_{a}^{b} f(x) \mathrm{d} x-(b-a) H\left(\frac{a+b}{2}\right) \\
+= & \int_{a}^{b} f(x) \mathrm{d} x-\int_{a}^{b} H(x) \mathrm{d} x=\int_{a}^{b} \frac{f^{\prime \prime}(\xi)}{2}\left(x-\frac{a+b}{2}\right)^{2} \mathrm{~d} x \\
+= & \frac{f^{\prime \prime}(\eta)}{2} \int_{a}^{b}\left(x-\frac{a+b}{2}\right)^{2} \mathrm{~d} x=\frac{(b-a)^{3}}{24} f^{\prime \prime}(\eta), \quad \eta \in(a, b) .
+\end{aligned}
+$$
+\end{tcolorbox}
+
+
+
+
+
+
+
+ \begin{tcolorbox}[enhanced,colback=10,colframe=9,breakable,coltitle=green!25!black,title=2024]
+ 推导下列 3 种求积公式:
+ 
+(1) 左矩形公式
+$$
+\int_{a}^{b} f(x) \mathrm{d} x=  (b-a) f(a)+  \frac{1}{2} f^{\prime}(\eta)(b-a)^{2}, \quad \eta \in(a, b)
+$$
+(2) 右矩形公式
+$$
+\int_{a}^{b} f(x) \mathrm{d} x=  (b-a) f(b)-  \frac{1}{2} f^{\prime}(\eta)(b-a)^{2}, \quad \eta \in(a, b)
+$$
+(3)中矩形公式
+$$
+\int_{a}^{b} f(x) \mathrm{d} x=(b-a) f\left(\frac{a+b}{2}\right)+\frac{1}{24} f^{\prime \prime}(\eta)(b-a)^{3}, \quad \eta \in(a, b)
+$$
+\tcblower
+解 (1) 将 $ f(x) $ 在 $ a $ 处展开, 得
+$$
+f(x)=f(a)+f^{\prime}(\xi)(x-a), \quad \xi \in(a, x)
+$$
+两边在 $ [a, b] $ 上积分, 得
+$$
+\int_{a}^{b} f(x) \mathrm{d} x=\int_{a}^{b} f(a) \mathrm{d} x+\int_{a}^{b} f^{\prime}(\xi)(x-a) \mathrm{d} x
+$$
+由于 $ (x-a) $ 在 $ [a, b] $ 上不变号, 故用积分中值定理有 $ \eta \in(a, b) $,使得
+$$
+\int_{a}^{b} f(x) \mathrm{d} x=(b-a) f(a)+f^{\prime}(\eta) \int_{a}^{b}(x-a) \mathrm{d} x
+$$
+从而有
+$$
+\int_{a}^{b} f(x) \mathrm{d} x=(b-a) f(a)+\frac{1}{2} f^{\prime}(\eta)(b-a)^{2}, \quad \eta \in(a, b)
+$$
+(2) 将 $ f(x) $ 在 $ b $ 处展开, 得
+$$
+f(x)=f(b)+f^{\prime}(\xi)(x-b), \quad \xi \in(x, b)
+$$
+两边在 $ [a, b] $ 上积分, 得
+$$
+\int_{a}^{b} f(x) \mathrm{d} x=\int_{a}^{b} f(b) \mathrm{d} x+\int_{a}^{b} f^{\prime}(\xi)(x-b) \mathrm{d} x
+$$
+由于 $ (x-b) $ 在 $ [a, b] $ 上不变号, 故用积分中值定理有 $ \eta \in(a, b) $,使得
+$$
+\int_{a}^{b} f(x) \mathrm{d} x=(b-a) f(b)+f^{\prime}(\eta) \int_{a}^{b}(x-b) \mathrm{d} x
+$$
+从而有
+$$
+\int_{a}^{b} f(x) \mathrm{d} x=(b-a) f(b)-\frac{1}{2} f^{\prime}(\eta)(b-a)^{2}, \quad \eta \in(a, b)
+$$
+(3) 将 $ f(x) $ 在 $ \frac{a+b}{2} $ 处展开, 得
+$$
+\begin{aligned}
+f(x)= & f\left(\frac{a+b}{2}\right)+f^{\prime}\left(\frac{a+b}{2}\right)\left(x-\frac{a+b}{2}\right)+  \frac{1}{2} f^{\prime \prime}(\xi)\left(x-\frac{a+b}{2}\right)^{2}, \quad \xi \in(a, b)
+\end{aligned}
+$$
+两边在 $ [a, b] $ 上积分, 得
+$$
+\begin{aligned}
+\int_{a}^{b} f(x) \mathrm{d} x= & \int_{a}^{b} f\left(\frac{a+b}{2}\right) \mathrm{d} x+\int_{a}^{b} f^{\prime}\left(\frac{a+b}{2}\right)\left(x-\frac{a+b}{2}\right) \mathrm{d} x+ \\
+& \frac{1}{2} \int_{a}^{b} f^{\prime \prime}(\xi)\left(x-\frac{a+b}{2}\right)^{2} \mathrm{~d} x
+\end{aligned}
+$$
+由于 $ \left(x-\frac{a+b}{2}\right)^{2} $ 在 $ [a, b] $ 上不变号, 故用积分中值定理有 $ \eta \in $ $ (a, b) $, 使得
+$$
+\int_{a}^{b} f(x) \mathrm{d} x=(b-a) f\left(\frac{a+b}{2}\right)+\frac{1}{2} f^{\prime \prime}(\eta) \int_{a}^{b}\left(x-\frac{a+b}{2}\right)^{2} \mathrm{~d} x
+$$
+从而有
+$$
+\begin{aligned}
+\int_{a}^{b} f(x) \mathrm{d} x= & (b-a) f\left(\frac{a+b}{2}\right)+ \frac{1}{24} f^{\prime \prime}(\eta)(b-a)^{3}, \quad \eta \in(a, b)
+\end{aligned}
+$$
+\end{tcolorbox}
+
+ 
+\begin{tcolorbox}[enhanced,colback=10,colframe=9,breakable,coltitle=green!25!black,title=2024]
+
+ 设有计算积分 $ I(f)=\displaystyle\int_{0}^{1} \frac{f(x)}{\sqrt{x}} \; d x $ 的一个求积公式 $ I(f) \approx a f\left(\frac{1}{5}\right)+ bf  (1)$.
+ 
+(1) 求 $ a, b $ 使以上求积公式代数精确度尽可能高, 并指出所达到的最高代数精确度;
+
+(2) 如果 $ f(x) \in C^{3}[0,1] $, 试给出该求积公式的截断误差.
+\tcblower
+
+ (1) 由题意可知, 为使求积公式代数精确度尽可能高, 分别取 $ f(x)=1, x $时, 等式恒成立, 因此
+$$
+\left\{\begin{array}{l}
+\int_{0}^{1} \frac{1}{\sqrt{x}} d x=2=a+b \\
+\int_{0}^{1} \frac{x}{\sqrt{x}} d x=\frac{2}{3}=\frac{1}{5} a+b
+\end{array}\right.
+$$
+
+解得 $ a=\frac{5}{3}, b=\frac{1}{3} $, 于是得到求积公式为
+$$
+I(f) \approx \frac{5}{3} f\left(\frac{1}{5}\right)+\frac{1}{3} f(1)
+$$
+
+继续验证当 $ f(x)=x^{2} $ 时, $ \int_{0}^{1} \frac{x^{2}}{\sqrt{x}} d x=\frac{2}{5}=\frac{5}{3} \times\left(\frac{1}{5}\right)^{2}+\frac{1}{3} \times 1 $, 而当 $ f(x)=x^{3} $时, $ \int_{0}^{1} \frac{x^{3}}{\sqrt{x}} d x=\frac{2}{7} \neq \frac{5}{3} \times\left(\frac{1}{5}\right)^{3}+\frac{1}{3} \times 1=\frac{26}{75} $, 因此该求积公式具有最高代数精确度为 2 次.
+
+(2) 由于该求积公式具有最高代数精确度为 2 次, 因此利用重节点差商作二次多项式 $ H(x) $, 满足 $ H\left(\frac{1}{5}\right)=f\left(\frac{1}{5}\right), H^{\prime}\left(\frac{1}{5}\right)=f^{\prime}\left(\frac{1}{5}\right), H(1)=f(1) $, 其余项为
+$$
+f(x)-H(x)=\frac{1}{3!} f^{\prime \prime \prime}(\xi)\left(x-\frac{1}{5}\right)^{2}(x-1)
+$$
+
+且满足 $ \int_{0}^{1} \frac{H(x)}{\sqrt{x}} d x=\frac{5}{3} H\left(\frac{1}{5}\right)+\frac{1}{3} H(1)=\frac{5}{3} f\left(\frac{1}{5}\right)+\frac{1}{3} f(1) $, 于是利用积分第二中值定理求积公式的截断误差为
+$$
+\begin{aligned}
+ \int_{0}^{1} \frac{f(x)}{\sqrt{x}} d x-\left[\frac{5}{3} f\left(\frac{1}{5}\right)+\frac{1}{3} f(1)\right] 
+= & \int_{0}^{1} \frac{f(x)}{\sqrt{x}} d x-\int_{0}^{1} \frac{H(x)}{\sqrt{x}} d x\\
+=&\int_{0}^{1} \frac{1}{3!} f^{\prime \prime \prime}(\xi)\left(x-\frac{1}{5}\right)^{2}(x-1) \frac{1}{\sqrt{x}} d x \\
+=&\frac{1}{6} f^{\prime \prime \prime}(\eta) \int_{0}^{1}\left(x-\frac{1}{5}\right)^{2}(x-1) \frac{1}{\sqrt{x}} d x \\
+=&\frac{1}{3} f^{\prime \prime \prime}(\eta) \int_{0}^{1}\left(t^{2}-\frac{1}{5}\right)^{2}\left(t^{2}-1\right) d t=-\frac{16}{1575} f^{\prime \prime \prime}(\eta), \quad \eta \in(0,1)
+\end{aligned}
+$$
+\end{tcolorbox}
+
+
+
+ \begin{tcolorbox}[enhanced,colback=10,colframe=9,breakable,coltitle=green!25!black,title=2024]
+试确定常数 $ A, B, C $ 和 $ x_{1} $, 使得求积公式 $\displaystyle \int_{0}^{1} f(x) d x \approx A f(0)+ $ $ B f\left(x_{1}\right)+C f(1) $ 具有尽可能高的代数精确度, 并指出所达到的最高代数精确度;它是否为 Gauss 型公式.
+\tcblower
+
+ 为使求积公式具有尽可能高的代数精确度, 依次将 $ f(x)=1, x, x^{2}, x^{3} $ 代 $ \lambda $ 求积公式得到
+$$
+\left\{\begin{array}{l}
+A+B+C=1=\int_{0}^{1} 1 d x, \\
+A \times 0+B x_{1}+C \times 1=B x_{1}+C=\frac{1}{2}=\int_{0}^{1} x d x, \\
+A \times 0^{2}+B x_{1}^{2}+C \times 1^{2}=B x_{1}^{2}+C=\frac{1}{3}=\int_{0}^{1} x^{2} d x, \\
+A \times 0^{3}+B x_{1}^{3}+C \times 1^{3}=B x_{1}^{3}+C=\frac{1}{4}=\int_{0}^{1} x^{3} d x
+\end{array}\right.
+$$
+解得 $ A=\frac{1}{6}, B=\frac{2}{3}, C=\frac{1}{6}, x_{1}=\frac{1}{2} $, 从而求积公式为
+$$
+\int_{0}^{1} f(x) d x \approx \frac{1}{6} f(0)+\frac{2}{3} f\left(\frac{1}{2}\right)+\frac{1}{6} f(-1)
+$$
+继续令 $ f(x)=x^{4} $ 代入得到
+$$
+\frac{1}{6} \times 0^{4}+\frac{2}{3} \times\left(\frac{1}{2}\right)^{4}+\frac{1}{6} \times 1^{4}=\frac{5}{24} \neq \frac{1}{5}=\int_{0}^{1} x^{4} d x 
+$$
+从而求积公式只具有 3 次代数精度, 而 Gauss 型求积公式需要达到 5 次, 因此该求积公式不是 Gauss 型求积公式.
+
+\end{tcolorbox}
+
+ 
+\begin{tcolorbox}[enhanced,colback=10,colframe=9,breakable,coltitle=green!25!black,title=2024]
+ 用复化 Simpson 公式计算: $\displaystyle \int_{0}^{\pi} \sin x d x $ 要使误差小于 0.005 , 求积区间 $ [0, \pi] $ 应分多少个子区间? 并用复化 Simpson 公式求此积分值.
+\tcblower
+ 由题意可知, $ f(x)=\sin x $, 则 $ f^{(4)}(x)=\sin x $, 步长 $ h=\frac{\pi}{n} $, 又由复合 Simpson 公式计算的误差为
+$$
+R_{n}(f)=-\frac{b-a}{2880} h^{4} f^{(4)}(\eta), \quad \eta \in[0, \pi]
+$$
+
+因此只要 $ \left|R_{n}(f)\right| \leqslant \frac{\pi}{2880}\left(\frac{\pi}{n}\right)^{4} \leqslant 0.005 $ 即可, 解得 $ n>2.147 $, 取 $ n=3 $ 此时
+$$
+\begin{aligned}
+S_{3}= & \frac{h}{6}\left[f(0)+2\left(f\left(\frac{\pi}{3}\right)+f\left(\frac{2 \pi}{3}\right)\right)\right. \\
+& \left.+4\left(f\left(\frac{\pi}{6}\right)+f\left(\frac{3 \pi}{6}\right)+f\left(\frac{5 \pi}{6}\right)\right)+f(\pi)\right] \approx 2.0008632
+\end{aligned}
+$$
+\end{tcolorbox}
+
+
+
+ \begin{tcolorbox}[enhanced,colback=10,colframe=9,breakable,coltitle=green!25!black,title=2024]
+ 给定积分 $ I=\displaystyle\int_{0}^{\frac{\pi}{2}} \sin x d x $, 则
+ 
+(1) 利用复化梯形公式计算上述积分值, 使其截断误差不超过 $ 0.5 \times 10^{-3} $.
+
+(2) 取同样的求积节点, 改用复化 Simpson 公式计算时, 截断误差是多少?
+
+(3) 如果要求截断误差不超过 $ 10^{-6} $, 那么使用复化 Simpson 公式计算时, 应将积分区间分成多少等份?
+\tcblower
+
+
+(1) 由 $ f(x)=\sin x, f^{\prime \prime}(x)=-\sin x $, 步长 $ h=\frac{\pi}{2 n} $, 又由复化梯形公式的余项
+$$
+R_{T_{n}}(f)=-\frac{(b-a)}{12} h^{2} f^{\prime \prime}(\eta), \quad \eta \in\left(0, \frac{\pi}{2}\right)
+$$
+因此只需满足
+$$
+\left|R_{T_{n}}(f)\right| \leqslant \frac{(b-a)}{12} h^{2}=\frac{\pi^{3}}{96 n^{2}} \leqslant 0.5 \times 10^{-3}
+$$
+解得 $ n \geqslant 25.6 $, 所以取 $ n=26 $. 此时步长为 $ h=\frac{\pi}{52} $, 且
+$$
+\mathrm{T}_{26}=\frac{h}{2}\left[f(0)+f\left(\frac{\pi}{2}\right)+2 \sum_{k=1}^{25} f\left(x_{k}\right)\right]=\frac{1}{2} \times \frac{\pi}{52}\left[0+1+2 \sum_{i=1}^{25} \sin \left(\frac{i \pi}{52}\right)\right] \approx 0.9465
+$$
+(2) 若 $ n=26 $, 步长 $ h=\frac{\pi}{52} $, 则由复化 Simpson 公式的余项
+$$
+R_{S_{n}}(f)=-\frac{b-a}{180}\left(\frac{h}{2}\right)^{4} f^{\prime \prime \prime}(\eta), \quad \eta \in\left(0, \frac{\pi}{2}\right)
+$$
+因此 $ \left|R_{S_{n}}(f)\right| \leqslant \frac{\pi}{2 \times 180}\left(\frac{1}{2} \times \frac{\pi}{52}\right)^{4} \approx 7 \times 10^{-9} $.
+
+(3)若使用复化 Simpson 公式计算时, 要求截断误差不超过 $ 10^{-6} $, 则只需满足
+$$
+\left|R_{S_{n}}(f)\right| \leqslant \frac{\pi}{2 \times 180}\left(\frac{1}{2} \times \frac{\pi}{2 n}\right)^{4} \leqslant 10^{-6}
+$$
+因此解得 $ n \geqslant 7.6 $, 取 $ n=8 $, 即应将积分区间分成 8 等份即可满足要求.
+\end{tcolorbox}

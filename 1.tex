@@ -1,0 +1,160 @@
+\newpage
+\section{数值分析第一次作业}
+\begin{tcolorbox}[breakable,enhanced,arc=0mm,outer arc=0mm,
+		boxrule=0pt,toprule=1pt,leftrule=0pt,bottomrule=1pt, rightrule=0pt,left=0.2cm,right=0.2cm,
+		titlerule=0.5em,toptitle=0.1cm,bottomtitle=-0.1cm,top=0.2cm,
+		colframe=white!10!biru,colback=white!90!biru,coltitle=white,
+            coltext=black,title =2024-03-05, title style={white!10!biru}, before skip=8pt, after skip=8pt,before upper=\hspace{2em},
+		fonttitle=\bfseries,fontupper=\normalsize]
+  
+1. 当 $ N $ 充分大时, 如何计算
+$$
+I=\int_{N}^{N+1} \frac{1}{1+x^{2}} d x .
+$$
+ \tcblower
+
+通过计算我们可知
+ $I= \displaystyle\int_{N}^{N+1} \frac{1}{1+x^{2}} d x=\arctan  x\bigr|_{N}^{N+1}=\arctan (N+1)-\arctan N$.
+
+而当$N$充分大的时候，上式右边两个数的值非常接近，在计算过程中两个近似数相减会使得有效数字的位数严重损失，为了避免此类情况，我们需要改变计算公式，于是我们改写成如下形式进行计算：
+$$
+I=\arctan (N+1)-\arctan N
+=\arctan \frac{N+1-N}{1+(N+1) N} 
+=\arctan \frac{1}{N^{2}+N+1}
+$$
+\end{tcolorbox}
+
+
+\begin{tcolorbox}[breakable,enhanced,arc=0mm,outer arc=0mm,
+		boxrule=0pt,toprule=1pt,leftrule=0pt,bottomrule=1pt, rightrule=0pt,left=0.2cm,right=0.2cm,
+		titlerule=0.5em,toptitle=0.1cm,bottomtitle=-0.1cm,top=0.2cm,
+		colframe=white!10!biru,colback=white!90!biru,coltitle=white,
+            coltext=black,title =2024-03-05, title style={white!10!biru}, before skip=8pt, after skip=8pt,before upper=\hspace{2em},
+		fonttitle=\bfseries,fontupper=\normalsize]
+  
+2. 当 $ x \gg 1 $ 时, 如何计算 $ \sqrt{x+\frac{1}{x}}-\sqrt{x-\frac{1}{x}} $
+ \tcblower
+ 
+同上，易知计算式改写成如下形式：
+$$ \sqrt{x+\frac{1}{x}}-\sqrt{x-\frac{1}{x}}=\frac{\left(x+\frac{1}{x}\right)-\left(x-\frac{1}{x}\right)}{\sqrt{x+\frac{1}{x}}+\sqrt{x-\frac{1}{x}}}=\frac{\frac{2}{x}}{\sqrt{x+\frac{1}{x}}+\sqrt{x-\frac{1}{x}}}=\frac{2}{\left(\sqrt{x+\frac{1}{x}}+\sqrt{x-\frac{1}{x}}\right)x} $$
+
+
+\end{tcolorbox}
+
+
+\begin{tcolorbox}[breakable,enhanced,arc=0mm,outer arc=0mm,
+		boxrule=0pt,toprule=1pt,leftrule=0pt,bottomrule=1pt, rightrule=0pt,left=0.2cm,right=0.2cm,
+		titlerule=0.5em,toptitle=0.1cm,bottomtitle=-0.1cm,top=0.2cm,
+		colframe=white!10!biru,colback=white!90!biru,coltitle=white,
+            coltext=black,title =2024-03-05, title style={white!10!biru}, before skip=8pt, after skip=8pt,before upper=\hspace{2em},
+		fonttitle=\bfseries,fontupper=\normalsize]
+  
+3. 数列 $ \left\{x_{n}\right\} $ 满足递推公式
+$$
+x_{n}=10 \cdot x_{n-1}-1, \quad(n=1,2, \cdots)
+$$
+这个算法稳定吗?
+ \tcblower
+
+一个数值方法如果输入数据有扰动 (即误差), 而在计算过程中由于舍人误差的传播, 造成计算结果与真值相差甚远, 则称这个数值方法是不稳定的或是病态的. 反之, 在计算过程中舍入误差能够得到控制, 不增长, 则称该数值方法是稳定的或良态的.
+
+不妨我们设 $ x_{0}=\sqrt{3} $为一个无限不循环小数, 由于计算机只能截取其前有限位数, 这样得到 $ x_{0} $ 经机器舍入的近似值 $ x_{0}^* $, 于是初始值存在误差 $ e_{0}=x_0-x_0^* $ .记 $ x_{n} $ 为利用初值 $ x_{0}^* $ 按所给公式计算的值, 并记 $ e_{n} =x_{n}-x_{n}^* $, 则递推可知：
+$$
+\begin{array}{l}
+x_{n}=10^{n} x_{0}-10^{n-1}-10^{n-2}-\cdots-1, \\
+x_{n}^*=10^{n} x_{0}^*-10^{n-1}-10^{n-2}-\cdots-1, \\
+e_{n}=x_{n}-x_{n}^*=10^{n}\left(x_{0}-x_{0}^*\right)=10^{n} e_{0} .
+\end{array}
+$$
+
+因此, 当初始值存在误差 $ e_{0} $ 时, 经 $ n $ 次递推计算后, 误差将扩大为 $ 10^{n} $ 倍, 这说明计算是不稳定的. 
+
+
+\end{tcolorbox}
+
+\newpage
+
+
+\begin{tcolorbox}[breakable,enhanced,arc=0mm,outer arc=0mm,
+		boxrule=0pt,toprule=1pt,leftrule=0pt,bottomrule=1pt, rightrule=0pt,left=0.2cm,right=0.2cm,
+		titlerule=0.5em,toptitle=0.1cm,bottomtitle=-0.1cm,top=0.2cm,
+		colframe=white!10!biru,colback=white!90!biru,coltitle=white,
+            coltext=black,title =2024-03-05, title style={white!10!biru}, before skip=8pt, after skip=8pt,before upper=\hspace{2em},
+		fonttitle=\bfseries,fontupper=\normalsize]
+  
+4. 为了使 $ \sqrt{11} $ 的近似值的相对误差不超过 $ 0.1 \% $, 至少应取几位有效数字
+ \tcblower
+ 设近似数 $ x^{*} $ 表示为
+$$
+x^{*}= \pm 10^{m} \times\left(a_{1}+a_{2} \times 10^{-1}+\cdots+a_{l} \times 10^{-(l-1)}\right),
+$$
+其中 $ a_{i}(i=1,2, \cdots, l) $ 是 0 到 9 中的一个数字, $ a_{1} \neq 0, m $ 为整数. 若 $ x^{*} $ 具有 $ n $ 位有效数字,则其相对误差限
+$$
+\varepsilon_{r}^{*} \leqslant \frac{1}{2 a_{1}} \times 10^{-(n-1)} 
+$$
+
+设取 $ n $ 位有效数字, 由上可知 $ \varepsilon_{r}^{*} \leqslant \frac{1}{2 a_{1}} \times 10^{-n+1} $. 由于 $ \sqrt{11}=3.3\cdots $,知 $ a_{1}=3 $, 
+
+$$
+\varepsilon_{r}\left(x^{*}\right) \leqslant \frac{1}{2 a_{1}} \times 10^{1-n}=\frac{1}{6} \times 10^{(1-n)}
+$$
+
+根据题意我们有 $ \frac{1}{6} \times 10^{1-n} \leqslant 0.1 \% $, 解得 $ n \geqslant 3.22 $, 故取$n=4$,即只要对 $ \sqrt{11} $ 的近似值取 4 位有效数字, 其相对误差限就小于 $ 0.1 \% $. 
+\end{tcolorbox}
+
+\begin{tcolorbox}[breakable,enhanced,arc=0mm,outer arc=0mm,
+		boxrule=0pt,toprule=1pt,leftrule=0pt,bottomrule=1pt, rightrule=0pt,left=0.2cm,right=0.2cm,
+		titlerule=0.5em,toptitle=0.1cm,bottomtitle=-0.1cm,top=0.2cm,
+		colframe=white!10!biru,colback=white!90!biru,coltitle=white,
+            coltext=black,title =2024-03-05, title style={white!10!biru}, before skip=8pt, after skip=8pt,before upper=\hspace{2em},
+		fonttitle=\bfseries,fontupper=\normalsize]
+  
+5. 利用计算机求 $ \sum\limits_{n=1}^{100} \dfrac{1}{n^{100}} $ 的值, 应按照 $ {n} $ 从小到大的顺序进行求和.该说法是$\underline{\hspace{1cm}}$的.（正确或者错误）
+ \tcblower
+错误的. 在计算机中进行浮点数运算时，由于浮点数的精度限制，当累加的数值差异较大时，可能会导致精度损失或者结果不准确. 显然，$n$ 从 1 取到 100的过程$ \dfrac{1}{n^{100}} $ 单调递减且它的值会变得非常接近于零，而且两两取值之间小数部分的差异非常大，100次的计算会使得其中的误差累积，导致在求和过程中丢失精度. 因此，在计算 $ \sum\limits_{n=1}^{100} \dfrac{1}{n^{100}} $ 这样的累加运算时，应该按照 $ n $ 从大到小的顺序进行求和，以避免大数吃掉小数导致精度损失.
+
+在连加运算中, 数据的排列顺序应由绝对值小的到绝对值大的, 即绝对值小的放在前面,绝对值大的放在后面.如果连加的数据很多,那么两种次序计算的结果就有可能相差很大.
+
+
+\end{tcolorbox}
+\newpage
+
+\begin{tcolorbox}[breakable,enhanced,arc=0mm,outer arc=0mm,
+		boxrule=0pt,toprule=1pt,leftrule=0pt,bottomrule=1pt, rightrule=0pt,left=0.2cm,right=0.2cm,
+		titlerule=0.5em,toptitle=0.1cm,bottomtitle=-0.1cm,top=0.2cm,
+		colframe=white!10!merah,colback=white!75!pink,coltitle=white, coltext=merahtua!80!merah,
+  title=2024-03-05,
+		title style={white!10!merah}, before skip=8pt, after skip=8pt,
+		fonttitle=\bfseries,fontupper=\normalsize]
+
+    6. Write a paper with respect to mathematics , you 
+can talk about your experience to study mathematics 
+and your consideration about the application of the 
+mathematics , and also you can write something about 
+the mathematical application in the major you study. 
+(with English at least 200 words)
+
+ \tcblower
+
+%关于数学写一篇论文，你可以谈谈自己学习数学的经历，以及对数学应用的考虑，还可以写一些关于你所学专业中数学应用的内容.（至少200字的英文）
+
+
+ %数学作为一门基础学科，对于培养逻辑思维、分析问题和解决问题的能力具有重要意义。数学是一门从小伴随着我的学科，也是一位忠实的伙伴。在小学阶段，我便对数学产生了浓厚的兴趣。通过学习简单的算术、几何和代数知识，逐渐培养了自己的逻辑思维和空间想象力。进入初中和高中后，数学课程逐渐深入，课程难度加大，我通过努力学习数学知识，为大学阶段的学习打下了坚实的基础。
+
+%在大学阶段，我选择了信息与计算科学这一门专业，进一步学习了数学分析、高等代数、抽象代数、概率论与数理统计等课程。通过学习这些课程，让我对数学的奥秘再次充满的了好奇。数学作为一门抽象的学科，探讨着自然界和人类思维的规律，揭示着宇宙的奥秘。数学不仅仅是一种工具，更是一种思维方式和解决问题的方法。
+
+%在大学数学中，我接触到许多特别的概念和定理，如连续、极限、向量空间、群论、可测等。这些概念和定理不仅具有美学上的价值，更在科学、工程、经济等领域发挥着重要作用。我也在学习的过程中亲自去实践它的应用，在多次数学建模竞赛中，借助数学理论去解决实际问题。日常生活里常见的二维码中蕴含着大量的数学方法，如二维码使用特定的编码方式来存储信息，如数字、字母或二进制数据。这涉及到将原始数据转换为适合二维码格式的过程，通常包括数据的压缩和错误检测与纠正码的添加。线性代数：在二维码的纠错码中，如Reed-Solomon码，会用到线性代数中的多项式运算和矩阵运算。这些运算用于在编码过程中添加冗余信息，以及在解码过程中恢复可能受损的数据。组合数学：二维码的设计涉及到组合数学，尤其是在安排二维码中的各个模块（即小的方形黑白单元）时。这包括计算不同的排列组合，以确保二维码能够被正确扫描和解读。信息论：信息论中的概念，如熵、信息量和信道容量，在设计和分析二维码时起着重要作用。这些概念帮助确定二维码的存储效率和错误纠正能力。数字逻辑：二维码的生成和解码过程中，涉及到数字逻辑运算，如布尔运算和位操作，用于处理二进制数据。概率论和统计：在二维码的纠错过程中，概率论和统计方法用于评估错误发生的概率，并确定如何在编码过程中分配冗余信息以最大化纠错能力。
+
+%总之，数学不仅是科学研究的工具，也是人类理解世界、解决实际问题、创造新技术和推动社会进步的关键。随着技术的发展和社会的进步，数学的重要性日益凸显。
+
+\hspace{2em}As a fundamental discipline, mathematics plays a crucial role in cultivating logical thinking, analyzing and solving problems. Mathematics has been a subject that has accompanied me since childhood, serving as a loyal companion. In primary school, I developed a strong interest in mathematics. By learning basic arithmetic, geometry, and algebra, I gradually nurtured my logical thinking and spatial imagination. As I progressed to middle and high school, the mathematics curriculum delved deeper and became more challenging. Through diligent study of mathematical concepts, I laid a solid foundation for my university studies.
+
+\hspace{2em}During my university years, I chose to major in Information and Computer Science, where I further studied courses such as mathematical analysis, advanced algebra, abstract algebra, probability theory, and mathematical statistics. Studying these courses reignited my curiosity for the mysteries of mathematics. As an abstract discipline, mathematics explores the laws of nature and human thought, revealing the secrets of the universe. Mathematics is not just a tool but also a way of thinking and a method for problem-solving.
+
+\hspace{2em}In university mathematics, I encountered many special concepts and theorems, such as continuity, limits, vector spaces, group theory, and measurability. These concepts and theorems not only hold aesthetic value but also play crucial roles in fields such as science, engineering, and economics. I personally applied these theories in practice during various mathematical modeling competitions, using mathematical principles to solve real-world problems. Everyday examples like QR codes involve a wealth of mathematical methods, where specific encoding techniques are used to store information such as numbers, letters, or binary data. This process involves converting raw data into a format suitable for QR codes, typically including data compression and the addition of error-detecting and error-correcting codes. Linear algebra: In error correction codes for QR codes, such as Reed-Solomon codes, polynomial operations and matrix operations from linear algebra are utilized. These operations are used to add redundant information during the encoding process and to recover potentially damaged data during the decoding process. 
+%Combinatorics: The design of QR codes involves combinatorial mathematics, especially in arranging the various modules (small square black-and-white units) within the QR code. This includes calculating different permutations and combinations to ensure that the QR code can be scanned and interpreted correctly. 
+Information theory: Concepts from information theory, such as entropy, information content, and channel capacity, play a significant role in the design and analysis of QR codes. These concepts help determine the storage efficiency and error correction capabilities of QR codes. Digital logic: The generation and decoding processes of QR codes involve digital logic operations, such as Boolean operations and bitwise operations, used for handling binary data. Probability theory and statistics: In the error correction process of QR codes, probability theory and statistical methods are used to assess the probability of errors occurring and to determine how to allocate redundant information during the encoding process to maximize error correction capabilities.
+
+\hspace{2em}In conclusion, mathematics is not only a tool for scientific research but also a key to human understanding of the world, solving practical problems, creating new technologies, and driving social progress. With technological advancements and societal progress, the importance of mathematics is increasingly prominent.
+
+\end{tcolorbox}

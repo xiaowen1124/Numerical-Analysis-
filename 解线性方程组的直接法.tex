@@ -1,0 +1,615 @@
+\newpage
+\section{解线性方程组的直接法}
+\subsection{知识点概述}
+
+\textcolor{blue}{1. Gauss 消去法}
+
+设 $ A x=b, A \in \mathbf{R}^{n \times n} $, 若 $ A $ 的所有顺序主子式均不为零, 则 Gauss 消元无须换行即可进行到底, 得到唯一解. Gauss 消去法求解 $ n $ 个变量的方程组计算量是 $ O\left(\frac{n^{3}}{3}\right) $.
+
+列主元 Gauss 消去法: 为了克服小数作除这种现象, 要求在计算时每一步先进行行交换, 再进行消元, 即变换到第 $ k $ 步时, 从第 $ k $ 列的 $ a_{k k}^{(k)} $ 及以下的各元素中选出绝对值最大者, 然后通过行变换将它交换到主元素 $ a_{k k}^{(k)} $ 的位置上, 再用其消去主对角线以下的其他元素, 最后变为同解的上三角方程组.
+
+\textcolor{blue}{2. 矩阵三角分解}
+
+设 $ A \in \mathbf{R}^{n \times n} $, 若矩阵 $ A $ 非奇异, 且各阶顺序主子式均不为零, 则存在唯一的单位下三角矩阵 $ L $ 和上三角矩阵 $ U $, 使得 $ A=L U $.
+
+\colorbox{yellow}{(1) Doolittle 分解}
+
+设 $ A=\left[a_{i j}\right] \in \mathbf{R}^{n \times n} $, 单位下三角矩阵 $ L=\left[l_{i j}\right] \in \mathbf{R}^{n \times n} $, 上三角矩阵 $ U= $ $ \left[u_{i j}\right] \in \mathbf{R}^{n \times n} $, 则
+$$
+\left[\begin{array}{cccc}
+a_{11} & a_{12} & \cdots & a_{1 n} \\
+a_{21} & a_{22} & \cdots & a_{2 n} \\
+\vdots & \vdots & \ddots & \vdots \\
+a_{n 1} & a_{n 2} & \cdots & a_{n n}
+\end{array}\right]=\left[\begin{array}{cccc}
+1 & & & \\
+l_{21} & 1 & & \\
+\vdots & \vdots & \ddots & \\
+l_{n 1} & l_{n 2} & \cdots & 1
+\end{array}\right]\left[\begin{array}{cccc}
+u_{11} & u_{12} & \cdots & u_{1 n} \\
+& u_{22} & \cdots & u_{2 n} \\
+& & \ddots & \vdots \\
+& & & u_{n n}
+\end{array}\right]
+$$
+由矩阵乘法并令两边矩阵对应元素相等, 可得
+$$
+\left\{\begin{array}{ll}
+u_{i j}=a_{i j}-\sum\limits_{k=1}^{i-1} l_{i k} u_{k j}, & j=i, i+1, \cdots, n \\
+l_{i j}=\left(a_{i j}-\sum\limits_{k=1}^{j-1} l_{i k} u_{k j}\right) / u_{j j}, & i=j+1, \cdots, n
+\end{array}\right.
+$$
+交替使用上面两式可逐步求出 $ U $ (按行) 和 $ L $ (按列) 的全部元素, 这就完成了 $ A $ 的 Doolittle 分解的计算过程.
+
+\colorbox{yellow}{(2) Crout 分解}
+
+设 $ A=\left[a_{i j}\right] \in \mathbf{R}^{n \times n} $, 下三角矩阵 $ \tilde{L}=\left[\tilde{l}_{i j}\right] \in \mathbf{R}^{n \times n} $, 单位上三角矩阵 $ \tilde{U}= $ $ \left[u_{i j}\right] \in \mathbf{R}^{n \times n} $, 则
+$$
+\left[\begin{array}{cccc}
+a_{11} & a_{12} & \cdots & a_{1 n} \\
+a_{21} & a_{22} & \cdots & a_{2 n} \\
+\vdots & \vdots & \ddots & \vdots \\
+a_{n 1} & a_{n 2} & \cdots & a_{n n}
+\end{array}\right]=\left[\begin{array}{cccc}
+\tilde{l}_{11} & & & \\
+\tilde{l}_{21} & \tilde{l}_{22} & & \\
+\vdots & \vdots & \ddots & \\
+\tilde{l}_{n 1} & \tilde{l}_{n 2} & \cdots & \tilde{l}_{n n}
+\end{array}\right]\left[\begin{array}{cccc}
+1 & u_{12} & \cdots & u_{1 n} \\
+& 1 & \cdots & u_{2 n} \\
+& & \ddots & \vdots \\
+& & & 1
+\end{array}\right]
+$$
+由矩阵乘法并令两边矩阵对应元素相等, 可得
+$$
+\left\{\begin{array}{ll}
+u_{i j}=\left(a_{i j}-\sum\limits_{t=1}^{k-1} l_{i t} u_{t j}\right) / l_{i i}, & j=i+1, \cdots, n ; i=1,2, \cdots, n, \\
+l_{j i}=a_{j i}-\sum\limits_{t=1}^{k-1} l_{j t} u_{t j}, & j=i+1, \cdots, n ; i=1,2, \cdots, n
+\end{array}\right.
+$$
+交替使用上面两式可逐步求出和 $ U $ 的全部元素, 这就完成了 $ A $ 的 Crout 分解的计算过程.
+
+\colorbox{yellow}{(3) 列主元三角分解}
+
+设 $ A \in \mathbf{R}^{n \times n} $, 若矩阵 $ A $ 非奇异, 则存在排列阵 $ P $, 单位下三角矩阵 $ L $ 和上三角矩阵 $ U $, 使得 $ P A=L U $.
+
+\textcolor{blue}{3. 矩阵三角分解的线性方程组求解}
+
+如果对线性方程组 $ A x=b $ 的系数矩阵 $ A $ 能进行 $ {LU} $ 分解, 即 $ A=L U $, 则求解线性方程组就转化为求解线性方程组 $ L U x=b $, 若令 $ U x=y, L y=b $, 从而原方程组求解等价为下面线性方程组的求解 $$ \left\{\begin{array}{l}L y=b, \\ U x=y,\end{array}\right. $$ 注意到这两个方程组的系数矩阵都是三角形的, 直接利用回代过程即可获得方程组的解, 具体为
+
+\textbf{第 1 步:} 解方程组 $ L y=b $, 计算公式为 $ \left\{\begin{array}{l}y_{1}=b_{1}, \\ y_{i}=b_{i}-\sum\limits_{k=1}^{i-1} l_{i k} y_{k}, \quad i=2,3, \cdots, n .\end{array}\right. $
+
+\textbf{第 2 步:} 解方程组 $ U x=y $, 计算公式为 $ \left\{\begin{array}{l}x_{n}=y_{n} / u_{n n}, \\ x_{i}=\left(y_{i}-\sum\limits_{k=i+1}^{n} u_{i k} x_{k}\right) / u_{i i}\end{array}\right. $ $ i=n-1, \cdots, 2,1 $. 同样对于列主元的三角分解, 只需对方程组 $ A x=b $ 左乘 $ P $ 得到 $ P A x=P b $, 得到 $ L U x=P b $, 从而原方程组求解等价为下面线性方程组的求解 $ \left\{\begin{array}{l}L y=P b, \\ U x=y,\end{array}\right. $ 但在实际处理中我们要注意到, $ P $ 的形式只有实际完成了约化才能得到, 所以这个结果并不实用.
+
+\textcolor{blue}{4. 三对角方程组的追赶法}
+
+把如下形式的线性方程组
+$$
+\left[\begin{array}{ccccc}
+b_{1} & c_{1} & & & \\
+a_{2} & b_{2} & c_{2} & & \\
+& \ddots & \ddots & \ddots & \\
+& & a_{n-1} & b_{n-1} & c_{n-1} \\
+& & & a_{n} & b_{n}
+\end{array}\right]\left[\begin{array}{c}
+x_{1} \\
+x_{2} \\
+\vdots \\
+x_{n-1} \\
+x_{n}
+\end{array}\right]=\left[\begin{array}{c}
+d_{1} \\
+d_{2} \\
+\vdots \\
+d_{n-1} \\
+d_{n}
+\end{array}\right]
+$$
+简记为 $ A x=d $, 该方程组称为三对角方程组, 若其系数矩阵 $ A $ 满足条件
+$$
+\left\{\begin{array}{l}
+\left|b_{1}\right|>\left|c_{1}\right|>0, \\
+\left|b_{i}\right| \geqslant\left|a_{i}\right|+\left|c_{i}\right|, \quad a_{i}, c_{i} \neq 0, i=2,3, \cdots, n-1 \\
+\left|b_{n}\right|>\left|a_{n}\right|>0,
+\end{array}\right.
+$$
+则称 $ A $ 为三对角占优矩阵, 此时可以进行 $ {LU} $ 分解 (不唯一), 需要注意的是若矩阵不满足三对角占优分解也有可能存在, 现将系数矩阵 $ A $ 进行 Doolittle 分解, 即 $ A $ 分解为单位下三角矩阵和上三角矩阵的乘积
+$$
+A=\left[\begin{array}{ccccc}
+b_{1} & c_{1} & & & \\
+a_{2} & b_{2} & c_{2} & & \\
+& \ddots, & \ddots & \ddots & \\
+& & a_{n-1} & b_{n-1} & c_{n-1} \\
+& & & a_{n} & b_{n}
+\end{array}\right]=\left[\begin{array}{ccccc}
+1 & & & & \\
+l_{2} & 1 & & & \\
+& \ddots & \ddots & & \\
+& & \ddots & 1 & \\
+& & & l_{n} & 1
+\end{array}\right]\left[\begin{array}{ccccc}
+u_{1} & c_{1} & & & \\
+& u_{2} & c_{2} & & \\
+& & \ddots & \ddots & \\
+& & & u_{n-1} & c_{n-1} \\
+& & & & u_{n}
+\end{array}\right]
+$$
+直接利用矩阵乘法公式可得
+
+求解线性方程组 $ A x=d $ 等价于求解 $ L y=d $ 和 $ U x=y $, 因而得到解三对角方程组的追赶法公式.
+
+\textbf{(1)} 解 $ L y=d $, 求得 $ \left\{\begin{array}{l}y_{1}=d_{1}, \\ y_{i}=\left(d_{i}-l_{i} y_{i-1}\right),\end{array} i=2,3, \cdots, n\right. $.
+
+\textbf{(2)} 解 $ U x=y $, 求得 $ \left\{\begin{array}{l}x_{n}=y_{n} / u_{n}, \\ x_{i}=\left(y_{i}-c_{i} x_{i+1}\right) / u_{i},\end{array} i=n-1, \cdots, 1\right. $.
+
+整个求解过程是先计算 $ \beta_{1} \rightarrow \beta_{2} \rightarrow \cdots \rightarrow \beta_{n-1} $ 和 $ y_{1} \rightarrow y_{2} \rightarrow \cdots \rightarrow y_{n} $, 这个过程称为 “追” 的过程, 再求出 $ x_{n} \rightarrow x_{n-1} \rightarrow \cdots \rightarrow x_{1} $, 这个过程是往回 “赶” 的过程. 因此上述解法通常称为追赶法, 或称 Thomas 方法可以验证, 追赶法只用了 $ 5 n-4 $ 次乘除法运算, 计算量只是 $ O(n) $, 而通常方程组求解计算量为 $ O\left(n^{3}\right) $, 追赶法是一种计算量少而数值稳定的方法.
+
+
+\textcolor{blue}{5. Cholesky 分解}
+
+设 $ A \in \mathbf{R}^{n \times n} $ 为对称矩阵, 且 $ A $ 各阶顺序主子式均不为零, 则 $ A $ 可唯一分解为
+$$
+A=L D L^{\mathrm{T}}
+$$
+其中, $ L $ 为单位下三角矩阵, $ D $ 为对角矩阵.
+(Cholesky 分解) 若 $ A \in \mathbf{R}^{n \times n} $ 对称正定, 则存在唯一的对角元素为正的下三角矩阵 $ L $, 使得 $ A=L L^{\mathrm{T}} $.
+利用矩阵乘法, 具体实现过程如下:
+$$
+A=L L^{\mathrm{T}}=\left[\begin{array}{cccc}
+l_{11} & & & \\
+l_{21} & l_{22} & & \\
+\vdots & & \ddots & \\
+l_{n 1} & l_{n 2} & \cdots & l_{n n}
+\end{array}\right]\left[\begin{array}{cccc}
+l_{11} & l_{21} & \cdots & l_{n 1} \\
+& l_{22} & \cdots & l_{n 2} \\
+& & \ddots & \vdots \\
+& & & l_{n n}
+\end{array}\right]
+$$
+比较矩阵两端对应元素, 得到计算矩阵 $ L $ 的计算公式为
+$$
+\left\{\begin{array}{ll}
+l_{i i}=\left(a_{i i}-\sum\limits_{k=1}^{i-1} l_{i k}^{2}\right)^{\frac{1}{2}}, & i=1,2, \cdots, n \\
+l_{i j}=\left(a_{i j}-\sum\limits_{k=1}^{i-1} l_{i k} l_{j k}\right) / l_{j j}, & i=j+1, j+2, \cdots, n
+\end{array}\right.
+$$
+由于在计算中涉及求开平方运算, 我们也经常称该分解方法为平方根法. 于是求解线性方程组 $ A x=b $ 等价于求解下面两个三角形方程组:
+
+\textbf{(1)} $ L y=b $, 求得 $ y_{i}=\left(b_{i}-\sum\limits_{j=1}^{i-1} l_{i j} y_{j}\right) / l_{i i}, i=1,2, \cdots, n $.
+
+\textbf{(2)} $ L^{\mathrm{T}} x=y $, 求得 $ x_{i}=\left(y_{i}-\sum\limits_{j=i+1}^{n} l_{j i} x_{j}\right) / l_{i i}, i=n, n-1, \cdots, 1 $.
+
+因为考虑了系数矩阵 $ A $ 的对称性质, 平方根法运算量大约是 Doolittle 分解方法的一半, 且由 $ a_{i i}=\sum\limits_{j=1}^{i} l_{i j}^{2}, i=1,2, \cdots, n $, 所以 $ l_{i j}^{2} \leqslant a_{i i} \leqslant \max\limits _{1 \leqslant k \leqslant n}\left\{a_{k k}\right\} $, 于是
+$$
+\max _{1 \leqslant k, j \leqslant n}\left\{l_{k j}^{2}\right\} \leqslant \max _{1 \leqslant k \leqslant n}\left\{a_{k k}\right\} .
+$$
+
+说明矩阵 $ A $ 的 Cholesky 分解过程中的中间量 $ l_{k j} $ 的数量级完全得到了控制,且对角元素 $ l_{j j}>0 $, 因此分解过程中可以不必选主元, 计算实践也表明不选主元已经有足够的精度, 所以对称正定矩阵的平方根法是目前解决这类问题的最有效的方法之一, 且当 $ n $ 较大时, 约需 $ O\left(\frac{n^{3}}{6}\right) $ 次乘除法运算, 相当于 Gauss 消去法计算量的一半, 并且数值稳定、储存量小, 但利用平方根法解对称正定线性方程组时, 计算矩阵 $ L $ 的元素 $ l_{i j} $ 时, 需要进行开方运算, 为了避免开方, 使用分解式 $ A=L D L^{\mathrm{T}} $ 来计算, 称为改进平方根法, 计算描述如下
+
+$$
+\begin{aligned}
+A & =\left[\begin{array}{cccc}
+1 & & & \\
+l_{21} & 1 & & \\
+\vdots & \vdots & \ddots & \\
+l_{n 1} & l_{n 2} & \cdots & 1
+\end{array}\right]\left[\begin{array}{llll}
+d_{1} & & & \\
+& d_{2} & & \\
+& & \ddots & \\
+& & & d_{n}
+\end{array}\right]\left[\begin{array}{cccc}
+1 & l_{21} & \cdots & l_{n 1} \\
+& 1 & \cdots & l_{n 2} \\
+& & \ddots & \vdots \\
+& & & 1
+\end{array}\right] \\
+& =\left[\begin{array}{ccccc}
+d_{1} & & & \\
+t_{21} & d_{2} & & \\
+\vdots & & \ddots & \\
+t_{n 1} & t_{n 2} & \cdots & d_{n}
+\end{array}\right]\left[\begin{array}{cccc}
+1 & l_{21} & \cdots & l_{n 1} \\
+& 1 & \cdots & l_{n 2} \\
+& & \ddots & \vdots \\
+& & & 1
+\end{array}\right]
+\end{aligned}
+$$
+其中, $ t_{i j}=l_{i j} d_{i}(j<i) $. 由矩阵乘法, 比较等式两边, 按行计算两个矩阵中的元素,对于 $ i=2,3, \cdots, n $, 有
+$$
+\left\{\begin{array}{ll}
+d_{1}=a_{11}, & \\
+t_{i j}=a_{i j}-\sum\limits_{k=1}^{j-1} t_{i k} l_{j k}, & j=2,3, \cdots, i-1 \\
+l_{i j}=t_{i j} / d_{j}, & j=1,2, \cdots, i-1 \\
+d_{i}=a_{i i}-\sum\limits_{k=1}^{i-1} t_{i k} l_{i k}, &
+\end{array}\right.
+$$
+这时求解线性方程组 $ A x=b $ 等价于求解下面两个方程组:
+
+\textbf{(1)} $ L y=b $, 求得 $ y_{i}=b_{i}-\sum\limits_{k=1}^{i-1} l_{i k} y_{k}, i=1,2, \cdots, n $.
+
+\textbf{(2)} $ D L^{\mathrm{T}} x=y $, 求得 $ x_{i}=\dfrac{y_{i}}{d_{i}}-\sum\limits_{k=i+1}^{n} l_{k i} x_{k}, i=n, n-1, \cdots, 1 $.
+
+\textcolor{blue}{6. 病态方程组}
+
+如果矩阵 $ A $ 或右端向量 $ b $ 的微小变化, 引起方程组 $ A x=b $ 的解的巨大变化,则称此线性方程组为 “病态” 方程组, 矩阵 $ A $ 称为病态矩阵, 否则称此线性方程组为 “良态” 方程组, $ A $ 称为良态矩阵.
+
+\textcolor{blue}{7. 病态线性方程组误差分析}
+
+(1) 常数项 $ b $ 的扰动
+
+设 $ A $ 为精确数据, $ b $ 有扰动 $ \delta b $, 得到的解为 $ x+\delta x $, 则
+$$
+\frac{\|\delta x\|}{\|x\|} \leqslant\left\|A^{-1}\right\| \cdot\|A\| \cdot \frac{\|\delta b\|}{\|b\|}
+$$
+
+(2) 系数矩阵 $ A $ 的扰动
+
+设 $ b $ 为精确数据, 系数矩阵 $ A $ 有扰动 $ \delta A $, 得到的解为 $ x+\delta x $, 则
+$$
+\frac{\|\delta x\|}{\|x\|} \leqslant \frac{\|A\| \cdot\left\|A^{-1}\right\| \cdot \frac{\|\delta A\|}{\|A\|}}{1-\|A\| \cdot\left\|A^{-1}\right\| \cdot \frac{\|\delta A\|}{\|A\|}}
+$$
+
+(3) 系数矩阵 $ A $ 与常数项 $ b $ 同时扰动
+
+设 $ A \in \mathbf{R}^{n \times n} $, 为非奇异矩阵, $ A x=b \neq 0 $, 且 $ (A+\delta A)(x+\delta x)=b+\delta b $, 惹果 $ \left\|A^{-1}\right\| \cdot\|\delta A\|<1 $, 则
+$$
+\frac{\|\delta x\|}{\|x\|} \leqslant \frac{\|A\| \cdot\left\|A^{-1}\right\|}{1-\left\|A^{-1}\right\| \cdot\|\delta A\|}\left(\frac{\|\delta A\|}{\|A\|}+\frac{\|\delta b\|}{\|b\|}\right)
+$$
+
+\textcolor{blue}{8. 矩阵条件数}
+
+若 $ A \in \mathbf{R}^{n \times n} $, 且 $ A $ 非奇异, 则对任何一种算子范数 $ \|\cdot\| $, 则 $ \operatorname{cond}(A)= $ $ \|A\| \cdot\left\|A^{-1}\right\| $, 称为矩阵 $ A $ 的条件数.
+
+从定义看到, 矩阵条件数依赖于范数的选取, 若算子范数取为 1 -范数, 则记为 $ \operatorname{cond}(A)_{1}=\|A\|_{1} \cdot\left\|A^{-1}\right\|_{1} $, 同理有 $ \operatorname{cond}(A)_{2} $ 和 $ \operatorname{cond}(A)_{\infty} $.
+
+容易验证矩阵的条件数有如下的性质, 其中假设 $ \operatorname{det}(A) \neq 0 $.
+
+(1) $ \operatorname{cond}(A) \geqslant 1, \operatorname{cond}(A)=\operatorname{cond}\left(A^{-1}\right) $.
+
+(2) $ \operatorname{cond}(a A)=\operatorname{cond}(A), \forall a \in \mathbf{R} $, 且 $ a \neq 0 $.
+
+(3) 若 $ A $ 为正交阵, 则 $ \operatorname{cond}(A)_{2}=1 $.
+
+(4) 若 $ U $ 为正交阵, 则 $ \operatorname{cond}(A)_{2}=\operatorname{cond}(A U)_{2}=\operatorname{cond}(U A)_{2} $.
+
+(5) $ \operatorname{cond}(A)_{2}=\|A\|_{2}\left\|A^{-1}\right\|_{2} $ 为 $ A $ 的谱条件数, 且有如下结论:\\
+(a) $ \operatorname{cond}(A)_{2}=\|A\|_{2}\left\|A^{-1}\right\|_{2}=\sqrt{\frac{\lambda_{\max }\left(A^{\mathrm{T}} A\right)}{\lambda_{\min }\left(A^{\mathrm{T}} A\right)}} $;\\
+(b) 若 $ A $ 为对称阵, 则 $ \operatorname{cond}(A)_{2}=\frac{\left|\lambda_{1}\right|}{\left|\lambda_{n}\right|} $, 其中 $ \lambda_{1} $ 与 $ \lambda_{n} $ 为 $ A $ 的按模最大和最小的特征值;\\
+(c) 若 $ A $ 对称正定, 且 $ \lambda_{1} $ 与 $ \lambda_{n} $ 分别为 $ A $ 的最大和最小特征值, 则 $ \operatorname{cond}(A)_{2}= $ $ \frac{\lambda_{1}}{\lambda_{n}} $
+
+\subsection{补充}
+\subsubsection{杜里特尔分解定理}
+把 $ \boldsymbol{A} $ 分解成一个单位下三角阵 $ \boldsymbol{L} $ 和一个上三角阵 $ \boldsymbol{U} $ 的乘积称为杜里特尔分解.把 $ \boldsymbol{A} $ 分解成一个下三角阵 $ \boldsymbol{L} $ 和一个单位上三角阵 $ \boldsymbol{U} $ 的乘积称为克洛特分解.
+
+下面给出杜里特尔分解的可分唯一的充分条件.
+
+\begin{tcolorbox}[enhanced,colback=2,colframe=1,breakable,coltitle=black,title=$LU$分解定理]
+ 矩阵 $ A $ 各阶主子式不为零, 则可唯一地分解成一个单位下三角阵 $ L $ 和一个非奇异的上三角阵 $ U $ 的乘积.
+ \end{tcolorbox}
+证: 高斯消去法的矩阵描述已表明 $ A=L U $ 的存在性.
+
+再证 $ A $ 的 ${LU} $ 分解唯一.设 $ \boldsymbol{A} $ 有两种 $ {LU} $ 分解
+$$
+\boldsymbol{A}=\boldsymbol{L} \boldsymbol{U}=\bar{\boldsymbol{L}} \bar{\boldsymbol{U}}
+$$
+因为 $ |\boldsymbol{A}| \neq 0 $, 则 $ \boldsymbol{L}, \boldsymbol{U}, \bar{\boldsymbol{L}}, \bar{\boldsymbol{U}} $ 均为非奇异矩阵, 有
+$$
+\bar{\boldsymbol{L}}^{-1} \boldsymbol{L}=\bar{\boldsymbol{U}} \boldsymbol{U}^{-1}
+$$
+上式左端为单位下三角阵, 右端是上三角阵, 由矩阵相等, 它们只能都是 $ n $ 阶单位阵, 即
+$$
+\bar{\boldsymbol{L}}^{-1} \boldsymbol{L}=\boldsymbol{I}, \bar{\boldsymbol{U}} \boldsymbol{U}^{-1}=\boldsymbol{I}
+$$
+故有 $ \boldsymbol{L}=\bar{\boldsymbol{L}}, \boldsymbol{U}=\bar{\boldsymbol{U}} $, 从而唯一性得证.
+
+定理中各阶主子式不为零也可说成顺序主子阵非奇异.上述分解即是杜里特尔分解, 对于克洛特分解所需条件也是一样的.
+
+定理中的条件是顺序主子阵非奇异, 因为非奇异矩阵就不一定存在 $ \mathrm{LU} $ 分解, 设
+$
+\boldsymbol{A}=\left(\begin{array}{ll}
+0 & 1 \\
+1 & 0
+\end{array}\right)
+$
+则 $ \mid \boldsymbol{A} \models-1 \neq 0, \boldsymbol{A} $ 非奇异.若 $ \boldsymbol{A} $ 有 $ \mathrm{LU} $ 分解, 即存在数 $ a, b, c, d $, 使
+$
+\left(\begin{array}{ll}
+0 & 1 \\
+1 & 0
+\end{array}\right)=\left(\begin{array}{ll}
+1 & \\
+a & 1
+\end{array}\right)\left(\begin{array}{ll}
+b & d \\
+& c
+\end{array}\right)
+$.
+比较等式两边第 1 列, 有
+$
+b=0, a b=1
+$
+上两式不能同时成立, 即 $ \boldsymbol{A} $ 不存在 $ \mathrm{LU} $ 分解.
+
+
+\subsubsection{ 对称正定矩阵的乔累斯基分解}
+正定矩阵对称且顺序主子式为正, 因此满足三角分解条件.
+\begin{tcolorbox}[enhanced,colback=2,colframe=1,breakable,coltitle=black,title=定理]
+对称正定矩阵 $ \boldsymbol{A} $ 存在唯一的单位下三角矩阵 $ \boldsymbol{L} $ 和对角矩阵 $ \boldsymbol{D} $, 使
+$$
+\boldsymbol{A}=\boldsymbol{L} \boldsymbol{D} \boldsymbol { L } ^ { \mathrm { T } }
+$$
+\end{tcolorbox}
+证: $ \boldsymbol{A} $ 对称正定, 故顺序主子式
+$$
+\left|\boldsymbol{A}_{i}\right|>0, i=1,2, \cdots, n
+$$
+有唯一的杜里特尔分解
+$$
+\boldsymbol{A}=\boldsymbol{L} \boldsymbol{U}
+$$
+其中 $ \boldsymbol{L} $ 单位下三角矩阵, $ \boldsymbol{U} $ 上三角矩阵.
+设矩阵 $ \boldsymbol{U} $ 的对角元素为 $ u_{i i}, i=1,2, \cdots, n $, 并以 $ \boldsymbol{A}_{i}, \boldsymbol{L}_{i}, \boldsymbol{U}_{i} $ 依次表示矩阵 $ \boldsymbol{A}, \boldsymbol{L}, \boldsymbol{U} $的 $ i $ 阶顺序主子阵, 则
+$$
+\left|\boldsymbol{A}_{i}\right|=\left|\boldsymbol{L}_{i} \boldsymbol{U}_{i}\right|=\left|\boldsymbol{L}_{i}\right|\left|\boldsymbol{U}_{i}\right|=u_{11} u_{22} \cdots u_{i i}, i=1,2, \cdots, n
+$$
+于是 $ u_{i i}>0, i=1,2, \cdots, n $ .
+
+用 $ \boldsymbol{D} $ 表示以 $ u_{i i}(i=1,2, \cdots, n) $ 为对角元素的对角矩阵, 则
+$$
+\boldsymbol{A}=\boldsymbol{L} \boldsymbol{U}=\boldsymbol{L} \boldsymbol{D} \boldsymbol{D}^{-1} \boldsymbol{U}=\boldsymbol{L} \boldsymbol{D}\left(\boldsymbol{D}^{-1} \boldsymbol{U}\right)
+$$
+其中 $ \boldsymbol{D}^{-1} \boldsymbol{U} $ 是单位上三角矩阵.
+
+由于 $ \boldsymbol{A}=\boldsymbol{A}^{\mathrm{T}} $, 有
+$$
+\boldsymbol{A}=\boldsymbol{A}^{\mathrm{T}}=\left(\boldsymbol{D}^{-1} \boldsymbol{U}\right)^{\mathrm{T}} \boldsymbol{D} \boldsymbol{L}^{\mathrm{T}}
+$$
+式中 $ \left(\boldsymbol{D}^{-1} \boldsymbol{U}\right)^{\mathrm{T}} $ 是单位下三角矩阵, 由 $ \mathrm{LU} $ 分解的唯一性, 比较上两式, 有
+$$
+\boldsymbol{L}=\left(\boldsymbol{D}^{-1} \boldsymbol{U}\right)^{\mathrm{T}} \quad 
+\boldsymbol{D}^{-1} \boldsymbol{U}=\boldsymbol{L}^{\mathrm{T}}
+$$
+因此矩阵 $ \boldsymbol{A} $ 可唯一分解为
+$$
+\boldsymbol{A}=\boldsymbol{L} \boldsymbol{D L ^ { \mathrm { T } }}
+$$
+定理得证.
+
+又由 $ u_{i i}>0 $ 知 $ \boldsymbol{D} $ 可唯一地分解为 $ \boldsymbol{D}=\boldsymbol{D}^{\frac{1}{2}} \boldsymbol{D}^{\frac{1}{2}} $, 其中
+$$
+\begin{array}{c}
+\boldsymbol{D}^{\frac{1}{2}}=\left(\begin{array}{ccc}
+\sqrt{u_{11}} & & \\
+& \ddots & \\
+& & \sqrt{u_{n n}}
+\end{array}\right) \quad \boldsymbol{A}=\boldsymbol{L} \boldsymbol{D}^{\frac{1}{2}}\left(\boldsymbol{L} \boldsymbol{D}^{\frac{1}{2}}\right)^{\mathrm{T}}
+\end{array}
+$$
+于是有
+令 $ \widetilde{\boldsymbol{L}}=\boldsymbol{L} \boldsymbol{D}^{\frac{1}{2}} $, 则有唯一分解
+$$
+\boldsymbol{A}=\widetilde{\boldsymbol{L}} \widetilde{\boldsymbol{L}}^{\mathrm{T}}
+$$
+其中 $ \widetilde{\boldsymbol{L}} $ 是对角元素均为正数的下三角矩阵.由此有如下定理.
+
+\begin{tcolorbox}[enhanced,colback=2,colframe=1,breakable,coltitle=black,title=定理]
+对称正定矩阵 $ \boldsymbol{A} $ 存在唯一的对角元素均为正数的下三角矩阵 $ \boldsymbol{L} $, 使
+$$
+\boldsymbol{A}=\boldsymbol{LL}^{\mathrm{T}}
+$$
+\end{tcolorbox}
+这种分解称为乔累斯基分解.当 $ \boldsymbol{L} $ 的元素求出后, $ \boldsymbol{L}^{\mathrm{T}} $ 的元素即可求出, 因此乔累斯基分解较一般的 $ \boldsymbol{LU} $ 分解乘除法计算量小得多.它所需要的乘除次数约为 $ \frac{1}{6} n^{3} $ 数量级, 差不多比 $ \boldsymbol{LU} $ 分解节省一半的工作量, 但要进行 $ n $ 次开方运算.
+
+\subsubsection{矩阵范数}
+
+定义： 设 $ \boldsymbol{A} \in \mathbf{R}^{n \times n}, x \in \mathbf{R}^{n} $, 定义矩阵 $ \boldsymbol{A} $ 的范数
+$$
+\|A\|=\max _{x \neq 0} \frac{\|A \boldsymbol{x}\|}{\|\boldsymbol{x}\|}
+$$
+这样, 对于每一种向量范数 $ \|\boldsymbol{x}\|_{p}( $ 如 $ p=1,2,+\infty) $, 相应的矩阵范数 $ \|\boldsymbol{A}\|_{p} $ 为
+$$
+\|\boldsymbol{A}\|_{p}=\max _{\boldsymbol{x} \neq 0} \frac{\|\boldsymbol{A} \boldsymbol{x}\|_{p}}{\|\boldsymbol{x}\|_{p}}
+$$
+其中 max 是指 $ \frac{\|A x\|}{\|x\|} $ 的最大可能值或最小上界(或写成 sup), 即取遍所有的不为 $ \mathbf{0} $ 的 $ \boldsymbol{x} $, 比值 $ \frac{\|\boldsymbol{A} \boldsymbol{x}\|}{\|\boldsymbol{x}\|} $ 中最大的, 定义为 $ \boldsymbol{A} $ 的矩阵范数.举例来说, 若有 $ \frac{\|\boldsymbol{A} \boldsymbol{x}\|}{\|\boldsymbol{x}\|} \leqslant 8 $ 时, 能够证明当某个 $ \boldsymbol{x} $ 时,有 $ \frac{\|\boldsymbol{A} \boldsymbol{x}\|}{\|\boldsymbol{x}\|}=8 $ 存在，则 $ \|\boldsymbol{A}\|=8 $ .
+由矩阵范数的定义可直接得到
+$$
+\|A\| \geqslant \frac{\|A x\|}{\|x\|}
+$$
+即有相容性条件
+$$
+\|A x\| \leqslant\|A\|\|x\|
+$$
+矩阵范数具有如下性质:
+
+(1) $ \|\boldsymbol{A}\| \geqslant 0 $, 当且仅当 $ \boldsymbol{A}=\mathbf{0} $ 时, $ \|\boldsymbol{A}\|=0 $;
+
+(2) 对任意实数 $ \lambda,\|\lambda A\|=|\lambda|\|A\| $;
+
+(3) 对同维方阵 $ B $, 有 $ \|A+B\| \leqslant\|A\|+\|B\|,\|A B\| \leqslant\|A\|\|B\| $
+
+这些性质可由向量范数定义直接验证.
+
+(1) 设 $ \boldsymbol{A} \neq \mathbf{0} $, 存在 $ \boldsymbol{x} \neq \mathbf{0} $, 使 $ \boldsymbol{A x} \neq \mathbf{0} $, 根据向量范数的性质 $ \|A \boldsymbol{x}\|>0 $, 所以 $ \|A\|=\max _{x \neq 0} \frac{\|A \boldsymbol{x}\|}{\|\boldsymbol{x}\|}> 0$. 当 $ \boldsymbol{A}=\mathbf{0} $, 存在 $ \boldsymbol{x} \neq \mathbf{0} $, 使 $ \|\boldsymbol{A x}\|=\mathbf{0} $, 则 $ \|\boldsymbol{A}\|=\max _{x \neq 0} \frac{\|A \boldsymbol{x}\|}{\|\boldsymbol{x}\|}=0 $ .
+
+(2) $ \|\lambda A\|=\max\limits _{x \neq 0} \frac{\|\lambda A x\|}{\|x\|} $, 根据向量范数的性质 $ \|\lambda A x\|=|\lambda|\|A x\| $, 所以
+$$
+\|\lambda A\|=\max _{x \neq 0} \frac{|\lambda|\|A x\|}{\|x\|}=|\lambda| \max _{x \neq 0} \frac{\|A \boldsymbol{x}\|}{\|x\|}=|\lambda|\|A\|
+$$
+
+(3) $ \|A+B\|=\max _{x \neq 0} \frac{\|(A+B) x\|}{\|x\|}=\max\limits _{x \neq 0} \frac{\|A \boldsymbol{x}+\boldsymbol{B} \boldsymbol{x}\|}{\|\boldsymbol{x}\|} \leqslant \max\limits _{\boldsymbol{x} \neq 0}\left(\frac{\|\boldsymbol{A} \boldsymbol{x}\|}{\|\boldsymbol{x}\|}+\frac{\|\boldsymbol{B} \boldsymbol{x}\|}{\|\boldsymbol{x}\|}\right)=\max \limits_{\boldsymbol{x} \neq 0} \frac{\|\boldsymbol{A} \boldsymbol{x}\|}{\|\boldsymbol{x}\|}+\max\limits _{x \neq 0} \frac{\|\boldsymbol{B} \boldsymbol{x}\|}{\|\boldsymbol{x}\|}= $ $ \|\boldsymbol{A}\|+\|\boldsymbol{B}\| $ (其中利用了向量范数的三角不等式), 所以
+$$
+\begin{array}{c}
+\|A+B\| \leqslant\|A\|+\|B\| \\
+\|A B\|=\max\limits _{x \neq 0} \frac{\|A B x\|}{\|x\|} \leqslant \max\limits _{x \neq 0} \frac{\|A\|\|B x\|}{\|x\|}
+\end{array}
+$$
+即 $ \|\boldsymbol{A B}\| \leqslant\|\boldsymbol{A}\| \max\limits _{x \neq 0} \frac{\|\boldsymbol{B} \boldsymbol{x}\|}{\|\boldsymbol{x}\|}=\|\boldsymbol{A}\|\|\boldsymbol{B}\| $, 故
+$$
+\|\boldsymbol{A B}\| \leqslant\|\boldsymbol{A}\|\|\boldsymbol{B}\|
+$$
+
+又证： $ \|A B x\| \leqslant\|A\|\|B x\| \leqslant\|A\|\|B\|\|x\| $
+当 $ x \neq 0 $ 时, $ \frac{\|A B x\|}{\|x\|} \leqslant\|A\|\|B\| $, 有 $ \|A B\|=\max\limits _{x \neq 0} \frac{\|A B x\|}{\|x\|} \leqslant\|A\|\|B\| $.
+
+
+矩阵范数定义的另一种方法是
+$$\boxed{
+\|\boldsymbol{A}\|=\max _{\|x\|=1}\|A \boldsymbol{x}\|}
+$$
+这是由于 $ \|\boldsymbol{A}\|=\max\limits _{x \neq 0} \frac{\|\boldsymbol{A} \boldsymbol{x}\|}{\|\boldsymbol{x}\|}=\max\limits _{x \neq 0}\left\|\boldsymbol{A} \frac{\boldsymbol{x}}{\|\boldsymbol{x}\|}\right\| $, 而 $ \left\|\frac{\boldsymbol{x}}{\|\boldsymbol{x}\|}\right\|=1 $, 所以有 $ \|\boldsymbol{A}\|=\max \limits_{\|x\|=1}\|\boldsymbol{A} \boldsymbol{x}\|$
+
+\begin{tcolorbox}[enhanced,colback=2,colframe=1,breakable,coltitle=black,title=定理]
+ (1) 对 $ n $ 阶方阵 $ \boldsymbol{A}=\left(a_{i j}\right)_{n} $
+$$
+\begin{array}{ll}
+\|\boldsymbol{A}\|_{\infty}=\max\limits _{1 \leqslant i \leqslant n} \sum_{j=1}^{n}\left|a_{i j}\right| &\quad \text { 行 } \\
+\|\boldsymbol{A}\|_{1}=\max \limits_{1 \leqslant j \leqslant n} \sum_{i=1}^{n}\left|a_{i j}\right| &\quad \text { 列 } \\
+\|\boldsymbol{A}\|_{2}=\sqrt{\lambda_{\max }\left(\boldsymbol{A}^{\mathrm{T}} \boldsymbol{A}\right)} &\quad \text { 谱 }
+\end{array}
+$$
+其中 $ \lambda_{\max }\left(\boldsymbol{A}^{\mathrm{T}} \boldsymbol{A}\right) $ 表示矩阵 $ \boldsymbol{A}^{\mathrm{T}} \boldsymbol{A} $ 的最大特征值. $ \|\boldsymbol{A}\|_{\infty},\|\boldsymbol{A}\|_{1},\|\boldsymbol{A}\|_{2} $ 分别称为矩阵 $ \boldsymbol{A} $ 的行范数, 列范数和谱范数.
+\end{tcolorbox}
+令 $ x $ 是一个 $n$ 维向量: $ \boldsymbol{x}=\left(x_{1}, x_{2}, \cdots, x_{n}\right)^{\mathrm{T}} $,且满足 $ 1=\|x\|_{\infty}=\max\limits _{1 \leqslant i \leqslant n}\left|x_{i}\right| $. 因为 $ A x $ 也是 $n$ 维向量:
+$$
+\begin{aligned}
+\|A x\|_{\infty}=\max _{1 \leqslant i \leqslant n}\left|(A x)_{i}\right| & =\max _{1 \leqslant i \leqslant n}\left|\sum_{j=1}^{n} a_{i j} x_{j}\right|  \leqslant \max _{1 \leqslant i \leqslant n} \sum_{j=1}^{n}\left|a_{i j}\right| \cdot \max _{1 \leqslant j \leqslant n}\left|x_{j}\right|
+\end{aligned}
+$$
+由于$ \max\limits _{1 \leqslant j \leqslant n}\left|x_{j}\right|=\|x\|_{\infty}=1 $,
+所以 $ \|A x\|_{\infty} \leqslant \max\limits _{1 \leqslant i \leqslant n} \sum\limits_{j=1}^{n}\left|a_{i j}\right| $.
+因此 $$ \|A\|_{\infty}=\max _{\|x\|_{\infty}=1}\|A x\|_{\infty} \leqslant \max _{1 \leqslant i \leqslant n} \sum_{j=1}^{n}\left|a_{i j}\right| $$
+
+设 $ k $ 为一个整数且满足 $ \sum\limits_{j=1}^{n}\left|a_{k j}\right|=\max\limits _{1 \leqslant i \leqslant n} \sum\limits_{j=1}^{n}\left|a_{i j}\right| $.取 $ x $ 的分量为
+$$
+\hat{x}_{j}=\left\{\begin{array}{ll}
+1, & a_{k j} \geqslant 0 \\
+-1, & a_{k j}<0
+\end{array}\right.
+$$
+则 $ \|\hat{\boldsymbol{x}}\|_{\infty}=1 $, 且
+$$
+a_{k j} \hat{x}_{j}=\left|a_{k j}\right|, j=1,2, \cdots, n
+$$
+从而有
+$$
+\begin{aligned}
+\|\boldsymbol{A} \hat{\boldsymbol{x}}\|_{\infty} &= \max _{1 \leqslant i \leqslant n}\left|\sum_{j=1}^{n} a_{i j} \hat{x}_{j}\right| \geqslant\left|\sum_{j=1}^{n} a_{k j} \hat{x}_{j}\right| 
+ =\sum_{j=1}^{n}\left|a_{k j}\right|=\max _{1 \leqslant i \leqslant n} \sum_{j=1}^{n}\left|a_{i j}\right|
+\end{aligned}
+$$
+
+$$\|A\|_{\infty}=\max _{\| \hat{\boldsymbol{x}}\|_{\infty}=1}\|A  \hat{\boldsymbol{x}}\|_{\infty} \geqslant \max _{\mid \leqslant i \leqslant n} \sum_{j=1}^{n}\left|a_{i j}\right|$$
+综合即可断定
+$$
+\|\boldsymbol{A}\|_{\infty}=\max _{\|x\|_{\infty}=1}\|\boldsymbol{A} \boldsymbol{x}\|_{\infty}=\max _{1 \leqslant i \leqslant n} \sum_{j=1}^{n}\left|a_{i j}\right|
+$$
+
+(2) 令$ x=\left(x_{1}, x_{2} \cdots x_{n}\right)^{\top}$, 且$\|x\|_{1}=1=\sum\limits_{i=1}^{n}\left|x_{i}\right|$.
+
+$$
+\begin{aligned}
+\|A x\|_{1}&=\sum_{i=1}^{n}\left|\sum_{j=1}^{n} a_{i j} x_{j}\right| \leqslant \sum_{j=1}^{n} \sum_{j=1}^{n}\left|a_{i j}\right|\left|x_{j}\right| \\
+&=\sum_{j=1}^{n}\left|x_{j}\right| \cdot\left(\sum_{i=1}^{n}\left|a_{i j}\right|\right) \leqslant \sum_{j=1}^{n}\left|x_{j}\right| \cdot \max _{1 \leqslant j \leqslant n} \sum_{i=1}^{n}\left|a_{i j}\right| \\
+&=\max _{1 \leqslant j \leqslant n} \sum_{i=1}^{n}\left|a_{i j}\right| \cdot \sum_{j=1}^{n}\left|x_{j}\right| =\max _{1 \leqslant j \leqslant n} \sum_{i=1}^{n}\left|a_{i j}\right| \cdot\|x\|_{1} \\
+&=\max _{1 \leqslant j \leqslant n} \sum_{i=1}^{n}\left|a_{i j}\right| \\
+\end{aligned}
+$$
+因此 $ \|A\|_{1}=\max\limits _{\|x\|_{1}=1}\|A x\|_{1} $
+$ \leqslant \max\limits _{1 \leqslant j \leqslant n} \sum\limits_{i=1}^{n}\left|a_{i j}\right|$. 
+
+选取$k$使得 $ \sum\limits_{i=1}^{n}\left|a_{i k}\right|= \max\limits _{1 \leqslant j \leqslant n} \sum\limits_{i=1}^{n}\left|a_{i j}\right| $,设$x_0=(0,0,\cdots,x_k,0,\cdots 0)^T$,其中$x_k=1$,因此有$\left\|x_{0}\right\|_{1}=1 $,  $A x_{0}=\left(a_{1 k}, a_{2 k}, \cdots, a_{n k}\right)^{T}$,
+
+
+$$ \|\boldsymbol{A}\|_{1}=\max _{\|\boldsymbol{x}\|_{1}=1}\|\boldsymbol{A} \boldsymbol{x}\|_{1} \geqslant\left\|\boldsymbol{A} x_{0}\right\|_{1}=\sum_{i=1}^{m}\left|a_{i k}\right|=\max _{1\leqslant j\leqslant n} \sum_{i=1}^{m}\left|a_{i j}\right| $$
+
+\begin{tcolorbox}
+(后半部分也可以按照如下证明)下面只需证明有一向量 $ x_{0} \neq 0 $, 使得
+$$
+\frac{\left\|\boldsymbol{A} \boldsymbol{x}_{0}\right\|_{1}}{\left\|\boldsymbol{x}_{0}\right\|_{1}}=\max _{1 \leqslant j \leqslant n} \sum_{i=1}^{n}\left|a_{i j}\right| .
+$$
+设
+$\displaystyle \sum_{i=1}^{n}\left|a_{i_{0}}\right|=\max _{1 \leqslant j \leqslant n} \sum_{i=1}^{n}\left|a_{i j}\right|,$
+取 $ x_{0}=\left(0,0, \cdots, 0, x_{j_{0}}, 0, \cdots, 0\right)^{\mathrm{T}} $, 其中, $ x_{j_{0}}=1 $, 则
+$$
+\begin{aligned}
+\left\|\boldsymbol{A} x_{0}\right\|_{1} & =\sum_{i=1}^{n}\left|\sum_{j=1}^{n} a_{i j} x_{j}\right|=\sum_{i=1}^{n}\left|a_{ij_{0}} x_{j_{0}}\right| =\sum_{i=1}^{n}\left|a_{i j_{0}}\right|=\max _{1 \leqslant j \leqslant n} \sum_{i=1}^{n}\left|a_{i j}\right|,
+\end{aligned}
+$$
+而$\displaystyle \left\|x_{0}\right\|_{1}=\left|x_{j_{0}}\right|=1$,
+所以
+$$
+\max _{\|x\| \neq 0} \frac{\|\boldsymbol{A} \boldsymbol{x}\|_{1}}{\|\boldsymbol{x}\|_{1}}=\frac{\left\|\boldsymbol{A} \boldsymbol{x}_{0}\right\|_{1}}{\left\|\boldsymbol{x}_{0}\right\|_{1}}=\max _{1 \leqslant j \leqslant n} \sum_{i=1}^{n}\left|a_{i j}\right|,
+$$
+即
+$$
+\|\boldsymbol{A}\|_{1}=\max _{1\leqslant j \leqslant n} \sum_{i=1}^{n}\left|a_{i j}\right| .
+$$
+\end{tcolorbox}
+
+
+(3)首先有 $(A x, A x)=x^{\top} A^{\top} A x=\left(A^{\top} A x, x\right)$, $\forall x=\left(x_{1}, x_{2} \cdots x_{n}\right)^{\top} \in R^{n} . \quad\|A x\|_{2}^{2}=(A x, A x)=\left(A^{\top} A x, x\right) \geqslant 0$,  因此 $ A^{\top} A $ 是非负定的对称阵，其特征值均为非负实数.
+不妨设 $ A^{\top} A $ 的几个特征值如下排列: $ \lambda_{1} \geqslant \lambda_{2} \geqslant \cdots \geqslant \lambda_{n} \geqslant 0 $,相对应的一组标准正交特征向量分别记为 $ u_{1}, u_{2} \cdots u_{n} $. 于是 $ \forall x \in R^{n}$ , $x $ 可表示为 $ x=\sum\limits_{i=1}^{n} \alpha_{i} u_{i} $ , 若 $x$ 满足 $ \|x\|_{2}=1 $, 则有
+$$
+\|x\|_{2}^{2}=(x, x)=\sum_{j=1}^{n} \alpha_{j}^{2}=1 $$
+又$A^{\top} A u_{i}=\lambda_{i} u_{i}$, 其中$\left(u_{i}, u_{j}\right)=\left\{\begin{array}{ll}
+0 & i \neq j \\
+1 & i=j
+\end{array}\right. $，于是
+
+$$\left(A^{\top} A x, x\right)=\left(\sum_{j=1}^{n} A^{\top} A \alpha_{j} u_{j}, \sum_{i=1}^{n} \alpha_{i} u_{i}\right) 
+=\left(\sum_{j=1}^{n} \lambda_{j} \alpha_{j} u_{j} \cdot \sum_{i=1}^{n} \alpha_{i} u_{i}\right) 
+=\sum_{i=1}^{n} \lambda_{i}\left|\alpha_{i}\right|^{2} \leqslant \lambda_{1} \sum_{i=1}^{n}\left|\alpha_{i}\right|^{2}=\lambda_{1} 
+$$
+
+$$\|A x\|_{2}^{2}=\left(A^{\top} A x , x\right)=\sum_{i=1}^{n} 
+\lambda_{i} \alpha_{i}^{2} \leqslant \lambda_{1}=\rho\left(A^{\top} A\right)
+$$
+特别地, 若取 $ x=u_{1} $ 则有 $ \left\|A u_{1}\right\|_{2}^{2}=\left(A^{\top} A u_{1}, u_{1}\right)=\lambda_{1} $,于是 
+$$\|A\|_{2}=\max _{\|x\|_{2}=1}\|A x\|_{2}=\sqrt{\lambda_{1}}=\sqrt{\rho\left(A^{\top} A\right)} $$
+
+\begin{tcolorbox}
+因为 $ \boldsymbol{A}^{\mathrm{H}} \boldsymbol{A} $ 是 Hermite 矩阵, 且由
+$$
+\boldsymbol{x}^{\mathrm{H}}\left(\boldsymbol{A}^{\mathrm{H}} \boldsymbol{A}\right) \boldsymbol{x}=(\boldsymbol{A} \boldsymbol{x})^{\mathrm{H}}(\boldsymbol{A x})=\|\boldsymbol{A} \boldsymbol{x}\|_{2}^{2} \geqslant 0
+$$
+知 $ \boldsymbol{A}^{\mathrm{H}} \boldsymbol{A} $ 是半正定的, 从而它的特征值都是非负实数, 设为
+$$
+\lambda_{1} \geqslant \lambda_{2} \geqslant \cdots \geqslant \lambda_{n} \geqslant 0
+$$
+由于 $ \boldsymbol{A}^{\mathrm{H}} \boldsymbol{A} $ 是 Hermite 矩阵, 因此它具有 $ n $ 个互相正交的且 $ l_{2} $ 范数为 1 的特征向量 $ x_{1}, x_{2}, \cdots, x_{n} $, 并设它们依次属于特征值 $ \lambda_{1}, \lambda_{2}, \cdots, \lambda_{n} $. 于是, 任何一个范数 $ \|\boldsymbol{x}\|_{2}=1 $ 的向量 $ \boldsymbol{x} $, 可以用这些特征向量线性表示为
+$$
+x=\xi_{1} x_{1}+\xi_{2} x_{2}+\cdots+\xi_{n} x_{n}
+$$
+由于
+$$
+\boldsymbol{A}^{\mathrm{H}} \boldsymbol{A} \boldsymbol{x}=\sum_{i=1}^{n} \boldsymbol{A}^{\mathrm{H}} \boldsymbol{A} \xi_{i} \boldsymbol{x}_{i}=\sum_{i=1}^{n} \xi_{i}\left(\boldsymbol{A}^{\mathrm{H}} \boldsymbol{A} \boldsymbol{x}_{i}\right)=\sum_{i=1}^{n} \lambda_{i} \xi_{i} \boldsymbol{x}_{i}
+$$
+借助于向量的内积运算, 有
+$$
+\begin{aligned}
+\|\boldsymbol{A} \boldsymbol{x}\|_{2}^{2}&= \left(\boldsymbol{x}, \boldsymbol{A}^{\mathrm{H}} \boldsymbol{A} \boldsymbol{x}\right)=\left(\sum_{i=1}^{n} \xi_{i} \boldsymbol{x}_{i}, \sum_{i=1}^{n} \lambda_{i} \xi_{i} \boldsymbol{x}_{i}\right) \\
+& =\lambda_{1}\left|\xi_{1}\right|^{2}+\lambda_{2}\left|\xi_{2}\right|^{2}+\cdots+\lambda_{n}\left|\xi_{n}\right|^{2} \leqslant  \lambda_{1}\left(\left|\xi_{1}\right|^{2}+\left|\xi_{2}\right|^{2}+\cdots+\left|\xi_{n}\right|^{2}\right)=\lambda_{1}
+\end{aligned}
+$$
+从而有
+$$
+\|\boldsymbol{A}\|_{2}=\max _{\|x\|_{2}=1}\|\boldsymbol{A} \boldsymbol{x}\|_{2} \leqslant \sqrt{\lambda_{1}}
+$$
+另一方面, 由于 $ \left\|\boldsymbol{x}_{1}\right\|_{2}=1 $, 而且
+$$
+\left\|\boldsymbol{A} \boldsymbol{x}_{1}\right\|_{2}^{2}=\left(\boldsymbol{x}_{1}, \boldsymbol{A}^{\mathrm{H}} \boldsymbol{A} \boldsymbol{x}_{1}\right)=\left(\boldsymbol{x}_{1}, \lambda_{1} \boldsymbol{x}_{1}\right)=\lambda_{1}
+$$
+所以
+$$
+\|\boldsymbol{A}\|_{2}=\max _{\|x\|_{2}=1}\|\boldsymbol{A} \boldsymbol{x}\|_{2} \geqslant\left\|\boldsymbol{A} \boldsymbol{x}_{1}\right\|_{2}=\sqrt{\lambda_{1}}
+$$
+因此得证.
+\end{tcolorbox}

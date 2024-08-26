@@ -1,0 +1,448 @@
+
+
+\begin{tcolorbox}[enhanced,colback=10,colframe=9,breakable,coltitle=green!25!black,title=2024]
+ 设 $ \boldsymbol{A} \in \mathbf{R}^{n \times n}, \boldsymbol{B} \in \mathbf{R}^{n \times n} $ 均为非奇异矩阵, 证明:
+$$
+\left\|\boldsymbol{A}^{-1}-\boldsymbol{B}^{-1}\right\| \leqslant\left\|\boldsymbol{A}^{-1}\right\| \cdot\|\boldsymbol{A}-\boldsymbol{B}\| \cdot\left\|\boldsymbol{B}^{-1}\right\| .
+$$
+ \tcblower
+由条件得
+$$
+\boldsymbol{A}^{-1}-\boldsymbol{B}^{-1}=\boldsymbol{A}^{-1}\left(I-\boldsymbol{A B}^{-1}\right)=\boldsymbol{A}^{-1}(\boldsymbol{B}-\boldsymbol{A}) \boldsymbol{B}^{-1},
+$$
+两边取范数得
+$$
+\left\|\boldsymbol{A}^{-1}-\boldsymbol{B}^{-1}\right\|=\left\|\boldsymbol{A}^{-1}(\boldsymbol{B}-\boldsymbol{A}) \boldsymbol{B}^{-1}\right\| \leqslant\left\|\boldsymbol{A}^{-1}\right\| \cdot\|\boldsymbol{B}-\boldsymbol{A}\| \cdot\left\|\boldsymbol{B}^{-1}\right\| .
+$$
+\end{tcolorbox}
+
+
+\begin{tcolorbox}[enhanced,colback=10,colframe=9,breakable,coltitle=green!25!black,title=2024]
+ 设 $ \boldsymbol{x}^{(k)} \in \mathbf{R}^{n}, k=0,1,2, \cdots, \boldsymbol{x}^{*} \in \mathbf{R}^{n}, \boldsymbol{B} \in \mathbf{R}^{n \times n} $.
+
+(1) 给出向量序列 $ \boldsymbol{x}^{(k)}(k=0,1,2, \cdots) $ 收敛于向量 $ \boldsymbol{x}^{*} $ 的定义;
+
+(2) 设 $ \lim\limits _{k \rightarrow \infty} \boldsymbol{x}^{(k)}=\boldsymbol{x}^{*} $, 证明: $ \lim\limits _{k \rightarrow \infty} B \boldsymbol{x}^{(k)}=\boldsymbol{B} \boldsymbol{x}^{*} $.
+
+ \tcblower
+
+设 $ \|\cdot\| $ 为 $ \mathbf{R}^{n} $ 中的一种范数.
+
+(1) 如果
+$$
+\lim _{k \rightarrow \infty}\left\|\boldsymbol{x}^{(k)}-x^{*}\right\|=0,
+$$
+则称向量序列 $ \left\{\boldsymbol{x}^{(k)}\right\}_{k=0}^{\infty} $ 收敛于向量 $ \boldsymbol{x}^{*} $.
+
+(2) 因 $ \lim\limits _{k \rightarrow \infty} x^{(k)}=x^{*} $, 则 $ \lim\limits _{k \rightarrow \infty}\left\|x^{(k)}-x^{*}\right\|=0 $. 又
+$$
+\left\|\boldsymbol{B} \boldsymbol{x}^{(k)}-\boldsymbol{B} \boldsymbol{x}^{*}\right\|=\left\|\boldsymbol{B}\left(\boldsymbol{x}^{(k)}-\boldsymbol{x}^{*}\right)\right\| \leqslant\|\boldsymbol{B}\| \cdot\left\|\boldsymbol{x}^{(k)}-\boldsymbol{x}^{*}\right\|,
+$$
+所以
+$$
+\begin{aligned}
+\lim _{k \rightarrow \infty}\left\|\boldsymbol{B} \boldsymbol{x}^{(k)}-\boldsymbol{B} \boldsymbol{x}^{*}\right\| & \leqslant \lim _{k \rightarrow \infty}\|\boldsymbol{B}\| \cdot\left\|\boldsymbol{x}^{(k)}-\boldsymbol{x}^{*}\right\| \\
+& =\|\boldsymbol{B}\| \lim _{k \rightarrow \infty}\left\|\boldsymbol{x}^{(k)}-\boldsymbol{x}^{*}\right\|=0,
+\end{aligned}
+$$
+所以 $ \lim\limits _{k \rightarrow \infty} B \boldsymbol{x}^{(k)}=\boldsymbol{B} \boldsymbol{x}^{*} $.
+
+ \end{tcolorbox}
+
+
+ \begin{tcolorbox}[enhanced,colback=10,colframe=9,breakable,coltitle=green!25!black,title=2024]
+设 $ \boldsymbol{A} \in \mathbf{R}^{n \times n} $, 证明:
+$$
+\|\boldsymbol{A}\|_{2} \leqslant \sqrt{\|\boldsymbol{A}\|_{1}\|\boldsymbol{A}\|_{\infty}} ;
+$$
+ \tcblower
+设 $ \lambda $ 是矩阵 $ \boldsymbol{A}^{\mathrm{T}} \boldsymbol{A} $ 的最大特征值, 对应的特征向量为 $ \boldsymbol{y} \neq 0 $, 则有
+$$
+\|\boldsymbol{A}\|_{2}=\sqrt{\lambda}, \boldsymbol{A}^{\mathrm{T}} \boldsymbol{A} \boldsymbol{y}=\lambda \boldsymbol{y} .
+$$
+对 $ \boldsymbol{A}^{\mathrm{T}} \boldsymbol{A} \boldsymbol{y}=\lambda \boldsymbol{y} $ 两边取无穷范数, 得
+$$
+\lambda\|\boldsymbol{y}\|_{\infty}=\left\|\boldsymbol{A}^{\mathrm{T}} \boldsymbol{A} \boldsymbol{y}\right\|_{\infty} \leqslant\left\|\boldsymbol{A}^{\mathrm{T}}\right\|_{\infty}\|\boldsymbol{A}\|_{\infty}\|\boldsymbol{y}\|_{\infty}=\|\boldsymbol{A}\|_{1}\|\boldsymbol{A}\|_{\infty}\|\boldsymbol{y}\|_{\infty},
+$$
+即
+$$
+\lambda \leqslant\|\boldsymbol{A}\|_{1}\|\boldsymbol{A}\|_{\infty},
+$$
+因而
+$$
+\|\boldsymbol{A}\|_{2} \leqslant \sqrt{\|\boldsymbol{A}\|_{1}\|\boldsymbol{A}\|_{\infty}} .
+$$
+
+ \end{tcolorbox}
+
+
+  \begin{tcolorbox}[enhanced,colback=10,colframe=9,breakable,coltitle=green!25!black,title=2024]
+ 给定线性方程组 $ \boldsymbol{A x}=\boldsymbol{b} $, 这里 $ \boldsymbol{A} \in \mathbf{R}^{n \times n} $ 为非奇异矩阵, $ \boldsymbol{b} \in \mathbf{R}^{n}, \boldsymbol{x} \in \mathbf{R}^{n} $.设有下面的迭代格式:
+$$
+\boldsymbol{x}^{(k+1)}=\boldsymbol{x}^{(k)}+\omega\left(\boldsymbol{b}-\boldsymbol{A} \boldsymbol{x}^{(k)}\right), \quad k=0,1,2, \cdots,\quad(*)
+$$
+其中 $ \omega \neq 0 $ 为常数.
+
+(1) 证明: 如果迭代格式 $(*)$ 收敛, 则迭代序列 $ \left\{\boldsymbol{x}^{(k)}\right\}_{k=0}^{\infty} $ 收敛于方程 $ \boldsymbol{A x}=\boldsymbol{b} $的解;
+
+(2) 设 $ n=2, \boldsymbol{A}=\left[\begin{array}{ll}4 & 1 \\ 1 & 4\end{array}\right] $, 问 $ \omega $ 取何值时迭代格式 $(*)$ 收敛?
+ \tcblower
+ (1) 设迭代格式 $(*)$ 收敛, 不妨设 $ \lim\limits _{k \rightarrow \infty} x^{(k)}=x^{*} $. 在 $(*)$ 式两边取极限得
+$$
+\boldsymbol{x}^{*}=\boldsymbol{x}^{*}+\omega\left(\boldsymbol{b}-\boldsymbol{A} \boldsymbol{x}^{*}\right),
+$$
+
+由于 $ \omega \neq 0 $, 所以 $ \boldsymbol{b}-\boldsymbol{A} \boldsymbol{x}^{*}=\mathbf{0} $, 即 $ \boldsymbol{x}^{*} $ 是方程 $ \boldsymbol{A x}=\boldsymbol{b} $ 的解.
+
+(2) 将 $(*)$ 改写为 $ \boldsymbol{x}^{(k+1)}=(\boldsymbol{I}-\omega \boldsymbol{A}) \boldsymbol{x}^{(k)}+\omega \boldsymbol{b} $. 根据迭代法收敛定理可知该迭代格式收敛的充要条件是 $ \rho(\boldsymbol{I}-\omega \boldsymbol{A})<1 $. 迭代矩阵 $ \boldsymbol{I}-\omega \boldsymbol{A} $ 的特征方程是
+$$
+|\lambda \boldsymbol{I}-(\boldsymbol{I}-\omega \boldsymbol{A})|=\left|\begin{array}{cc}
+\lambda-(1-4 \omega) & \omega \\
+\omega & \lambda-(1-4 \omega)
+\end{array}\right|=0,
+$$
+
+展开得
+$$
+[\lambda-(1-4 \omega)]^{2}-\omega^{2}=0,
+$$
+
+求得上述方程的根为 $ \lambda_{1}=1-3 \omega, \lambda_{2}=1-5 \omega $. 
+所以 $\rho(\boldsymbol{I}-\omega \boldsymbol{A})=\max \{|1-3 \omega|,|1-5\omega|\} $.
+
+令 $ \left|\lambda_{1}\right|<1 $, 则 $ 0<\omega<\frac{2}{3} $; 令 $ \left|\lambda_{2}\right|<1 $,则 $ 0<\omega<\frac{2}{5} $. 故当 $ 0<\omega<\frac{2}{5} $ 时迭代格式 $(*)$ 收敛.
+
+ \end{tcolorbox}
+
+\begin{tcolorbox}[enhanced,colback=green!10!white,colframe=green!50!white,breakable,coltitle=green!25!black,title=2024]
+1. 解方程 $ 12-3 x+2 \cos x=0 $ 的迭代格式为 $ x_{n+1}=4+\frac{2}{3} \cos x_{n} $.
+
+(1) 证明: 对任意 $ x_{0} \in \mathbf{R} $, 均有 $ \lim\limits _{n \rightarrow \infty} x_{n}=x^{*} $ ( $ x^{*} $ 为方程的根);
+
+(2) 此迭代法的收敛阶是多少?
+ \tcblower
+ (1) 迭代函数 $ \varphi(x)=4+\frac{2}{3} \cos x $, 对任意 $ x \in \mathbf{R} $
+
+$$
+4-\frac{2}{3} \leqslant 4+\frac{2}{3} \cos x \leqslant 4+\frac{2}{3},\quad x \in(+\infty,-\infty)
+$$
+$$
+\varphi(x) \in\left[4-\frac{2}{3}, 4+\frac{2}{3}\right] \subset(-\infty,+\infty) \\
+$$
+又因为：
+$$
+\varphi^{\prime}(x)=-\frac{2}{3} \sin x, \quad L=\max _{-\infty<x<\infty}\left|\varphi^{\prime}(x)\right|=\frac{2}{3}<1
+$$
+
+故迭代公式在 $ (-\infty, \infty) $ 满足收敛性定理, 即 $ \left\{x_{k}\right\} $ 收敛于方程的根 $ x^{*} $.
+
+(2) 由
+$$
+\lim _{k \rightarrow \infty} \frac{x^{*}-x_{k+1}}{x^{*}-x_{k}}=\lim _{k \rightarrow \infty} \frac{\varphi\left(x^{*}\right)-\varphi\left(x_{k}\right)}{x^{*}-x_{k}}=\varphi^{\prime}\left(x^{*}\right)=-\frac{2}{3} \sin x^{*} \neq 0
+$$
+可知迭代线性收敛.
+ \end{tcolorbox}
+
+
+\begin{tcolorbox}[enhanced,colback=green!10!white,colframe=green!50!white,breakable,coltitle=green!25!black,title=2024]
+
+2. 设参数 $ a>0 $, 写出用 Newton 法解方程 $ x^{2}-a=0 $ 和方程 $ 1-\frac{a}{x^{2}}=0 $的迭代公式, 分别记为 $ x_{k+1}=\varphi_{1}\left(x_{k}\right) $ 和 $ x_{k+1}=\varphi_{2}\left(x_{k}\right) $, 确定常数 $ c_{1} $ 和 $ c_{2} $, 使迭代法
+$$
+x_{k+1}=c_{1} \varphi_{1}\left(x_{k}\right)+c_{2} \varphi_{2}\left(x_{k}\right), \quad k=0,1,2, \cdots
+$$
+产生的序列 $ \left\{x_{k}\right\} $ 三阶收敛到 $ \sqrt{a} $.
+
+ \tcblower
+ 由题意可知, 对于方程 $ x^{2}-a=0 $, 记 $ f_{1}(x)=x^{2}-a $, 则 $ f_{1}^{\prime}(x)=2 x $, 因此该方程的 Newton 法的迭代函数为
+$$
+\varphi_{1}(x)=x-\frac{f_{1}(x)}{f_{1}^{\prime}(x)}=\frac{x}{2}+\frac{a}{2 x}
+$$
+
+同理对于方程 $ 1-\frac{a}{x^{2}}=0 $, 记 $ f_{2}(x)=1-\frac{a}{x^{2}} $, 则 $ f_{2}^{\prime}(x)=\frac{2 a}{x^{3}} $, 因此该方程的 Newton 法的迭代函数为
+$$
+\varphi_{2}(x)=x-\frac{f_{2}(x)}{f_{2}^{\prime}(x)}=\frac{3 x}{2}-\frac{x^{3}}{2 a}
+$$
+这两个函数 Newton 法迭代公式分别是 $ x_{k+1}=\varphi_{1}\left(x_{k}\right) $ 和 $ x_{k+1}=\varphi_{2}\left(x_{k}\right) $, 所以迭代函数
+$$
+\varphi(x)=c_{1} \varphi_{1}(x)+c_{2} \varphi_{2}(x)=\frac{c_{1}}{2}\left(x+\frac{a}{x}\right)+\frac{c_{2}}{2}\left(3 x-\frac{x^{3}}{a}\right)
+$$
+且求得 $ \varphi^{\prime}(x)=\frac{c_{1}}{2}\left(1-\frac{a}{x^{2}}\right)+\frac{c_{2}}{2}\left(3-\frac{3 x^{2}}{a}\right), \varphi^{\prime \prime}(x)=\frac{a c_{1}}{x^{3}}-\frac{3 c_{2} x}{a} $, 要使该迭代格式产生的序列 $ \left\{x_{k}\right\} $ 三阶收敛到 $ \sqrt{a} $, 需要满足以下条件
+$$
+\varphi(\sqrt{a})=\sqrt{a}, \quad \varphi^{\prime}(\sqrt{a})=0, \quad \varphi^{\prime \prime}(\sqrt{a})=0
+$$
+因此代入可得
+$$
+\left\{\begin{array}{l}
+\varphi(\sqrt{a})=\left(c_{1}+c_{2}\right) \sqrt{a}=\sqrt{a} \\
+\varphi^{\prime}(x)=\frac{c_{1}}{2}\left(1-\frac{a}{a}\right)+\frac{c_{2}}{2}\left(3-\frac{3 a}{a}\right)=0 \\
+\varphi^{\prime \prime}(\sqrt{a})=\left(c_{1}-3 c_{2}\right) \frac{1}{\sqrt{a}}=0
+\end{array}\right.
+$$
+联立解得 $ c_{1}=\frac{3}{4}, c_{2}=\frac{1}{4} $, 所以迭代函数为
+$$
+\varphi(x)=\frac{3}{4} \varphi_{1}(x)+\frac{1}{4} \varphi_{2}(x)
+$$
+此时该迭代函数满足 $ \varphi(\sqrt{a})=\sqrt{a}, \varphi^{\prime}(\sqrt{a})=0, \varphi^{\prime \prime}(\sqrt{a})=0 $, 进一步还可验证 $ \varphi^{\prime \prime \prime}(\sqrt{a})=-\frac{3}{a} \neq 0 $, 所以得到了求 $ \sqrt{a} $ 的三阶收敛的迭代公式
+$$
+x_{k+1}=\frac{3}{8}\left(x_{k}+\frac{a}{x_{k}}\right)+\frac{1}{8}\left(3 x_{k}-\frac{x_{k}^{3}}{a}\right), \quad k=0,1,2, \cdots
+$$
+ \end{tcolorbox}
+
+
+ \begin{tcolorbox}[enhanced,colback=green!10!white,colframe=green!50!white,breakable,coltitle=green!25!black,title=2024]
+ 给定方程 $ x+\mathrm{e}^{-x}-4=0 $.
+ 
+(1) 分析该方程存在几个根;
+
+(2) 用迭代法求出这些根 (精确到 4 位有效数字), 并说明所用迭代格式为什么是收敛的.
+ \tcblower
+(1) 记 $ f(x)=x+\mathrm{e}^{-x}-4 $, 则 $ f^{\prime}(x)=1-\mathrm{e}^{-x} $, 令 $ f^{\prime}(x)=0 $ 得 $ x=0 $.当 $ x>0 $ 时 $ f^{\prime}(x)>0 $, 当 $ x<0 $ 时 $ f^{\prime}(x)<0 $, 因此 $ x=0 $ 为 $ f(x) $ 的极小值点. 又 $ f(-2)=\mathrm{e}^{2}-6>0, f(-1)=\mathrm{e}-5<0, f(3)=\mathrm{e}^{-3}-1<0, f(4)=\mathrm{e}^{-4}>0 $, 所以方程 $ f(x)=0 $ 有两个实根 $ x_{1}^{*} \in(3,4), x_{2}^{*} \in(-2,-1) $.
+(2) 构造迭代格式:
+\begin{equation*}
+    x_{k+1}=4-\mathrm{e}^{-x_{k}}, \quad k=0,1, \cdots,\tag{1}
+\end{equation*}
+
+
+取初值 $ x_{0}=3.5 $, 计算得 $ x_{1}=3.96980, x_{2}=3.98112, x_{3}=3.98134 $, 所以 $ x_{1}^{*} \approx 3.981 $.
+记 $ \varphi_{1}(x)=4-\mathrm{e}^{-x} $, 则 $ \varphi_{1}^{\prime}(x)=\mathrm{e}^{-x}>0 $.
+当 $ x \in[3,4] $ 时, 有
+$$
+\varphi_{1}(x) \in\left[\varphi_{1}(3), \varphi_{1}(4)\right]=\left[4-\mathrm{e}^{-3}, 4-\mathrm{e}^{-4}\right] \subset[3,4],
+$$
+且 $ \left|\varphi_{1}^{\prime}(x)\right| \leqslant \mathrm{e}^{-3}<1 $, 所以迭代格式(1)对任意初值 $ x_{0} \in[3,4] $ 均收敛于 $ x_{1}^{*} $.
+构造迭代格式:
+\begin{equation*}
+    x_{k+1}=-\ln \left(4-x_{k}\right), \quad k=0,1, \cdots,\tag{2}
+\end{equation*}
+取 $ x_{0}=-1.5 $, 计算得 $ x_{1}=-1.70475, x_{2}=-1.74130, x_{3}=-1.74769, x_{4}=-1.74880 $, $ x_{5}=-1.74899 $, 所以 $ x_{2}^{*} \approx-1.749 $.
+记 $ \varphi_{2}(x)=-\ln (4-x) $, 则
+$$
+\varphi_{2}^{\prime}(x)=\frac{1}{4-x}>0, \quad x \in[-2,-1] .
+$$
+当 $ x \in[-2,-1] $ 时, 有
+$$
+\varphi_{2}(x) \in\left[\varphi_{2}(-2), \varphi_{2}(-1)\right]=[-\ln 6,-\ln 5] \subset[-2,-1],
+$$
+且 $ \left|\varphi_{2}^{\prime}(x)\right| \leqslant \frac{1}{5}<1 $, 所以迭代格式(2)对任意 $ x \in[-2,-1] $ 均收敛于 $ x_{2}^{*} $.
+ \end{tcolorbox}
+
+
+
+ \begin{tcolorbox}[enhanced,colback=green!10!white,colframe=green!50!white,breakable,coltitle=green!25!black,title=2024]
+
+已知方程 $ x^{3}+2 x-1=0 $ 在区间 $ [0,1] $ 上有唯一实根 $ x^{*} $, 证明对任意初值 $ x_{0} \in[0,1] $, 迭代格式
+$$
+x_{k+1}=\frac{2 x_{k}^{3}+1}{3 x_{k}^{2}+2}, \quad k=0,1, \cdots
+$$
+均收敛于 $ x^{*} $, 并分析该迭代格式的收敛阶数.
+
+ \tcblower
+ 方法 1: 方程的 Newton 迭代格式为
+$$
+x_{k+1}=x_{k}-\frac{x_{k}^{3}+2 x_{k}-1}{3 x_{k}^{2}+2}=\frac{2 x_{k}^{3}+1}{3 x_{k}^{2}+2} .
+$$
+记 $ f(x)=x^{3}+2 x-1 $, 则 $ f(0) \cdot f(1)=-2<0 $; 当 $ x \in[0,1] $ 时, $ f^{\prime}(x)=3 x^{2}+2>0 $;当 $ x \in(0,1) $ 时, $ f^{\prime \prime}(x)=6 x>0 ; 0-\frac{f(0)}{f^{\prime}(0)}=\frac{1}{2}<1,1-\frac{f(1)}{f^{\prime}(1)}=\frac{3}{5}>0 $. 所以对任意初值 $ x_{0} \in[0,1] $, Newton 迭代收敛于方程在 $ [0,1] $ 中的根. 该迭代格式是 2 阶收敛的.
+
+方法 2: 记 $ \varphi(x)=\frac{2 x^{3}+1}{3 x^{2}+2} $, 则原方程可以改写为 $ x=\varphi(x) $. 对 $ \varphi(x) $ 求导得
+$$
+\varphi^{\prime}(x)=\frac{6 x\left(x^{3}+2 x-1\right)}{\left(3 x^{2}+2\right)^{2}} .
+$$
+
+当 $ x \in[0,1] $ 时, 容易验证
+$$
+\left|\varphi^{\prime}(x)\right|<1, \quad 0 \leqslant \varphi(x) \leqslant \frac{2 x^{2}+1}{3 x^{2}+2}<1,
+$$
+
+故对任意 $ x_{0} \in[0,1] $, 迭代格式收敛于方程在 $ [0,1] $ 中的根. 又 $ \varphi^{\prime}\left(x^{*}\right)=0, \varphi^{\prime \prime}\left(x^{*}\right) \neq 0 $,所以迭代格式为 2 阶收敛.
+ \end{tcolorbox}
+
+
+     \begin{tcolorbox}[enhanced,colback=blue!8!white,colframe=blue!25!white,breakable,title=2024]
+
+ 设 $ A $ 为 $ n $ 阶非奇异矩阵且有分解式 $ A=L U $, 其中 $ L $ 是单位下三角阵, $ U $ 为上三角阵, 求证 $ A $ 的所有顺序主子式均不为零.
+ \tcblower
+证明: 由题意可知, 若将 $ A=L U $ 分解式中的 $ L $ 与 $ U $ 分块
+$$
+L=\left[\begin{array}{cc}
+L_{k \times k} & 0_{k \times(n-k)} \\
+L_{(n-k) \times k} & L_{(n-k) \times(n-k)}
+\end{array}\right], \quad U=\left[\begin{array}{cc}
+U_{k \times k} & U_{k \times(n-k)} \\
+0_{(n-k) \times k} & U_{(n-k) \times(n-k)}
+\end{array}\right]
+$$
+
+其中, $ L_{k \times k} $ 为 $ k $ 阶单位下三角阵, $ U_{k \times k} $ 为 $ k $ 阶上三角阵, 则 $ A $ 的 $ k $ 阶顺序主子式为 $ A_{k}=L_{k \times k} U_{k \times k} $, 又由 $ A $ 为 $ n $ 阶非奇异矩阵, 因此 $ |A|=a_{11}^{(1)} a_{22}^{(2)} \cdots a_{n n}^{(n)} \neq 0 $,则
+$$
+\left|A_{k}\right|=\left|L_{k \times k}\right| \cdot\left|U_{k \times k}\right|=a_{11}^{(1)} a_{22}^{(2)} \cdots a_{k k}^{(k)} \neq 0
+$$
+证得 $ A $ 的所有顺序主子式均不为零.
+
+ \end{tcolorbox}
+
+      \begin{tcolorbox}[enhanced,colback=blue!8!white,colframe=blue!25!white,breakable,title=2024]
+
+设 $ A \in \mathbf{R}^{n \times n} $ 是对称矩阵, $ \lambda_{1} $ 和 $ \lambda_{n} $ 分别是 $ A $ 的按模最大和按模最小的特征值 $ \left(\lambda_{n} \neq 0\right) $, 则 $ \operatorname{cond}_{2}(A)=\left|\frac{\lambda_{1}}{\lambda_{n}}\right| $.
+ \tcblower
+证明: 由题意可知
+$$
+\operatorname{cond}(A)_{2}=\|A\|_{2} \cdot\left\|A^{-1}\right\|_{2}=\sqrt{\lambda_{\max }\left(A^{\mathrm{T}} A\right)} \cdot \sqrt{\lambda_{\max }\left(\left(A^{-1}\right)^{\mathrm{T}} A^{-1}\right)}
+$$
+由于 $ A \in \mathbf{R}^{n \times n} $ 是对称矩阵, 则
+$$
+\operatorname{cond}(A)_{2}=\sqrt{\lambda_{\max }\left(A^{2}\right)} \cdot \sqrt{\lambda_{\max }\left(A^{-1}\right)^{2}}=\frac{\sqrt{\lambda_{\max }\left(A^{2}\right)}}{\sqrt{\lambda_{\min }\left(A^{2}\right)}}=\left|\frac{\lambda_{1}}{\lambda_{n}}\right|
+$$
+其中, $ \lambda_{1} $ 和 $ \lambda_{n} $ 分别是 $ A $ 的按模最大和按模最小的特征值 $ \left(\lambda_{n} \neq 0\right) $.
+
+ \end{tcolorbox}
+
+
+      \begin{tcolorbox}[enhanced,colback=blue!8!white,colframe=blue!25!white,breakable,title=2024]
+
+已知矩阵 $ A=\left[\begin{array}{ccc}1 & a & a \\ a & 1 & a \\ a & a & 1\end{array}\right] $, 求 $ a $ 为何值时, $ A $ 为正定阵; $ a $ 为何值时对于线性方程组 $ A x=b $, 采用 Jacobi 迭代法和 Gauss-Seidel 迭代法收敛.
+ \tcblower
+ 
+ 由题意可知, 为了使 $ A $ 为正定矩阵, 则只需满足顺序主子式
+$$
+\begin{array}{l}
+\Delta_{1}=1>0, \quad \Delta_{2}=\left|\begin{array}{cc}
+1 & a \\
+a & 1
+\end{array}\right|=1-a^{2}>0 ,\quad
+\Delta_{3}=\left|\begin{array}{lll}
+1 & a & a \\
+a & 1 & a \\
+a & a & 1
+\end{array}\right|=(2 a+1)(a-1)^{2}>0
+\end{array}
+$$
+因此解得 $ -\frac{1}{2}<a<1 $.
+若对于 Jacobi 迭代法的迭代矩阵 $ G_{J}=\left[\begin{array}{ccc}0 & -a & -a \\ -a & 0 & a \\ -a & -a & 0\end{array}\right] $, 其特征多项式
+
+$$
+\left|\begin{array}{ccc}
+\lambda & a & a \\
+a & \lambda & a \\
+a & a & \lambda
+\end{array}\right|=(\lambda-a)^{2}(\lambda+2 a)=0
+$$
+
+因此特征值为 $ \lambda_{1}=a, \lambda_{2}=a, \lambda_{3}=-2 a $, 由迭代法收敛的充分必要条件, Jacobi 迭代法的收敛充分必要条件是 $ \rho(G)<1 $, 即满足 $ |2 a|<1 $, 解得 $ -\frac{1}{2}<a<\frac{1}{2} $.
+同样对于 Gauss-Seidel 迭代法的迭代矩阵
+$$
+G=\left[\begin{array}{lll}
+1 & 0 & 0 \\
+a & 1 & 0 \\
+a & a & 1
+\end{array}\right]^{-1}\left[\begin{array}{ccc}
+0 & -a & -a \\
+0 & 0 & -a \\
+0 & 0 & 0
+\end{array}\right]=\left[\begin{array}{ccc}
+0 & -a & -a \\
+0 & a^{2} & a^{2}-a \\
+0 & a^{2}-a^{3} & 2 a^{2}-a^{3}
+\end{array}\right]
+$$
+
+其特征多项式
+$$
+\left|\begin{array}{ccc}
+\lambda & a & a \\
+0 & \lambda-a^{2} & a-a^{2} \\
+0 & a^{3}-a^{2} & \lambda-2 a^{2}+a^{3}
+\end{array}\right|=\lambda\left[\lambda^{2}+\left(a^{3}-3 a^{2}\right) \lambda+a^{3}\right]=0
+$$
+
+若要使 Gauss-Seidel 迭代法收敛, 则对其三个特征值都需满足 $ \left|\lambda_{1}\right|<1,\left|\lambda_{2}\right|< $ $ 1,\left|\lambda_{3}\right|<1 $, 这里 $ \lambda_{1}=0, \lambda_{2}, \lambda_{3} $ 是方程 $ \lambda^{2}+\left(a^{3}-3 a^{2}\right) \lambda+a^{3}=0 $ 的两个根, 则由
+条件只需满足
+$$
+\left|a^{3}-3 a^{2}\right|<1+a^{3}<2
+$$
+
+解得 $ -\frac{1}{2}<a<1 $, 此时系数矩阵 $ A $ 是对称正定矩阵.
+ \end{tcolorbox}
+
+
+ \begin{tcolorbox}[enhanced,colback=blue!8!white,colframe=blue!25!white,breakable,title=2024]
+
+
+ 设 $ n $ 阶方阵 $ A=\left[a_{i j}\right]_{n \times n} $ 的对角线元素 $ a_{k k} \neq 0, k=1,2, \cdots, n $, 考虑利用迭代法求解线性方程组 $ A x=b $, 求证:
+(1) Jacobi 迭代法收敛当且仅当 $ \left|\begin{array}{cccc}\lambda a_{11} & a_{12} & \cdots & a_{1 n} \\ a_{21} & \lambda a_{22} & \cdots & a_{2 n} \\ \vdots & \vdots & & \vdots \\ a_{n 1} & a_{n 2} & \cdots & \lambda a_{n n}\end{array}\right|=0 $ 的根 $ \lambda $ 均满足 $ |\lambda|<1 ; $的根 $ \lambda $ 均满足 $ |\lambda|<1 $.
+
+(2) Gauss-Seidel 迭代法收敛当且仅当方程 $ \left|\begin{array}{cccc}\lambda a_{11} & a_{12} & \cdots & a_{1 n} \\ \lambda a_{21} & \lambda a_{22} & \cdots & a_{2 n} \\ \vdots & \vdots & & \vdots \\ \lambda a_{n 1} & \lambda a_{n 2} & \cdots & \lambda a_{n n}\end{array}\right|=0 $的根 $ \lambda $ 均满足 $ |\lambda|<1 $.
+
+ \tcblower
+
+证明 (1) 由题意可知, Jacobi 迭代的迭代矩阵为 $ G=D^{-1}(L+U) $, 则其特征方程
+$$
+|\lambda I-G|=\left|\lambda I-D^{-1}(L+U)\right|=\left|D^{-1}\right| \cdot|\lambda D-(L+U)|=0
+$$
+因此特征值满足 $ |\lambda D-(L+U)|=0 $, 而
+$$
+|\lambda D-(L+U)|=\left|\begin{array}{cccc}
+\lambda a_{11} & a_{12} & \cdots & a_{1 n} \\
+a_{21} & \lambda a_{22} & \cdots & a_{2 n} \\
+\vdots & \vdots & & \vdots \\
+a_{n 1} & a_{n 2} & \cdots & \lambda a_{n n}
+\end{array}\right|=0
+$$
+
+由 Jacobi 迭代法收敛当且仅当 $ \rho(G)=\max\limits _{\lambda \in \sigma(A)}|\lambda|<1 $, 因此命题成立.
+(2) Gauss-Seidel 迭代法的迭代矩阵为 $ G=(D-L)^{-1} U $, 则其特征方程
+$$
+|\lambda I-G|=\left|\lambda I-(D-L)^{-1} U\right|=\left|(D-L)^{-1}\right| \cdot|\lambda(D-L)-U|=0
+$$
+因此特征值满足 $ |\lambda(D-L)-U|=0 $, 而
+$$
+|\lambda(D-L)-U|=\left|\begin{array}{cccc}
+\lambda a_{11} & a_{12} & \cdots & a_{1 n} \\
+\lambda a_{21} & \lambda a_{22} & \cdots & a_{2 n} \\
+\vdots & \vdots & & \vdots \\
+\lambda a_{n 1} & \lambda a_{n 2} & \cdots & \lambda a_{n n}
+\end{array}\right|=0
+$$
+由 Gauss-Seidel 迭代法收敛当且仅当 $ \rho(G)=\max\limits _{\lambda \in \sigma(A)}|\lambda|<1 $, 因此命题成立.
+ \end{tcolorbox}
+
+
+     \begin{tcolorbox}[enhanced,colback=blue!8!white,colframe=blue!25!white,breakable,title=2024]
+ 解线性方程组 $ A x=b $ 的 Jacobi 迭代法的一种改进称为 JOR 方法, 其迭代公式为
+$$
+x^{(k+1)}=\omega B_{J} x^{(k)}+(1-\omega) x^{(k)}, \quad k=0,1,2, \cdots
+$$
+其中, $ B_{J} $ 是 Jacobi 迭代法的迭代矩阵, 试证明若 Jacobi 迭代法收敛, 则 JOR 方法对 $ 0<\omega \leqslant 1 $ 收敛.
+ \tcblower
+
+证明: 由题意可知, 设 $ B_{J} $ 的特征值为 $ \lambda\left(B_{J}\right) $, 则迭代矩阵 $ B=\omega B_{J}+(1-\omega) I $对应的特征值 $ \lambda(B)=\omega \lambda\left(B_{J}\right)+1-\omega $, 因此有
+$$
+|\lambda(B)|=\left|\omega \lambda\left(B_{J}\right)+1-\omega\right| \leqslant\left|\omega \lambda\left(B_{J}\right)\right|+|1-\omega|
+$$
+由于 Jacobi 迭代法收敛, 则 $ \lambda\left(B_{J}\right)<1 $, 而 $ 0<\omega \leqslant 1 $, 所以
+$$
+|\lambda(B)| \leqslant \omega\left|\lambda\left(B_{J}\right)\right|+1-\omega<1
+$$
+由迭代法收敛条件证得 JOR 方法收敛.
+ \end{tcolorbox}
+
+
+      \begin{tcolorbox}[enhanced,colback=blue!8!white,colframe=blue!25!white,breakable,title=2024]
+ 设求解方程组 $ A x=b $ 的简单迭代法 $ x^{(k+1)}=G x^{(k)}+g(k=0,1,2, \cdots) $收敛, 证明对 $ 0<\omega<1 $, 迭代法 $ x^{(k+1)}=[(1-\omega) I+\omega G] x^{(k)}+\omega g(k=0,1 $, $ 2, \cdots) $ 收敛.
+ \tcblower
+证明 由题意可知, 设 $ B=(1-\omega) I+\omega G, \lambda(B), \lambda(G) $ 分别为 $ B $ 和 $ G $ 的特征值, 则显然
+$$
+\lambda(B)=(1-\omega)+\omega \lambda(G)
+$$
+
+由于简单迭代法收敛知 $ |\lambda(G)|<1 $, 又由 $ 0<\omega<1 $, 则 $ \lambda(B) $ 是 1 和 $ \lambda(G) $ 的加权平均, 因此
+$$
+|\lambda(B)|<|\lambda(G)|<1
+$$
+
+由迭代法的收敛条件, 迭代法 $ x^{(k+1)}=[(1-\omega) I+\omega G] x^{(k)}+\omega g, k=0,1,2, \cdots $收敛.
+
+ \end{tcolorbox}
+
+
+
+

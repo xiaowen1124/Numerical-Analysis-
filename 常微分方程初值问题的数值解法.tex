@@ -1,0 +1,343 @@
+%\section{常微分方程初值问题的数值解法}
+
+\newpage
+
+\section{常微分方程的数值解法知识点概述}
+
+一阶常微分方程的初值问题, 其一般形式是
+$
+\left\{\begin{array}{l}
+\frac{d y}{d x}=f(x, y), \quad a \leqslant x \leqslant b \\
+y(a)=y_{0}
+\end{array}\right.
+$
+建立微分方程初值问题的数值解法, 首先要将微分方程离散化, 一般采用以下几种方法:
+\begin{itemize}
+    \item  \colorbox{yellow}{差商近似导数的方法}
+\end{itemize}
+
+
+若用向前差商 $ \dfrac{y\left(x_{n+1}\right)-y\left(x_{n}\right)}{h} $ 替代 $ y^{\prime}\left(x_{n}\right) $ 代入一阶常微分方程的初值问题, 则得
+$$
+\frac{y\left(x_{n+1}\right)-y\left(x_{n}\right)}{h} \approx f\left(x_{n}, y\left(x_{n}\right)\right), \quad n=0,1, \cdots
+$$
+化简得
+$$
+y\left(x_{n+1}\right) \approx y\left(x_{n}\right)+h f\left(x_{n}, y\left(x_{n}\right)\right), \quad n=0,1, \cdots
+$$
+若用近似值 $ y_{n} $ 表示 $ y\left(x_{n}\right), y_{n+1} $ 近似所得结果 $ y\left(x_{n+1}\right) $, 则上式可记为
+$$
+y_{n+1}=y_{n}+h f\left(x_{n}, y_{n}\right), \quad n=0,1, \cdots
+$$
+如此, 初值问题就转化为下列的离散化格式问题:
+$$
+\left\{\begin{array}{l}
+y_{n+1}=y_{n}+h f\left(x_{n}, y_{n}\right) \\
+y_{0}=y(a)
+\end{array}, \quad n=0,1, \cdots\right.
+$$
+上式也称为初值问题的差分方程初值问题.
+
+\begin{itemize}
+    \item \colorbox{yellow}{数值积分方法}
+\end{itemize}
+
+
+若将初值问题的解表示成积分形式, 用数值积分方法离散化, 就可获得微分方程的数值积分方法. 如, 对初值问题的微分方程两端积分, 可得
+$$
+y\left(x_{n+1}\right)-y\left(x_{n}\right)=\int_{x_{n}}^{x_{n+1}} f(x, y(x)) d x, \quad n=0,1, \cdots
+$$
+用 $ y_{n+1}, y_{n} $ 代替上式中 $ y\left(x_{n+1}\right), y\left(x_{n}\right) $, 而右端积分采用取左端点的矩形公式, 即
+$$
+\int_{x_{n}}^{x_{n+1}} f(x, y(x)) d x \approx h f\left(x_{n}, y_{n}\right)
+$$
+则可得
+$$
+y_{n+1}-y_{n}=h f\left(x_{n}, y_{n}\right)
+$$
+
+\begin{itemize}
+    \item \colorbox{yellow}{Taylor 多项式近似法}
+\end{itemize}
+
+
+若将函数 $ y(x) $ 在 $ x_{n} $ 处展开, 取一次 Taylor 多项式近似, 则得
+$$
+y\left(x_{n+1}\right)=y\left(x_{n}+h\right) \approx y\left(x_{n}\right)+h y^{\prime}\left(x_{n}\right)=y\left(x_{n}\right)+h f\left(x_{n}, y\left(x_{n}\right)\right)
+$$
+
+再用 $ y_{n+1}, y_{n} $ 代替上式中 $ y\left(x_{n+1}\right), y\left(x_{n}\right) $, 得到离散化的计算公式与前面一致. Taylor 展开法的优点是不仅可以得到求数值解的公式, 而且容易估计截断误差, 故在数值求解公式时主要采用这种方法.
+
+通过上面三种基本方法的推导, 都可以获得初值问题的离散差分的数值计算公式, 且几何意义明确.
+
+\textcolor{blue}{1. 解存在性定理}
+
+假设 $ f(x, y) $ 在矩形区域 $ \Omega=\{(x, y) \mid x \in[a, b], y \in(-\infty,+\infty)\} $ 内连续, 且关于变元 $ y $ Lipschitz (利普希茨) 连续, 即存在正常数 $ L $, 使得对任意 $ x \in[a, b] $, 成立不等式
+$$
+\left|f\left(x, y_{1}\right)-f\left(x, y_{2}\right)\right| \leqslant L\left|y_{1}-y_{2}\right|
+$$
+其中, 常数 $ L $ 称为 Lipschitz 常数, 则初值问题存在唯一解 $ y(x) \in C[a, b] $.
+
+\textcolor{blue}{2. Euler 方法}
+
+Euler (欧拉) 法, 也称 Euler 折线法.
+$$
+\left\{\begin{array}{l}
+y_{n+1}=y_{n}+h f\left(x_{n}, y_{n}\right), \\
+y_{0}=y\left(x_{0}\right)=a,
+\end{array} n=0,1,2, \cdots\right.
+$$
+
+\textcolor{blue}{3. 向后 Euler 方法}
+$$
+\left\{\begin{array}{l}
+y_{n+1}=y_{n}+h f\left(x_{n+1}, y_{n+1}\right), \quad n=0,1,2, \cdots \\
+y_{0}=y\left(x_{0}\right)=a,
+\end{array}\right.
+$$
+
+\textcolor{blue}{4. 梯形法}
+
+$$ \left\{\begin{array}{l}y_{n+1}=y_{n}+\frac{h}{2}\left[f\left(x_{n}, y_{n}\right)+f\left(x_{n+1}, y_{n+1}\right)\right], \quad n=0,1,2, \cdots \\ y_{0}=y\left(x_{0}\right)=a,\end{array}\right. $$
+
+\textcolor{blue}{5. 局部截断误差与 $ p $ 阶精度}
+
+设 $ y(x) $ 是初值问题的解析解, 称
+$$
+R_{n+1}=y\left(x_{n+1}\right)-y_{n+1}
+$$
+为显式单步法的局部截断误差.
+设 $ y(x) $ 是初值问题的准确解, 若存在最大整数 $ p $ 使显式单步法的局部截断误差满足
+$$
+R_{n+1}=y\left(x_{n+1}\right)-y_{n+1}=O\left(h^{p+1}\right)
+$$
+则称该方法具有 $ p $ 阶精度, 若局部截断误差展开成
+$$
+R_{n+1}=\psi\left(x_{n}, y\left(x_{n}\right)\right) h^{p+1}+O\left(h^{p+2}\right)
+$$
+则 $ \psi\left(x_{n}, y\left(x_{n}\right)\right) h^{p+1} $ 称为局部截断误差主项.
+
+\textcolor{blue}{6. 改进 Euler 法}
+
+(1) 利用 Euler 公式求得一个初步的近似值 $ \widetilde{y}_{n+1} $, 称为预估值;
+
+(2) 利用梯形公式将它校正一次得到 $ y_{n+1} $, 称为校正值.
+预估值 $ \widetilde{y}_{n+1} $ 的精度可能很差, 校正值精度就能极大改善, 这样建立的预估-校正系统通常称为改进 Euler 法.
+\begin{itemize}
+    \item 预估: $ \widetilde{y}_{n+1}=y_{n}+h f\left(x_{n}, y_{n}\right) $.
+    \item 校正: $ y_{n+1}=y_{n}+\frac{h}{2}\left[f\left(x_{n}, y_{n}\right)+f\left(x_{n+1}, \widetilde{y}_{n+1}\right)\right], n=0,1,2, \cdots $
+\end{itemize}
+改进欧拉法也可以写成下列平均化形式
+$$
+y_{n+1}=\frac{1}{2}\left(y_{p}+y_{c}\right)
+$$
+其中 $ , y_{p}=y_{n}+h f\left(x_{n}, y_{n}\right), y_{c}=y_{n}+h f\left(x_{n+1}, y_{p}\right), n=0,1,2, \cdots $.
+
+\textcolor{blue}{7. 二阶 Runge-Kutta 方法}
+
+(1) 中点公式
+$$
+\left\{\begin{array}{l}
+y_{n+1}=y_{n}+h K_{2} \\
+K_{1}=f\left(x_{n}, y_{n}\right) \\
+K_{2}=f\left(x_{n}+\frac{h}{2}, y_{n}+\frac{h}{2} K_{1}\right)
+\end{array} \quad n=0,1,2, \cdots\right.
+$$
+
+(2) 二阶 Heun 方法
+$$\left\{\begin{array}{l} y_{n + 1} = y_{n} + \frac{h}{4}\left( K_{1} + 3K_{2} \right), \\ K_{1} = f\left( x_{n},y_{n} \right), \\ K_{2} = f\left( x_{n} + \frac{2}{3}h,y_{n} + \frac{2}{3}hK_{1} \right), \end{array}\quad n = 0,1,2,{\cdots} \right.$$
+
+\textcolor{blue}{8. 三阶和四阶 Runge-Kutta 方法}
+
+(1) Kutta 三阶方法
+$$\left\{\begin{array}{l} y_{n + 1} = y_{n} + \frac{h}{6}\left( K_{1} + 4K_{2} + K_{3} \right), \\ K_{1} = f\left( x_{n},y_{n} \right), \\ K_{2} = f\left( x_{n} + \frac{h}{2},y_{n} + \frac{h}{2}K_{1} \right), \\ K_{3} = f\left( x_{n} + h,y_{n} {-} hK_{1} + 2hK_{2} \right), \end{array}\quad n = 0,1,2,{\cdots} \right.$$
+
+(2) 三阶 Heun 方法
+$$\left\{\begin{array}{l} y_{n + 1} = y_{n} + \frac{h}{4}\left( K_{1} + 3K_{3} \right), \\ K_{1} = f\left( x_{n},y_{n} \right), \\ K_{2} = f\left( x_{n} + \frac{h}{3},y_{n} + \frac{h}{3}K_{1} \right),\quad n = 0,1,2,{\cdots} \\ K_{3} = f\left( x_{n} + \frac{2}{3}h,y_{n} + \frac{2}{3}hK_{2} \right), \end{array} \right.$$
+
+(3) 经典四阶 Runge-Kutta 方法
+$$\left\{\begin{array}{l} y_{n + 1} = y_{n} + \frac{h}{6}\left( K_{1} + 2K_{2} + 2K_{3} + K_{4} \right), \\ K_{1} = f\left( x_{n},y_{n} \right), \\ K_{2} = f\left( x_{n} + \frac{h}{2},y_{n} + \frac{h}{2}K_{1} \right), \\ K_{3} = f\left( x_{n} + \frac{h}{2},y_{n} + \frac{h}{2}K_{2} \right), \\ K_{4} = f\left( x_{n} + h,y_{n} + hK_{3} \right), \end{array}\quad n = 0,1,2,{\cdots} \right.$$
+
+
+
+
+ \textcolor{blue}{9. 单步法的收敛性}
+
+若一种数值方法对于固定的 $x_{n} = x_{0} + nh$ ,当 $h {\rightarrow} 0$ 时,有 $y_n\to y(x_n)$, 其中 $y(x)$ 是原微分方程的准确解,则称该方法是收敛的.
+
+假设单步法具有 $p$ 阶精度,且增量函数 $\varphi(x,y,h)$ 关于 $y$ 满足 Lipschitz 条件
+$$\left| \varphi(x,y,h) {-} \varphi\left( x,\bar{y},h \right) \right| {\leq} L_{\varphi}\left| y {-} \bar{y} \right|$$
+又设 $\varphi(x,y,h)$ 是准确的,即 $y_{0} = y\left( x_{0} \right)$ ,则其整体截断误差 $y\left( x_{n} \right) {-} y_{n} = O(h^p)$
+
+
+\section{补充}
+
+\subsection{梯形法}
+将方程 $ y^{\prime}=f(x, y) $ 的两端从 $ x_{n} $ 到 $ x_{n+1} $ 求积分得
+$$
+y\left(x_{n+1}\right)=y\left(x_{n}\right)+\int_{x_{n}}^{x_{n+1}} f(x, y(x)) \mathrm{d} x
+$$
+为了提高精度, 改用梯形方法计算积分项代替矩形方法计算积分项, 即将
+$$
+\int_{x_{n}}^{x_{n+1}} f(x, y(x)) \mathrm{d} x \approx \frac{h}{2}\left[f\left(x_{n}, y\left(x_{n}\right)\right)+f\left(x_{n+1}, y\left(x_{n+1}\right)\right)\right]
+$$
+代入, 从而有
+$$
+y\left(x_{n+1}\right) \approx y\left(x_{n}\right)+\frac{h}{2}\left[f\left(x_{n}, y\left(x_{n}\right)\right)+f\left(x_{n+1}, y\left(x_{n+1}\right)\right)\right]
+$$
+设将式中的 $ y\left(x_{n}\right), y\left(x_{n+1}\right) $ 分别用 $ y_{n}, y_{n+1} $ 代替, 作为离散化的结果导出下列计算公式
+$$
+y_{n+1}=y_{n}+\frac{h}{2}\left[f\left(x_{n}, y_{n}\right)+f\left(x_{n+1}, y_{n+1}\right)\right]
+$$
+与梯形求积公式相对应的这一差分公式称作梯形公式.
+
+设 $ y(x) $ 是微分方程初值问题的解析解, 则梯形公式的局部截断误差
+$$
+\begin{aligned}
+y\left(x_{n+1}\right)-y_{n+1} & =y\left(x_{n+1}\right)-y\left(x_{n}\right)-\frac{h}{2}\left[f\left(x_{n}, y\left(x_{n}\right)\right)+f\left(x_{n+1}, y\left(x_{n+1}\right)\right)\right] \\
+& =y\left(x_{n+1}\right)-y\left(x_{n}\right)-\frac{h}{2}\left[y^{\prime}\left(x_{n}\right)+y^{\prime}\left(x_{n+1}\right)\right]
+\end{aligned}
+$$
+将 $ y\left(x_{n+1}\right) $ 在 $ x_{n} $ 处泰勒展开
+$$
+y\left(x_{n+1}\right)=y\left(x_{n}\right)+h y^{\prime}\left(x_{n}\right)+\frac{1}{2} h^{2} y^{\prime \prime}\left(x_{n}\right)+\frac{1}{6} h^{3} y^{\prime \prime \prime}\left(x_{n}\right)+O\left(h^{4}\right)
+$$
+将 $ y^{\prime}\left(x_{n+1}\right) $ 在 $ x_{n} $ 处泰勒展开
+$$
+y^{\prime}\left(x_{n+1}\right)=y^{\prime}\left(x_{n}\right)+h y^{\prime \prime}\left(x_{n}\right)+\frac{1}{2} h^{2} y^{\prime \prime \prime}\left(x_{n}\right)+O\left(h^{3}\right)
+$$
+将上两式代入, 有
+$$
+\begin{aligned}
+y\left(x_{n+1}\right)-y_{n+1}= & h y^{\prime}\left(x_{n}\right)+\frac{1}{2} h^{2} y^{\prime \prime}\left(x_{n}\right)+\frac{1}{6} h^{3} y^{\prime \prime \prime}\left(x_{n}\right)-\frac{h}{2}\left[2 y^{\prime}\left(x_{n}\right)+h y^{\prime \prime}\left(x_{n}\right)+\frac{1}{2} h^{2} y^{\prime \prime \prime}\left(x_{n}\right)\right]+O\left(h^{4}\right) \\
+= & -\frac{1}{12} h^{3} y^{\prime \prime \prime}\left(x_{n}\right)+O\left(h^{4}\right)
+\end{aligned}
+$$
+梯形公式的局部截断误差为 $ O\left(h^{3}\right) $, 比欧拉公式和隐式欧拉公式高一阶.
+
+容易看出, 梯形格式实际上是显式欧拉格式与隐式欧拉格式的算术平均.因此梯形格式是隐式方式不易求解, 一般构成如下计算公式
+$$
+\left\{\begin{array}{l}
+y_{n+1}^{(0)}=y_{n}+h f\left(x_{n}, y_{n}\right) \\
+y_{n+1}^{(k+1)}=y_{n}+\frac{h}{2}\left[f\left(x_{n}, y_{n}\right)+f\left(x_{n+1}, y_{n+1}^{(k)}\right)\right] \\
+k=0,1,2, \cdots ; n=0,1,2, \cdots
+\end{array}\right.
+$$
+使用时, 先用第一式算出 $ x_{n+1} $ 处 $ y_{n+1} $ 的初始近似值 $ y_{n+1}^{(0)} $, 再用第二式反复进行迭代, 得到 $ y_{n+1}^{(1)}, y_{n+1}^{(2)}, \cdots $, 用 $ \left|y_{n+1}^{(k+1)}-y_{n+1}^{(k)}\right| \leqslant \varepsilon $ 控制迭代次数, $ \varepsilon $ 为允许误差.把满足误差要求的 $ y_{n+1}^{(k+1)} $ 作为 $ y\left(x_{n+1}\right) $ 的近似值 $ y_{n+1} $, 类似地可得 $ y_{n+2}, y_{n+3}, \cdots $ .
+
+
+
+\subsection{单步公式的阶}
+设单步公式的局部截断误差为
+$$
+y\left(x_{n+1}\right)-y_{n+1}=\frac{y^{(p+1)}\left(\xi_{n}\right)}{(p+1)!} h^{p+1} \approx \frac{y^{(p+1)}\left(x_{n}\right)}{(p+1)!} h^{p+1}=o\left(h^{p+1}\right),
+$$
+则称该单步公式具有 $ p $ 阶精度, 且其局部截断误差的首项为
+$$
+\frac{y^{(p+1)}\left(x_{n}\right)}{(p+1)!} h^{p+1} .
+$$
+
+ \colorbox{yellow}{试确定 Euler 公式、隐式 Euler 公式、两步 Euler 公式的阶.}
+ 
+ (1) Euler 公式 $y_{n+1}=y_{n}+h f\left(x_{n}, y_{n}\right) .$
+
+当 $ y_{n}=y\left(x_{n}\right) $ 有
+$$
+y_{n+1}=y\left(x_{n}\right)+h f\left(x_{n}, y\left(x_{n}\right)\right)=y\left(x_{n}\right)+h y^{\prime}\left(x_{n}\right) .
+$$
+由 Taylor 展开式
+$$
+\begin{aligned}
+y\left(x_{n+1}\right) & =y\left(x_{n}+h\right) =y\left(x_{n}\right)+h y^{\prime}\left(x_{n}\right)+\frac{h^{2}}{2} y^{\prime \prime}\left(\xi_{n}\right), \quad \xi_{n} \in\left(x_{n}, x_{n+1}\right) .
+\end{aligned}
+$$
+所以
+$$
+y\left(x_{n+1}\right)-y_{n+1}=\frac{1}{2} y^{\prime \prime}\left(\xi_{n}\right) h^{2} \approx \frac{1}{2} y^{\prime \prime}\left(x_{n}\right) h^{2}=O\left(h^{2}\right) .
+$$
+由定义 , 该 Euler 公式具有一阶精度, 且其截断误差的首项为 $ \frac{1}{2} y^{\prime \prime}\left(x_{n}\right) h^{2} $.
+
+(2) 两步 Euler 公式 $y_{n+1}=y_{n-1}+2 h f\left(x_{n}, y_{n}\right)$
+
+设 $ y_{n-1}=y\left(x_{n-1}\right), y_{n}=y\left(x_{n}\right) $, 有 $ y_{n+1}=y\left(x_{n-1}\right)+2 h y^{\prime}\left(x_{n}\right) $.
+将
+$$
+y\left(x_{n-1}\right)=y\left(x_{n}\right)-h y^{\prime}\left(x_{n}\right)+\frac{h^{2}}{2} y^{\prime \prime}\left(x_{n}\right)-\frac{h^{3}}{3!} y^{\prime \prime}\left(\xi_{n}\right)
+$$
+代入上式得
+$$
+y_{n+1}=y\left(x_{n}\right)+h y^{\prime}\left(x_{n}\right)+\frac{h_{2}}{2} y^{\prime \prime}\left(x_{n}\right)-\frac{h^{3}}{3!} y^{\prime \prime}\left(\xi_{n}\right),
+$$
+而
+$$
+y\left(x_{n+1}\right)=y\left(x_{n}\right)+h y^{\prime}\left(x_{n}\right)+\frac{h^{2}}{2} y^{\prime \prime}\left(x_{n}\right)+\frac{h^{3}}{3!} y^{\prime \prime}\left(\xi_{n}\right),
+$$
+所以
+$$
+y\left(x_{n+1}\right)-y_{n+1}=\frac{h^{3}}{3} y^{n}\left(\xi_{n}\right) \approx \frac{h^{3}}{3} y^{n}\left(x_{n}\right)=O\left(h^{3}\right) .
+$$
+由定义 , 该两步 Euler 公式具有二阶精度, 且其截断误差首项为 $ \frac{h^{3}}{3} y^{\prime \prime}\left(x_{n}\right) $.
+
+(3) 隐式 Euler 公式 $y_{n+1}=y_{n}+h f\left(x_{n+1}, y_{n+1}\right) .$
+
+设 $y_{n}=y\left(x_{n}\right)$，将 $ f\left(x_{n+1}, y_{n+1}\right) $ 作如下变换:
+$$
+\begin{aligned}
+f\left(x_{n+1}, y_{n+1}\right) & =f\left(x_{n+1}, y\left(x_{n+1}\right)+\left(y_{n+1}-y\left(x_{n+1}\right)\right)\right) \\
+& =f\left(x_{n+1}, y\left(x_{n+1}\right)\right)+f_{y}\left(x_{n+1}, \eta\right)\left(y_{n+1}-y\left(x_{n+1}\right)\right),
+\end{aligned}
+$$
+其中, $ \eta $ 个于 $ y_{n+1} $ 与 $ y\left(x_{n+1}\right) $ 之间. 所以
+$$
+y_{n+1}=y\left(x_{n}\right)+h\left[f\left(x_{n+1}, y\left(x_{n+1}\right)\right)+f_{y}\left(x_{n+1}, \eta\right)\left(y_{n+1}-y\left(x_{n+1}\right)\right)\right] .
+$$
+而
+$$
+\begin{aligned}
+f\left(x_{n+1}, y\left(x_{n+1}\right)\right) & =y^{\prime}\left(x_{n+1}\right) \\
+& =y^{\prime}\left(x_{n}\right)+h y^{\prime \prime}\left(x_{n}\right)+\frac{h^{2}}{2} y^{\prime \prime}\left(x_{n}\right)+\cdots
+\end{aligned}
+$$
+将其代入上式得
+$$
+y_{n+1}=h f_{y}\left(x_{n+1}, \eta\right)\left(y_{n+1}+y\left(x_{n+1}\right)\right)+y\left(x_{n}\right)+h y^{\prime}\left(x_{n}\right)+h^{2} y^{\prime \prime}\left(x_{n}\right)+\frac{h^{3}}{2} y^{n}\left(x_{n}\right)+\cdots
+$$
+而 $ \quad y\left(x_{n+1}\right)=y\left(x_{n}\right)+h y^{\prime}\left(x_{n}\right)+\frac{h^{2}}{2} y^{\prime \prime}\left(x_{n}\right)+\frac{h^{3}}{3!} y^{\prime \prime}\left(x_{n}\right)+\cdots $
+两式相减得
+$$
+\begin{aligned}
+y\left(x_{n+1}\right)-y_{n+1}= & -h f_{y}\left(x_{n+1}, \eta\right)\left(y_{n+1}-y\left(x_{n+1}\right)\right)+\left(\frac{1}{2}-1\right) h^{2} y^{\prime \prime}\left(x_{n}\right) +\left(\frac{1}{3!}-\frac{1}{2}\right) h^{3} y^{\prime \prime}\left(x_{n}\right)+\cdots \\
+= & -h f_{y}\left(x_{n+1}, \eta\right)\left(y_{n+1}-y\left(x_{n+1}\right)\right)-\frac{1}{2} h^{2} y^{\prime \prime}\left(x_{n}\right)+\cdots
+\end{aligned}
+$$
+整理上式得
+$$
+\left[1-h f_{y}\left(x_{n+1}, \eta\right)\right]\left(y\left(x_{n+1}\right)-y_{n+1}\right)=-\frac{1}{2} h^{2} y^{\prime \prime}\left(x_{n}\right)+\cdots
+$$
+据$\frac{1}{1-x}=1+x+x^{2}+\cdots$ 得
+$$
+\frac{1}{1-h f_{y}\left(x_{n+1}, \eta\right)}=1+h f_{y}\left(x_{n+1}, \eta\right)+\ldots
+$$
+并将其代入得
+$$
+y\left(x_{n+1}\right)-y_{n+1}=-\frac{1}{2} h^{2} y^{\prime \prime}\left(x_{n}\right)-\frac{1}{2} h^{3} y^{\prime \prime}\left(x_{n}\right) f_{y}\left(x_{n+1}, \eta\right)+\ldots
+$$
+所以
+$$
+y\left(x_{n+1}\right)-y_{n+1} \approx-\frac{1}{2} h^{2} y^{\prime \prime}\left(x_{n}\right)=O\left(h^{2}\right) .
+$$
+故该隐式 Euler 公式具有一阶精度，且其阵断误差的首项为 $ -\frac{1}{2} h^{2} y^{\prime \prime}\left(x_{n}\right) $.
+
+(4) 梯形公式 $y_{n+1}=y_{n}+\frac{h}{2}\left[f\left(x_{n}, y_{n}\right)+f\left(x_{n+1}, y_{n+1}\right)\right] .$
+
+用类似于 (3) 中的方法可证(或者前面章节的内容)得
+$$
+y\left(x_{n+1}\right)-y_{n+1} \approx-\frac{h^{3}}{12} y^{\prime \prime}\left(x_{n}\right)=O\left(h^{3}\right),
+$$
+即梯形公式具有二阶精度, 且其截断误差的首项为 $ -\frac{h^{3}}{12} y^{\prime \prime}\left(x_{n}\right) $.
+
+归纳上述结论如下:\\
+Euler 公式: $ y\left(x_{n+1}\right)-y_{n+1} \approx \frac{y^{\prime \prime}\left(x_{n}\right)}{2} h^{2}=O\left(h^{2}\right) $, 一阶精度;\\
+隐式 Euler 公式: $ y\left(x_{n+1}\right)-y_{n+1} \approx-\frac{y^{\prime \prime}\left(x_{n}\right)}{2} h^{2}=O\left(h^{2}\right) $, 一阶精度;\\
+两步 Euler 公式: $ y\left(x_{n+1}\right)-y_{n+1} \approx \frac{y^{n}\left(x_{n}\right)}{3} h^{3}=O\left(h^{3}\right) $, 二阶精度;\\
+梯形公式: $ y\left(x_{n+1}\right)-y_{n+1} \approx-\frac{y^{\prime \prime}\left(x_{n}\right)}{12} h^{3}=O\left(h^{3}\right) $, 二阶精度.

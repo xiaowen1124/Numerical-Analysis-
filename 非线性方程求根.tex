@@ -1,0 +1,460 @@
+\newpage
+
+\section{非线性方程求根}
+\subsection{知识点概述}
+
+\textcolor{blue}{1. 根的定义}
+
+若实数 $ x^{*} $ 满足 $ f\left(x^{*}\right)=0 $, 则称 $ x^{*} $ 是方程 $ f(x)=0 $ 的根 (零点); 若 $ f(x) $ 可分解为 $ f(x)=\left(x-x^{*}\right)^{m} g(x) $, 其中, $ m $ 为正整数, 且 $ g\left(x^{*}\right) \neq 0 $, 则称 $ x^{*} $ 为方程 $ f(x)=0 $ 的 $ m $ 重根 (零点), 当 $ m=1 $ 时即为单根.
+
+对于充分可微的函数 $ f(x), x^{*} $ 是函数 $ f(x) $ 的 $ m $ 重零点的充分必要条件是
+$$
+f\left(x^{*}\right)=f^{\prime}\left(x^{*}\right)=\cdots=f^{(m-1)}\left(x^{*}\right)=0, \quad f^{(m)}\left(x^{*}\right) \neq 0
+$$
+
+\textcolor{blue}{2. 根的搜索}
+
+\textbf{跨步法或者逐次搜索法} \; 反复利用零点定理选取合适的步长判断端点是否异号求得非线性方程的有根区间的过程.
+
+\textbf{二分法} \; 将有根区间 $ [a, b] $, 取中点 $ x_{0}=\frac{(a+b)}{2} $ 将它分成两半, 假设中点 $ x_{0} $不是 $ f(x) $ 的零点, 然后进行根的搜索, 即检查 $ f\left(x_{0}\right) $ 与 $ f(a) $ 是否同号, 如果是同号, 说明所求的根 $ x^{*} $ 在 $ x_{0} $ 的右侧, 这时令 $ a_{1}=x_{0}, b_{1}=b $; 否则 $ x^{*} $ 必在 $ x_{0} $的左侧, 这时令 $ a_{1}=a, b_{1}=x_{0} $ 不管出现哪种情况, 新的有根区间 $ \left[a_{1}, b_{1}\right] $ 的长度仅为 $ [a, b] $ 长度的一半. 对压缩了的有根区间 $ \left[a_{1}, b_{1}\right] $ 继续上述过程, 即用中点 $ x_{1}=\frac{a_{1}+b_{1}}{2} $ 将区间 $ \left[a_{1}, b_{1}\right] $ 再分为两半, 然后通过根的搜索判定所求的根在 $ x_{1} $的哪一侧, 从而又确定一个新的有根区间 $ \left[a_{2}, b_{2}\right] $, 其长度是 $ \left[a_{1}, b_{1}\right] $ 长度的一半, 如此反复二分下去, 即可得出一系列有根区
+$$
+[a, b] \supset\left[a_{1}, b_{1}\right] \supset\left[a_{2}, b_{2}\right] \supset \cdots \supset\left[a_{k}, b_{k}\right] \supset \cdots
+$$
+其中, 每个区间都是前一个区间的一半, 因此当 $ k \rightarrow \infty $ 时, $ \left[a_{k}, b_{k}\right] $ 的长度
+$$
+b_{k}-a_{k}=\frac{b-a}{2^{k}} \rightarrow 0
+$$
+就是说, 如果二分过程无限地继续下去, 这些区间最终必收缩于一点 $ x^{*} $, 该点显然就是所求的根, 且每次二分后, 设取有根区间 $ \left[a_{k}, b_{k}\right] $ 的中点
+$$
+x_{k}=\frac{a_{k}+b_{k}}{2}
+$$
+作为根的近似值, 则在二分过程中可以获得一个近似根的序列 $ x_{0}, x_{1}, x_{2}, \cdots $, $ x_{k}, \cdots $, 该序列必以根 $ x^{*} $ 为极限. 由于
+$$
+\left|x^{*}-x_{k}\right| \leqslant \frac{b_{k}-a_{k}}{2}=\frac{b-a}{2^{k+1}}
+$$
+只要二分足够多次 (即 $ k $ 充分大), 便有 $ \left|x^{*}-x_{k}\right|<\varepsilon $, 这里 $ \varepsilon $ 为预定的精度, $ x_{k} $为根 $ x^{*} $ 的近似.
+
+
+\textcolor{blue}{3. 不动点迭代}
+
+选择一个初始近似值 $ x_{0} $, 通过
+$$
+x_{k+1}=\varphi\left(x_{k}\right), \quad k=0,1,2, \cdots
+$$
+产生数列 $ \left\{x_{k}\right\} $, 如果序列有极限且 $ \varphi(x) $ 是连续的, 则
+$$
+x^{*}=\lim _{k \rightarrow \infty} x_{k}=\lim _{k \rightarrow \infty} \varphi\left(x_{k-1}\right)=\varphi\left(\lim _{k \rightarrow \infty} x_{k-1}\right)=\varphi\left(x^{*}\right)
+$$
+这样得到了方程 $ x=\varphi(x) $ 的解, 这个方法称为不动点迭代法, $ \varphi(x) $ 称为迭代函数.
+
+\textcolor{blue}{4. 压缩映像原理}
+
+(不动点定理或压缩映像原理) 设 $ \varphi(x) \in C[a, b] $, 且对任意 $ x \in[a, b] $, 有 $ a \leqslant $ $ \varphi(x) \leqslant b $, 又假设 $ \varphi^{\prime}(x) $ 在 $ (a, b) $ 内存在, 且存在正常数 $ L<1 $, 使得 $ \left|\varphi^{\prime}(x)\right| \leqslant L $,则有以下等价结论:
+
+(1) 方程 $ x=\varphi(x) $ 在 $ [a, b] $ 内有唯一的根 $ x^{*} $;
+
+(2) 对任何初始值 $ x_{0} $, 由 $ x_{k+1}=\varphi\left(x_{k}\right), k=0,1,2, \cdots $, 定义的序列 $ \left\{x_{k}\right\} $ 收敛于 $ [a, b] $ 内的唯一不动点 $ x^{*} ; $
+
+(3) $\displaystyle \left|x^{*}-x_{k}\right| \leqslant \frac{L}{1-L}\left|x_{k}-x_{k-1}\right| $
+
+(4) $\displaystyle \left|x^{*}-x_{k}\right| \leqslant \frac{L^{k}}{1-L}\left|x_{1}-x_{0}\right| $.
+
+\textcolor{blue}{5. 迭代的收敛阶}
+
+迭代过程 $ x_{k+1}=\varphi\left(x_{k}\right) $ 收敛于方程 $ x=\varphi(x) $ 的根 $ x^{*} $, 第 $ k $ 步迭代的误差记为 $ \varepsilon_{k}=x^{*}-x_{k} $, 若存在实数 $ p \geqslant 1 $, 使得
+$$
+\lim _{k \rightarrow \infty} \frac{\left|\varepsilon_{k+1}\right|}{\left|\varepsilon_{k}\right|^{p}}=C \neq 0
+$$
+则称迭代函数 $ \varphi(x) $ 关于 $ x^{*} $ 是 $ p $ 阶收敛的, $ C $ 称为渐近误差常数.
+
+\textbf{注 }\; (1) $ C \neq 0 $ 是指对一般的函数来说的, 它保证了 $ p $ 的唯一性, 对于特殊的函数, $ C $ 可能为 0 , 此时对这个函数迭代收敛得更快. (2) 一般说来, $ p $ 越大, 收敛就越快, 习惯上, $ p=1 $ 称为线性收敛, $ p>1 $ 称为超线性收敛, $ p=2 $ 称为平方收敛.
+
+\textbf{判断定理} \; 迭代函数 $ \varphi(x) $ 在方程 $ x=\varphi(x) $ 的根 $ x^{*} $ 的邻域内有充分多阶连续导数, 则迭代法关于 $ x^{*} $ 是 $ p $ 阶收敛的充分必要条件是
+$$
+\varphi^{\prime}\left(x^{*}\right)=0, \quad \varphi^{\prime \prime}\left(x^{*}\right)=0, \cdots, \varphi^{(p-1)}\left(x^{*}\right)=0, \quad \varphi^{(p)}\left(x^{*}\right) \neq 0
+$$
+
+\textcolor{blue}{6. Newton 迭代}
+
+Newton 迭代格式为
+$$
+x_{k+1}=x_{k}-\frac{f\left(x_{k}\right)}{f^{\prime}\left(x_{k}\right)}, \quad k=0,1,2, \cdots
+$$
+由收敛阶判断定理 Newton 迭代格式至少是平方收敛的, 若继续往下计算得
+$$
+\varphi^{\prime \prime}\left(x^{*}\right)=\frac{f^{\prime \prime}\left(x^{*}\right)}{f^{\prime}\left(x^{*}\right)}
+$$
+不能确定是否 $ \varphi^{\prime \prime}\left(x^{*}\right)=0 $, 因此 $\displaystyle \lim _{k \rightarrow \infty} \frac{x_{k+1}-x^{*}}{\left(x_{k}-x^{*}\right)^{2}}=\frac{f^{\prime \prime}\left(x^{*}\right)}{2 f^{\prime}\left(x^{*}\right)} $.
+
+\textcolor{blue}{7. Newton 迭代的修正}
+
+(1) 简化 Newton 法
+
+为了避免每步计算 $ f^{\prime}\left(x_{k}\right) $, 将 Newton 迭代修正为如下简化的 Newton 迭代
+$$
+x_{k+1}=x_{k}-\frac{f\left(x_{k}\right)}{f^{\prime}\left(x_{0}\right)}, \quad k=0,1,2, \cdots
+$$
+显然其收敛速度是无法保证的.
+
+(2) 弦截法
+
+在 Newton 迭代公式中, 用差商 $ \frac{f\left(x_{k}\right)-f\left(x_{k-1}\right)}{x_{k}-x_{k-1}} $ 近似代替导数 $ f^{\prime}\left(x_{k}\right) $, 得到迭代公式为
+$$
+x_{k+1}=x_{k}-\frac{f\left(x_{k}\right)}{f\left(x_{k}\right)-f\left(x_{k-1}\right)}\left(x_{k}-x_{k-1}\right), \quad k=0,1,2, \ldots
+$$
+称为弦截法或者割线法.
+
+(3) 抛物线法
+
+考虑用 $ f(x) $ 的二次插值多项式的零点来近似 $ f(x) $ 的零点, 得到抛物线法, 设已知方程的根的三个近似值 $ x_{k-2}, x_{k-1}, x_{k} $, 以这三点为插值节点的 $ f(x) $ 的二次插值多项式为
+$$
+N_{2}(x)=f\left(x_{k}\right)+f\left[x_{k-1}, x_{k}\right]\left(x-x_{k}\right)+f\left[x_{k-2}, x_{k-1}, x_{k}\right]\left(x-x_{k}\right)\left(x-x_{k-1}\right)
+$$
+该二次多项式的零点为
+$$
+x=x_{k}-\frac{2 f\left(x_{k}\right)}{\omega \pm \sqrt{\omega^{2}-4 f\left(x_{k}\right) f\left[x_{k}, x_{k-1}, x_{k-2}\right]}}
+$$
+其中, $ \omega=f\left[x_{k}, x_{k-1}\right]+f\left[x_{k}, x_{k-1}, x_{k-2}\right]\left(x_{k}-x_{k-1}\right) $.
+因此, 构造的迭代格式为
+$$
+x_{k+1}=x_{k}-\frac{2 f\left(x_{k}\right)}{\omega \pm \sqrt{\omega^{2}-4 f\left(x_{k}\right) f\left[x_{k}, x_{k-1}, x_{k-2}\right]}}, \quad k=0,1,2, \cdots
+$$
+称为抛物线法, 也称为 Muller 方法或二次插值法.
+
+(4) Newton 下山法
+
+Newton 法收敛性依赖初值 $ x_{0} $ 的选取, 如果 $ x_{0} $ 偏离所求根 $ x^{*} $ 较远, 则 Newton 法可能发散, 针对这种情形, 为了防止迭代发散, 对迭代过程附加一项要求, 即具有单调性
+$$
+\left|f\left(x_{k+1}\right)\right|<\left|f\left(x_{k}\right)\right|
+$$
+满足这项要求的算法称为下山法. 将 Newton 法与下山法结合起来用, 即在下山法保证函数值稳定下降的前提下, 用 Newton 法加快收敛速度, 为此, 将 Newton 法的计算结果
+$$
+\bar{x}_{k+1}=x_{k}-\frac{f\left(x_{k}\right)}{f^{\prime}\left(x_{k}\right)}
+$$
+与前一步的近似值 $ x_{k} $ 的适当加权平均作为新的改进值
+$$
+x_{k+1}=\lambda \bar{x}_{k+1}+(1-\lambda) x_{k}
+$$
+其中 $ \lambda(0<\lambda \leqslant 1) $ 称为下山因子, 则
+$$
+x_{k+1}=x_{k}-\lambda \frac{f\left(x_{k}\right)}{f^{\prime}\left(x_{k}\right)}, \quad k=0,1,2, \cdots
+$$
+称为 Newton 下山法.
+
+选择下山因子时从 $ \lambda=1 $ 开始, 逐次将 $ \lambda $ 减半进行试算, 直到能使下降条件成立为止,一般情况可得到 $ \lim\limits _{k \rightarrow \infty} f\left(x_{k}\right)=0 $, 从而使 $ \left\{x_{k}\right\} $ 收敛.
+
+\textcolor{blue}{8. 重根迭代}
+
+若 $ x^{*} $ 为方程 $ f(x)=0 $ 的 $ m(m \geqslant 2) $ 重根, 则 $ f(x)=\left(x-x^{*}\right)^{m} g(x) $, 要保证至少是平方收敛的, 则可以采用以下两种迭代格式:
+
+(1) $\displaystyle x_{k+1}=x_{k}-m \frac{f\left(x_{k}\right)}{f^{\prime}\left(x_{k}\right)}, k=0,1,2, \cdots $
+
+(2) 令 $ u(x)=\dfrac{f(x)}{f^{\prime}(x)} $, 则 $\displaystyle x_{k+1}=x_{k}-\frac{u\left(x_{k}\right)}{u^{\prime}\left(x_{k}\right)}, k=0,1,2, \cdots $.
+
+\textcolor{blue}{9. 迭代的加速方法}
+
+(1) 加权法加速
+
+由非线性方程的迭代格式 $ x_{k+1}=\varphi\left(x_{k}\right), k=0,1,2, \cdots $, 由微分中值定理
+$$
+x_{k+1}-x^{*}=\varphi\left(x_{k}\right)-\varphi\left(x^{*}\right)=\varphi^{\prime}(\xi)\left(x_{k}-x^{*}\right)
+$$
+假定 $ \varphi^{\prime}(x) $ 改变不大, 近似地取某个近似值 $ L $, 则有 $ x_{k+1}-x^{*} \approx L\left(x_{k}-x^{*}\right) $, 解得
+$$
+x^{*} \approx \frac{1}{1-L} x_{k+1}-\frac{L}{1-L} x_{k}
+$$
+为了迭代计算加速, 直接把 $ x^{*} $ 当作新的后一项作 $ x_{k+1} $, 因此得到加权法加速的迭代格式
+$$
+x_{k+1} \approx \frac{1}{1-L} \varphi\left(x_{k}\right)-\frac{L}{1-L} x_{k}, \quad k=0,1,2, \cdots
+$$
+这种格式实现了一般迭代的加速, 但是实际操作中这个 $ L $ 是难以确定的, 由局部收敛性可以在根附近找一个近似值代替.
+
+(2) Aitken 加速
+
+为了消除加权法中的 $ L $ 影响, 再进行选代一次 $ x_{k}=\varphi\left(x_{k-1}\right) $, 同样得到
+$$
+x_{k}-x^{*} \approx L\left(x_{k-1}-x^{*}\right)
+$$
+所以 $ \dfrac{x_{k+1}-x^{*}}{x_{k}-x^{*}} \approx \dfrac{x_{k}-x^{*}}{x_{k-1}-x^{*}} $, 解得
+$$
+x^{*}=x_{k}-\frac{\left(x_{k+1}-x_{k}\right)^{2}}{x_{k}-2 x_{k+1}+x_{k+2}}
+$$
+同样为了迭代计算加速, 把 $ x^{*} $ 当作新的后一项作 $ x_{k+1} $ 得
+$$
+\bar{x}_{k+1}=x_{k}-\frac{\left(x_{k+1}-x_{k}\right)^{2}}{x_{k}-2 x_{k+1}+x_{k+2}}=x_{k}-\frac{\left(\Delta x_{k}\right)^{2}}{\Delta^{2} x_{k}}, \quad k=0,1,2, \cdots
+$$
+称为艾特肯 (Aitken) 加速方法, 可以证明 $\displaystyle \lim _{k \rightarrow \infty} \frac{\bar{x}_{k+1}-x^{*}}{x_{k}-x^{*}}=0 $, 它表明序列 $ \left\{\bar{x}_{k}\right\} $的收敛速度比 $ \left\{x_{k}\right\} $ 的快.
+
+\textcolor{blue}{10. 斯特芬森 (Steffensen) 迭代法}
+
+Aitken 方法不管原序列 $ \left\{x_{k}\right\} $ 是怎样产生的, 对 $ \left\{x_{k}\right\} $ 进行加速运算, 得到序列 $ \left\{\bar{x}_{k}\right\} $, 如果把 Aitken 加速技巧与不动点迭代结合, 则可得到如下的迭代法:
+$$
+\left\{\begin{array}{l}
+y_{k}=\varphi\left(x_{k}\right), \quad z_{k}=\varphi\left(y_{k}\right), \\
+x_{k+1}=x_{k}-\dfrac{\left(y_{k}-x_{k}\right)^{2}}{z_{k}-2 y_{k}+x_{k}}, \quad k=0,1,2, \cdots
+\end{array}\right.
+$$
+称为 Steffensen 迭代法.
+
+\subsection{补充}
+\subsubsection{全局收敛定理}
+\begin{tcolorbox}[enhanced,colback=2,colframe=1,breakable,coltitle=black,title=全局收敛定理]
+
+设函数 $ \varphi(x) $ 在区间 $ [a, b] $ 上具有连续的一阶导数, 且满足
+
+(1) 对所有的 $ x \in[a, b] $ 有 $ \varphi(x) \in[a, b] $;
+
+(2) 存在 $ 0<L<1 $, 使所有的 $ x \in[a, b] $, 有
+$
+\left|\varphi^{\prime}(x)\right| \leqslant L
+$
+
+则方程 $ x=\varphi(x) $ 在区间 $ [a, b] $ 上的解 $ x $ * 存在且唯一, 对任意的 $ x_{0} \in[a, b] $, 迭代过程 $ x_{k+1}= $ $ \varphi\left(x_{k}\right) $ 均收敛于 $ x^{*} $ .
+\end{tcolorbox}
+
+证明： 考虑连续函数 $ \psi(x)=\varphi(x)-x $, 由条件(1)任意的 $ x \in[a, b], \varphi \in[a, b] $, 有
+$$
+\begin{array}{l}
+\psi(a)=\varphi(a)-a \geqslant 0 \\
+\psi(b)=\varphi(b)-b \leqslant 0
+\end{array}
+$$
+由函数连续性介值定理知, 必有 $ x^{*} \in[a, b] $, 使 $ \psi\left(x^{*}\right)=\varphi\left(x^{*}\right)-x^{*}=0 $, 所以有解 $ x^{*} $存在, 即
+$$
+x^{*}=\varphi\left(x^{*}\right)
+$$
+假设有两个解 $ x^{*} $ 和 $ \tilde{x} $, 两个解 $ x^{*}, \tilde{x} \in[a, b] $, 且
+$$
+x^{*}=\varphi\left(x^{*}\right), \tilde{x}=\varphi(\tilde{x})
+$$
+由微分中值定理有 $ x^{*}-\tilde{x}=\varphi\left(x^{*}\right)-\varphi(\tilde{x})=\varphi^{\prime}(\xi)\left(x^{*}-\tilde{x}\right) $, 其中 $ \xi $ 是 $ x^{*} $ 和 $ \tilde{x} $ 之间的点,从而有 $ \xi \in[a, b] $, 进而有 $ \left(x^{*}-\tilde{x}\right)\left[1-\varphi^{\prime}(\xi)\right]=0 $, 由条件(2)有 $ \left|\varphi^{\prime}(x)\right|<1 $, 所以 $ x^{*}-\tilde{x}=0 $,即 $ x^{*}=\tilde{x} $, 方程 $ x=\varphi(x) $ 在区间 $ [a, b] $ 上的解唯一.
+
+按迭代过程 $ x_{k}=\varphi\left(x_{k-1}\right) $, 有
+$$
+\begin{array}{c}
+x^{*}-x_{k}=\varphi\left(x^{*}\right)-\varphi\left(x_{k-1}\right)=\varphi^{\prime}(\xi)\left(x^{*}-x_{k-1}\right) \\
+\left|x^{*}-x_{k}\right|=\left|\varphi^{\prime}(\xi)\left(x^{*}-x_{k-1}\right)\right| \leqslant L\left|x^{*}-x_{k-1}\right|
+\end{array}
+$$
+递推之
+$$
+\left|x^{*}-x_{k}\right| \leqslant L\left|x^{*}-x_{k-1}\right| \leqslant L^{2}\left|x^{*}-x_{k-2}\right| \leqslant \cdots \leqslant L^{k}\left|x^{*}-x_{0}\right|
+$$
+由于 $ L<1 $, 所以有 $ \lim\limits _{k \rightarrow+\infty} x_{k}=x^{*} $ .
+
+从上述定理可得以下\textcolor{red}{推论}：在定理的条件下, 有误差估计式
+$$\boxed{
+\begin{aligned}
+&\bm{\left|x^{*}-x_{k}\right| \leqslant \frac{L}{1-L}\left|x_{k}-x_{k-1}\right|} \\
+&\bm{\left|x^{*}-x_{k}\right| \leqslant \frac{L^{k}}{1-L}\left|x_{1}-x_{0}\right|}
+\end{aligned}}
+$$
+
+证:
+$$
+\begin{aligned}
+\left|x^{*}-x_{k}\right|  \leqslant L\left|x^{*}-x_{k-1}\right|&=L\left|x^{*}-x_{k}+x_{k}-x_{k-1}\right| \\
+& \leqslant L\left(\left|x^{*}-x_{k}\right|+\left|x_{k}-x_{k-1}\right|\right)
+\end{aligned}
+$$
+即
+$$
+(1-L)\left|x^{*}-x_{k}\right| \leqslant L\left|x_{k}-x_{k-1}\right|
+$$
+已知 $ L<1 $, 故有
+$$
+\left|x^{*}-x_{k}\right| \leqslant \frac{L}{1-L}\left|x_{k}-x_{k-1}\right|
+$$
+该式称为\textbf{验后误差估计式}.
+$$
+\begin{aligned}
+\left|x_{k}-x_{k-1}\right|=\left|\varphi\left(x_{k-1}\right)-\varphi\left(x_{k-2}\right)\right|&=\left|\varphi^{\prime}(\xi)\left(x_{k-1}-x_{k-2}\right)\right| \\
+&\leqslant L\left|x_{k-1}-x_{k-2}\right| \\
+\left|x^{*}-x_{k}\right| \leqslant \frac{L}{1-L}\left|x_{k}-x_{k-1}\right| &\leqslant \frac{L^{2}}{1-L}\left|x_{k-1}-x_{k-2}\right| \leqslant \cdots \\
+&\leqslant \frac{L^{k}}{1-L}\left|x_{1}-x_{0}\right|
+\end{aligned}
+$$
+即$$\left|x^{*}-x_{k}\right| \leqslant \frac{L^{k}}{1-L}\left|x_{1}-x_{0}\right|$$
+该式称为\textbf{验前误差估计式}.
+
+由验后误差估计式可知, 只要相邻两次迭代值 $ x_{k} $ 和 $ x_{k-1} $ 的偏差充分小, 就能保证迭代值 $ x_{k} $ 足够准确，因而可用 $ \left|x_{k}-x_{k-1}\right| $ 来控制迭代过程的结束.取 $ x_{k} $ 作为根 $ x^{*} $ 的近似值.但当 $ L \approx 1 $ 时, 这个方法就不可靠了.
+
+用残差 $ f\left(x_{k}\right) $ 控制迭代过程的结束看起来似乎比较容易, 但 $ \left|f\left(x_{k}\right)\right| $ 小, 并不一定能够保证 $ \left|x^{*}-x_{k}\right| $ 也小, 同样 $ \left|x^{*}-x_{k}\right| $ 小也不能保证 $ \left|f\left(x_{k}\right)\right| $ 小, 因此常将误差 $ \left|x^{*}-x_{k}\right| $ 判断用 $ \left|x_{k}-x_{k-1}\right| $ 判断和残差 $ f\left(x_{k}\right) $ 判断结合起来.
+
+
+\subsubsection{ 局部收敛性}
+对于全局收敛性定理 中的条件(1), $ x \in[a, b], \varphi(x) \in[a, b] $ 的映内性不易验证, 且对较大范围的有根区间此条件也不一定成立.而在所求根的邻域, 定理的条件是成立的.
+
+定义： 如果存在 $ x^{*} $ 的某个邻域 $ \Delta:\left|x-x^{*}\right| \leqslant \delta, \delta $ 是任意指定的正数, 使迭代过程 $ x_{k+1}=\varphi\left(x_{k}\right) $ 对于任意初值 $ x_{0} \in \Delta $ 均收敛, 则迭代过程 $ x_{k+1}=\varphi\left(x_{k}\right) $ 在根 $ x^{*} $ 邻域具有局部收敛性.
+
+\begin{tcolorbox}[enhanced,colback=2,colframe=1,breakable,coltitle=black,title=局部收敛定理]
+ 设 $ \varphi(x) $ 在 $ x=\varphi(x) $ 的根 $ x^{*} $ 邻域有连续的一阶导数, 且
+$$
+\left|\varphi^{\prime}\left(x^{*}\right)\right|<1
+$$
+则迭代过程 $ x_{k+1}=\varphi\left(x_{k}\right) $ 具有局部收敛性.
+\end{tcolorbox}
+
+证: 由于 $ \left|\varphi^{\prime}\left(x^{*}\right)\right|<1 $, 存在充分小邻域 $ \Delta:\left|x-x^{*}\right| \leqslant \delta $, 使下式成立
+$$
+\left|\varphi^{\prime}(x)\right| \leqslant L<1
+$$
+这里 $ L $ 为某个定数, 据微分中值定理
+$$
+\varphi(x)-\varphi\left(x^{*}\right)=\varphi^{\prime}(\xi)\left(x-x^{*}\right)
+$$
+注意到 $ \varphi\left(x^{*}\right)=x^{*} $, 又当 $ x \in \Delta $ 时 $ \xi \in \Delta $, 故有
+$$
+\left|\varphi(x)-x^{*}\right| \leqslant L\left|x-x^{*}\right| \leqslant\left|x-x^{*}\right| \leqslant \delta
+$$
+于是由全局收敛性定理的条件(1)可以断定 $ x_{k+1}=\varphi\left(x_{k}\right) $ 对于任意 $ x_{0} \in \Delta $ 收敛.
+
+
+由于在实际应用时, 方程的根 $ x^{*} $ 事先不知道, 故条件
+$$
+\left|\varphi^{\prime}\left(x^{*}\right)\right|<1
+$$
+无法验证.但如果已知根的初值 $ x_{0} $ 在根 $ x^{*} $ 附近, 又根据 $ \varphi^{\prime}(x) $ 的连续性, 则可采用
+$$
+\left|\varphi^{\prime}\left(x_{0}\right)\right|<1
+$$
+来代替 $ \left|\varphi^{\prime}\left(x^{*}\right)\right|<1 $ 判断迭代过程 $ x_{k+1}=\varphi\left(x_{k}\right) $ 的收敛性.
+
+\subsubsection{迭代过程的收敛速度}
+
+所谓迭代过程的收敛速度, 是指在接近收敛时迭代误差的下降速度.
+
+定义: 设迭代过程 $ x_{k+1}=\varphi\left(x_{k}\right) $ 收敛于 $ x=\varphi(x) $ 的根 $ x^{*} $, 令迭代误差 $ e_{k}=x_{k}-x^{*} $, 若存在常数 $ p(p \geqslant 1) $ 和 $ c(c>0) $, 使
+$$
+\lim _{k \rightarrow+\infty} \frac{\left|e_{k+1}\right|}{\left|e_{k}\right|^{p}}=c
+$$
+则称序列 $ \left\{x_{k}\right\} $ 是 $ p $ 阶收敛的, $ c $ 称渐近误差常数.
+
+从定义中的表达式可以看出, $ \left|e_{k+1}\right| $ 和 $ \left|e_{k}\right|^{p} $ 为同阶无穷小量, 即以 $ \left|e_{k}\right| $ 为基本无穷小量时, $ \left|e_{k+1}\right| $ 为 $ p $ 阶无穷小量, 阶数 $ p $ 越高, 收敛速度越快, 收敛速度是误差的收缩率, 阶数越高, 误差下降得越快.特别地, $ p=1.0<c<1 $ 时称线性收敛, $ p=2 $ 时称平方收敛或二次收敛, $ p>1 $ 时称超线性收敛.
+
+下面讨论 $ p $ 为大于 1 的整数时, 迭代函数的导数和收敛速度的关系.
+\begin{tcolorbox}[enhanced,colback=2,colframe=1,breakable,coltitle=black,title=定理]
+对迭代过程 $ x_{k+1}=\varphi\left(x_{k}\right) $, 若 $ \varphi^{(p)}(x) $ 在所求根 $ x^{*} $ 的邻域连续, 且
+$$
+\varphi^{\prime}\left(x^{*}\right)=\varphi^{\prime \prime}\left(x^{*}\right)=\cdots=\varphi^{(p-1)}\left(x^{*}\right)=0, \quad \varphi^{(p)}\left(x^{*}\right) \neq 0
+$$
+则迭代过程在 $ x^{*} $ 邻域是 $ p $ 阶收敛的.
+\end{tcolorbox}
+
+证: 由于 $ \varphi^{\prime}\left(x^{*}\right)=0 $, 即在 $ x^{*} $ 邻域 $ \left|\varphi^{\prime}\left(x^{*}\right)\right|<1 $, 所以 $ x_{k+1}=\varphi\left(x_{k}\right) $ 有局部收敛性.
+
+将 $ \varphi\left(x_{k}\right) $ 在 $ x^{*} $ 处泰勒展开到 $ p-1 $ 阶
+$$
+\varphi\left(x_{k}\right)=\varphi\left(x^{*}\right)+\varphi^{\prime}\left(x^{*}\right)\left(x_{k}-x^{*}\right)+\frac{1}{2} \varphi^{\prime \prime}\left(x^{*}\right)\left(x_{k}-x\right)^{2}+ \cdots+\frac{1}{p!} \varphi^{(p)}(\xi)\left(x_{k}-x^{*}\right)^{p}, \quad \xi \in x^{*} \text { 的邻域 }
+$$
+将已知 $ \varphi^{\prime}\left(x^{*}\right)=\varphi^{\prime \prime}\left(x^{*}\right)=\cdots=\varphi^{(p-1)}\left(x^{*}\right)=0, \varphi^{(p)}\left(x^{*}\right) \neq 0 $ 代入, 并注意 $ \varphi\left(x_{k}\right)=x_{k+1} $, $ \varphi\left(x^{*}\right)=x^{*} $, 则有
+$$
+\begin{aligned}
+x_{k+1}-x^{*}&=\frac{\varphi^{(p)}(\xi)}{p!}\left(x_{k}-x^{*}\right)^{p} \\
+\frac{e_{k+1}^{p}}{e_{k}^{p}}&=\frac{\varphi^{(p)}(\xi)}{p!} \\
+\lim _{k \rightarrow+\infty} \frac{e_{k+1}}{e_{k}^{p}}&=\frac{\varphi^{(p)}\left(x^{*}\right)}{p!} \neq 0 \\
+\lim _{k \rightarrow+\infty} \frac{\left|e_{k+1}\right|}{\left|e_{k}\right|^{p}}&=\frac{\left|\varphi^{(p)}\left(x^{*}\right)\right|}{p!} \neq 0
+\end{aligned}
+$$
+从上述定理可以看出, 迭代过程的收敛速度依赖于迭代函数 $ \varphi(x) $ 的选取.当 $ \varphi^{\prime}\left(x^{*}\right) \neq 0 $时, 则该迭代过程最多是线性收敛, 当 $ \varphi^{\prime}\left(x^{*}\right)=0 $ 时, 迭代过程至少是平方收敛.
+
+
+\subsubsection{牛顿迭代公式的建立}
+牛顿迭代法是通过非线性方程线性化得到迭代序列的一种方法.
+对于非线性方程 $ f(x)=0 $, 若已知根 $ x^{*} $ 的一个近似值 $ x_{k} $, 将 $ f(x) $ 在 $ x_{k} $ 处展成一阶泰勒公式
+$$
+f(x)=f\left(x_{k}\right)+f^{\prime}\left(x_{k}\right)\left(x-x_{k}\right)+\frac{f^{\prime \prime}(\xi)}{2!}\left(x-x_{k}\right)^{2}
+$$
+忽略高次项，有
+$$
+f(x) \approx f\left(x_{k}\right)+f^{\prime}\left(x_{k}\right)\left(x-x_{k}\right)
+$$
+这是直线方程, 用这个直线方程来近似非线性方程 $ f(x) $ .将非线性方程 $ f(x)=0 $ 的根 $ x $ *代入 $ f\left(x^{*}\right)=0 $, 即
+$$
+f\left(x_{k}\right)+f^{\prime}\left(x_{k}\right)\left(x^{*}-x_{k}\right) \approx 0
+$$
+解出
+$$
+x^{*} \approx x_{k}-\frac{f\left(x_{k}\right)}{f^{\prime}\left(x_{k}\right)}
+$$
+将右端取为 $ x_{k+1} $, 则 $ x_{k+1} $ 是比 $ x_{k} $ 更接近于 $ x^{*} $ 的近似值, 即
+$$
+x_{k+1}=x_{k}-\frac{f\left(x_{k}\right)}{f^{\prime}\left(x_{k}\right)}
+$$
+这就是\textbf{牛顿迭代公式}，相应的迭代函数是
+$$
+\varphi(x)=x-\frac{f(x)}{f^{\prime}(x)}
+$$
+\subsubsection{牛顿迭代法的收敛情况}
+\begin{tcolorbox}[enhanced,colback=2,colframe=1,breakable,coltitle=black,title=定理]
+ 设函数 $ f(x) $ 满足 $ f\left(x^{*}\right)=0, f^{\prime}\left(x^{*}\right) \neq 0 $, 且 $ f^{\prime \prime}(x) $ 在 $ x^{*} $ 邻域连续, 则牛顿迭代法在 $ x^{*} $ 局部收敛, 且至少二阶收敛.并有
+$$
+\lim _{k \rightarrow+\infty} \frac{e_{k+1}}{e_{k}^{2}}=\frac{f^{\prime \prime}\left(x^{*}\right)}{2 f^{\prime}\left(x^{*}\right)}
+$$
+\end{tcolorbox}
+证: 因为 $ f\left(x^{*}\right)=0 $, 而 $ f^{\prime}\left(x^{*}\right) \neq 0 $, 在 $ x^{*} $ 邻域, 则有
+$$
+\begin{aligned}
+\varphi^{\prime}\left(x^{*}\right)&=\frac{f\left(x^{*}\right) f^{\prime \prime}\left(x^{*}\right)}{\left[f^{\prime}\left(x^{*}\right)\right]^{2}}=0 \\
+\varphi^{\prime \prime}(x)&=\frac{-2 f(x)\left[f^{\prime \prime}\left(x^{*}\right)\right]^{2}+\left[f^{\prime}(x)\right]^{2} f^{\prime \prime}(x)+f(x) f^{\prime}(x) f^{\prime \prime \prime}(x)}{\left[f^{\prime}(x)\right]^{3}} \\
+\varphi^{\prime \prime}\left(x^{*}\right)&=\frac{f^{\prime \prime}\left(x^{*}\right)}{f^{\prime}\left(x^{*}\right)}
+\end{aligned}
+$$
+又因为 $ f^{\prime \prime}(x) $ 在 $ x^{*} $ 邻域连续, 则牛顿迭代法局部收敛, 且至少二阶收敛.当 $ f^{\prime \prime}\left(x^{*}\right) \neq 0 $时, $ \varphi^{\prime \prime}\left(x^{*}\right) \neq 0 $, 牛顿迭代法在 $ x^{*} $ 邻域为二阶收敛.
+$$0=f\left(x^{*}\right)=f\left(x_{k}\right)+f^{\prime}\left(x_{k}\right)\left(x^{*}-x_{k}\right)+\frac{f^{\prime \prime}(\xi)}{2}\left(x^{*}-x_{k}\right)^{2}, \xi \in\left[x^{*}, x_{k}\right] $$
+$$
+\begin{aligned}
+x_{k}-x^{*}&=\frac{f\left(x_{k}\right)}{f^{\prime}\left(x_{k}\right)}+\frac{f^{\prime \prime}(\xi)}{2 f^{\prime}\left(x_{k}\right)}\left(x_{k}-x^{*}\right)^{2} \\
+x_{k}-\frac{f\left(x_{k}\right)}{f^{\prime}\left(x_{k}\right)}-x^{*}&=\frac{f^{\prime \prime}(\xi)}{2 f^{\prime}\left(x_{k}\right)}\left(x_{k}-x^{*}\right)^{2} \\
+x_{k+1}-x^{*}&=\frac{f^{\prime \prime}(\xi)}{2 f^{\prime}\left(x_{k}\right)}\left(x_{k}-x^{*}\right)^{2} \\
+\lim _{k \rightarrow+\infty} \frac{x_{k+1}-x^{*}}{\left(x_{k}-x^{*}\right)^{2}}&=\frac{f^{\prime \prime}\left(x^{*}\right)}{2 f^{\prime}\left(x^{*}\right)} \\
+\lim _{k \rightarrow+\infty} \frac{e_{k+1}}{e_{k}^{2}}&=\frac{f^{\prime \prime}\left(x^{*}\right)}{2 f^{\prime}\left(x^{*}\right)}
+\end{aligned}
+$$
+或者直接将$\displaystyle\varphi^{\prime \prime}\left(x^{*}\right)=\frac{f^{\prime \prime}\left(x^{*}\right)}{f^{\prime}\left(x^{*}\right)}$ 代入$\displaystyle \lim _{k \rightarrow+\infty} \frac{e_{k+1}}{e_{k}^{p}}=\frac{\varphi^{(p)}\left(x^{*}\right)}{p!} \neq 0 $, 也可得出上式.
+
+定理说明, 如果 $ f(x)=0 $ 的单根附近存在着连续的二阶导数, 当初值在单根附近时,牛顿迭代法具有平方收敛速度.因此, 牛顿迭代法的突出特点是收敛性速度快, 但缺点是每次要计算导数 $ f^{\prime}\left(x_{k}\right) $, 且计算复杂, 计算量增大.
+
+ \textbf{\textcolor{red}{重根时的修正:}}牛顿迭代法具有平方收敛速度是指单根时的情况，当不是单根时，就没有平方收敛速度.为了得到平方收敛速度, 可进行如下的修正.
+
+当重根数已知时, 设 $ x^{*} $ 是 $ f(x)=0 $ 的 $ m $ 重根 $ (m \geqslant 2) $, 即满足
+$$
+\begin{array}{c}
+f\left(x^{*}\right)=f^{\prime}\left(x^{*}\right)=\cdots=f^{(m-1)}\left(x^{*}\right)=0, \\
+f^{(m)}\left(x^{*}\right) \neq 0
+\end{array}
+$$
+则牛顿迭代法迭代过程
+$$\boxed{
+x_{k+1}=x_{k}-\frac{f\left(x_{k}\right)}{f^{\prime}\left(x_{k}\right)}}
+$$
+\textbf{是线性收敛, 不是平方收敛}, 下面予以证明.
+
+证 :迭代函数
+$$
+\varphi(x)=x-\frac{f(x)}{f^{\prime}(x)}
+$$
+令 $ x=x^{*}+h $, 将 $ f(x), f^{\prime}(x) $ 在 $ x^{*} $ 处泰勒展开, 并注意到 $ x^{*}=\varphi\left(x^{*}\right) $, 则
+$$
+\begin{aligned}
+\varphi\left(x^{*}+h\right) & =\left(x^{*}+h\right)-\frac{f\left(x^{*}+h\right)}{f^{\prime}\left(x^{*}+h\right)} \\
+& =\left(x^{*}+h\right)-\frac{f\left(x^{*}\right)+f^{\prime}\left(x^{*}\right) h+\cdots+\frac{f^{(m)}\left(x^{*}\right)}{m!} h^{m}+O\left(h^{m+1}\right)}{f^{\prime}\left(x^{*}\right)+f^{\prime \prime}\left(x^{*}\right) h+\cdots+\frac{f^{(m)}\left(x^{*}\right)}{(m-1)!} h^{m-1}+O\left(h^{m}\right)}
+\end{aligned}
+$$
+将已知 $ m $ 重根的条件代入
+$$
+\begin{aligned}
+\varphi\left(x^{*}+h\right) & =\left(x^{*}+h\right) \frac{\frac{f^{(m)}\left(x^{*}\right)}{m!} h^{m}+O\left(h^{m+1}\right)}{\frac{f^{(m)}\left(x^{*}\right)}{(m-1)!} h^{m-1}+O\left(h^{m}\right)} \\
+& =x^{*}+h-\frac{1}{m} h+O\left(h^{2}\right) \\
+& =x^{*}+\left(1-\frac{1}{m}\right) h+O\left(h^{2}\right) \\
+\varphi^{\prime}\left(x^{*}\right) & =\lim _{h \rightarrow 0} \frac{\varphi\left(x^{*}+h\right)-\varphi\left(x^{*}\right)}{h} \\
+& =\lim _{h \rightarrow 0} \frac{x^{*}+\left(1-\frac{1}{m}\right) h+O\left(h^{2}\right)-x^{*}}{h}=1-\frac{1}{m}
+\end{aligned}
+$$
+由于 $ m \geqslant 2, \varphi^{\prime}\left(x^{*}\right) \neq 0 $, 所以牛顿迭代法线性收敛.
+
+取迭代函数 $ \varphi(x)=x-m \frac{f(x)}{f^{\prime}(x)} $, 重新计算 $ \varphi^{\prime}\left(x^{*}\right) $, 则仍有 $ \varphi^{\prime}\left(x^{*}\right)=0 $, 这时修正的牛顿迭代法
+$$\boxed{
+x_{k+1}=x_{k}-m \frac{f\left(x_{k}\right)}{f^{\prime}\left(x_{k}\right)}}
+$$
+是\textbf{平方收敛}的, 但这种修正方法需要预知重根数 $ m $ 的值.

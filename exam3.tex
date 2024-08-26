@@ -1,0 +1,447 @@
+\newpage
+\section{期末试题三}
+\begin{tcolorbox}[breakable,
+		colframe=white!10!jingga, coltitle=white!90!jingga, colback=white!95!jingga, coltext=black, colbacktitle=white!10!jingga, enhanced, fonttitle=\bfseries,fontupper=\normalsize, attach boxed title to top left={yshift=-2mm}, before skip=8pt, after skip=8pt,
+		title=填空题]
+ 
+
+1. 证明: 求解常微分方程初值问题的改进 Euler 方法具有$\underline{\hspace{1cm}}$阶精度.
+
+2. 函数 $ f $ 的 $ n $ 次插值多项式余项为 $ \left(R_{n} f\right)(x)= $ $\underline{\hspace{4em}}$.
+
+3. 迭代法 $ X^{(k+1)}=B X^{(k)}+f $ 求解线性方程组对任意 $ X^{(0)} $ 和 $ f $ 均收敛的充要条件为 $\underline{\hspace{4em}}$.
+
+4. 求非线性方程重根的 Newton 迭代法至少是 $\underline{\hspace{4em}}$ 阶收敛的.
+
+5. 梯形数值求积公式具有 $\underline{\hspace{4em}}$次代数精度.
+
+
+ \tcblower
+1. 2
+ 
+2. $ \dfrac{f^{(n+1)}\left(\xi_{x}\right)}{(n+1)!} \omega_{n+1}(x)$ , 其中$ \omega_{n+1}(x)=\left(x-x_{0}\right)\left(x-x_{1}\right) \cdots\left(x-x_{n}\right)$.
+
+3. 迭代矩阵的谱半径 $\rho (B)<1$
+
+4. 1
+
+5. 1
+\end{tcolorbox}
+
+
+\begin{tcolorbox}[breakable,
+		colframe=white!10!jingga, coltitle=white!90!jingga, colback=white!95!jingga, coltext=black, colbacktitle=white!10!jingga, enhanced, fonttitle=\bfseries,fontupper=\normalsize, attach boxed title to top left={yshift=-2mm}, before skip=8pt, after skip=8pt,
+		title=解答题]
+
+证明:如果$ \boldsymbol{A}=\boldsymbol{L L}^{\boldsymbol{T}} $，其中$ \boldsymbol{L} $为实下三角非奇异 $ n $ 阶方阵，则$ \boldsymbol{A} $是实对称正定阵.
+ \tcblower
+
+要证明给定条件下的矩阵 $ \boldsymbol{A}=\boldsymbol{L} \boldsymbol{L}^{\boldsymbol{T}} $ 是对称的且正定的，我们可以分两步来证明:
+
+(1) 根据对称矩阵的定义，若矩阵 $ \boldsymbol{A} $ 是对称的，则必须满足 $ \boldsymbol{A}= $ $ A^{T} $ .
+
+由于 $ A=L L^{T} $ ，我们计算 $ A^{T} $ 得到:
+$$
+A^{T}=\left(L L^{T}\right)^{T}=\left(L^{T}\right)^{T} L^{T}=L L^{T}
+$$
+这里我们使用了矩阵转置的性质，即 $ (A B)^{T}=B^{T} A^{T} $ 以及 $ \left(A^{T}\right)^{T}=A $ .因此， $ A $ 是对称的.
+
+(2) 接下来证明 $ \boldsymbol{A} $ 是正定的.根据正定矩阵的定义，对于所有非零向量 $ \boldsymbol{x} $ ，必须满足 $ \boldsymbol{x}^{\boldsymbol{T}} \boldsymbol{A x}>0 $ .
+给定 $ \boldsymbol{A}=\boldsymbol{L} \boldsymbol{L}^{\boldsymbol{T}} $ ，我们有:
+$ \boldsymbol{x}^{T} A \boldsymbol{x}=\boldsymbol{x}^{T} L L^{T} x $
+
+令 $ \boldsymbol{y}=\boldsymbol{L}^{\boldsymbol{T}} \boldsymbol{x} $ ，因为 $ \boldsymbol{L} $ 是非奇异的，所以$\boldsymbol{y} $ 是一个非零向量，这意味着 $ \boldsymbol{L} $ 和 $ \boldsymbol{L}^{\boldsymbol{T}} $ 有满秩.因此:
+$$
+\boldsymbol{x}^{\boldsymbol{T}} \boldsymbol{A} \boldsymbol{x}=\boldsymbol{y}^{\boldsymbol{T}} \boldsymbol{y}=\sum_{i=1}^{n} y_{i}^{2}
+$$
+
+由于 $ \boldsymbol{y} $ 是非零向量，上式表明 $ \boldsymbol{x}^{\boldsymbol{T}} \boldsymbol{A} \boldsymbol{x} $ 是向量 $ \boldsymbol{y} $ 各分量平方和，显然大于0.因此， $ \boldsymbol{A} $ 是正定的.
+
+综上所述，若矩阵 $ \boldsymbol{A}=\boldsymbol{L} \boldsymbol{L}^{\boldsymbol{T}} $ ，其中 $ \boldsymbol{L} $ 是一个非奇异的实下三角矩阵，那么 $ \boldsymbol{A} $ 必然是对称的且正定的.
+\end{tcolorbox}
+
+
+\begin{tcolorbox}[breakable,
+		colframe=white!10!jingga, coltitle=white!90!jingga, colback=white!95!jingga, coltext=black, colbacktitle=white!10!jingga, enhanced, fonttitle=\bfseries,fontupper=\normalsize, attach boxed title to top left={yshift=-2mm}, before skip=8pt, after skip=8pt,
+		title=解答题]
+
+证明: 当 $ x_{0}=1.5 $ 时, 迭代法 $ {x}_{{k}+1}=\sqrt{\frac{8}{3+{x}_{{k}}}} $ 收敛于方程 $ f(x)=x^{3}+3 x^{2}-8=0 $ 在区间 $ [1,2] $ 内唯一实根 $ x^{*} $
+\tcblower
+（1）函数等价性:原方程 $ f(x) = x^3 + 3x^2 - 8 = 0 $ 可以变形为：
+ $x^2(x + 3) = 8 \Rightarrow x = \sqrt{\frac{8}{x + 3}}$,
+这说明 $ x = \varphi(x) $ 与 $ f(x) = 0 $ 是等价的.
+
+ （2）$\varphi(x)$是单调递减的，于是有 $1<\sqrt{\frac{8}{3+2}}=\varphi(2) \leqslant \varphi(x) \leqslant \varphi(1)=\sqrt{\frac{8}{3+1}}<2 $, 因此 $\varphi(x) \in[1,2]$.
+
+
+ （3）计算 $ \varphi(x) $ 的导数，以验证迭代函数的局部收敛性：
+$$ \varphi'(x) = -\frac{1}{2} \cdot \frac{8}{(3+x)^2} \cdot \frac{1}{\sqrt{\frac{8}{3+x}}}= -\frac{4}{(3+x)^{\frac{3}{2}}} \cdot \frac{\sqrt{3+x}}{\sqrt{8}} = -\frac{4 \sqrt{3+x}}{(3+x)^{\frac{3}{2}} \sqrt{8}} = -\sqrt{2} \cdot (3+x)^{-\frac{3}{2}} $$
+
+对 $ x $ 在 $[1, 2]$ 上的范围进行最大值估计：
+$$ \max_{1 \leqslant x \leqslant 2} |\varphi'(x)| = \max_{1 \leqslant x \leqslant 2} \left|\sqrt{2}(3+x)^{-\frac{3}{2}}\right| = \sqrt{2} \cdot 4^{-\frac{3}{2}} = \frac{\sqrt{2}}{8}<1 $$
+这表明 $ \varphi(x) $ 是区间 $[1, 2]$ 上的压缩映射.
+
+由于 $ \varphi(x) $ 在 $[1, 2]$ 上是单调递减的，映射到自身，并且其导数的绝对值小于 1，根据压缩映射定理和迭代函数的性质，迭代序列 $ \left\{x_k\right\} $ 收敛于方程 $ f(x) = x^3 + 3x^2 - 8 = 0 $ 在 $[1, 2]$ 区间内的唯一实根 $ x^* $.
+
+\end{tcolorbox}
+
+\begin{tcolorbox}[breakable,
+		colframe=white!10!jingga, coltitle=white!90!jingga, colback=white!95!jingga, coltext=black, colbacktitle=white!10!jingga, enhanced, fonttitle=\bfseries,fontupper=\normalsize, attach boxed title to top left={yshift=-2mm}, before skip=8pt, after skip=8pt,
+		title=解答题]
+
+1. 设 $ A \in R^{n \times n} $ 的特征值为 $ \lambda_{i}(i=1,2, \cdots, n) $, 若 $ \rho(A)=\max\limits _{1\leqslant i\leqslant  n}\left|\lambda_{i}\right| $
+证明: $ \rho(A) \leqslant \|A\|, \quad(\|\cdot \| $ 为矩阵 $A$ 的任何一种范数）
+   \tcblower
+证 \; 设 $ \lambda $ 为 $ \boldsymbol{A} $ 的任一特征值, $ x $ 为对应于 $ \lambda $ 的 $ \boldsymbol{A} $ 的特征向量, 即
+$$
+A x=\lambda x \quad(x \neq 0)
+$$
+由范数的性质, 有
+$$
+|\lambda|\|x\|=\|\lambda x\|=\|A x\| \leqslant\|A\| x \|
+$$
+由于 $ x $ 是非零向量, 故有
+$$
+|\lambda| \leqslant\|\boldsymbol{A}\|
+$$
+这表明 $ \boldsymbol{A} $ 的任一特征值的模不超过 $ \|\boldsymbol{A}\| $, 于是
+$$
+\rho(\boldsymbol{A}) \leqslant\|\boldsymbol{A}\|
+$$
+\end{tcolorbox}
+
+
+\begin{tcolorbox}[breakable,
+		colframe=white!10!jingga, coltitle=white!90!jingga, colback=white!95!jingga, coltext=black, colbacktitle=white!10!jingga, enhanced, fonttitle=\bfseries,fontupper=\normalsize, attach boxed title to top left={yshift=-2mm}, before skip=8pt, after skip=8pt,
+		title=解答题]
+
+2. 确定求积公式中的待定参数, 使其代数精度尽量高
+$$
+\int_{0}^{h} f(x) d x \approx \frac{h}{2}[f(0)+f(h)]+\alpha h^{2}\left[f^{\prime}(0)-f^{\prime}(h)\right]
+$$
+
+   \tcblower
+求积公式中含有一个待定参数 $ \alpha $, 当 $ f(x)=1, x $ 时, 有
+$$
+\begin{array}{c}
+\displaystyle\int_{0}^{h} \mathrm{~d} x \equiv \frac{h}{2}[1+1]+0 \\
+\displaystyle\int_{0}^{h} x \mathrm{~d} x \equiv \frac{h}{2}[0+h]+\alpha h^{2}[1-1]
+\end{array}
+$$
+故令求积公式对 $ f(x)=x^{2} $ 精确成立, 即
+$$
+\int_{0}^{h} x^{2} \mathrm{~d} x=\frac{h}{2}\left[0+h^{2}\right]+\alpha h^{2}[2 \times 0-2 h]
+$$
+解之得
+$$
+\alpha=\frac{1}{12}
+$$
+显然
+$$
+\begin{array}{l}
+\displaystyle\int_{0}^{h} x^{3} \mathrm{~d} x=\frac{h}{2}\left[0+h^{3}\right]+\frac{h^{2}}{12}\left[0-3 h^{2}\right] \\
+\displaystyle\int_{0}^{h} x^{4} \mathrm{~d} x \neq \frac{h}{2}\left[0+h^{4}\right]+\frac{h^{2}}{12}\left[0-4 h^{3}\right]
+\end{array}
+$$
+故求积公式
+$
+\displaystyle\int_{0}^{h} f(x) \mathrm{d} x \approx \frac{h}{2}[f(0)+f(h)]+\frac{h^{2}}{12}\left[f^{\prime}(0)-f^{\prime}(h)\right]
+$
+具有三次代数精确度.
+\end{tcolorbox}
+
+
+
+\begin{tcolorbox}[breakable,
+		colframe=white!10!jingga, coltitle=white!90!jingga, colback=white!95!jingga, coltext=black, colbacktitle=white!10!jingga, enhanced, fonttitle=\bfseries,fontupper=\normalsize, attach boxed title to top left={yshift=-2mm}, before skip=8pt, after skip=8pt,
+		title=解答题]
+
+1. 用梯形方法解初值问题 $ \left\{\begin{array}{c}y^{\prime}+y=0 \\ y(0)=1\end{array}\right. $ 证明其近似解为 $ y_{n}=\left(\frac{2-h}{2+h}\right)^{n} $, 并证明: 当 $ h \rightarrow 0 $ 时, 它收敛于原初始问题的精确解 $ y=e^{-x} $
+\tcblower
+梯形方法是一个数值解常微分方程的方法，其迭代格式为：
+$$ y_{n+1} = y_n + \frac{h}{2}(f(x_n, y_n) + f(x_{n+1}, y_{n+1})) $$
+其中，$ h $ 是步长，$ f(x, y) $ 是微分方程 $ y' = f(x, y) $ 中的右端函数.
+
+对于给定的初值问题 $ \left\{\begin{array}{l}y^{\prime}+y=0 \\ y(0)=1\end{array}\right. $，我们有 $ f(x, y) = -y $.将其代入梯形方法的迭代格式中，得到：
+$$ y_{n+1} = y_n + \frac{h}{2}(-y_n - y_{n+1}) $$
+整理得到：$ y_{n+1} = \frac{2-h}{2+h}y_n $. 于是
+$$
+y_{n+1}=\left(\frac{2-h}{2+h}\right) y_{n}=\left(\frac{2-h}{2+h}\right)^{2} y_{n-1}=\cdots=\left(\frac{2-h}{2+h}\right)^{n+1} y_{0}
+$$
+因此，我们证明了 $ y_{n}=\left(\frac{2-h}{2+h}\right)^{n} $ 是给定初值问题的近似解.
+
+%另一方面，对$\forall x>0$, 以 $h$ 为步长经过 $n$ 步运算可求得$y(x_n)$的近似值 $y_n$,所以$x=nh,n=\frac xh$.
+因为 $ y_{0}=1 $, 故
+$$
+y_{n}=\left(\frac{2-h}{2+h}\right)^{n}
+$$
+
+对于给定的步长 $ h $，经过 $ n $ 步运算后，我们可以得到 $ y(x) $ 的近似值 $ y_n$.在每一步中，我们都会在 $ x $ 的位置上进行计算，因此总共进行 $ n $ 步运算后，我们得到的 $ x $ 的取值为 $ x = nh $.即 $ n=\dfrac{x}{h} $, 代入上式有:
+$$
+\begin{aligned}
+y_{n}&=\left(\frac{2-h}{2+h}\right)^{\frac x  h} \\
+\lim _{h \rightarrow 0} y_{n}&=\lim _{h \rightarrow 0}\left(\frac{2-h}{2+h}\right)^{\frac{x}{h}}=\lim _{h \rightarrow 0}\left(1-\frac{2 h}{2+h}\right)^{\frac{x}{h}} \\
+&=\lim _{h \rightarrow 0}\left[\left(1-\frac{2 h}{2+h}\right)^{\frac{2+h}{2 h}}\right]^{\frac{2 h}{2+h}\cdot \frac{x}{h}}=\mathrm{e}^{-x}
+\end{aligned}
+$$
+因此，当 $ h \rightarrow 0 $ 时，$ y_{n}=\left(\frac{2-h}{2+h}\right)^{n} $ 收敛于原初值问题的精确解 $ y=e^{-x} $.
+\end{tcolorbox}
+
+
+
+\begin{tcolorbox}[breakable,
+		colframe=white!10!jingga, coltitle=white!90!jingga, colback=white!95!jingga, coltext=black, colbacktitle=white!10!jingga, enhanced, fonttitle=\bfseries,fontupper=\normalsize, attach boxed title to top left={yshift=-2mm}, before skip=8pt, after skip=8pt,
+		title=解答题]
+
+
+2. 设方程组 $ \left\{\begin{array}{l}a_{11} x_{1}+a_{12} x_{2}=b_{1} \\ a_{21} x_{1}+a_{22} x_{2}=b_{2}\end{array}, a_{11} a_{22} \neq 0\right. $.
+求证: 用 Jacobi 迭代法与 G-S 迭代法解此方程组
+收敛的充要条件为 $\left|\dfrac{a_{12} a_{21}}{a_{11} a_{22}}\right|<1 ;$
+
+\tcblower
+
+由题意可知, Jacobi 迭代法的迭代矩阵
+$$
+B_{J}=D^{-1}(L+U)=\left[\begin{array}{cc}
+a_{11} & 0 \\
+0 & a_{22}
+\end{array}\right]^{-1}\left[\begin{array}{cc}
+0 & -a_{12} \\
+-a_{21} & 0
+\end{array}\right]=\left[\begin{array}{cc}
+0 & -\frac{a_{12}}{a_{11}} \\
+-\frac{a_{21}}{a_{22}} & 0
+\end{array}\right]
+$$
+
+由 $ \operatorname{det}\left(\lambda I-B_{J}\right)=\lambda^{2}-\frac{a_{12} a_{21}}{a_{11} a_{21}} $, 计算其特征值 $ \lambda_{1,2}= \pm \sqrt{\left|\frac{a_{12} a_{21}}{a_{11} a_{22}}\right|} $, 因此Jacobi 迭代法收敛满足：
+$$
+\rho\left(B_{J}\right)=\sqrt{\left|\frac{a_{12} a_{21}}{a_{11} a_{22}}\right|}<1\iff \left|\dfrac{a_{12} a_{21}}{a_{11} a_{22}}\right|<1
+$$
+
+同理, Gauss-Seidel 迭代法的迭代矩阵为  
+$$
+B_{G}=(D-L)^{-1}U=\left[\begin{array}{cc}
+a_{11} & 0 \\
+a_{21} & a_{22}
+\end{array}\right]^{-1}\left[\begin{array}{cc}
+0 & -a_{12} \\
+0 & 0
+\end{array}\right]=\left[\begin{array}{cc}
+0 & -\frac{a_{12}}{a_{11}} \\
+0 & \frac{a_{12} a_{21}}{a_{11} a_{12}}
+\end{array}\right]
+$$
+其中$\left[\begin{array}{cc}
+a_{11} & 0 \\
+a_{21} & a_{22}
+\end{array}\right]^{-1}=\frac{1}{a_{11}a_{22}}\left[\begin{array}{cc}
+a_{22} & 0 \\
+-a_{21} & a_{11}
+\end{array}\right]$. 由 $ \operatorname{det}\left(\lambda I-B_{G}\right)=\lambda\left(\lambda-\frac{a_{12} a_{21}}{a_{11} a_{12}}\right) $, 计算其特征值 $ \lambda_{1}=0, \lambda_{2}=\frac{a_{12} a_{21}}{a_{11} a_{22}} $, 因此
+$$
+\rho\left(B_{G}\right)<1\iff \left|\frac{a_{12} a_{21}}{a_{11} a_{22}}\right|<1
+$$
+
+\end{tcolorbox}
+
+
+
+
+
+
+
+\begin{tcolorbox}[breakable,
+		colframe=white!10!jingga, coltitle=white!90!jingga, colback=white!95!jingga, coltext=black, colbacktitle=white!10!jingga, enhanced, fonttitle=\bfseries,fontupper=\normalsize, attach boxed title to top left={yshift=-2mm}, before skip=8pt, after skip=8pt,
+		title=解答题]
+
+1. 求一个次数不超过 4 次的插值多项式 $ p(x) $, 使它满足：
+$$
+\begin{array}{l}
+p(0)=f(0)=0, p(1)=f(1)=1, p^{\prime}(0)=f^{\prime}(0)=0, \\
+p^{\prime}(1)=f^{\prime}(1)=1, p^{\prime}(1)=f^{\prime}(1)=0
+\end{array}
+$$
+并求其余项表达式（设 $ f(x) $ 存在 5 阶导数）
+\tcblower
+根据插值条件，我们设插值多项式为 $ p(x)=x^{2}(ax^{2}+bx+c) $. 解得 $ a=1, b=-3, c=3 $.
+
+设$x_0=0,x_1=1$,为求出余项 $ R(x)=f(x)-p(x) $, 根据 $ R\left(x_{i}\right)=0 $ , $R^{\prime}\left(x_{i}\right)=0(i=0,1) $ 和$R^{\prime\prime}\left(x_{1}\right)=0 $, 设
+$$
+R(x)=K(x)\left(x-x_{0}\right)^2\left(x-x_{1}\right)^{3}
+$$
+为确定 $ K(x) $, 构造
+$$
+\varphi(t)=f(t)-p(t)-K(x)\left(x-x_{0}\right)^2\left(x-x_{1}\right)^{3}
+$$
+显然 $\varphi(x)=0, \varphi\left(x_{i}\right)=0, i=0,1 $, 且 $\varphi^{\prime}\left(x_{1}\right)=0,\varphi^{\prime\prime}\left(x_{1}\right)=0 $, 
+
+反复应用罗尔定理得 $ \varphi^{(5)}(t) $ 在区间 $ [0, 1] $ 上至少有一个零点 $ \xi $, 故有
+$$
+\varphi^{(5)}(\xi)=f^{(5)}(\xi)-5 ! K(x)=0
+$$
+于是
+$$
+K(x)=\frac{1}{5 !} f^{(5)}(\xi)
+$$
+故余项表达式
+$$
+R(x)=\frac{1}{5 !} f^{(5)}(\xi)\left(x-x_{0}\right)^2\left(x-x_{1}\right)^{3}=\frac{f^{(5)}(\xi)}{5!}x^{2}(x-1)^{3}
+$$
+
+\end{tcolorbox}
+
+
+
+
+\begin{tcolorbox}[breakable,
+		colframe=white!10!jingga, coltitle=white!90!jingga, colback=white!95!jingga, coltext=black, colbacktitle=white!10!jingga, enhanced, fonttitle=\bfseries,fontupper=\normalsize, attach boxed title to top left={yshift=-2mm}, before skip=8pt, after skip=8pt,
+		title=解答题]
+
+2. 设 $ A=\left[\begin{array}{ccc}3 & 7 & 1 \\ 0 & 4 & t+1 \\ 0 & -t+1 & -1\end{array}\right] \quad b=\left[\begin{array}{l}1 \\ 1 \\ 0\end{array}\right], \quad A X=b, \quad $ 其中 $ t $ 为实参数.
+
+（1）求用 Jacobi 法解 $ A X=b $ 时迭代矩阵;
+
+（2） $ t $ 在什么范围内 Jacobi 迭代法收敛.
+
+\tcblower
+(1)
+$$
+\boldsymbol{B}_{J}=\boldsymbol{D}^{-1}(\boldsymbol{L}+\boldsymbol{U})=\left[\begin{array}{ccc}
+\frac{1}{3} &  &  \\
+ & \frac{1}{4} &  \\
+ &  & -1
+\end{array}\right]\left[\begin{array}{ccc}
+0 & -7 & -1 \\
+0 & 0 & -(t+1) \\
+0 & t-1 & 0
+\end{array}\right]=\left[\begin{array}{ccc}
+0 & -\frac{7}{3} & -\frac{1}{3} \\
+0 & 0 & -\frac{1}{4}(t+1) \\
+0 & 1-t & 0
+\end{array}\right]
+$$
+
+(2)
+$$\operatorname{det}\left(\lambda \boldsymbol{I}-\boldsymbol{B}_{J}\right)=\left|\begin{array}{ccc}
+\lambda & \frac{7}{3} & \frac{1}{3} \\
+0 & \lambda & \frac{1}{4}(t+1) \\
+0 & t-1 & \lambda
+\end{array}\right|=\lambda^{3}-\frac{\lambda}{4}\left(t^{2}-1\right)=0$$
+所以 $ \lambda_1=0 $, $ \lambda_{2,3}=\pm\frac{1}{2} \sqrt{t^{2}-1} $, 由 $ \rho\left(\boldsymbol{B}_{J}\right)=\frac{1}{2} |\sqrt{t^{2}-1}|<1 $, 解得 $  -\sqrt{5}<t<\sqrt{5} $.
+
+\end{tcolorbox}
+
+
+
+\begin{tcolorbox}[breakable,
+		colframe=white!10!jingga, coltitle=white!90!jingga, colback=white!95!jingga, coltext=black, colbacktitle=white!10!jingga, enhanced, fonttitle=\bfseries,fontupper=\normalsize, attach boxed title to top left={yshift=-2mm}, before skip=8pt, after skip=8pt,
+		title=解答题]
+
+1. 设有方程组 $ A x=b $, 其中 $ A $ 为对称正定矩阵, 迭代公式
+$$
+x^{(k+1)}=x^{(k)}+\omega\left(b-A x^{(k)}\right)(k=0,1,2, \cdots) .
+$$
+试证: 当 $ 0<\omega<\frac{2}{\beta} $ 时, 上述迭代法收敛
+ (其中  $0<\alpha \leqslant \lambda(A) \leqslant \beta$  ). 
+\tcblower
+
+将迭代格式改写成
+$$
+\boldsymbol{x}^{(k+1)}=(\boldsymbol{I}-\omega \boldsymbol{A}) \boldsymbol{x}^{(k)}+\omega \boldsymbol{b} \quad(k=0,1,2, \cdots)
+$$
+即迭代矩阵 $ \boldsymbol{B}=\boldsymbol{I}-\omega \boldsymbol{A} $，设迭代矩阵的特征值为$\mu$, 对应的特征向量为$\boldsymbol{v}$, 因此 $ \boldsymbol{Bv} = \mu \boldsymbol{v} $，于是 $ (\boldsymbol{I}-\omega \boldsymbol{A})\boldsymbol{v} = \mu \boldsymbol{v} $，整理可得 $ \boldsymbol{v} - \omega \boldsymbol{A}\boldsymbol{v} = \mu \boldsymbol{v} $，进一步整理即可得到迭代矩阵 $ \boldsymbol{B}$的特征值 $ \mu = 1 - \omega \lambda(\boldsymbol{A}) $.
+
+由 $ |\mu|<1$, 即$|1-{\omega \lambda}(\boldsymbol{A})|<1 $， 得$0<\omega<\frac{2}{\lambda(\boldsymbol{A})}$,
+而$0<\alpha \leq \lambda(A) \leq \beta$，所以$ 0<\omega<\frac{2}{\beta}<\frac{2}{\lambda(\boldsymbol{A})}$.
+故当 $0<\omega<\frac{2}{\beta} $ 时,有 $|\mu|<1, \rho(\boldsymbol{B})<1 $, 因此迭代格式收敛.
+
+\end{tcolorbox}
+
+
+
+\begin{tcolorbox}[breakable,
+		colframe=white!10!jingga, coltitle=white!90!jingga, colback=white!95!jingga, coltext=black, colbacktitle=white!10!jingga, enhanced, fonttitle=\bfseries,fontupper=\normalsize, attach boxed title to top left={yshift=-2mm}, before skip=8pt, after skip=8pt,
+		title=解答题]
+
+设初始值$x_0$充分靠近$x^*=\sqrt{a}$,其中$\sqrt{a}$为正常数，证明迭代公式 $ x_{k+1}=\dfrac{x_{k}\left(x_{k}^{2}+3 a\right)}{3 x_{k}^{2}+a} $ 是计算$x^*$的三阶公式，并求极限 $\displaystyle \lim _{k \rightarrow \infty} \frac{x_{k+1}-\sqrt{a}}{\left(x_{k}-\sqrt{a}\right)^{3}} $ .
+\tcblower
+ 由题意可知, 当 $ a>0 $ 时, 迭代函数为
+$$
+\varphi(x)=\frac{x\left(x^{2}+3 a\right)}{3 x^{2}+a}
+$$
+
+满足 $ \varphi(\sqrt{a})=\sqrt{a} $. 所以 $ \sqrt{a} $ 是 $ \varphi $ 的不动点, 为了求导数方便些, 写成
+$$
+\left(3 x^{2}+a\right) \varphi(x)=x^{3}+3 a x
+$$
+
+两边求导数得
+$$
+\left(3 x^{2}+a\right) \varphi^{\prime}(x)+6 x \varphi(x)=3 x^{2}+3 a
+$$
+
+从而得到 $ \varphi^{\prime}(\sqrt{a})=0 $, 这样迭代法就在不动点 $ x^{*}=\sqrt{a} $ 附近局部收敛, 两边再求导数并整理得到
+$$
+\left(3 x^{2}+a\right) \varphi^{\prime \prime}(x)+12 x \varphi^{\prime}(x)+6 \varphi(x)=6 x
+$$
+
+因此以 $ x=\sqrt{a} $ 代入验证 $ \varphi^{\prime \prime}(\sqrt{a})=0 $, 而再求导整理得
+$$
+\left(3 x^{2}+a\right) \varphi^{\prime \prime \prime}(x)+18 x \varphi^{\prime \prime}(x)+18 \varphi^{\prime}(x)+6 \varphi(x)=6
+$$
+
+得到 $ \varphi^{\prime \prime \prime}(\sqrt{a})=\frac{3}{2a} \neq 0 $, 因此证得原迭代格式三阶收敛到 $ \sqrt{a} $, 另一方面, 由收敛阶的定义
+$$
+x_{k+1}-\sqrt{a}=\frac{x_{k}^{2}+3 a x_{k}-3 \sqrt{a} x_{k}^{2}-a \sqrt{a}}{3 x_{k}^{2}+a}=\frac{\left(x_{k}-\sqrt{a}\right)^{3}}{3 x_{k}^{2}+a}
+$$
+
+因此
+$$
+\lim _{k \rightarrow \infty} \frac{x_{k+1}-\sqrt{a}}{\left(x_{k}-\sqrt{a}\right)^{3}}=\lim _{k \rightarrow \infty} \frac{1}{3 x_{k}^{2}+a}=\frac{1}{4 a}
+$$
+
+这也说明原迭代格式三阶收敛到 $ \sqrt{a} $.
+
+\end{tcolorbox}
+
+\begin{tcolorbox}[breakable,
+		colframe=white!10!jingga, coltitle=white!90!jingga, colback=white!95!jingga, coltext=black, colbacktitle=white!10!jingga, enhanced, fonttitle=\bfseries,fontupper=\normalsize, attach boxed title to top left={yshift=-2mm}, before skip=8pt, after skip=8pt,
+		title=解答题]
+证明牛顿法应用于方程 $ x^{n}-a=0, x>0 $（其中 $ n>0 $ 且 $ a>0 $）全局收敛于 $ a^{\frac{1}{n}} $.
+
+\tcblower
+牛顿法用于寻找方程 $f(x) = 0$ 的根，迭代公式为：
+$$ x_{k+1} = x_k - \frac{f(x_k)}{f'(x_k)} $$
+ 由于 $f(x) = x^n - a $，对此函数求导得：$f'(x) = n x^{n-1}$. 因此，牛顿迭代法可以表示为：
+$$ x_{k+1} = x_k - \frac{x_k^n - a}{n x_k^{n-1}} = x_k - \frac{x_k}{n} + \frac{a}{n x_k^{n-1}} = \frac{(n-1)x_k + \frac{a}{x_k^{n-1}}}{n} $$
+
+下面我们证明这个迭代方法全局收敛于 $x = a^{\frac{1}{n}}$，也就是方程的正根.
+
+我们知道算术平均数 (AM) 总是大于或等于几何平均数 (GM)，对于非负数 $b_1, b_2, \dots, b_n$，有：
+$$
+\frac{b_1 + b_2 + \dots + b_n}{n} \geqslant \sqrt[n]{b_1 \cdot b_2 \cdot \dots \cdot b_n}
+$$
+对于上面的情况，将 $b_i = x_n$ 对于 $i = 1, \dots, n-1$ 以及 $b_n = \frac{a}{x_n^{n-1}}$ 应用上述不等式得到：
+$$
+\frac{(n-1)x_n + \frac{a}{x_n^{n-1}}}{n} \geqslant \sqrt[n]{x_n^{n-1} \cdot \frac{a}{x_n^{n-1}}}= \sqrt[n]{a}
+$$
+我们定义迭代函数：
+$$ \varphi(x) = \frac{(n-1)x + \frac{a}{x^{n-1}}}{n} $$
+对 $\forall x \in [\sqrt[n]{a}, +\infty)$ 显然有$\varphi(x)\geqslant \sqrt[n]{a}$. 因此，$ \varphi(x): [\sqrt[n]{a}, +\infty) \to [\sqrt[n]{a}, +\infty) $.
+$$ \varphi'(x) = \frac{(n-1) - \frac{(n-1)a}{x^n}}{n} = \frac{(n-1)(x^n - a)}{nx^n}  = \frac{n-1}{n} \left(1 - \frac{a}{x^n}\right) $$
+在区间 $[\sqrt[n]{a}, +\infty)$ 上，$ x^n \geqslant a $，故 $ 0 \leqslant \frac{a}{x^n} \leqslant 1 $.因此：
+$$ 0 \leqslant \varphi'(x) < \frac{n-1}{n} < 1 $$
+
+
+
+根据压缩映射原理，在 $[\sqrt[n]{a}, +\infty)$ 中存在唯一的不动点 $ x^* $ ，使得 $ \varphi(x^*) = x^* $.这个不动点是 $ x^* = \sqrt[n]{a} $，因为 $ \varphi(x^*) = x^* $ 对应于 $ f(x) = 0 $ 的根.
+
+
+因此，根据上述分析，牛顿法在这个特定的问题中全局收敛于 $a^{\frac{1}{n}}$.
+\end{tcolorbox}
+
+
+
+
+

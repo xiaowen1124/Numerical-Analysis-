@@ -1,0 +1,561 @@
+\newpage
+\section{期末试题一}
+\begin{tcolorbox}[breakable,
+		colframe=white!10!jingga, coltitle=white!90!jingga, colback=white!95!jingga, coltext=black, colbacktitle=white!10!jingga, enhanced, fonttitle=\bfseries,fontupper=\normalsize, attach boxed title to top left={yshift=-2mm}, before skip=8pt, after skip=8pt,
+		title=填空题]
+ 
+
+1. 证明: 求解常微分方程初值问题的改进 Euler 方法具有$\underline{\hspace{1cm}}$阶精度.
+    
+2. 已知 $ f(2)=3, f(3)=5, f(5)=4 $, 则函数 $ f(x) $ 在此三点的插值多项式为$\underline{\hspace{1cm}}$.
+
+2. 设 $ A=\left(\begin{array}{ll}1 & 1 \\ 0 & 1\end{array}\right) $, 则 $ \operatorname{cond}_{1}(A)= \underline{\hspace{1cm}}$
+
+4. 迭代法 $ X^{(k+1)}=B X^{(k)}+f $ 求解线性方程组对任意 $ X^{(0)} $ 和 $ f $ 均收敛的充要条件为$\underline{\hspace{1cm}}$
+
+5. 定积分的 Simpson 数值求积公式具有$\underline{\hspace{1cm}}$次代数精度.
+
+ \tcblower
+
+(1) 二阶精度
+
+(2) $x_{0}  =2, x_{1}=3, x_{2}=5 , y_{0}  =3, y_{1}=5, y_{2}=4 $.于是
+$$
+\begin{aligned}
+L_{2}(x) & =3 \cdot \frac{(x-3)(x-5)}{(2-3)(2-5)}+5 \cdot \frac{(x-2)(x-5)}{(3-2)(3-5)}+4 \cdot \frac{(x-2)(x-3)}{(5-2)(5-3)} \\
+& =(x-3)(x-5)+(-\frac{5}{2})(x-2)(x-5)+\frac{2}{3}(x-2)(x-3) \\
+& =-\frac{5}{6} x^{2}+\frac{37}{6} x-6
+\end{aligned}
+$$
+(3) $\operatorname{cond}_1(A)=\left\|A^{-1}\right\|_{1} \cdot\|A\|_{1}$ .
+$$
+\begin{array}{l}
+A=\left(\begin{array}{ll}
+1 & 1 \\
+0 & 1
+\end{array}\right) \quad A^{-1}=\left(\begin{array}{cc}
+1 & -1 \\
+0 & 1
+\end{array}\right) \\
+\end{array}
+$$
+$$\|A\|_{1}=\max _{1 \leqslant j \leqslant n} \sum_{i=1}^{n}\left|a_{i j}\right|=\max \{|1|+|0|,|1|+|1|\} 
+=\max \{1,2\}=2 $$
+
+同理 $ \left\|A^{-1}\right\|_{1}=\max \{|1|+|0|,|-1|+|1|\}=2 $.
+因此 $ \operatorname{cond}_{1}(A)=\left\|A^{-1}\right\|_{1}\|A\|_{1}=4 $.
+
+(4) 迭代矩阵的谱半径$\rho(B)<1$
+
+(5) 三
+\end{tcolorbox}
+
+\begin{tcolorbox}[breakable,
+		colframe=white!10!jingga, coltitle=white!90!jingga, colback=white!95!jingga, coltext=black, colbacktitle=white!10!jingga, enhanced, fonttitle=\bfseries,fontupper=\normalsize, attach boxed title to top left={yshift=-2mm}, before skip=8pt, after skip=8pt,
+		title=解答题]
+
+
+  证明: 当 $ x_{0}=1.5 $ 时, 迭代法 $ x_{k+1}=\sqrt{\frac{10}{4+x_{k}}} $ 收敛于方程 $ f(x)=x^{3}+4 x^{2}-10=0 $ 在区间 $ [1,2] $ 内唯一实根 $ x^{*} $.
+
+   \tcblower
+
+首先，我们建立迭代公式：
+$$
+\left\{
+\begin{array}{l}
+x_{k+1}=\sqrt{\frac{10}{4+x_{k}}} \\
+x_{0}=1.5
+\end{array}
+\right.
+$$
+设迭代函数为$\varphi(x)=\sqrt{\frac{10}{4+x}}$，我们很容易验证$x=\varphi(x)$与$f(x)=x^{3}+4x^{2}-10=0$是等价的方程.
+
+显然$\varphi(x)$在区间$[1,2]$上是单调递减的,当 $ {x}=1 $ 时, $ \varphi(1)=\sqrt{2} $, 当 $ {x}=2 $ 时, $ \varphi(2)=\sqrt{\frac{5}{3}} $ .所以当 $ {x} \in[1,2] $ 时, $ 1<\varphi(2) \leqslant \varphi({x}) \leqslant \varphi(1)<2 $, 即 $ \varphi({x}) \in[1,2] $ .而
+$$ \varphi ^{\prime}(x)=-\frac{\sqrt{10}}{2\sqrt{(4+x)^{3}}}$$
+易知$ \varphi ^{\prime}(x)$是一个增函数, 则有（注意添了绝对值）
+$$
+\max _{1 \leqslant x \leqslant 2}\left|\varphi^{\prime}(x)\right|=|\varphi^{\prime}(1)|=\left|- \frac{\sqrt{10}}{2\sqrt{(4+1)^{3}}}\right|=\left|-\sqrt{\frac{1}{50}}\right|<1
+$$
+
+ 所以 $|\varphi^{\prime}({x})|<1 $.依照收敛性定理, 迭代法 $ {x}_{{k}+1}=\sqrt{\frac{10}{4+{x}_{{k}}}} $ 收敛于方程 $ f(x)=x^{3}+4 x^{2}-10=0 $ 在区间 $ [1,2] $ 内唯一实根 $ x^{*} $.
+
+
+\end{tcolorbox}
+
+\begin{tcolorbox}[breakable,
+		colframe=white!10!jingga, coltitle=white!90!jingga, colback=white!95!jingga, coltext=black, colbacktitle=white!10!jingga, enhanced, fonttitle=\bfseries,fontupper=\normalsize, attach boxed title to top left={yshift=-2mm}, before skip=8pt, after skip=8pt,
+		title=解答题]
+
+ 给定求积公式 $ \displaystyle\int_{0}^{1} f(x) d x \approx \frac{1}{2} f\left(x_{0}\right)+c f\left(x_{1}\right) $, 试确定 $ x_{0}, x_{1}, c $,使求积公式的代数精度尽可能高, 并指出代数精度的次数.
+
+ \tcblower
+  当 $ f(x)=1 $ 时, 左边 $ =\int_{0}^{1} 1 \mathrm{~d} x=1 $, 右边 $ =\frac{1}{2}+c $;
+  
+  当 $ f(x)=x $ 时, 左边 $ =\int_{0}^{1} x \mathrm{~d} x=\frac{1}{2} $, 右边 $ =\frac{1}{2} x_{0}+c x_{1} $;
+  
+  当 $ f(x)=x^{2} $ 时, 左边 $ =\int_{0}^{1} x^{2} \mathrm{~d} x=\frac{1}{3} $, 右边 $ =\frac{1}{2} x_{0}^{2}+c x_{1}^{2} $.
+  
+  要使求积公式至少具有 2 次代数精度, 当且仅当
+$$
+\left\{\begin{array}{l}
+\frac{1}{2}+c=1, \\
+\frac{1}{2} x_{0}+c x_{1}=\frac{1}{2}, \\
+\frac{1}{2} x_{0}^{2}+c x_{1}^{2}=\frac{1}{3},
+\end{array}\right.
+$$
+求得 $ c=\frac{1}{2}, x_{0}=\frac{1}{2}\left(1-\frac{1}{\sqrt{3}}\right), x_{1}=\frac{1}{2}\left(1+\frac{1}{\sqrt{3}}\right) $, 所以求积公式为
+$$
+\int_{0}^{1} f(x) \mathrm{d} x \approx \frac{1}{2} f\left(\frac{1}{2}\left(1-\frac{1}{\sqrt{3}}\right)\right)+\frac{1}{2} f\left(\frac{1}{2}\left(1+\frac{1}{\sqrt{3}}\right)\right) .
+$$
+当 $ f(x)=x^{3} $ 时, 左边 $ =\int_{0}^{1} x^{3} \mathrm{~d} x=\frac{1}{4} $,
+$$
+\text { 右边 }=\frac{1}{2}\left[\frac{1}{2}\left(1-\frac{1}{\sqrt{3}}\right)\right]^{3}+\frac{1}{2}\left[\frac{1}{2}\left(1+\frac{1}{\sqrt{3}}\right)\right]^{3}=\frac{1}{4} \text {; }
+$$
+当 $ f(x)=x^{4} $ 时, 左边 $ =\int_{0}^{1} x^{4} \mathrm{~d} x=\frac{1}{5} $,
+$$
+\text { 右边 }=\frac{1}{2}\left[\frac{1}{2}\left(1-\frac{1}{\sqrt{3}}\right)\right]^{4}+\frac{1}{2}\left[\frac{1}{2}\left(1+\frac{1}{\sqrt{3}}\right)\right]^{4}=\frac{7}{36} \text {, }
+$$
+因为左边 $ \neq $ 右边, 所以求积公式的代数精度为 3 .
+\end{tcolorbox}
+
+
+
+\begin{tcolorbox}[breakable,
+		colframe=white!10!jingga, coltitle=white!90!jingga, colback=white!95!jingga, coltext=black, colbacktitle=white!10!jingga, enhanced, fonttitle=\bfseries,fontupper=\normalsize, attach boxed title to top left={yshift=-2mm}, before skip=8pt, after skip=8pt,
+		title=解答题]
+
+ 试确定 $a(a \neq 0)$ 的取值范围, 使得求解方程组
+$
+\left[\begin{array}{ccc}
+a & 1 & 3 \\
+1 & a & 2 \\
+-3 & 2 & a
+\end{array}\right]\left[\begin{array}{l}
+x \\
+y \\
+z
+\end{array}\right]=\left[\begin{array}{l}
+b_{1} \\
+b_{2} \\
+b_{3}
+\end{array}\right] 
+$
+的 Jacobi 迭代格式收敛. 
+
+ \tcblower
+系数矩阵
+$$
+\begin{aligned}
+A=\left[\begin{array}{ccc}
+a & 1 & 3 \\
+1 & a & 2 \\
+-3 & 2 & a
+\end{array}\right] & =D-L-U  =\left[\begin{array}{lll}
+a & & \\
+& a & \\
+& & a
+\end{array}\right]+\left[\begin{array}{ccc}
+0 & \\
+1 & 0 \\
+-3 & 2 & 0
+\end{array}\right]+\left[\begin{array}{lll}
+0 & 1 & 3 \\
+& 0 & 2 \\
+& & 0
+\end{array}\right]
+\end{aligned}
+$$
+
+于是雅可比迭代矩阵 $ B_{J} $计算如下：
+$$
+\begin{array}{l}
+B_{J}=D^{-1}(L+U)=\left[\begin{array}{lll}
+\frac{1}{a} & & \\
+& \frac{1}{a} & \\
+& & \frac{1}{a}
+\end{array}\right]\left(\left[\begin{array}{ccc}
+0 & & \\
+-1 & 0 & \\
+3 & -2 & 0
+\end{array}\right]+\left[\begin{array}{ccc}
+0 & -1 & -3 \\
+& 0 & -2 \\
+& & 0
+\end{array}\right]\right) \\
+=\left(\begin{array}{lll}
+\frac{1}{a} & & \\
+& \frac{1}{a} & \\
+& & \frac{1}{a}
+\end{array}\right)\left(\begin{array}{ccc}
+0 & -1 & -3 \\
+-1 & 0 & -2 \\
+3 & -2 & 0
+\end{array}\right) =\left(\begin{array}{ccc}
+0 & -\frac{1}{a} & -\frac{3}{a} \\
+-\frac{1}{a} & 0 & -\frac{2}{a} \\
+\frac{3}{a} & -\frac{2}{a} & 0
+\end{array}\right) \\
+\end{array}
+$$
+ 于是Jacobi 迭代矩阵 $ B_J $ 的特征方程为
+$$
+\operatorname{det}\left(\lambda I-B_{J}\right)=\left|\begin{array}{ccc}
+\lambda & \frac{1}{a} & \frac{3}{a} \\
+\frac{1}{a} & \lambda & \frac{2}{a} \\
+-\frac{3}{a} & \frac{2}{a} & \lambda
+\end{array}\right|=\frac{\lambda \cdot\left(a^{2} \lambda^{2}+4\right)}{a^{2}} 
+$$
+求得特征值
+$$
+\lambda_{1}=0, \quad \lambda_{2,3}= \pm \frac{2}{|a|} \mathrm{i},
+$$
+所以 $ \rho(\boldsymbol{B_J})=\left|\frac{2}{a}\right| $. 由$\rho(\boldsymbol{B_J})<1$得$ |a|>2 $. 因此当 $ |a|>2 $时,原方程组 Jacobi 迭代格式收敛.
+
+
+\end{tcolorbox}
+
+
+\begin{tcolorbox}[breakable,
+		colframe=white!10!jingga, coltitle=white!90!jingga, colback=white!95!jingga, coltext=black, colbacktitle=white!10!jingga, enhanced, fonttitle=\bfseries,fontupper=\normalsize, attach boxed title to top left={yshift=-2mm}, before skip=8pt, after skip=8pt,
+		title=解答题]
+
+利用非线性方程迭代方法求根的思想， 证明
+$
+\sqrt{2+\sqrt{2+\sqrt{2+\cdots}}}=2
+$
+
+ \tcblower
+
+ 首先建立迭代公式. 令
+$$
+x_{k}=\sqrt{2+\sqrt{2+\sqrt{2+\cdots}}}
+$$
+则有迭代公式
+$$
+\left\{\begin{array}{l}
+x_{k+1}=\sqrt{2+x_{k}}, \quad k=0,1,2, \cdots \\
+x_{0}=0
+\end{array}\right.
+$$
+其中迭代函数
+$$
+\varphi(x)=\sqrt{2+x}, \quad \varphi^{\prime}(x)=\frac{1}{2 \sqrt{2+x}}
+$$
+显然当 $ x \in[0,2] $ 时 $\varphi(x) \in[\sqrt{2},2]\subset[0,2] $, 且成立
+$$
+\max_{x\in[0,2]}\left|\varphi^{\prime}(x)\right| =|\varphi(0)|= \frac{1}{2 \sqrt{2}}<1
+$$
+因此这一迭代过程收敛于方程$x^{2}-x-2=0$的正根 $ x^{*}=2 $.
+\end{tcolorbox}
+
+
+
+
+\begin{tcolorbox}[breakable,
+		colframe=white!10!jingga, coltitle=white!90!jingga, colback=white!95!jingga, coltext=black, colbacktitle=white!10!jingga, enhanced, fonttitle=\bfseries,fontupper=\normalsize, attach boxed title to top left={yshift=-2mm}, before skip=8pt, after skip=8pt,
+		title=解答题]
+
+     用梯形方法解初值问题 $ \left\{\begin{array}{l}y^{\prime}+y=0 \\ y(0)=1\end{array}\right. $. 证明其近似解为 $ y_{n}=\left(\frac{2-h}{2+h}\right)^{n} $, 并证明: 当 $ h \rightarrow 0 $ 时, 它收敛于原初值问题的精确解 $ y=e^{-x} $.
+
+     \tcblower
+
+梯形方法是一个数值解常微分方程的方法，其迭代格式为：
+$$ y_{n+1} = y_n + \frac{h}{2}(f(x_n, y_n) + f(x_{n+1}, y_{n+1})) $$
+其中，$ h $ 是步长，$ f(x, y) $ 是微分方程 $ y' = f(x, y) $ 中的右端函数.
+
+对于给定的初值问题 $ \left\{\begin{array}{l}y^{\prime}+y=0 \\ y(0)=1\end{array}\right. $，我们有 $ f(x, y) = -y $.将其代入梯形方法的迭代格式中，得到：
+$$ y_{n+1} = y_n + \frac{h}{2}(-y_n - y_{n+1}) $$
+整理得到：$ y_{n+1} = \frac{2-h}{2+h}y_n $. 于是
+$$
+y_{n+1}=\left(\frac{2-h}{2+h}\right) y_{n}=\left(\frac{2-h}{2+h}\right)^{2} y_{n-1}=\cdots=\left(\frac{2-h}{2+h}\right)^{n+1} y_{0}
+$$
+因此，我们证明了 $ y_{n}=\left(\frac{2-h}{2+h}\right)^{n} $ 是给定初值问题的近似解.
+
+因为 $ y_{0}=1 $, 故
+$$
+y_{n}=\left(\frac{2-h}{2+h}\right)^{n}
+$$
+
+对于给定的步长 $ h $，经过 $ n $ 步运算后，我们可以得到 $ y(x) $ 的近似值 $ y_n$.在每一步中，我们都会在 $ x $ 的位置上进行计算，因此总共进行 $ n $ 步运算后，我们得到的 $ x $ 的取值为 $ x = nh $.即 $ n=\dfrac{x}{h} $, 代入上式有:
+$$
+\begin{aligned}
+y_{n}&=\left(\frac{2-h}{2+h}\right)^{\frac x  h} \\
+\lim _{h \rightarrow 0} y_{n}&=\lim _{h \rightarrow 0}\left(\frac{2-h}{2+h}\right)^{\frac{x}{h}}=\lim _{h \rightarrow 0}\left(1-\frac{2 h}{2+h}\right)^{\frac{x}{h}} \\
+&=\lim _{h \rightarrow 0}\left[\left(1-\frac{2 h}{2+h}\right)^{\frac{2+h}{2 h}}\right]^{\frac{2 h}{2+h}\cdot \frac{x}{h}}=\mathrm{e}^{-x}
+\end{aligned}
+$$
+因此，当 $ h \rightarrow 0 $ 时，$ y_{n}=\left(\frac{2-h}{2+h}\right)^{n} $ 收敛于原初值问题的精确解 $ y=e^{-x} $.
+\end{tcolorbox}
+
+
+\begin{tcolorbox}[breakable,
+		colframe=white!10!jingga, coltitle=white!90!jingga, colback=white!95!jingga, coltext=black, colbacktitle=white!10!jingga, enhanced, fonttitle=\bfseries,fontupper=\normalsize, attach boxed title to top left={yshift=-2mm}, before skip=8pt, after skip=8pt,
+		title=解答题]
+ 
+
+    已知求解线性方程组 $ \boldsymbol{A x}=\boldsymbol{b} $ 的迭代格式:
+$$
+x_{i}^{(k+1)}=x_{i}^{(k)}+\frac{\mu}{a_{i i}}\left(b_{i}-\sum_{j=1}^{n} a_{i j} x_{j}^{(k)}\right), i=1,2, \ldots n
+$$
+(1) 求此迭代法的迭代矩阵 $ \boldsymbol{M}(\boldsymbol{A}=\boldsymbol{D}-\boldsymbol{L}-\boldsymbol{U}) $ ；
+
+(2) 当 $ A $ 是严格行对角占优矩阵, $ {\mu}={0 . 5} $ 时, 给出 $ \|\boldsymbol{M}\|_{\infty} $ 表达式, 并证明此时迭代格式收敛.
+
+\tcblower
+
+(1) 要求迭代矩阵 $ M $ ，我们首先需要明确分解系数矩阵 $ \boldsymbol{A} $ 为 $ \boldsymbol{D}-\boldsymbol{L}-\boldsymbol{U} $ ，其中 $ \boldsymbol{D} $ 是 $ \boldsymbol{A} $ 的对角部分， $ \boldsymbol{L} $ 是严格下三角部分 (所有上三角元素为0)， $ \boldsymbol{U} $ 是严格上三角部分（所有下三角元素为 $ 0) $ .
+
+将迭代格式重写为更符合矩阵运算的形式:
+$$
+\boldsymbol{x}^{(k+1)}=\boldsymbol{x}^{(k)}+\mu \boldsymbol{D}^{-1}\left(\boldsymbol{b}-\boldsymbol{A} \boldsymbol{x}^{(k)}\right)
+$$
+展开后得到：
+$$
+\boldsymbol{x}^{(k+1)}=(\boldsymbol{I}-\mu \boldsymbol{D}^{-1}\boldsymbol{A})\boldsymbol{x}^{(k)}+\mu \boldsymbol{D}^{-1}\boldsymbol{b}
+$$
+因此$\boldsymbol{M}=\boldsymbol{I}-\mu \boldsymbol{D}^{-1}\boldsymbol{A}$.
+
+
+(2) 将 $ \boldsymbol{A}=\boldsymbol{D}-\boldsymbol{L}-\boldsymbol{U} $ 代入$\boldsymbol{M}$得：
+$$
+\begin{aligned}
+\boldsymbol{M}&=\boldsymbol{I}-\mu \boldsymbol{D}^{-1}(\boldsymbol{D}-\boldsymbol{L}-\boldsymbol{U}) \\
+&=\boldsymbol{I}-\mu \boldsymbol{D}^{-1} \boldsymbol{D}+\mu \boldsymbol{D}^{-1}(\boldsymbol{L}+\boldsymbol{U})\\
+&=I-\mu I+\mu \boldsymbol{D}^{-1}(\boldsymbol{D}-\boldsymbol{A}) \\
+&=(1-\mu) \boldsymbol{I}+\mu( \boldsymbol{I}-\boldsymbol{D}^{-1}\boldsymbol{A}) 
+\end{aligned}
+$$
+其中矩阵
+$$
+\boldsymbol{I}-\boldsymbol{D}^{-1} \boldsymbol{A}=\left(\begin{array}{cccc}
+0 & -\frac{a_{12}}{a_{11}} & \cdots & -\frac{a_{1 n}}{a_{11}} \\
+-\frac{a_{21}}{a_{22}} & 0 & \cdots & -\frac{a_{2 n}}{a_{22}} \\
+\vdots & \vdots & & \vdots \\
+-\frac{a_{n 1}}{a_{n n}} & -\frac{a_{n 2}}{a_{n n}} & \cdots & 0
+\end{array}\right)
+$$
+
+由$\boldsymbol{A}$是严格行对角占优知
+$$
+\left\|\boldsymbol{I}-\boldsymbol{D}^{-1} \boldsymbol{A}\right\|_{\infty}=\max _{1 \leqslant i \leqslant n} \sum_{\substack{j=1 \\ j \neq i}} \frac{\left|a_{i j}\right|}{\left|a_{i i}\right|}=\max _{1 \leqslant i \leqslant n} \frac{\sum\limits_{\substack{j=1 \\ j \neq i}}^{n}\left|a_{i j}\right|}{\left|a_{i i}\right|}<1
+$$
+当$ {\mu}={0 . 5} $ 时
+ $$\|\boldsymbol{M}\|_{\infty}=\|\frac12\boldsymbol{I} +\frac12( \boldsymbol{I}-\boldsymbol{D}^{-1}\boldsymbol{A}) \|_{\infty}$$
+再由范数的的齐次性及三角不等式可得：
+$$\|\boldsymbol{M}\|_{\infty}=\|\frac12\boldsymbol{I} +\frac12( \boldsymbol{I}-\boldsymbol{D}^{-1}\boldsymbol{A}) \|_{\infty}\leqslant \frac12 \|I\|_{\infty}+\frac12 \|\boldsymbol{I}-\boldsymbol{D}^{-1}\boldsymbol{A}\|_{\infty}<\frac 12\cdot1+\frac 12\cdot1=1$$
+ 此时迭代格式收敛得证.
+
+\begin{tcolorbox}[breakable,title=Jacobi 松弛法]
+上面的问题实质上是对Jacobi 迭代法引进迭代参数以此加快迭代速度，与Gauss-Seidel方法(SOR)类似, 相比之下Jacobi 的松弛法更加简单.
+
+若求解$\boldsymbol{Ax=b}$的Jacobi 方法收敛，则Jacobi 松弛法收敛的充分必要条件是$\rho(\boldsymbol{I}-\mu \boldsymbol{D}^{-1}\boldsymbol{A})<1$.
+$$
+\boldsymbol{x}^{(k+1)}=(\boldsymbol{I}-\mu \boldsymbol{D}^{-1}\boldsymbol{A})\boldsymbol{x}^{(k)}+\mu \boldsymbol{D}^{-1}\boldsymbol{b}
+$$
+下面证明对任意$0<\mu\leqslant1$都有Jacobi 松弛法收敛.
+
+
+    证明： 令 $ \lambda_{j}, \lambda_{j}^{'}(j=1, \cdots, n) $ 分别为 $ I-D^{-1} A $ 和 $ I-\mu D^{-1} A $ 的特征值. 由
+$$
+I-\mu D^{-1} A=\mu\left(I-D^{-1} A\right)+(1-\mu) I
+$$
+可以导出
+$$
+\lambda_{j}^{'}=\mu \lambda_{j}+(1-\mu) .
+$$
+
+令 $ \lambda_{j}=r_{j} \mathrm{e}^{\mathrm{i} \theta_{j}} $, 则由 Jacobi 方法收敛的假设可知 $ r_{j}<1 $. 于是对 $ 0<\mu \leqslant 1 $ 有
+$$
+\left|\lambda_{j}^{'}\right|^{2}=\left|\mu r_{j} \mathrm{e}^{\mathrm{i} \theta_{j}}+1-\mu\right|^{2} \leqslant\left(1-\mu+\mu r_{j}\right)^{2}<1,
+$$
+所以 Jacobi 松弛法收敛. 证毕.
+\end{tcolorbox}
+
+
+ 
+\end{tcolorbox}
+
+
+
+
+
+
+\begin{tcolorbox}[breakable,
+		colframe=white!10!jingga, coltitle=white!90!jingga, colback=white!95!jingga, coltext=black, colbacktitle=white!10!jingga, enhanced, fonttitle=\bfseries,fontupper=\normalsize, attach boxed title to top left={yshift=-2mm}, before skip=8pt, after skip=8pt,
+		title=解答题]
+ 
+
+
+
+求一个次数不超过 4 次的插值多项式 $ p(x) $, 使它满足:
+$$
+\begin{array}{l}
+p(0)=f(0)=0, p(1)=f(1)=1, p^{\prime}(0)=f^{\prime}(0)=0, \\
+p^{\prime}(1)=f^{\prime}(1)=1, p^{\prime \prime}(1)=f^{\prime \prime}(1)=0
+\end{array}
+$$
+并求其余项表达式（设 $ f(x) $ 存在 5 阶导数）.
+ \tcblower
+
+为了找到一个次数不超过 4 次的插值多项式 $p(x)$，我们可以利用这些插值条件来构建插值多项式.
+
+设 $p(x) = ax^4 + bx^3 + cx^2 + dx + e$，我们需要找到参数 $a, b, c, d, e$ 来满足给定的插值条件.根据插值条件，我们有：
+$$
+\begin{cases}
+p(0) = e = 0 \\
+p(1) = a + b + c + d + e = 1 \\
+p'(0) = d = 0 \\
+p'(1) = 4a + 3b + 2c + d = 1 \\
+p''(1) = 12a + 6b + 2c = 0
+\end{cases}
+$$
+解这个方程组，可以得到 $a = 1$，$b = -3$，$c = 3$，$d = 0$，$e = 0$.
+因此，插值多项式为 $p(x) = x^4 -3x^3 +3x^2$.
+
+由于$ f(x) $ 在区间$[0,1]$存在 5 阶导数，且注意到$x=0$为二重节点，$x=1$为三重节点.故插值余项为
+$$R(x) = f(x) - p(x)=\frac{1}{5 !} f^{(5)}(\xi) x^{2}(x-1)^{3}, \xi \in[0,1]$$
+
+
+\end{tcolorbox}
+
+
+\begin{tcolorbox}[breakable,
+		colframe=white!10!jingga, coltitle=white!90!jingga, colback=white!95!jingga, coltext=black, colbacktitle=white!10!jingga, enhanced, fonttitle=\bfseries,fontupper=\normalsize, attach boxed title to top left={yshift=-2mm}, before skip=8pt, after skip=8pt,
+		title=解答题]
+ 
+
+设$ A $ 为 $ n $ 阶方阵，证明:
+
+(1) 矩阵级数 $ \sum\limits_{{k}=0}^{\infty} \frac{1}{{k} !} {A}^{{k}} $ 收敛;
+
+(2) 设上述级数和为 $ \mathrm{e}^{{A}} $ ，如果 $ \lambda $ 为 $ {A} $ 的一个特征值，证明 $ \mathrm{e}^{\lambda} $ 为 $ e^{A} $ 的特征值.
+
+ \tcblower
+
+(1) $e^{z}=\sum\limits_{k=0}^{\infty}\frac{1}{{k} !} z^k=1+z+\frac{z^{2}}{2 !}+\frac{z^{3}}{3 !}+\cdots $ 是收敛半径 $ R=+\infty $ 的幂级数，幂级数绝对收敛
+
+易知, $ \sum\limits_{k=0}^{\infty} \frac{x^{k}}{k !} $ 是 $ f(x)=e^{x} $ 的展开式, 因为$ \frac{a_{k+1}}{a_{k}}=\frac{\frac{1}{(k+1) !}}{\frac{1}{k !}}=\frac{1}{(k+1)} \rightarrow 0(k \rightarrow \infty),  $ 所以收敛半径 $ R=+\infty $ .
+显然方阵$A$的谱半径$\rho(A)<R=+\infty$,取$\varepsilon >0$,使得$\rho(A)+\varepsilon<R$. 另一方面，存在某种矩阵范数$\|\cdot\|$使得
+$$\|A\|\leqslant \rho(A)+\varepsilon$$
+从而有$$\|\frac{1}{k!}A^k\|\leqslant \frac{1}{k!}\|A\|^k\leqslant \frac{1}{k!}(\rho(A)+\varepsilon)^k$$
+因为$\rho(A)+\varepsilon<R$,且$\sum\limits_{k=0}^{\infty}\frac{1}{{k} !} z^k$收敛半径为$R$,根据比较判别法知$\sum\limits_{k=0}^{\infty}\frac{1}{k!}(\rho(A)+\varepsilon)^k$绝对收敛，从而$\sum\limits_{k=0}^{\infty}\|\frac{1}{k!}A^k\|$收敛.
+于是矩阵级数 $ \sum\limits_{{k}=0}^{\infty} \frac{1}{{k} !} {A}^{{k}} $ 收敛.
+
+(2) 要证明 $ \mathrm{e}^{\lambda} $ 是矩阵 $ \mathrm{e}^{A} $ 的特征值，我们可以考虑矩阵 $ \mathrm{e}^{A} $ 的特征方程.
+
+设 $ \lambda $ 是矩阵 $ A $ 的特征值，即存在非零向量 $ \mathbf{v} $ 使得 $ A\mathbf{v} = \lambda\mathbf{v} $.我们来看矩阵 $ \mathrm{e}^{A} $ 的特征方程：
+
+$$
+\mathrm{e}^{A}\mathbf{v} = \left( \sum\limits_{{k}=0}^{\infty} \frac{1}{{k} !} {A}^{{k}} \right) \mathbf{v}
+$$
+
+由于 $ A\mathbf{v} = \lambda\mathbf{v} $，进而可以得到$A^k\mathbf{v} = \lambda^K\mathbf{v}$，因此我们可以展开上式为：
+
+$$
+\mathrm{e}^{A}\mathbf{v} = \left( \sum\limits_{{k}=0}^{\infty} \frac{1}{{k} !} {A}^{{k}} \right) \mathbf{v} = \sum\limits_{{k}=0}^{\infty} \frac{1}{{k} !} {A}^{{k}}\mathbf{v} = \sum\limits_{{k}=0}^{\infty} \frac{1}{{k} !} \lambda^{k}\mathbf{v} = \mathrm{e}^{\lambda}\mathbf{v}
+$$
+
+因此，我们得到 $ \mathrm{e}^{A}\mathbf{v} = \mathrm{e}^{\lambda}\mathbf{v} $.这意味着 $ \mathrm{e}^{\lambda} $ 是矩阵 $ \mathrm{e}^{A} $ 的特征值，对应于特征向量 $ \mathbf{v} $.
+
+
+
+
+
+\end{tcolorbox}
+
+
+
+
+\begin{tcolorbox}[breakable,
+		colframe=white!10!jingga, coltitle=white!90!jingga, colback=white!95!jingga, coltext=black, colbacktitle=white!10!jingga, enhanced, fonttitle=\bfseries,fontupper=\normalsize, attach boxed title to top left={yshift=-2mm}, before skip=8pt, after skip=8pt,
+		title=解答题]
+
+
+设 $ \rho(A) $ 为 $ {n} $ 阶方阵 $ A $ 的谱半径, 证明
+$ \rho(A)<1 $ 的充分必要条件是 $ \lim\limits _{k \rightarrow \infty} A^{k}=\boldsymbol{O} $
+ \tcblower
+
+\textbf{必要性：}若 $ \rho(\boldsymbol{A})<1 $, 取 $ \varepsilon_{0}=\dfrac{1-\rho(\boldsymbol{A})}{2} $, 于是 存在范数 $ \|\cdot\| $, 使得 $ \|\boldsymbol{A}\|<\rho(\boldsymbol{A})+\varepsilon_{0}=\dfrac{1+\rho(\boldsymbol{A})}{2}<1 $. 因 $ \left\|\boldsymbol{A}^{k}\right\| \leqslant\|\boldsymbol{A}\|^{k} $, 于是 $ \lim\limits _{k \rightarrow \infty}\left\|\boldsymbol{A}^{k}\right\|=\lim \limits_{k \rightarrow \infty}\|\boldsymbol{A}\|^{k}=0 $, 即 $ \lim\limits _{k \rightarrow \infty} \boldsymbol{A}^{k}=\boldsymbol{O} $.
+
+\textbf{充分性: }设 $ \lambda $ 为 $ \boldsymbol{A} $ 的一个特征值, 对应特征向量 $ \boldsymbol{x} \neq 0 $, 满足 $  \boldsymbol{Ax}=\lambda \boldsymbol{x} $, 从而 $ \boldsymbol{A}^{k} \boldsymbol{x}=\lambda^{k} \boldsymbol{x} $, 得
+$$
+|\lambda|{ }^{k}\|\boldsymbol{x}\|=\left\|\boldsymbol{A}^{k} \boldsymbol{x}\right\| .
+$$
+若$ \lim\limits _{k \rightarrow \infty} \boldsymbol{A}^{k}=\boldsymbol{O} $,则对矩阵范数$\|\cdot\|$有$ \lim\limits _{k \rightarrow \infty}\left\|\boldsymbol{A}^{k} \right\|=0 $. 进而有$ \lim\limits _{k \rightarrow \infty}\left\|\boldsymbol{A}^{k} \boldsymbol{x}\right\|=0 $, 即
+$$
+\lim _{k \rightarrow \infty}|\lambda|^{k}\|\boldsymbol{x}\|=\|\boldsymbol{x}\| \lim _{k \rightarrow \infty}|\lambda|^{k}=0 .
+$$
+
+因 $ \|\boldsymbol{x}\| \neq 0 $, 故 $ \boldsymbol{A} $ 的所有特征值都满足 $ |\lambda|<1 $, 即 $ \rho(\boldsymbol{A})<1 $.
+
+\end{tcolorbox}
+
+
+\begin{tcolorbox}[breakable,
+		colframe=white!10!jingga, coltitle=white!90!jingga, colback=white!95!jingga, coltext=black, colbacktitle=white!10!jingga, enhanced, fonttitle=\bfseries,fontupper=\normalsize, attach boxed title to top left={yshift=-2mm}, before skip=8pt, after skip=8pt,
+		title=解答题]
+
+ 设 $ {f}({x}) $ 在 $ [{a}, {b}] $ 上二阶导数连续, 且 $ {f}({a})=0, {f}({b})=0 $,证明:
+$$
+\max _{a \leqslant x \leqslant b}|f(x)| \leq \frac{(b-a)^{2}}{8} \max _{a \leqslant x \leqslant b}\left|f^{\prime \prime}(x)\right|
+$$
+ \tcblower
+
+ \hspace{2em}\textbf{方法一：}
+由于 $ f(x) $ 在 $ [a, b] $ 上二阶导数连续, 所以 $ f(x) $ 在 $ [a, b] $ 连续, 根据最值定理知 $f$ 在 $ [a, b] $ 取得最大值和最小值.于是存在点 $ x_0 \in[a, b] $, 使得
+$$
+|f(x_0)|=\max _{x \in[a, b]}|f(x)| .
+$$
+
+  若 $ x_{0}=a $ 或 $ b $, 则结论显然成立. 
+ 
+ 若 $ a<x_{0}<b $,分析如下：当 $ f(x_0)>0 $ 时, 根据 $ f(x) \leq|f(x)| \leq f(x_0) $ 可知 $ f(x_0) $ 为 $ f(x) $ 在 $ [a, b] $ 上的最大值; 当 $ f(x_0)<0 $ 时, 根据 $ -f(x) \leq|f(x)| \leq-f(x_0) $ 可知 $ f(x) \geq f(x_0) $, 即 $ f(x_0) $ 为 $ f(x) $ 在 $ [a, b] $ 上的最小值. 总而言之, $ f(x_0) $ 必定为 $ f(x) $ 的最值, 再结合 $ x_0 \in(a, b) $, 就有 $ f^{\prime}(x_0)=0 $.
+ 
+ 利用带 Lagrange 余项的 Taylor 公式将 $ f(x) $ 在点 $ x_{0} $ 展开：
+$$
+\begin{array}{l}
+0=f(a)=f\left(x_{0}\right)+f^{\prime}\left(x_{0}\right)\left(a-x_{0}\right)+\frac{1}{2} f^{\prime \prime}(\xi)\left(a-x_{0}\right)^{2}, \xi \in\left(a, x_{0}\right), \\
+0=f(b)=f\left(x_{0}\right)+f^{\prime}\left(x_{0}\right)\left(b-x_{0}\right)+\frac{1}{2} f^{\prime \prime}(\eta)\left(b-x_{0}\right)^{2}, \eta \in\left(x_{0}, b\right),
+\end{array}
+$$
+
+将 $f^{\prime}\left(x_{0}\right)=0 $ 代入上面两式, 并进行如下讨论
+
+若 $ a<x_0 \leq \frac{a+b}{2} $, 可知 $$ |f(x_0)|=\left|-\frac{f^{\prime \prime}(\xi)}{2}(a-x_0)^{2}\right| \leq \frac{(b-a)^{2}}{8} \max _{x \in[a, b]}\left|f^{\prime \prime}(x)\right| $$
+若 $ \frac{a+b}{2} \leq x_0<b $, 可知 $$ |f(x_0)|=\left|-\frac{f^{\prime \prime}(\eta)}{2}(b-x_0)^{2}\right| \leq \frac{(b-a)^{2}}{8} \max _{x \in[a, b]}\left|f^{\prime \prime}(x)\right| $$
+
+综上可知 $$ \max _{a \leq x \leq b}|f(x)|=|f(x_0)| \leq \frac{(b-a)^{2}}{8} \max _{a \leq x \leq b}\left|f^{\prime \prime}(x)\right| $$
+
+ \hspace{2em}\textbf{方法二：}
+以$ x=a $ 和 $ x=b $ 为插值节点，作函数 $ f(x) $ 的一次插值多项式:
+$$
+L_{1}(x)=f(a) \frac{x-b}{a-b}+f(b) \frac{x-b}{b-a},
+$$
+
+因为 $ f(a)=f(b)=0 $ ，则有 $ L_{1}(x)=0 $ ，且插值多项式$L_{1}(x)$的余项
+$$
+R_1(x)=f(x)-L_{1}(x)=\frac{f^{\prime \prime}(\xi)}{2}(x-a)(x-b),
+$$
+
+其中 $ \xi \in(\min \{x, a\}, \max \{x, b\}) $. 因而，
+$$
+f(x)=\frac{f^{\prime \prime}(\xi)}{2}(x-a)(x-b), x \in[a, b], \xi \in(a, b),
+$$
+
+当 $ x \in[a, b] $ 时，
+$$
+\begin{aligned}
+|f(x)| &\leq \max \left|\frac{f^{\prime \prime}(\xi)}{2}(x-a)(x-b)\right| \\
+&\leq \frac{1}{2} \max _{x \in[a, b]}\left|f^{\prime \prime}(x)\right| \cdot \max _{x \in[a, b]}|(x-a)(x-b)| \\
+&=\frac{(b-a)^{2}}{8} \max _{x \in[a, b]}\left|f^{\prime \prime}(x)\right|
+\end{aligned}
+$$
+
+于是，有:
+$$
+\max _{a \leq x \leq b}|f(x)| \leq \frac{(b-a)^{2}}{8} \max _{a \leq x \leq b}\left|f^{\prime \prime}(x)\right| .
+$$
+
+\end{tcolorbox}
+
+

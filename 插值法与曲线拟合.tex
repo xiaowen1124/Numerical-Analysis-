@@ -1,0 +1,674 @@
+\newpage
+\section{插值法与曲线拟合}
+
+\subsection{知识点概述}
+\textcolor{blue}{1. 插值法}
+
+设函数 $ y=f(x) $ 在区间 $ [a, b] $ 上有定义, 且已知在点 $ a \leqslant x_{0}<x_{1}<\cdots< $ $ x_{n} \leqslant b $ 上的函数值 $ y_{0}, y_{1}, \cdots, y_{n} $, 若存在一简单函数 $ P(x) $, 使得
+$$
+P\left(x_{k}\right)=y_{k}, \quad k=0,1,2, \cdots, n
+$$
+成立, 就称 $ P(x) $ 为插值函数, 点 $ x_{0}, x_{1}, \cdots, x_{n} $ 称为插值节点, 包含插值节点的区间 $ [a, b] $ 称为插值区间, 求插值函数 $ P(x) $ 的方法称为插值法, 该式称为插值法的插值条件.
+
+\textcolor{blue}{2. Lagrange 插值}
+
+(1) 通过 $ n+1 $ 个互异插值节点数据 $ \left(x_{0}, y_{0}\right),\left(x_{1}, y_{1}\right), \cdots,\left(x_{n}, y_{n}\right) $ 构造如下 $ n+1 $ 个 $ n $ 次多项式
+$$
+l_{k}(x)=\frac{\left(x-x_{0}\right) \cdots\left(x-x_{k-1}\right)\left(x-x_{k+1}\right) \cdots\left(x-x_{n}\right)}{\left(x_{k}-x_{0}\right) \cdots\left(x_{k}-x_{k-1}\right)\left(x_{k}-x_{k+1}\right) \cdots\left(x_{k}-x_{n}\right)}, \quad k=0,1, \cdots, n
+$$
+称为 Lagrange 插值基函数.
+
+(2) 插值多项式
+$L_{n}(x)=y_{0} l_{0}(x)+y_{1} l_{1}(x)+\cdots+y_{n} l_{n}(x)$
+称为 $ n $ 次 Lagrange 插值多项式, 对应的插值方法称为 Lagrange 插值方法, 其中, $ l_{k}(x)(k=0,1, \cdots, n) $ 称为 Lagrange 插值基函数.
+
+(3) 设函数 $ f(x) \in C^{(n+1)}[a, b], n+1 $ 个插值节点满足 $ a \leqslant x_{0}<x_{1}< $ $ \cdots<x_{n} \leqslant b, L_{n}(x) $ 为满足插值条件的插值多项式, 则对任何 $ x \in[a, b] $, 都存在 $ \xi \in(a, b) $, 使得插值余项
+$$
+R_{n}(x)=f(x)-L_{n}(x)=\frac{f^{(n+1)}(\xi)}{(n+1)!} \omega_{n+1}(x)
+$$
+这里, \textcolor{red}{$ \omega_{n+1}(x)=\left(x-x_{0}\right)\left(x-x_{1}\right) \cdots\left(x-x_{n}\right) $}.
+若被插值函数 $ f(x)=x^{k}(k \leqslant n) $, 则 $ \sum\limits_{i=0}^{n} x_{i}^{k} l_{i}(x)=x^{k}, k=0,1, \cdots, n $, 这表明, 若被插值函数 $ f(x) \in H_{n}\left(H_{n}\right. $ 为次数小于等于 $ n $ 的多项式集合), 它的插值多项式
+$$
+L_{n}(x)=f(x)
+$$
+若此时当 $ k=0 $ 时, 即 $ f(x)=1 $ 为零次多项式, 因此 $ \sum\limits_{i=0}^{n} l_{i}(x)=1 $.
+
+\textcolor{blue}{3. 差商与差分}
+
+\textbf{差商} \; 假设节点 $ x_{i} $ 处函数值分别为 $ f\left(x_{i}\right) $, 则任意两点 $ x_{i} $ 和 $ x_{j} $ 处的一阶差商记为 $ f\left[x_{i}, x_{j}\right] $, 它的定义为
+$$
+f\left[x_{i}, x_{j}\right]=\frac{f\left(x_{j}\right)-f\left(x_{i}\right)}{x_{j}-x_{i}}
+$$
+任意三点 $ x_{i}, x_{j} $ 和 $ x_{k} $ 处的二阶差商 $ f\left[x_{i}, x_{j}, x_{k}\right] $ 定义为
+$$
+f\left[x_{i}, x_{j}, x_{k}\right]=\frac{f\left[x_{k}, x_{j}\right]-f\left[x_{j}, x_{i}\right]}{x_{k}-x_{i}}
+$$
+类似地, 可以分别得到如下 $ k-1 $ 阶差商
+$$
+f\left[x_{i}, x_{i+1}, x_{i+2}, \cdots, x_{i+k-1}\right], \quad f\left[x_{i+1}, x_{i+2}, \cdots, x_{i+k-1}, x_{i+k}\right]
+$$
+则关于 $ x_{i}, x_{i+1}, x_{i+2}, \cdots, x_{i+k} $ 的 $ k $ 阶差商由下式给出
+$$
+ f\left[x_{i}, x_{i+1}, \cdots, x_{i+k-1}, x_{i+k}\right] =  \frac{f\left[x_{i+1}, x_{i+2}, \cdots, x_{i+k-1}, x_{i+k}\right]-f\left[x_{i}, x_{i+1}, x_{i+2}, \cdots, x_{i+k-1}\right]}{x_{i+k}-x_{i}}
+$$
+其中记函数值 $ f\left(x_{i}\right) $ 为 $ x_{i} $ 的零阶差商 $ f\left[x_{i}\right]=f\left(x_{i}\right) $.
+
+通常差商也称为均差, 表征函数的变化率, 差商有如下基本性质:\\
+\colorbox{yellow}{(1) (差商与函数值的关系)} $ k $ 阶差商可表示为函数值 $ f\left(x_{0}\right), f\left(x_{1}\right), \cdots, f\left(x_{k}\right) $的线性组合, 即
+$$\boxed{
+f\left[x_{0}, x_{1}, \cdots, x_{k}\right]=\sum_{j=0}^{k} \frac{f\left(x_{j}\right)}{\left(x_{j}-x_{0}\right) \cdots\left(x_{j}-x_{j-1}\right)\left(x_{j}-x_{j+1}\right) \cdots\left(x_{j}-x_{k}\right)}}
+$$
+\colorbox{yellow}{(2) (差商的对称性)} 差商与节点的排列次序无关, 称为差商的对称性, 即
+$$
+f\left[x_{0}, x_{1}, \cdots, x_{k}\right]=f\left[x_{1}, x_{0}, \cdots, x_{k}\right]=\cdots=f\left[x_{1}, \cdots, x_{k}, x_{0}\right]
+$$
+\colorbox{yellow}{(3) (差商与导数的关系)} 若 $ f(x) $ 在 $ [a, b] $ 上存在 $ n $ 阶导数, 且 $ n+1 $ 个节点 $ x_{0}, x_{1}, \cdots, x_{n} \in[a, b] $, 则 $ n $ 阶差商与导数的关系为
+$$\boxed{
+f\left[x_{0}, x_{1}, \cdots, x_{n}\right]=\frac{f^{(n)}(\xi)}{n!}}
+$$
+$ \xi $ 在 $ x_{0}, x_{1}, \cdots, x_{n} $ 之间.\\
+\colorbox{yellow}{(4) (重节点差商)} 定义一阶重节点差商为
+$$
+f\left[x_{0}, x_{0}\right]=\lim _{x \rightarrow x_{0}} f\left[x, x_{0}\right]=\lim _{x \rightarrow x_{0}} \frac{f(x)-f\left(x_{0}\right)}{x-x_{0}}=f^{\prime}\left(x_{0}\right)
+$$
+更一般地, 若 $ f(x) $ 在 $ [a, b] $ 上存在 $ n $ 阶导数, 则在 $ n+1 $ 个相同节点上的 $ n $ 阶差商
+$$
+f\left[x_{0}, x_{0}, \cdots, x_{0}\right]=\frac{f^{(n)}\left(x_{0}\right)}{n!}
+$$
+\colorbox{yellow}{(5) (差商的导数)} 若 $ f(x) $ 在 $ [a, b] $ 上存在 $ n+1 $ 阶导数, 且节点 $ x_{0}, x_{1}, \cdots, x_{n} \in $ $ [a, b] $, 则对任意 $ x \in[a, b] $, 有
+$$
+\frac{d}{d x} f\left[x_{0}, x_{1}, \cdots, x_{n-1}, x\right]=f\left[x_{0}, x_{1}, \cdots, x_{n-1}, x, x\right]=\frac{f^{(n+1)}\left(\xi^{*}\right)}{(n+1)!}
+$$
+其中, $ \xi^{*} $ 在 $ x_{0}, x_{1}, \cdots, x_{n-1}, x $ 之间.
+
+
+常用差商表计算差商 .
+
+\begin{center}
+\begin{tabular}{lllcll} 
+\hline$ x $ & $ f(x) $ & 一阶差商 & 二阶差商 & 三阶差商 & 四阶差商 \\
+\hline$ x_{0} $ & $ f\left[x_{0}\right] $ & & & & \\
+$ x_{1} $ & $ f\left[x_{1}\right] $ & $ f\left[x_{0}, x_{1}\right] $ & & & \\
+$ x_{2} $ & $ f\left[x_{2}\right] $ & $ f\left[x_{1}, x_{2}\right] $ & $ f\left[x_{0}, x_{1}, x_{2}\right] $ & & \\
+$ x_{3} $ & $ f\left[x_{3}\right] $ & $ f\left[x_{2}, x_{3}\right] $ & $ f\left[x_{1}, x_{2}, x_{3}\right] $ & $ f\left[x_{0}, x_{1}, x_{2}, x_{3}\right] $ & \\
+$ x_{4} $ & $ f\left[x_{4}\right] $ & $ f\left[x_{3}, x_{4}\right] $ & $ f\left[x_{2}, x_{3}, x_{4}\right] $ & $ f\left[x_{1}, x_{2}, x_{3}, x_{4}\right] $ & $ f\left[x_{0}, x_{1}, x_{2}, x_{3}, x_{4}\right] $ \\
+\hline
+\end{tabular}
+\end{center}
+
+
+\textbf{差分} \; 设 $ x_{k} $ 点的函数值为 $ y_{k}=f\left(x_{k}\right)(k=0,1, \cdots, n) $, 分别称
+$$
+\begin{array}{c}
+\Delta f_{k}=f_{k+1}-f_{k} \\
+\nabla f_{k}=f_{k}-f_{k-1} \\
+\delta f_{k}=f_{k+\frac{1}{2}}-f_{k-\frac{1}{2}}
+\end{array}
+$$
+为 $ f(x) $ 在节点 $ x_{k} $ 处以 $ h $ 为步长的一阶向前差分、一阶向后差分和一阶中心差分, 对一阶差分再作差分就是二阶差分, 记为
+$$
+\begin{array}{c}
+\Delta^{2} f_{k}=\Delta f_{k+1}-\Delta f_{k}=f_{k+2}-2 f_{k+1}+f_{k} \\
+\nabla^{2} f_{k}=\nabla f_{k}-\nabla f_{k-1}=f_{k}-2 f_{k-1}+f_{k-2} \\
+\delta^{2} f_{k}=\delta f_{k+\frac{1}{2}}-\delta f_{k-\frac{1}{2}}=f_{k+1}-2 f_{k}+f_{k-1}
+\end{array}
+$$
+更一般地, 分别定义 $ n $ 阶差分为
+$$
+\begin{array}{c}
+\Delta^{n} f_{k}=\Delta^{n-1} f_{k+1}-\Delta^{n-1} f_{k} \\
+\nabla^{n} f_{k}=\nabla^{n-1} f_{k}-\nabla^{n-1} f_{k-1} \\
+\delta^{n} f_{k}=\delta^{n-1} f_{k+\frac{1}{2}}-\delta^{n-1} f_{k-\frac{1}{2}}
+\end{array}
+$$
+这里 $ \Delta, \nabla $ 和 $ \delta $ 分别为向前、向后和中心差分算子, 规定零阶差分为
+$$
+\Delta^{0} f_{k}=\nabla^{0} f_{k}=\delta^{0} f_{k}=f_{k}
+$$
+由差分的定义表述可知, 差分表征的是函数的变化量, 差分也有以下几条性质.\\
+(1)各阶差分均可用函数值表示
+$$
+\Delta^{n} f_{k}=\sum_{j=0}^{n}(-1)^{j} \mathrm{C}_{n}^{j} f_{n+k-j}, \quad \nabla^{n} f_{k}=\sum_{j=0}^{n}(-1)^{n-j} \mathrm{C}_{n}^{j} f_{k+j-n}
+$$
+(2)函数值可由各阶差分表示
+$$
+f_{n+k}=\sum_{j=0}^{n} \mathrm{C}_{n}^{j} \Delta^{j} f_{k}
+$$
+(3) 在等距节点, 差商与差分的关系
+$$
+f\left[x_{0}, x_{1}, \cdots, x_{k}\right]=\frac{\Delta^{k} f_{0}}{k!\cdot h^{k}}=\frac{\nabla^{k} f_{k}}{k!\cdot h^{k}}
+$$
+利用差商与导数的关系式, 可得向前差分与导数的关系
+$$
+\Delta^{k} f_{0}=h^{k} f^{(k)}\left(\xi_{1}\right), \quad \xi_{1} \in\left(x_{0}, x_{k}\right)
+$$
+同理, 向后差分与导数的关系
+$$
+\nabla^{k} f_{k}=h^{k} f^{(k)}\left(\xi_{2}\right), \quad \xi_{2} \in\left(x_{0}, x_{k}\right)
+$$
+仿照差商表的构造, 以及向前、向后差分的关系也可以排成如下差分表.
+
+\begin{center}
+\begin{tabular}{cccccc}
+\hline$ x $ & $ f_{i} $ & 一阶差分 & 二阶差分 & 三阶差分 & 四阶差分 \\
+\hline$ x_{0} $ & $ f_{0} $ & & & & \\
+$ x_{1} $ & $ f_{1} $ & $ \Delta f_{0} $ 或 $ \nabla f_{1} $ & & & \\
+$ x_{2} $ & $ f_{2} $ & $ \Delta f_{1} $ 或 $ \nabla f_{2} $ & $ \Delta^{2} f_{0} $ 或 $ \nabla^{2} f_{2} $ & & \\
+$ x_{3} $ & $ f_{3} $ & $ \Delta f_{2} $ 或 $ \nabla f_{3} $ & $ \Delta^{2} f_{1} $ 或 $ \nabla^{2} f_{3} $ & $ \Delta^{3} f_{0} $ 或 $ \nabla^{3} f_{3} $ & \\
+$ x_{4} $ & $ f_{4} $ & $ \Delta f_{3} $ 或 $ \nabla f_{4} $ & $ \Delta^{2} f_{2} $ 或 $ \nabla^{2} f_{4} $ & $ \Delta^{3} f_{1} $ 或 $ \nabla^{3} f_{4} $ & $ \Delta^{4} f_{0} $ 或 $ \nabla^{4} f_{4} $ \\
+\hline
+\end{tabular}
+\end{center}
+
+\textcolor{blue}{4. Newton 插值}
+
+(1) Newton 插值多项式 $ N_{n}(x) $ 为
+$$ \begin{aligned} N_{n}(x)&=f\left(x_{0}\right)+\sum_{k=1}^{n} f\left[x_{0}, x_{1}, \cdots, x_{k}\right] \prod_{j=0}^{k-1}\left(x-x_{j}\right)\\&=  f\left(x_{0}\right)+f\left[x_{0}, x_{1}\right]\left(x-x_{0}\right)+f\left[x_{0}, x_{1}, x_{2}\right]\left(x-x_{0}\right)\left(x-x_{1}\right)+\cdots \\ & +f\left[x_{0}, x_{1}, \cdots, x_{n}\right]\left(x-x_{0}\right) \cdots\left(x-x_{n-1}\right)\end{aligned} $$
+称为 Newton 基本插值多项式.
+
+(2) 由差商与差分的关系式, Newton 基本插值多项式 $ N_{n}(x) $ 可以改写为
+$$
+N_{n}(x)=f\left(x_{0}\right)+\sum_{k=1}^{n} \frac{\Delta^{k} f_{0}}{k!} \cdot \prod_{j=0}^{k-1}(t-j), \quad t=\frac{x-x_{0}}{h}
+$$
+称为 Newton 向前插值多项式.
+
+(3) 若令 $ x=x_{n}+t h $, 将插值节点按照 $ x_{n}, x_{n-1}, \cdots, x_{0} $ 排列, 则利用差商与差分的关系
+$$
+N_{n}(x)=f\left(x_{n}\right)+\sum_{k=1}^{n} \frac{\nabla^{k} f_{n}}{k!} \cdot \prod_{j=0}^{k-1}(t+j), \quad t=\frac{x-x_{n}}{h}
+$$
+称为 Newton 向后插值多项式.
+
+(4) 设函数 $ f(x) \in C^{(n+1)}[a, b], n+1 $ 个插值节点满足 $ a \leqslant x_{0}<x_{1}<\cdots< $ $ x_{n} \leqslant b $, 则 Newton 插值多项式 $ N_{n}(x) $ 的截断误差也可以写为
+$$
+R_{n}(x)=f(x)-N_{n}(x)=f\left[x_{0}, x_{1}, \cdots, x_{n}, x\right] \omega_{n+1}(x)
+$$
+其中, 任意 $ x \in[a, b] $, 这里 $ \omega_{n+1}(x)=\left(x-x_{0}\right)\left(x-x_{1}\right) \cdots\left(x-x_{n}\right) $.
+(5) 设函数 $ f(x) \in C^{(n+1)}[a, b], n+1 $ 个插值节点 $ a \leqslant x_{0}<x_{1}<\cdots<x_{n} \leqslant b $,则
+$$
+f\left[x_{0}, x_{1}, \cdots, x_{n}\right]=\frac{f^{(n)}(\xi)}{n!}, \quad \xi \in(a, b)
+$$
+
+\textcolor{blue}{5. Hermite 插值}
+
+（1）假设多项式通过 $ n+1 $ 个插值节点 $ a \leqslant x_{0}<x_{1}<\cdots<x_{n} \leqslant b $, 满足插值条件 $ P\left(x_{k}\right)=y_{k}, k=0,1, \cdots, n $, 并在这些插值节点上满足一阶导数
+$$
+H^{\prime}\left(x_{k}\right)=y_{k}^{\prime}, \quad k=0,1, \cdots, n
+$$
+$ m $ 阶导数
+$$
+H^{(m)}\left(x_{k}\right)=y_{k}^{(m)}, \quad k=0,1, \cdots, n, \quad m \geqslant 2
+$$
+称为 Hermite 插值多项式.
+
+(2) 两点三次 Hermite 插值, 插值节点取为 $ x_{k} $ 及 $ x_{k+1} $, 则
+$$
+H_{3}(x)=  \left(1+2 l_{k+1}(x)\right) l_{k}^{2}(x) y_{k}+\left(1+2 l_{k}(x)\right) l_{k+1}^{2}(x) y_{k+1}  +\left(x-x_{k}\right) l_{k}^{2}(x) y_{k}^{\prime}+\left(x-x_{k+1}\right) l_{k+1}^{2}(x) y_{k+1}^{\prime}
+$$
+其中, $ l_{k}(x), l_{k+1}(x) $ 分别是这两个点的 Lagrange 插值基底.
+
+(3) 若 $ H_{3}(x) $ 满足 Hermite 插值条件, 其截断误差为
+$$
+R_{3}(x)=f(x)-H_{3}(x)=\frac{f^{(4)}(\xi)}{4!}\left(x-x_{k}\right)^{2}\left(x-x_{k+1}\right)^{2}
+$$
+其中, $ \xi \in\left(x_{k}, x_{k+1}\right) $ 且与 $ x $ 有关.
+
+\textcolor{blue}{6. 重节点差商}
+
+$ k+1 $ 个重节点的差商为
+$$
+f\left[x_{k}, x_{k}, \cdots, x_{k}\right]=\frac{f^{(k)}\left(x_{k}\right)}{k!}
+$$
+
+\textcolor{blue}{7. Runge 现象}
+
+插值的阶数越高, 在区间两端附近插值多项式与余项的偏差出现迅速增加的现象被称为 Runge 现象.
+
+
+\textcolor{blue}{8. 三次样条插值}
+
+对插值区间 $ [a, b] $ 进行分划, $ a \leqslant x_{0}<x_{1}<\cdots<x_{n} \leqslant b $, 函数 $ y=f(x) $ 在节点 $ x_{k} $ 上的值为 $ y_{k}=f\left(x_{k}\right)(k=0,1, \cdots, n) $, 求一个三次多项式函数 $ S_{3}(x) $, 使之满足
+\begin{itemize}
+    \item $ S_{3}(x) \in C^{2}[a, b] $.
+    \item 在节点 $ x_{k} $ 处 $ S_{3}\left(x_{k}\right)=y_{k}(k=0,1, \cdots, n) $.
+    \item 在每个小区间 $ \left[x_{k}, x_{k+1}\right] $ 上 $ S_{3}(x) $ 是三次多项式.
+\end{itemize}
+称满足上述条件的 $ S_{3}(x) $ 为三次样条插值函数.
+
+三次样条表达式
+$$
+\begin{aligned}
+S_{k}(x)= & \frac{\left(x_{k}-x\right)^{3}}{6 h_{k}} M_{k-1}+\frac{\left(x-x_{k-1}\right)^{3}}{6 h_{k}} M_{k}+\left(y_{k-1}-\frac{M_{k-1} h_{k}^{2}}{6}\right) \frac{x_{k}-x}{h_{k}} \\
+& +\left(y_{k}-\frac{M_{k} h_{k}^{2}}{6}\right) \frac{\left(x-x_{k-1}\right)}{h_{k}}, \quad k=1,2, \cdots, n
+\end{aligned}
+$$
+其中 $ S^{\prime \prime}\left(x_{k}\right)=M_{k}(k=0,1,2, \cdots, n)\left(M_{k}\right. $ 未知 $ ) $.
+
+\textbf{第一类边界:} 区间两端点处的一阶导数已知, 即
+$$
+S_{3}^{\prime}\left(x_{0}\right)=f_{0}^{\prime}, \quad S_{3}^{\prime}\left(x_{n}\right)=f_{n}^{\prime}
+$$
+
+\textbf{第二类边界}：区间两端点处的二阶导数已知, 即
+$$
+S_{3}^{\prime \prime}\left(x_{0}\right)=f_{0}^{\prime \prime}, \quad S_{3}^{\prime \prime}\left(x_{n}\right)=f_{n}^{\prime \prime}
+$$
+其特殊情况为
+$$
+S_{3}^{\prime \prime}\left(x_{0}\right)=S_{3}^{\prime \prime}\left(x_{n}\right)=0
+$$
+称为\textbf{自然边界条件}.
+
+\textbf{第三类边界：}当 $ f(x) $ 是以 $ x_{n}-x_{0} $ 为周期的周期函数时, 则要求 $ S_{3}(x) $ 也是周期函数, 这时边界条件应满足
+$$
+\left\{\begin{array}{l}
+S_{3}\left(x_{0}+0\right)=S_{3}\left(x_{n}-0\right) \\
+S_{3}^{\prime}\left(x_{0}+0\right)=S_{3}^{\prime}\left(x_{n}-0\right) \\
+S_{3}^{\prime \prime}\left(x_{0}+0\right)=S_{3}^{\prime \prime}\left(x_{n}-0\right)
+\end{array}\right.
+$$
+满足 $ f\left(x_{0}\right)=f\left(x_{n}\right) $, 这样确定的样条函数 $ S_{3}(x) $ 称为周期样条函数.
+
+\textcolor{blue}{9. 曲线拟合的最小二乘法}
+
+对于给定的数据 $ \left(x_{i}, y_{i}\right)(i=0,1, \cdots, N) $, 选取线性无关的函数族 $ \left\{\varphi_{0}, \varphi_{1}, \cdots, \varphi_{m}\right\} $ 及权函数 $ \omega(x) $,要求在函数类 $ \varphi=\operatorname{span}\left\{\varphi_{0}, \varphi_{1}, \cdots, \varphi_{m}\right\} $ 中寻找一个函数
+$$
+\varphi^{*}(x)=a_{0}^{*} \varphi_{0}(x)+a_{1}^{*} \varphi_{1}(x)+\cdots+a_{m}^{*} \varphi_{m}(x) \quad(m<N)
+$$
+使得
+$$
+\sum_{i=0}^{N} \omega\left(x_{i}\right)\left[y_{i}-\varphi^{*}\left(x_{i}\right)\right]^{2}=\min _{\varphi^{*}(x) \in \varphi\sum_{i=0}}^{N}\left[y_{i}-\varphi^{*}\left(x_{i}\right)\right]^{2}
+$$
+上式是 $ m+1 $ 个变量 $ a_{0}, a_{1}, \cdots, a_{m} $ 的二次函数
+$$
+I\left(a_{0}, a_{1}, \cdots, a_{m}\right)=\sum_{i=0}^{N} \omega\left(x_{i}\right)\left[y_{i}-\sum_{k=0}^{N} a_{k} \varphi_{k}\left(x_{i}\right)\right]^{2}
+$$
+的极值问题. 由多元函数极值的必要条件可知 $ a_{0}^{*}, a_{1}^{*}, \cdots, a_{m}^{*} $ 是方程组
+$$
+\left[\begin{array}{cccc}
+\left(\varphi_{0}, \varphi_{0}\right) & \left(\varphi_{1}, \varphi_{1}\right) & \cdots & \left(\varphi_{0}, \varphi_{m}\right) \\
+\left(\varphi_{1}, \varphi_{0}\right) & \left(\varphi_{1}, \varphi_{1}\right) & \cdots & \left(\varphi_{1}, \varphi_{m}\right) \\
+\vdots & \vdots & & \vdots \\
+\left(\varphi_{m}, \varphi_{0}\right) & \left(\varphi_{m}, \varphi_{1}\right) & \cdots & \left(\varphi_{m}, \varphi_{m}\right)
+\end{array}\right]\left[\begin{array}{c}
+a_{0} \\
+a_{1} \\
+\vdots \\
+a_{m}
+\end{array}\right]=\left[\begin{array}{c}
+\left(\varphi_{0}, y\right) \\
+\left(\varphi_{1}, y\right) \\
+\vdots \\
+\left(\varphi_{m}, y\right)
+\end{array}\right]
+$$
+的解, 其中
+$$
+\left\{\begin{aligned}
+\left(\varphi_{k}, \varphi_{j}\right)&=\sum_{i=0}^{N} \omega\left(x_{i}\right) \varphi_{k}\left(x_{i}\right) \varphi_{j}\left(x_{i}\right), \\
+\left(\varphi_{k}, y\right)&=\sum_{i=0}^{N} \omega\left(x_{i}\right) y_{i} \varphi_{k}\left(x_{i}\right),
+\end{aligned} \quad(j, k=0,1, \cdots, m)\right.
+$$
+此方程组称为法方程组,
+若. $ \varphi_{k}(x)=x^{k},(k=0,1, \cdots, m), \omega(x)=1 $, 则拟合函数为
+$$
+\varphi^{*}(x)=\sum_{k=0}^{m} a_{k} x^{k}
+$$
+对应的法方程组为
+$$
+\left[\begin{array}{llll}
+N &\sum\limits_{i=1}^{N} x_{i} & \cdots & \sum\limits_{i=1}^{N} x_{i}^{m} \\
+\sum\limits_{i=1}^{N} x_{i} & \sum\limits_{i=1}^{N} x_{i}^{2} & \cdots & \sum\limits_{i=1}^{N} x_{i}^{m+1} \\
+\sum\limits_{i=1}^{N} x_{i}^{m} & \sum\limits_{i=1}^{N} x_{i}^{m+1} & \cdots & \sum\limits_{i=1}^{N} x_{i}^{2 m}
+\end{array}\right]\left[\begin{array}{c}
+a_{0} \\
+a_{1} \\
+\vdots \\
+a_{m}
+\end{array}\right]=\left[\begin{array}{l}
+\sum\limits_{i=1}^{N} y_{i} \\
+\sum\limits_{i=1}^{N} x_{i} y_{i} \\
+\vdots \\
+\sum\limits_{i=1}^{N} x_{i}^{m} y_{i}
+\end{array}\right]
+$$
+若用 $ \varphi_{0}, \varphi_{1}, \cdots, \varphi_{m} $ 构成 $ N_{x}(m+1) $ 矩阵 $ \boldsymbol{A} $, 即
+$$
+\boldsymbol{A}=\left[\begin{array}{cccc}
+\varphi_{0}\left(x_{1}\right) & \varphi_{1}\left(x_{1}\right) & \cdots & \varphi_{m}\left(x_{1}\right) \\
+\varphi_{0}\left(x_{2}\right) & \varphi_{1}\left(x_{1}\right) & \cdots & \varphi_{m}\left(x_{2}\right) \\
+\vdots & \vdots & & \vdots \\
+\varphi_{0}\left(x_{N}\right) & \varphi_{1}\left(x_{N}\right) & \cdots & \varphi_{m}\left(x_{N}\right)
+\end{array}\right]
+$$
+向量 $ \boldsymbol{a}=\left(a_{0}, a_{1}, \cdots, a_{m}\right)^{\mathrm{T}}, \boldsymbol{y}=\left(y_{1}, y_{2}, \cdots, y_{N}\right)^{\mathrm{T}} $, 对应的法方程记为 $ \boldsymbol{A}^{\mathrm{T}} \boldsymbol{A} \boldsymbol{a}=\boldsymbol{A}^{\mathrm{T}} \boldsymbol{y} $.
+
+
+\subsection{补充}
+
+\subsubsection{插值多项式的存在唯一性}
+设函数 $ y=f(x) $ 在 $ [a, b] $ 上有定义, $ x_{0}, x_{1}, \cdots, x_{n} $ 为 $ [a, b] $ 上 $ n+1 $ 个互异的点. 已知 $ f(x) $ 于 $ x_{i} $ 点的值 $ y_{i} $, 求一个不高于 $ n $ 次的代数多项式 $ L_{n}(x)= $ $ a_{0}+a_{1} x+\cdots+a_{n} x^{n} $, 使之满足
+$$
+L_{n}\left(x_{i}\right)=y_{i} \quad(i=0,1, \cdots, n) .
+$$
+
+由插值条件$
+L_{n}\left(x_{i}\right)=y_{i} \quad(i=0,1, \cdots, n) 
+$ 式可知, $ L_{n}(x) $ 的系数 $ a_{0}, a_{1}, \cdots, a_{n} $ 满足线性方程组
+$$ \left\{\begin{array}{c}a_{0}+a_{1} x_{0}+a_{2} x_{0}^{2}+\cdots+a_{n} x_{0}^{n}=y_{0}, \\ a_{0}+a_{1} x_{1}+a_{2} x_{1}^{2}+\cdots+a_{n} x_{1}^{n}=y_{1}, \\ \vdots \\ a_{0}+a_{1} x_{n}+a_{2} x_{n}^{2}+\cdots+a_{n} x_{n}^{n}=y_{n},\end{array}\right. $$
+要证明 $ L_{n}(x) $ 存在且唯一, 只需证明 $ a_{0}, a_{1}, \cdots, a_{n} $ 的存在且唯一性. 而 该方程组是一个以 $ a_{0}, \cdots, a_{n} $ 作为未知数的 $ n+1 $ 阶线性方程组, 此方程组解存在且唯一的充分必要条件是此方程组系数行列式不为零. 由于此系数阵行列式
+$$
+V_{n}\left(x_{0}, x_{1}, \cdots, x_{n}\right)=\left|\begin{array}{ccccc}
+1 & x_{0} & x_{0}^{2} & \cdots & x_{0}^{n} \\
+1 & x_{1} & x_{1}^{2} & \cdots & x_{1}^{n} \\
+\vdots & \vdots & \vdots & & \vdots \\
+1 & x_{n} & x_{n}^{2} & \cdots & x_{n}^{n}
+\end{array}\right|=\prod_{i=1}^{n} \prod_{j=0}^{i-1}\left(x_{i}-x_{j}\right)
+$$
+是 Vandermonde 行列式, 利用节点 $ x_{i} $ 互异, 知
+$$
+V_{n}\left(x_{0}, x_{1}, \cdots, x_{n}\right) \neq 0,
+$$
+此方程组有唯一解, 从而插值多项式 $ L_{n}(x) $ 是存在且唯一的.
+
+\subsubsection{拉格朗日余项定理}
+\begin{tcolorbox}[enhanced,colback=2,colframe=1,breakable,coltitle=black,title=定理]
+ 设 $ f(x) $ 在区间 $ [a, b] $ 上有 $ n+1 $ 阶导数, 则 $ n $ 次插值多项式 $ L(x) $ 对任意 $ x \in[a, b] $, 有插值余项
+$$
+R(x)=f(x)-L(x)=\frac{f^{(n+1)}(\xi)}{(n+1)!} \omega(x)
+$$
+其中 $ \omega(x)=\prod_{i=0}^{n}\left(x-x_{i}\right), a<\xi<b $ 且依赖于 $ x $ .
+\end{tcolorbox}
+证: 令 $ x $ 是区间 $ [a, b] $ 中任一固定点, 则有节点和非节点两种情况.
+
+当 $ x $ 是节点 $ x_{i}(i=0,1, \cdots, n) $ 时, $ R\left(x_{i}\right)=f\left(x_{i}\right)-L\left(x_{i}\right)=0, \frac{f^{(n+1)}(\xi)}{(n+1)!} \omega\left(x_{i}\right)=0 $ .
+当 $ x $ 不是节点时, 构造辅助函数
+$$
+\varphi(t)=f(t)-L(t)-\frac{\omega(t)}{\omega(x)}[f(x)-L(x)]
+$$
+当 $ t=x, x_{0}, x_{1} \cdots, x_{n} $ 时, $ \varphi(t)=0 $, 所以 $ \varphi(t) $ 在区间 $ [a, b] $ 有 $ n+2 $ 个互异零点, 根据罗尔(Rolle) 定理, $ \varphi^{\prime}(t) $ 在连续函数 $ \varphi(t) $ 每两个零点之间至少有一个零点.所以, $ \varphi^{\prime}(t) $ 在区间 $ [a, b] $ 至少有 $ n+1 $ 个零点.对 $ \varphi^{\prime}(t) $ 应用罗尔定理, $ \varphi^{\prime \prime}(t) $ 在区间 $ [a, b] $ 至少有 $ n $ 个零点.依此类推, $ \varphi^{(n+1)}(t) $ 在区间 $ [a, b] $ 至少有一个零点, 记为 $ \xi $, 即 $ \varphi^{(n+1)}(\xi)=0 $ .
+又 $ L(t) $ 是不高于 $ n $ 次的多项式, 故 $ L^{(n+1)}(t)=0, \omega^{(n+1)}(t)=(n+1)! $ .
+
+将辅助函数 $ \varphi(t) $ 对 $ t $ 求 $ n+1 $ 阶导数, 并用 $ \xi $ 代入
+$$
+\varphi^{(n+1)}(\xi)=0=f^{(n+1)}(\xi)-\frac{(n+1)!}{\omega(x)}[f(x)-L(x)]
+$$
+整理后得
+$$
+R(x)=\frac{f^{(n+1)}(\xi)}{(n+1)!} \omega(x)
+$$
+
+
+\subsubsection{差商和导数}
+
+取 $ n+1 $ 个节点进行 $ n $ 次插值时, 插值多项式是唯一的, 即此时拉格朗日插值多项式和牛顿插值多项式是相等的, 因此其余项也相等.
+$$
+f\left[x_{0}, x_{1}, \cdots, x_{n}, x\right]\left(x-x_{0}\right) \cdots\left(x-x_{n}\right)=\frac{f^{(n+1)}(\xi)}{(n+1)!} \omega(x)
+$$
+其中 $ \omega(x)=\left(x-x_{0}\right)\left(x-x_{1}\right) \cdots\left(x-x_{n}\right), \xi \in\left[x_{0}, x_{1}, \cdots, x_{n}, x\right] $ .
+同理, 取 $ n $ 个节点进行 $ n-1 $ 次插值时, 有
+$$
+f\left[x_{0}, x_{1}, \cdots, x_{n-1}, x\right]=\frac{f^{(n)}(\xi)}{n!}
+$$
+其中 $ x $ 是求积区间中的一个点, 可以表示成 $ x_{n} $, 这样可写成以下简洁的形式
+$$
+f\left[x_{0}, x_{1}, \cdots, x_{n}\right]=\frac{f^{(n)}(\xi)}{n!}
+$$
+其中 $ \xi \in\left[x_{0}, x_{1}, \cdots, x_{n}\right] $ 或 $ \xi \in\left[\min\limits _{0 \leqslant i \leqslant n} x_{i},\max\limits_{x_0 \leqslant i \leqslant n}\right] $, 这就建立起了差商和导数的关系, 用导数代替牛顿插值多项式中的差商, 有
+$$
+\begin{array}{l} 
+P(x)= f\left(x_{0}\right)+f^{\prime}\left(\xi_{1}\right)\left(x-x_{0}\right)+\frac{f^{\prime \prime}\left(\xi_{2}\right)}{2!}\left(x-x_{0}\right)\left(x-x_{1}\right)+
+\cdots+\frac{f^{(n)}\left(\xi_{n}\right)}{n!}\left(x-x_{0}\right)\left(x-x_{1}\right) \cdots\left(x-x_{n-1}\right)
+\end{array}
+$$
+当 $ x_{1}, x_{2}, \cdots, x_{n} $ 都趋于 $ x_{0} $ 时, 可以看出上式即是常用的泰勒公式.
+差商和导数的关系式也可用罗尔定理证出.
+
+余项 $ R(x)=f(x)-N(x) $, 所以有
+$$
+R\left(x_{i}\right)=f\left(x_{i}\right)-N\left(x_{i}\right)=0, \quad i=0,1, \cdots, n
+$$
+即 $ R(x) $ 在区间 $ \left[x_{0}, x_{n}\right] $ 上有 $ n+1 $ 个零点.根据罗尔定理, $ R^{(n)}(x) $ 在区间 $ \left[x_{0}, x_{n}\right] $ 上有 1 个零点, 设为 $ \xi $, 即有
+$$
+R^{(n)}(\xi)=0
+$$
+又$ R^{(n)}(x)=f^{(n)}(x)-N^{(n)}(x) $,
+对
+$$
+\begin{aligned}
+N(x)= & f\left(x_{0}\right)+f\left[x_{0}, x_{1}\right]\left(x-x_{0}\right)+f\left[x_{0}, x_{1}, x_{2}\right]\left(x-x_{0}\right)\left(x-x_{1}\right)+\cdots+ \\
+& f\left[x_{0}, x_{1}, \cdots, x_{n}\right]\left(x-x_{0}\right)\left(x-x_{1}\right) \cdots\left(x-x_{n-1}\right)
+\end{aligned}
+$$
+有
+$$N^{(n)}(x)=n!f\left[x_{0}, \cdots, x_{n}\right] $$
+$$R^{(n)}(\xi)=0=f^{(n)}(\xi)-n!f\left[x_{0}, \cdots, x_{n}\right]$$
+$$f\left[x_{0}, x_{1}, \cdots, x_{n}\right]=\frac{f^{(n)}(\xi)}{n!}
+$$
+
+ 设 $ n $ 次多项式$f(x)=a_{n} x^{n}+a_{n-1} x^{n-1}+\cdots+a_{1} x+a_{0}$,
+$$
+f^{(n)}(\xi)=a_{n} n!, \quad \xi \in\left[x_{0}, x_{1}, \cdots, x_{n}\right]$$
+$$\boxed{f\left[x_{0}, x_{1}, \cdots, x_{n}\right]=\frac{f^{(n)}(\xi)}{n!}=a_{n}}
+$$
+可见 \textcolor{red}{$ n $ 次多项式的 $ n $ 阶差商为其最高次项的系数.}
+
+下面给出重节点时差商和函数导数的关系, 该关系解决了含有给定函数值和导数值组合的差商的计算.
+
+设 $ f(x) $ 可导，定义
+$$
+f[x, x]=\lim _{\Delta x \rightarrow 0} f[x+\Delta x, x]=\lim _{\Delta x \rightarrow 0} \frac{f(x+\Delta x)-f(x)}{\Delta x}=f^{\prime}(x) 
+$$
+其中 $ x $ 是相重合的两个节点, 如 $ x=x_{1} $ 时, 则有
+$$
+f\left[x_{1}, x_{1}\right]=f^{\prime}\left(x_{1}\right)
+$$
+一般有
+$$
+\frac{\mathrm{d}}{\mathrm{d} x} f\left[x, x_{0}, x_{1}, \cdots, x_{n}\right]=f\left[x, x, x_{0}, x_{1}, \cdots, x_{n}\right]
+$$
+这也可以由下式证明.
+$$
+\begin{aligned}
+\frac{\mathrm{d}}{\mathrm{d} x} f\left[x, x_{0}, x_{1}, \cdots, x_{n}\right] & =\operatorname{lin}_{\Delta x \rightarrow 0} \frac{f\left[x+\Delta x, x_{0}, x_{1}, \cdots, x_{n}\right]-f\left[x, x_{0}, x_{1}, \cdots, x_{n}\right]}{\Delta x} \\
+& =\lim _{\Delta x \rightarrow 0} \frac{f\left[x_{0}, x_{1}, \cdots, x_{n}, x+\Delta x\right]-f\left[x, x_{0}, x_{1}, \cdots, x_{n}\right]}{x+\Delta x-x} \\
+& =\lim_{\Delta x \rightarrow 0} f\left[x, x_{0}, x_{1}, \cdots, x_{n}+\Delta x\right]=f\left[x, x, x_{0}, x_{1}, \cdots, x_{n}\right]
+\end{aligned}
+$$
+同样地，可以写出重节点时的差商
+$$
+f \underbrace{[x, x, \cdots, x]}_{n+1 \text{个}}=\frac{f^{(n)}(x)}{n!}
+$$
+这样可以构造出有重节点时的差商表.
+
+\subsubsection{牛顿型埃尔米特插值多项式}
+
+采用基函数 $ \alpha_{j} $ 和 $ \beta_{j}, j=0,1, \cdots, n $, 可以完全确定埃尔米特插值多项式, 但是在构造 $ \alpha_{j} $ 和 $ \beta_{j} $ 时, 计算拉格朗日插值基函数及其导数比较麻烦.下面采用重节点差商可以得到牛顿型埃尔米特插值多项式, 这种方法在计算时比较简单.
+
+在求牛顿型埃尔米特插值多项式时, 首先建立包含有重节点的差商表, 对重节点利用
+$$
+f[x, x]=f^{\prime}(x)
+$$
+和
+$$
+f \underbrace{[x, x, \cdots, x]}_{n+1 }\text{个}=\frac{f^{(n)}(x)}{n!}
+$$
+求出差商值，然后按构造牛顿插值多项式的方法求出埃尔米特插值多项式.下面用例子给出计算方法.
+
+求满足条件
+\begin{tabular}{c|cc}
+$ x $ & 1 & 2 \\
+\hline$ f(x) $ & 2 & 3 \\
+$ f^{\prime}(x) $ & 1 & -1
+\end{tabular}
+的埃尔米特插值多项式.
+
+解: 建立差商表, 其中节点 1 和 2 是二重点.
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|l|}
+\hline
+$ x $ & $ f(x) $ & 一阶 & 二阶 & 三阶 &因子 \\
+\hline 1 & 2 & & & & 1 \\
+1 & 2 & $ f[1,1]=f^{\prime}(1)=1 $ & & & $ x-1 $ \\
+2 & 3 & $ f[2,1]=\frac{3-2}{2-1}=1 $ & $0$ & & $ (x-1)^{2} $ \\
+2 & 3 & $ f[2,2]=f^{\prime}(2)=-1 $ &$ -2$ & $-2$ & $ (x-1)^{2}(x-2) $\\
+\hline
+\end{tabular}
+\end{center}
+
+三次埃尔米特插值多项式
+$$
+\begin{aligned}
+H_{3}(x) & =2+(x-1)+(-2)(x-1)^{2}(x-2) \\
+& =-2 x^{3}+8 x^{2}-9 x+5
+\end{aligned}
+$$
+\textbf{拉格朗日型和牛顿型埃尔米特插值多项式只是表达形式不同，其代表的多项式是完全相同的}.
+
+\subsubsection{带不完全导数的埃尔米特插值多项式}
+
+上面讨论的是属于给出的函数值的个数和导数值的个数相等的情形, 当导数值的个数小于函数值的个数时称为带不完全导数的埃尔米特插值, 此时仍然可以用带重节点的牛顿插值构造埃尔米特插值多项式, 还可以用拉格朗日插值或牛顿插值为基础, 再用待定系数法确定满足插值条件的多项式, 下面通过实例说明确定的方法.
+
+ 构造带重节点的牛顿型埃尔米特插值多项式.已知数据
+\begin{tabular}{c|ccc}
+$ x $ & 0 & 1 & 2 \\
+\hline$ f(x) $ & 3 & 5 & 6 \\
+$ f^{\prime}(x) $ & 4 & & 7
+\end{tabular}
+求四次埃尔米特插值多项式 $ H_{4}(x) $ .
+
+解: 建立差商表, 其中 0 和 2 是重节点.
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|c|c|}
+\hline
+$ x $ & $ f(x) $ & 一阶 & 二阶 & 三阶 & 四阶 & 因子 \\
+\hline 0 & 3 & & & & 1 &\\
+0 & 3 & $ f[0,0]=f^{\prime}(0)=4 $ & & & $ x $ &\\
+1 & 5 & $ f[0,1]=\frac{5-3}{1-0}=2 $ & 2 & & $ x^{2} $ &\\
+2 & 6 & $ f[1,2]=\frac{6-5}{2-1}=1 $ & $ -\frac{1}{2} $ & $ \frac{3}{4} $ & & $ x^{2}(x-1) $ \\
+2 & 6 & $ f[2,2]=f^{\prime}(2)=7 $ & 6 & $ \frac{13}{4} $ & $ \frac{5}{4} $ & $ x^{2}(x-1)(x-2) $\\
+\hline
+\end{tabular}
+\end{center}
+四次埃尔米特插值多项式
+$$
+H_{4}(x)=3+4 x+2 x^{2}+\frac{3}{4} x^{2}(x-1)+\frac{5}{4} x^{2}(x-1)(x-2)
+$$
+
+已知数据
+\begin{tabular}{c|cc}
+$ x $ & 0 & 1 \\
+\hline$ f(x) $ & 3 & 5 \\
+$ f^{\prime}(x) $ & 4 & 6 \\
+$ f^{\prime \prime}(x) $ & & 7
+\end{tabular}
+求四次埃尔米特插值多项式 $ H_{4}(x) $ .
+
+解: 建立差商表, 其中 0 是二重节点, 1 是三重节点.
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|c|c|}
+\hline$ x $ & $ f(x) $ & 一阶差商 & 二阶差商 & 三阶差商 & 四阶差商 & 因子 \\
+\hline 0 & 3 & & & & & 1 \\
+\hline 0 & 3 & $ f[0,0]=f^{\prime}(0)=4 $ & & & & $ x $ \\
+\hline 1 & 5 & \begin{tabular}{l}
+$ f[0,1]=\frac{5-3}{1-0}=2 $
+\end{tabular} & \begin{tabular}{l}
+$ f[0,0,1]=\frac{2-4}{1-0}=-2 $
+\end{tabular} & & & $ x^{2} $ \\
+\hline 1 & 5 & $ f[1,1]=f^{\prime}(1)=6 $ & \begin{tabular}{l}
+$ f[0,1,1]=\frac{6-2}{1-0}=4 $
+\end{tabular} & 6 & & $ x^{2}(x-1) $ \\
+\hline 1 & 5 & $ f[1,1]=f^{\prime}(1)=6 $ & \begin{tabular}{l}
+$ f[1,1,1]=\frac{1}{2} f^{\prime \prime}(1)=\frac{7}{2} $
+\end{tabular} & \begin{tabular}{l}
+$ -\frac{1}{2} $
+\end{tabular} & \begin{tabular}{l}
+$ -\frac{13}{2} $
+\end{tabular} & $ x^{2}(x-1)^{2} $ \\
+\hline
+\end{tabular}
+\end{center}
+四次埃尔米特插值多项式
+$$
+H_{4}(x)=3+4 x-2 x^{2}+6 x^{2}(x-1)-\frac{13}{2} x^{2}(x-1)^{2}
+$$
+上面两个例子是包含节点一阶导数和二阶导数时的情况, 更高阶导数时的情况可依此类推.
+
+\begin{tcolorbox}
+    建立埃尔米特插值多项式 $ H_{3}(x) $, 使之满足如下插值条件
+$$
+\left\{\begin{array}{l}
+H_{3}\left(x_{i}\right)=f\left(x_{i}\right), \quad i=0,1,2 \\
+H_{3}^{\prime}\left(x_{1}\right)=f\left(x_{1}\right)
+\end{array}\right.
+$$
+并给出余项表达式.
+\end{tcolorbox}
+
+\textcolor{red}{构造牛顿型埃尔米特插值多项式:}
+满足插值条件 $ H_{3}\left(x_{i}\right)=f\left(x_{i}\right)(i=0,1,2) $ 的牛顿二次插值多项式
+$$
+N(x)=f\left(x_{0}\right)+f\left[x_{0}, x_{1}\right]\left(x-x_{0}\right)+f\left[x_{0}, x_{1}, x_{2}\right]\left(x-x_{0}\right)\left(x-x_{1}\right)
+$$
+利用待定系数法, 设满足插值条件的三次埃尔米特多项式
+$$
+H_{3}(x)=N(x)+k\left(x-x_{0}\right)\left(x-x_{1}\right)\left(x-x_{2}\right)
+$$
+显然有 $ H_{3}\left(x_{i}\right)=f\left(x_{i}\right), i=0,1,2 $, 现确定 $ k $ 使之满足插值条件 $ H_{3}^{\prime}\left(x_{1}\right)=f^{\prime}\left(x_{1}\right) $, 即
+$$
+N^{\prime}\left(x_{1}\right)+k\left(x_{1}-x_{0}\right)\left(x_{1}-x_{2}\right)=f^{\prime}\left(x_{1}\right)
+$$
+解之有
+$$
+k=\frac{f^{\prime}\left(x_{1}\right)-N^{\prime}\left(x_{1}\right)}{\left(x_{1}-x_{0}\right)\left(x_{1}-x_{2}\right)}=\frac{f^{\prime}\left(x_{1}\right)-f\left[x_{0}, x_{1}\right]-f\left[x_{0}, x_{1}, x_{2}\right]\left(x_{1}-x_{0}\right)}{\left(x_{1}-x_{0}\right)\left(x_{1}-x_{2}\right)}
+$$
+将 $ k $ 代入 $ H_{3}(x) $, 即得所求埃尔米特插值多项式
+$$
+\begin{aligned}
+H_{3}(x)= & f\left(x_{0}\right)+f\left[x_{0}, x_{1}\right]\left(x-x_{0}\right)+f\left[x_{0}, x_{1}, x_{2}\right]\left(x-x_{0}\right)\left(x-x_{1}\right)+ \\
+& \frac{f^{\prime}\left(x_{1}\right)-f\left[x_{0}, x_{1}\right]-f\left[x_{0}, x_{1}, x_{2}\right]\left(x_{1}-x_{0}\right)}{\left(x_{1}-x_{0}\right)\left(x_{1}-x_{2}\right)}\left(x-x_{0}\right)\left(x-x_{1}\right)\left(x-x_{2}\right)
+\end{aligned}
+$$
+
+
+
+\textcolor{red}{构造带重节点的牛顿型埃尔米特插值多项式:} 依据重节点时差商的定义式有
+$f\left[x_{1}, x_{1}\right]=f^{\prime}\left(x_{1}\right)$.
+这样可建立差商表，其中 $ x_{1} $ 是重节点.
+\begin{center}
+\begin{tabular}{c|c|c|c|c|c}
+\hline$ x_{i} $ & $ f\left(x_{i}\right) $ & 一阶 & 二阶 & 三阶 & 因子 \\
+\hline$ x_{0} $ & $ f\left(x_{0}\right) $ & & & & 1 \\
+$ x_{1} $ & $ f\left(x_{1}\right) $ & $ f\left[x_{0}, x_{1}\right] $ & & \\
+$ x_{1} $ & $ f\left(x_{1}\right) $ & $ f\left[x_{1}, x_{1}\right] $ & $ f\left[x_{0}, x_{1}, x_{2}\right] $ & & $ \left(x-x_{0}\right) $ \\
+$ x_{2} $ & $ f\left(x_{2}\right) $ & $ f\left[x_{1}, x_{2}\right] $ & $ f\left[x_{1}, x_{1}, x_{2}\right] $ & $ f\left[x_{0}, x_{1}, x_{1}, x_{2}\right] $ & $ \left(x-x_{0}\right)\left(x-x_{1}\right)^{2} $ \\
+\hline
+\end{tabular}
+\end{center}
+写出埃尔米特插值多项式
+$$
+\begin{array}{l} 
+H_{3}(x)=f\left(x_{0}\right)+f\left[x_{0}, x_{1}\right]\left(x-x_{0}\right)+f\left[x_{0}, x_{1}, x_{2}\right]\left(x-x_{0}\right)\left(x-x_{1}\right)+ \\
+f\left[x_{0}, x_{1}, x_{1}, x_{2}\right]\left(x-x_{0}\right)\left(x-x_{1}\right)^{2}
+\end{array}
+$$
+为求出余项 $ R(x)=f(x)-H_{3}(x) $, 根据 $ R\left(x_{i}\right)=0 $ 和 $ R^{\prime}\left(x_{i}\right)=0(i=0,1,2) $, 设
+$$
+R(x)=c(x)\left(x-x_{0}\right)\left(x-x_{1}\right)^{2}\left(x-x_{2}\right)
+$$
+为确定 $ c(x) $, 构造
+$$
+\varphi(t)=f(t)-H_{3}(t)-c(x)\left(t-x_{0}\right)\left(t-x_{1}\right)^{2}\left(t-x_{2}\right)
+$$
+显然 $ \varphi\left(x_{i}\right)=0, i=0,1,2 $, 且 $ \varphi^{\prime}\left(x_{1}\right)=0, \varphi(x)=0 $, 故 $ \varphi(t) $ 在区间 $ [a, b] $ 上有 5 个零点 $ \left(x_{1}\right. $ 为重根, 算 2 个), 反复应用罗尔定理得 $ \varphi^{(4)}(t) $ 在区间 $ [a, b] $ 上至少有一个零点 $ \xi $, 故有
+$$
+\varphi^{(4)}(\xi)=f^{(4)}(\xi)-4!c(x)=0
+$$
+于是
+$$
+c(x)=\frac{1}{4!} f^{(4)}(\xi)
+$$
+故余项表达式
+$$
+R(x)=\frac{1}{4!} f^{(4)}(\xi)\left(x-x_{0}\right)\left(x-x_{1}\right)^{2}\left(x-x_{2}\right)
+$$
+其中 $ \xi $ 在包含 $ x_{0}, x_{1}, x_{2} $ 及 $ x $ 的区间 $ [a, b] $ 上.

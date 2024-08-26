@@ -1,0 +1,765 @@
+\newpage
+\section{解线性方程组的直接法}
+\subsection{课后习题}
+\begin{tcolorbox}[breakable,enhanced,arc=0mm,outer arc=0mm,
+		boxrule=0pt,toprule=1pt,leftrule=0pt,bottomrule=1pt, rightrule=0pt,left=0.2cm,right=0.2cm,
+		titlerule=0.5em,toptitle=0.1cm,bottomtitle=-0.1cm,top=0.2cm,
+		colframe=white!10!biru,colback=white!90!biru,coltitle=white,
+            coltext=black,title =2024-04-02, title style={white!10!biru}, before skip=8pt, after skip=8pt,before upper=\hspace{2em},
+		fonttitle=\bfseries,fontupper=\normalsize]
+  
+Prove that if $ \boldsymbol{A}=\boldsymbol{L L}^{\boldsymbol{T}} $ where $ \boldsymbol{L} $ is a real lower triangular nonsingular $ \boldsymbol{n} \times \boldsymbol{n} $ matrix, then $ \boldsymbol{A} $ is symetric and positive definite.
+
+证明:如果$ \boldsymbol{A}=\boldsymbol{L L}^{\boldsymbol{T}} $，其中$ \boldsymbol{L} $是一个非奇异的实下三角$ n \times n $矩阵，那么$ \boldsymbol{A} $是对称的且正定的.
+ \tcblower
+
+要证明给定条件下的矩阵 $ \boldsymbol{A}=\boldsymbol{L} \boldsymbol{L}^{\boldsymbol{T}} $ 是对称的且正定的，我们可以分两步来证明:
+
+(1) 根据对称矩阵的定义，若矩阵 $ \boldsymbol{A} $ 是对称的，则必须满足 $ \boldsymbol{A}= $ $ A^{T} $ .
+
+由于 $ A=L L^{T} $ ，我们计算 $ A^{T} $ 得到:
+$$
+A^{T}=\left(L L^{T}\right)^{T}=\left(L^{T}\right)^{T} L^{T}=L L^{T}
+$$
+这里我们使用了矩阵转置的性质，即 $ (A B)^{T}=B^{T} A^{T} $ 以及 $ \left(A^{T}\right)^{T}=A $ .因此， $ A $ 是对称的.
+
+(2) 接下来证明 $ \boldsymbol{A} $ 是正定的.根据正定矩阵的定义，对于所有非零向量 $ \boldsymbol{x} $ ，必须满足 $ \boldsymbol{x}^{\boldsymbol{T}} \boldsymbol{A x}>0 $ .
+给定 $ \boldsymbol{A}=\boldsymbol{L} \boldsymbol{L}^{\boldsymbol{T}} $ ，我们有:
+$ \boldsymbol{x}^{T} A \boldsymbol{x}=\boldsymbol{x}^{T} L L^{T} x $
+
+令 $ \boldsymbol{y}=\boldsymbol{L}^{\boldsymbol{T}} \boldsymbol{x} $ ，因为 $ \boldsymbol{L} $ 是非奇异的，所以$\boldsymbol{y} $ 是一个非零向量，这意味着 $ \boldsymbol{L} $ 和 $ \boldsymbol{L}^{\boldsymbol{T}} $ 有满秩.因此:
+$$
+\boldsymbol{x}^{\boldsymbol{T}} \boldsymbol{A} \boldsymbol{x}=\boldsymbol{y}^{\boldsymbol{T}} \boldsymbol{y}=\sum_{i=1}^{n} y_{i}^{2}
+$$
+
+由于 $ \boldsymbol{y} $ 是非零向量，上式表明 $ \boldsymbol{x}^{\boldsymbol{T}} \boldsymbol{A} \boldsymbol{x} $ 是向量 $ \boldsymbol{y} $ 各分量平方和，显然大于0.因此， $ \boldsymbol{A} $ 是正定的.
+
+综上所述，若矩阵 $ \boldsymbol{A}=\boldsymbol{L} \boldsymbol{L}^{\boldsymbol{T}} $ ，其中 $ \boldsymbol{L} $ 是一个非奇异的实下三角矩阵，那么 $ \boldsymbol{A} $ 必然是对称的且正定的.
+\end{tcolorbox}
+
+
+
+
+\begin{tcolorbox}[breakable,enhanced,arc=0mm,outer arc=0mm,
+		boxrule=0pt,toprule=1pt,leftrule=0pt,bottomrule=1pt, rightrule=0pt,left=0.2cm,right=0.2cm,
+		titlerule=0.5em,toptitle=0.1cm,bottomtitle=-0.1cm,top=0.2cm,
+		colframe=white!10!biru,colback=white!90!biru,coltitle=white,
+            coltext=black,title =2024-04-02, title style={white!10!biru}, before skip=8pt, after skip=8pt,before upper=\hspace{2em},
+		fonttitle=\bfseries,fontupper=\normalsize]
+  
+证明: 设 $ A=\left(a_{i j}\right)_{n \times n} $ 是实对称阵, 且 $ a_{11} \neq 0 $, 经过 Gauss 消去法一步后, A 约化为 $ \left(\begin{array}{cc}a_{11} & \alpha \\ 0 & A_{2}\end{array}\right) $, 其中 $ \alpha=\left(a_{12}, \cdots, a_{1 n}\right), A_{2} $ 是 $ \mathrm{n}-1 $ 阶方阵, 证明 $ A_{2} $ 是对称阵
+
+
+\colorbox{yellow}{证明:} 因为 $ \boldsymbol{A}_{2} $ 是 $ n-1 $ 阶方阵, 即 $ \boldsymbol{A}_{2}=\left(a_{i j}^{(2)}\right) \in \mathbf{R}^{(n-1) \times(n-1)} $, 由 $ \boldsymbol{A} $ 的对称性及消元公式得
+$$
+a_{i j}^{(2)}=a_{i j}-\frac{a_{i 1}}{a_{11}} a_{1 j}=a_{j i}-\frac{a_{i 1}}{a_{11}} a_{1 i}=a_{j i}^{(2)}, i, j=2, \cdots, n
+$$
+故 $ \boldsymbol{A}_{2} $ 也对称.
+
+ \tcblower
+
+对于实对称矩阵 $ A=\left(a_{i j}\right)_{n \times n} $ ，我们有 $ a_{i j}=a_{j i} $ 对所有 $ i, j $ 成立.在通过 Gauss 消去法进行第一步操作时，目的是利用 $ a_{11} $ (假设非零) 来消去第一列下面的所有元素，从而 $ A $ 变形为:
+$$
+\left(\begin{array}{cc}
+a_{11} & \alpha \\
+0 & A_{2}
+\end{array}\right)
+$$
+其中， $ \alpha=\left(a_{12}, \cdots, a_{1 n}\right) $ 是第一行除了 $ a_{11} $ 之外的部分， $ A_{2} $ 是一个 $ n-1 $ 阶方阵.
+
+对于 $ A $ 的第 $ i $ 行 $ (i>1) $ ，Gauss 消去法第一步的操作可以表示为从第 $ i $ 行减去第一行乘以一个适当的系数 $ \lambda_{i}=\frac{a_{i 1}}{a_{11}} $ .这样，第 $ i $ 行的第 $ j $ 个元素 $ a_{i j}^{\prime} $ 更新为:
+$$
+a_{i j}^{\prime}=a_{i j}-\lambda_{i} a_{1 j}=a_{i j}-\frac{a_{i 1} a_{1 j}}{a_{11}}
+$$
+对于 $ A_{2} $ 中的任意两个对应元素 $ a_{i j}^{\prime} $ 和 $ a_{j i}^{\prime}(i, j>1) $ ，我们需要证明它们相等以证明 $ A_{2} $ 的对称性:
+$$
+a_{i j}^{\prime}=a_{i j}-\frac{a_{i 1} a_{1 j}}{a_{11}} \quad
+a_{j i}^{\prime}=a_{j i}-\frac{a_{j 1} a_{1 i}}{a_{11}}
+$$
+由于 $ A $ 是对称的，我们有 $ a_{i j}=a_{j i} $ 和 $ a_{i 1}=a_{1 i} $ ，因此:
+$$
+a_{i j}^{\prime}=a_{i j}-\frac{a_{i 1} a_{1 j}}{a_{11}}=a_{j i}-\frac{a_{j 1} a_{1 i}}{a_{11}}=a_{j i}^{\prime}
+$$
+这证明了在进行 Gauss 消去法第一步操作后，所得到的 $ A_{2} $ 确实保持了对称性.因此， $ A_{2} $ 是对称阵.
+\end{tcolorbox}
+
+\begin{tcolorbox}[breakable,title=定理]
+     设 $ \boldsymbol{A}=\left(a_{i j}\right)_{n \times n} $, 唯一存在矩阵 $ \boldsymbol{L}, \boldsymbol{U} $, 使得 $ \boldsymbol{A}=\boldsymbol{L U} $ 的充要条件是
+$$ \operatorname{det}\left(\boldsymbol{A}_{i}\right) \neq 0, \quad i=1,2, \cdots, n-1 $$
+其中
+$$
+\begin{array}{l}
+\boldsymbol{L}=\left[\begin{array}{ccccc}
+1 & & & & \\
+l_{21} & 1 & & & \\
+l_{31} & l_{32} & \ddots & & \\
+\vdots & \vdots & & \ddots & \\
+l_{n 1} & l_{n 2} & \cdots & & 1
+\end{array}\right]=\left[\begin{array}{ccccc}
+1 & & & & \\
+m_{21} & 1 & & & \\
+m_{31} & m_{32} & \ddots & & \\
+\vdots & \vdots & & \ddots & \\
+m_{n 1} & m_{n 2} & \cdots & & 1
+\end{array}\right] \text {, } \\
+\boldsymbol{U}=\left[\begin{array}{cccc}
+u_{11} & u_{12} & \cdots & u_{1 n} \\
+& u_{22} & \cdots & u_{2 n} \\
+& & \ddots & \vdots \\
+& & & u_{n n}
+\end{array}\right]=\left[\begin{array}{cccc}
+a_{11}^{(1)} & a_{12}^{(1)} & \cdots & a_{1 n}^{(1)} \\
+& a_{22}^{(2)} & \cdots & a_{2 n}^{(2)} \\
+& & \ddots & \vdots \\
+& & & a_{n n}^{(n)}
+\end{array}\right]=\boldsymbol{A}^{(n)} . \\
+\end{array}
+$$
+\end{tcolorbox}
+
+
+\begin{tcolorbox}[breakable,enhanced,arc=0mm,outer arc=0mm,
+		boxrule=0pt,toprule=1pt,leftrule=0pt,bottomrule=1pt, rightrule=0pt,left=0.2cm,right=0.2cm,
+		titlerule=0.5em,toptitle=0.1cm,bottomtitle=-0.1cm,top=0.2cm,
+		colframe=white!10!biru,colback=white!90!biru,coltitle=white,
+            coltext=black,title =2024-04-02, title style={white!10!biru}, before skip=8pt, after skip=8pt,before upper=\hspace{2em},
+		fonttitle=\bfseries,fontupper=\normalsize]
+  
+下述矩阵能否进行直接 $ L R $ 分解 (其中 $ L $ 为单位下三角阵, $ R $ 为上三角阵) ?若能分解，那么分解是否唯一
+
+$$
+A=\left[\begin{array}{lll}
+1 & 2 & 3 \\
+2 & 4 & 1 \\
+4 & 6 & 7
+\end{array}\right] \quad B=\left[\begin{array}{lll}
+1 & 1 & 1 \\
+2 & 2 & 1 \\
+3 & 3 & 1
+\end{array}\right] \quad C=\left[\begin{array}{ccc}
+1 & 2 & 6 \\
+2 & 5 & 15 \\
+6 & 15 & 46
+\end{array}\right]
+$$
+
+ \tcblower
+ $ \boldsymbol{A}=\left[\begin{array}{lll}1 & 2 & 3 \\ 2 & 4 & 1 \\ 4 & 6 & 7\end{array}\right] $, 因为 $\operatorname{det}\left(\boldsymbol{A}_{1}\right) \neq 0, \operatorname{det}\left(\boldsymbol{A}_{2}\right)=0,$
+所以, 不满足定理的条件, 即不存在 $ \boldsymbol{L}, \boldsymbol{R} $ 矩阵使得 $ \boldsymbol{A}=\boldsymbol{L R} $.
+
+ $ \boldsymbol{B}=\left[\begin{array}{lll}1 & 1 & 1 \\ 2 & 2 & 1 \\ 3 & 3 & 1\end{array}\right] $, 因为 $\operatorname{det}\left(\boldsymbol{B}_{1}\right) \neq 0, \quad \operatorname{det}\left(\boldsymbol{B}_{2}\right)=0,$
+所以,不满足定理的条件,但 $ \boldsymbol{B} $ 仍可分解, 只是分解不是唯一的. 例如存在  (其中我们发现$ \boldsymbol{R} $ 是奇异的.)
+$$
+\begin{array}{lll}
+\boldsymbol{L}_{1} & =\left[\begin{array}{lll}
+1 & 0 & 0 \\
+2 & 1 & 0 \\
+3 & 1 & 1
+\end{array}\right],\quad \boldsymbol{R}_{1}=\left[\begin{array}{ccc}
+1 & 1 & 1 \\
+0 & 0 & -1 \\
+0 & 0 & -1
+\end{array}\right], \qquad
+\boldsymbol{L}_{2} & =\left[\begin{array}{lll}
+1 & 0 & 0 \\
+2 & 1 & 0 \\
+3 & 2 & 1
+\end{array}\right], \quad \boldsymbol{R}_{2}=\left[\begin{array}{ccc}
+1 & 1 & 1 \\
+0 & 0 & -1 \\
+0 & 0 & 0
+\end{array}\right] .
+\end{array}
+$$
+
+
+
+ $ \boldsymbol{C}=\left[\begin{array}{ccc}1 & 2 & 6 \\ 2 & 5 & 15 \\ 6 & 15 & 46\end{array}\right] $, 因为
+$
+\operatorname{det}\left(\boldsymbol{C}_{1}\right)=1, \quad \operatorname{det}\left(\boldsymbol{C}_{2}\right)=1, \quad \operatorname{det}\left(\boldsymbol{C}_{3}\right)=1,
+$
+
+根据定理, 存在唯一的 $ \boldsymbol{L}, \boldsymbol{R} $ 阵, 使得 $ \boldsymbol{A}=\boldsymbol{L R} $, 其中
+$
+\boldsymbol{L}=\left[\begin{array}{lll}
+1 & 0 & 0 \\
+2 & 1 & 0 \\
+6 & 3 & 1
+\end{array}\right], \quad \boldsymbol{R}=\left[\begin{array}{lll}
+1 & 2 & 6 \\
+0 & 1 & 3 \\
+0 & 0 & 1
+\end{array}\right] .
+$
+
+
+
+
+\end{tcolorbox}
+
+\begin{tcolorbox}[breakable, title=补充说明]
+    (1) 若 $A_{1}, \cdots, A_{n-1} $ 中有奇异的, 则 $LU$ 分解也可能存在 (但此时一定不唯一). 如
+$$
+A=\left[\begin{array}{lll}
+2 & 2 & 1 \\
+1 & 1 & 1 \\
+3 & 3 & 1
+\end{array}\right] \text {, }
+$$
+此时 $A_{2} $ 奇异, 但 $ A $ 仍有 $ {LU} $ 分解
+$$
+\left[\begin{array}{lll}
+2 & 2 & 1 \\
+1 & 1 & 1 \\
+3 & 3 & 1
+\end{array}\right]=\left[\begin{array}{ccc}
+1 & 0 & 0 \\
+1 / 2 & 1 & 0 \\
+3 / 2 & \alpha & 1
+\end{array}\right]\left[\begin{array}{ccc}
+2 & 2 & 1 \\
+0 & 0 & 1 / 2 \\
+0 & 0 & -1 / 2-\alpha / 2
+\end{array}\right],
+$$
+其中 $ a $ 可任意取值, 即 $LU$ 分解不唯一.
+
+(2) $A$ 非奇异不能保证 $LU$ 分解存在, 如
+$$
+A=\left[\begin{array}{lll}
+2 & 2 & 1 \\
+1 & 1 & 1 \\
+3 & 2 & 1
+\end{array}\right]
+$$
+$ \operatorname{det} A=1 \neq 0 $, 即 $ A $ 非奇异, 但 $LU$ 分解不存在.
+\end{tcolorbox}
+
+
+
+\begin{tcolorbox}[breakable,enhanced,arc=0mm,outer arc=0mm,
+		boxrule=0pt,toprule=1pt,leftrule=0pt,bottomrule=1pt, rightrule=0pt,left=0.2cm,right=0.2cm,
+		titlerule=0.5em,toptitle=0.1cm,bottomtitle=-0.1cm,top=0.2cm,
+		colframe=white!10!biru,colback=white!90!biru,coltitle=white,
+            coltext=black,title =2024-04-02, title style={white!10!biru}, before skip=8pt, after skip=8pt,before upper=\hspace{2em},
+		fonttitle=\bfseries,fontupper=\normalsize]
+  
+用直接三角分解法(LU 分解)求解以下线性方程组 $ \left\{\begin{array}{c}5 x-y+z=5, \\ x-10 y-2 z=-11, \\ -x+2 y+10 z=11 \text {. }\end{array}\right. $
+
+系数矩阵 $ A $ 为:
+
+系数矩阵的 Doolittle 分解中求解矩阵 $ L $ 和 $ U $ 的过程:
+
+求解末知量的过程:
+
+方程组的解 $ (x, y, z)^{\mathrm{T}}= $
+ \tcblower
+
+为了求解给定的线性方程组，我们首先使用 Doolittle 方法进行 LU 分解.给定的线性方程组可以表示为 $Ax = b$，其中
+
+$$
+A = \left[\begin{array}{ccc}
+5 & -1 & 1 \\
+1 & -10 & -2 \\
+-1 & 2 & 10
+\end{array}\right], \quad
+b = \left[\begin{array}{c}
+5 \\
+-11 \\
+11
+\end{array}\right]
+$$
+
+LU 分解的目标是找到矩阵 $L$（单位下三角矩阵）和 $U$（上三角矩阵），使得 $A = LU$.一旦我们找到了 $L$ 和 $U$，我们可以使用前向替换来求解 $LY = b$，然后使用后向替换求解 $UX = Y$，从而找到 $X$.
+
+    
+首先计算 $ \boldsymbol{U} $ 的第一行元与 $ \boldsymbol{L} $ 的第一列元：
+$$
+u_{11}=5, \quad u_{12}=-1, \quad u_{13}=1 
+$$
+$$
+l_{21}=\frac{a_{21} }{u_{11}}=\frac 15,  \quad l_{31}=\frac{a_{31} }{u_{11}}=-\frac 15
+$$
+进而计算 $ \boldsymbol{U} $ 的第二行元与 $ \boldsymbol{L} $ 的第二列元:
+$$
+u_{22}=a_{22}-l_{21} u_{12}=-10-\frac 15\times (-1)=-\frac{49}{5}, \quad u_{23}=a_{23}-l_{21} u_{13}=-2-\frac 15\times 1=-\frac{11}{5} ;
+$$
+$$
+l_{32}=\frac{\left(a_{32}-l_{31} u_{12}\right)}{ u_{22}}=\frac{2-(-\frac 1 5)\times (-1)}{-\frac{49}{5}}=-\frac{9}{49} .
+$$
+ 计算 $ \boldsymbol{U} $ 的第三行元 :
+$$
+u_{33}=a_{33}-\left(l_{31} u_{13}+l_{32} u_{23}\right)=10-(-\frac 15)\times 1-(-\frac{9}{49})\times(-\frac{11}{5})=\frac{480}{49}
+$$
+
+故
+$$
+\boldsymbol{A}=\boldsymbol{L} \boldsymbol{U}= \left[\begin{array}{ccc}1 & 0 & 0 \\ \frac{1}{5} & 1 & 0 \\ -\frac{1}{5} & -\frac{9}{49} & 1\end{array}\right]\left[\begin{array}{ccc}5 & -1 & 1 \\ 0 & -\frac{49}{5} & -\frac{11}{5} \\ 0 & 0 & \frac{480}{49}\end{array}\right]
+$$
+
+解下三角形方程组$\boldsymbol{LY=b}$
+$$
+\left[\begin{array}{ccc}1 & 0 & 0 \\ \frac{1}{5} & 1 & 0 \\ -\frac{1}{5} & -\frac{9}{49} & 1\end{array}\right]\left[\begin{array}{l}
+y_{1} \\
+y_{2} \\
+y_{3}
+\end{array}\right]=\left[\begin{array}{l}
+5 \\
+-11 \\
+11
+\end{array}\right] \quad \Longrightarrow
+y_{1}=5, y_{2}=-12, y_{3}=\dfrac{480}{49}
+$$
+
+解上三角形方程组$\boldsymbol{UX=Y}$
+$$
+\left[\begin{array}{ccc}5 & -1 & 1 \\ 0 & -\frac{49}{5} & -\frac{11}{5} \\ 0 & 0 & \frac{480}{49}\end{array}\right]\left[\begin{array}{l}
+x_{1} \\
+x_{2} \\
+x_{3}
+\end{array}\right]=\left[\begin{array}{c}
+5 \\
+-12 \\
+\frac{480}{49}
+\end{array}\right]\quad \Longrightarrow x_3=1, x_2=1, x_1=1.
+$$
+
+通过 Doolittle 方法进行 $\boldsymbol{LU}$ 分解并求解给定的线性方程组后，我们得到方程组的解为 $(x, y, z)^\mathrm{T} = (1, 1, 1)$.这意味着线性方程组的解是 $x=1, y=1, z=1$.
+\end{tcolorbox}
+
+\subsection{补充习题}
+
+  \begin{tcolorbox}[enhanced,colback=10,colframe=9,breakable,coltitle=green!25!black,title=2024]
+  
+$ A=\left[\begin{array}{lll}1 & a & a \\ a & 1 & a \\ a & a & 1\end{array}\right] $, 若 $ \mathrm{A} $ 为对称正定矩阵, $ a $ 应为哪些值?
+
+\tcblower
+ 由题意可知, 为了使 $ A $ 为正定矩阵, 则只需满足顺序主子式
+$$
+\begin{array}{l}
+\Delta_{1}=1>0, \quad \Delta_{2}=\left|\begin{array}{cc}
+1 & a \\
+a & 1
+\end{array}\right|=1-a^{2}>0 ,\quad
+\Delta_{3}=\left|\begin{array}{lll}
+1 & a & a \\
+a & 1 & a \\
+a & a & 1
+\end{array}\right|=(2 a+1)(a-1)^{2}>0
+\end{array}
+$$
+因此解得 $ -\frac{1}{2}<a<1 $.
+\end{tcolorbox}
+
+
+  \begin{tcolorbox}[enhanced,colback=10,colframe=9,breakable,coltitle=green!25!black,title=2024]
+  
+若 $A$ 为对称正定矩阵, 则 $ A=L L^{T} $, 即 $ A $ 有唯一的Cholesky 分解, 其中 $ L $ 为对角元素都是正数的下三角型矩阵.
+\tcblower
+ 因 $ A $ 是对称正定的, 则由定理知, 其各阶顺序主子式均大于零. 再由定理可知, 矩阵 $ \boldsymbol{A} $ 存在唯一的 Doolittle 分解, 即 $ \boldsymbol{A}=\tilde{\boldsymbol{L}} \boldsymbol{U} $, 其中 $ \tilde{\boldsymbol{L}} $ 为单位下三角矩阵, $ \boldsymbol{U} $ 为上三角矩阵. 令 $ \boldsymbol{D}=\operatorname{diag}\left(u_{11}, \cdots, u_{n n}\right), \boldsymbol{P}=\boldsymbol{D}^{-1} \boldsymbol{U} $, 则 $ \boldsymbol{P} $ 为单位上三角矩阵, 且 $ A=\tilde{L} D P $.
+
+因为 $ A $ 是对称阵, 故有 $ P^{\mathrm{T}}\left(D \tilde{L}^{\mathrm{T}}\right)=A^{\mathrm{T}}=A=\tilde{L}(D P) $, 再由 $ A $ 的 Doolittle 分解唯一性 (因 $ P^{\mathrm{T}} $ 是单位下三角阵), 得 $ P^{\mathrm{T}}=\widetilde{L} $, 即 $ A=P^{\mathrm{T}} D P $.
+由 $ A $ 的正定性知: 任给非零向量 $ x \in \mathrm{R}^{n}, y=P^{-1} x \neq 0 $, 有
+$$
+\boldsymbol{x}^{\mathrm{T}} \boldsymbol{D} \boldsymbol{x}=\boldsymbol{y}^{\mathrm{T}}\left(\boldsymbol{P}^{\mathrm{T}} \boldsymbol{D} \boldsymbol{P}\right) \boldsymbol{y}=\boldsymbol{y}^{\mathrm{T}} \boldsymbol{A} \boldsymbol{y}>0
+$$
+
+可得 $ D $ 是对称正定矩阵, 从而 $ D $ 的对角线元素均为正数, 记
+$$
+\boldsymbol{D}^{\frac{1}{2}}=\operatorname{diag}\left(\sqrt{u_{11}}, \sqrt{u_{22}}, \cdots, \sqrt{u_{n n}}\right), \quad\left(\boldsymbol{D}^{\frac{1}{2}}\right)^{\mathrm{T}}=\boldsymbol{D}^{\frac{1}{2}}, \boldsymbol{D}=\boldsymbol{D}^{\frac{1}{2}} \times \boldsymbol{D}^{\frac{1}{2}}
+$$
+
+则
+$$
+\left(D^{\frac{1}{2}}\right)^{\mathrm{T}}=D^{\frac{1}{2}}, D=D^{\frac{1}{2}} \times D^{\frac{1}{2}}, \quad A=P^{\mathrm{T}}\left(D^{\frac{1}{2}}\right) \times D^{\frac{1}{2}} P=\left(D^{\frac{1}{2}} P\right)^{\mathrm{T}}\left(D^{\frac{1}{2}} P\right)=L^{\mathrm{T}} L
+$$
+
+其中 $ \boldsymbol{L}=\left(D^{\frac{1}{2}} P\right)^{\mathrm{T}} $ 为非奇异下三角矩阵.
+
+下证, 如果 $ L $ 的对角线上元素均为正数时, 分解式$ A=L L^{T} $是唯一的.
+
+假设还存在非奇异下三角阵 $ G $, 其对角元素皆为正数, 使得
+$$
+L L^{\mathrm{T}}=\boldsymbol{A}=\boldsymbol{G} \boldsymbol{G}^{\mathrm{T}}
+$$
+
+进一步有 $ L^{\mathrm{T}}\left(G^{\mathrm{T}}\right)^{-1}=L^{-1} G $. 因为 $ L^{\mathrm{T}}\left(G^{\mathrm{T}}\right)^{-1} $ 是上三角阵, $ L^{-1} G $ 是下三角阵, 且由上式, 不难证明 $ \boldsymbol{L}^{\mathrm{T}}\left(\boldsymbol{G}^{\mathrm{T}}\right)^{-1}=\boldsymbol{L}^{-1} \boldsymbol{G}=\boldsymbol{I}_{n} $, 即 $ \boldsymbol{G}=\boldsymbol{L} $, 因此唯一性得证.
+
+\end{tcolorbox}
+
+
+  \begin{tcolorbox}[enhanced,colback=10,colframe=9,breakable,coltitle=green!25!black,title=2024]
+  
+   设 $ A $ 为 $n$ 阶非奇异矩阵, 且有Doolittle 分解 $ A=L U $, 证明 $ A $ 的所有顺序主子式不为零
+\tcblower
+ 已知 $ \boldsymbol{A}=\boldsymbol{L} \boldsymbol{U} $, 因 $ \boldsymbol{A} $ 非奇异, 所以下三角矩阵 $ \boldsymbol{L}=\left(l_{i j}\right)_{n \times n} $ 及上三角矩阵 $ \boldsymbol{U}=\left(u_{i j}\right)_{n \times n} $ 皆非奇异, 从而 $ l_{i i} \neq 0, u_{i i} \neq 0(i=1,2, \cdots, n) $ .对任何 $ k \in\{1,2, \cdots, n-1\} $ 有
+$$
+\left[\begin{array}{ll}
+\boldsymbol{A}_{k} & \boldsymbol{A}_{12} \\
+\boldsymbol{A}_{21} & \boldsymbol{A}_{22}
+\end{array}\right]=\left[\begin{array}{cc}
+\boldsymbol{L}_{k} & \boldsymbol{O} \\
+\boldsymbol{L}_{21} & \boldsymbol{L}_{22}
+\end{array}\right]\left[\begin{array}{cc}
+\boldsymbol{U}_{k} & \boldsymbol{U}_{12} \\
+\boldsymbol{O} & \boldsymbol{U}_{22}
+\end{array}\right]
+$$
+
+这里 $ \boldsymbol{A}_{k}, \boldsymbol{L}_{k}, \boldsymbol{U}_{k} $ 分别是 $ \boldsymbol{A}, \boldsymbol{L}, \boldsymbol{U} $ 的左上角 $k $ 阶子块, 并且 $ \boldsymbol{L}_{k} $ 和 $ \boldsymbol{U}_{k} $ 分别是下三角矩阵和上三角矩阵.上式依分块矩阵乘法有 $ \boldsymbol{A}_{k}=\boldsymbol{L}_{k} \boldsymbol{U}_{k} $, 因此推得
+$$
+\begin{aligned}
+\Delta_{k}=\operatorname{det} \boldsymbol{A}_{k}=\operatorname{det} \boldsymbol{L}_{k} \operatorname{det} \boldsymbol{U}_{k}= & l_{11} l_{22} \cdots l_{kk} u_{11} \cdots u_{kk} \neq 0 \quad (k=1,2, \cdots, n-1)
+\end{aligned}
+$$
+
+\end{tcolorbox}
+
+  \begin{tcolorbox}[enhanced,colback=10,colframe=9,breakable,coltitle=green!25!black,title=2024]
+  
+证明: 设 $ A=\left(a_{i j}\right)_{n \propto n} $ 是实对称正定阵, 且 $ a_{11} \neq 0 $, 经过 Gauss 消去法一步后, $ \mathrm{A} $ 约化为 $ \left(\begin{array}{cc}a_{11} & \alpha \\ 0 & A_{2}\end{array}\right) $, 其中 $ \alpha=\left(a_{12} \cdots ; a_{1 n}\right), A_{2} $ 是 $n-1$ 阶方阵, 证明 $ A_{2} $ 是实对称正定阵.
+\tcblower
+(1)
+$$
+\begin{aligned}
+a_{i j}^{(2)} & =a_{i j}^{(1)}-\frac{a_{i 1}^{(1)}}{a_{11}^{(1)}} a_{1 j}^{(1)} \quad(i, j=2,3, \cdots n) \\
+& =a_{i j}^{(1)}-\frac{a_{1 j}^{(1)}}{a_{11}^{(1)}} a_{i 1}^{(1)} \\
+& =a_{j i}^{(1)}-\frac{a_{j 1}^{(1)}}{a_{11}^{(1)}} a_{1 i}^{(1)} \\
+& =a_{j i}^{(2)}
+\end{aligned}
+$$
+
+(2)由于经 Gauss 消去法一步后，矩阵的各阶顺序主子式值不变，若设 $A_{2} $ 的各阶顺序主子式值为 $ D_{1}^{\prime}, D_{2}^{\prime} \cdots, D_{n-1}^{\prime} $ ，则 $ A $ 的各阶顺序主子式值应为 $ a_{11}>0, a_{11} D_{1}^{\prime}>0, \ldots a_{11} D_{n-1}^{\prime}>0 $ ，故 $ A_{2} $ 为正定伡
+\end{tcolorbox}
+
+  \begin{tcolorbox}[enhanced,colback=10,colframe=9,breakable,coltitle=green!25!black,title=2024]
+  
+设 $ \boldsymbol{A}=\left(a_{i j}\right)_{n} $ 是对称正定矩阵, 经过高斯消去法一步后, $ \boldsymbol{A} $ 约化为
+$
+\left[\begin{array}{cc}
+a_{11} & \boldsymbol{a}_{1}^{\mathrm{T}} \\
+\mathbf{0} & \boldsymbol{A}_{2}
+\end{array}\right]
+$
+
+其中 $ \boldsymbol{A}_{2}=\left(a_{i j}^{(2)}\right)_{n-1} $. 证明 :
+
+(1) $ \boldsymbol{A} $ 的对角元素 $ a_{i i}>0, i=1,2, \cdots, n $;
+
+(2) $ \boldsymbol{A}_{2} $ 是对称正定矩阵.
+\tcblower
+
+证明 (1) 因为 $ \boldsymbol{A} $ 对称正定,所以
+$$
+a_{i i}=\left(\boldsymbol{A} \boldsymbol{e}_{i}, \boldsymbol{e}_{i}\right)>0, \quad i=1,2, \cdots, n,
+$$
+
+其中 $ \boldsymbol{e}_{i}=\left(0, \cdots, 0,{ }_{1}^{i}, 0, \cdots, 0\right)^{\mathrm{T}} $ 为第 $ i $ 个单位向量.
+
+(2)由 $ \boldsymbol{A} $ 的对称性及消元公式, 有
+$$
+a_{i j}^{(2)}=a_{i j}-\frac{a_{i 1}}{a_{11}} a_{1 j}=a_{j i}-\frac{a_{j 1}}{a_{11}} a_{1 i}=a_{j i}^{(2)}, \quad i, j=2,3, \cdots, n
+$$
+
+故 $ \boldsymbol{A}_{2} $ 也对称.
+又由 $ \left[\begin{array}{cc}a_{11} & \boldsymbol{a}_{1}^{\mathrm{T}} \\ \mathbf{0} & \boldsymbol{A}_{2}\end{array}\right]=\boldsymbol{L}_{1} \boldsymbol{A} $, 其中
+$$
+\boldsymbol{L}_{1}=\left[\begin{array}{cccc}
+1 & & & \\
+-\frac{a_{21}}{a_{11}} & 1 & & \\
+\vdots & \vdots & \ddots & \\
+-\frac{a_{n 1}}{a_{11}} & 0 & \cdots & 1
+\end{array}\right]=\left[\begin{array}{cc}
+1 & 0 \\
+-\frac{\boldsymbol{a}_{1}}{a_{11}} & \boldsymbol{I}_{n-1}
+\end{array}\right],
+$$
+
+可见 $ \boldsymbol{L}_{1} $ 非奇异, 因而对任意 $ \boldsymbol{x} \neq \mathbf{0} $, 由 $ \boldsymbol{A} $ 的正定性, 有
+$$
+\boldsymbol{L}_{1}^{\mathrm{T}} \boldsymbol{x} \neq \mathbf{0}, \quad\left(\boldsymbol{x}, \boldsymbol{L}_{1} \boldsymbol{A} \boldsymbol{L}_{1}^{\mathrm{T}} \boldsymbol{x}\right)=\left(\boldsymbol{L}_{1}^{\mathrm{T}} \boldsymbol{x}, \boldsymbol{A} \boldsymbol{L}_{1}^{\mathrm{T}} \boldsymbol{x}\right)>0,
+$$
+
+故 $ \boldsymbol{L}_{1} \boldsymbol{A} \boldsymbol{L}_{1}^{\mathrm{T}} $ 正定.
+由 $ \boldsymbol{L}_{1} \boldsymbol{A} \boldsymbol{L}_{1}^{\mathrm{T}}=\left[\begin{array}{cc}a_{11} & \boldsymbol{a}_{1}^{\mathrm{T}} \\ \mathbf{0} & \boldsymbol{A}_{2}\end{array}\right]\left[\begin{array}{cc}1 & -\frac{1}{a_{11}} \boldsymbol{a}_{1}^{\mathrm{T}} \\ \mathbf{0} & \boldsymbol{I}_{n-1}\end{array}\right]=\left[\begin{array}{cc}a_{11} & \mathbf{0} \\ \mathbf{0} & \boldsymbol{A}_{2}\end{array}\right] $, 而 $ a_{11}>0 $, 故知 $ \boldsymbol{A}_{2} $ 正定.
+\end{tcolorbox}
+
+  \begin{tcolorbox}[enhanced,colback=10,colframe=9,breakable,coltitle=green!25!black,title=2024]
+  
+证明: (1) 如果 $ \boldsymbol{A} $ 是对称正定阵,则 $ \boldsymbol{A}^{-1} $ 也是对称正定阵;
+(2) 如果 $ \boldsymbol{A} $ 是对称正定矩阵,则 $ \boldsymbol{A} $ 可唯一地写成 $ \boldsymbol{A}=\boldsymbol{L}^{T} \boldsymbol{L} $, 其中 $ \boldsymbol{L} $ 是具有正对角元的下三角矩阵
+\tcblower
+【逻辑推理】Doolittle 分解的充要条件是前 $ n-1 $ 个顺序主子式均不为零.
+
+【证明】(1) 因 $ A $ 是对称正定阵,故它的特征值 $ \lambda_{i} $ 全大于 $ 0, A^{-1} $ 的特征值 $ \lambda_{i}^{-1} $ 也全大于 0 . 又
+$$
+\left(\boldsymbol{A}^{-1}\right)^{T}=\left(\boldsymbol{A}^{T}\right)^{-1}=A^{-1}
+$$
+
+故 $ \boldsymbol{A}^{-1} $ 是对称正定矩阵.
+
+(2) 由 $ \boldsymbol{A} $ 对称正定, 故 $ \boldsymbol{A} $ 的所有顺序主子式均不为零, 从而 $ \boldsymbol{A} $ 有唯一的 Doolittle 分解 $ \boldsymbol{A}=\overline{\boldsymbol{L}}\boldsymbol{U} $. 又
+$$
+\boldsymbol{U}=\left[\begin{array}{cccc}
+u_{11} & & & \\
+& u_{22} & & \\
+& & \ddots & \\
+& & & u_{m n}
+\end{array}\right]\left[\begin{array}{cccc}
+1 & \frac{u_{12}}{u_{11}} & \cdots & \frac{u_{1 n}}{u_{11}} \\
+& 1 & \cdots & \frac{u_{2 n}}{u_{22}} \\
+& & \ddots & \vdots \\
+& & & 1
+\end{array}\right]=\boldsymbol{D} \boldsymbol{U}_{0}
+$$
+
+其中 $ \boldsymbol{D} $ 为对角阵, $ \boldsymbol{U}_{0} $ 为单位上三角阵, 于是 $ \boldsymbol{A}=\overline{\boldsymbol{L}}\boldsymbol{U}=\overline{\boldsymbol{L}} \boldsymbol{D} \boldsymbol{U}_{0} $. 又
+$$
+\boldsymbol{A}=\boldsymbol{A}^{T}=\boldsymbol{U}_{0}^{T} {\boldsymbol{D}} \overline{\boldsymbol{L}}^{\mathrm{T}}
+$$
+
+由分解的唯一性即得 $ \boldsymbol{U}_{0}^{T}=\overline{\boldsymbol{L}} $,
+从而有 $ \boldsymbol{A}=\overline{\boldsymbol{L}} \boldsymbol{D} \overline{\boldsymbol{L}}^{T} $.
+又由 $ \boldsymbol{A} $ 的对称正定性知
+$$d_{1}=\boldsymbol{D}_{1}>0, d_{i}= \frac{\boldsymbol{D}_{i}}{\boldsymbol{D}_{i-1}}>0 \quad(i=2,3, \cdots, n) $$
+
+
+$$
+\begin{array}{l}
+\text { 故 } \boldsymbol{D}=\left[\begin{array}{llll}
+d_{1} & & & \\
+& d_{2} & & \\
+& & \ddots & \\
+& & & d_{n}
+\end{array}\right]=\left[\begin{array}{llll}
+\sqrt{d_{1}} & & & \\
+& \sqrt{d_{2}} & & \\
+& & \ddots & \\
+& & & \sqrt{d_{n}}
+\end{array}\right]\left[\begin{array}{llll}
+\sqrt{d_{1}} & & & \\
+& \sqrt{d_{2}} & & \\
+& & \ddots & \\
+& & & \sqrt{d_{n}}
+\end{array}\right]=\boldsymbol{D}^{\frac{1}{2}} \boldsymbol{D}^{\frac{1}{2}} \\
+\end{array}
+$$
+
+故
+$$
+\boldsymbol{A}=\overline{\boldsymbol{L}} \boldsymbol{D} \overline{\boldsymbol{L}}^{T}=\overline{\boldsymbol{L}} \boldsymbol{D}^{\frac{1}{2}} \boldsymbol{D}^{\frac{1}{2}} \overline{\boldsymbol{L}}^{T}=\left(\overline{\boldsymbol{L}} \boldsymbol{D}^{\frac{1}{2}}\right)\left(\overline{\boldsymbol{L}} \boldsymbol{D}^{\frac{1}{2}}\right)^{T}=\boldsymbol{L}^{T}
+$$
+
+其中 $ \boldsymbol{L}=\overline{\boldsymbol{L}} \boldsymbol{D}^{\frac{1}{2}} $ 为对角元为正的下三角形矩阵.
+\end{tcolorbox}
+
+
+\begin{tcolorbox}[enhanced,colback=10,colframe=9,breakable,coltitle=green!25!black,title=2024]
+  
+设 $A$,$B,C,D$ 均为 $n\times n$ 矩阵,其中$A$可逆,证明
+$$
+\det\left(\begin{array}{cc}
+A & B \\
+C & D 
+\end{array}\right) = \det(A) \cdot \det(D - CA^{-1}B)
+$$
+\tcblower
+我们考虑左乘一个特殊的矩阵：
+$$
+\begin{pmatrix}
+E & 0 \\
+-CA^{-1} & E
+\end{pmatrix}
+$$
+这里 $E$ 是 $n \times n$ 的单位矩阵.
+
+这样做的目的是通过这种变换来化简原始矩阵的下半部分.具体操作如下：
+
+$$
+\begin{pmatrix}
+E & 0 \\
+-CA^{-1} & E
+\end{pmatrix}
+\begin{pmatrix}
+A & B \\
+C & D
+\end{pmatrix}
+=
+\begin{pmatrix}
+A & B \\
+0 & D - CA^{-1}B
+\end{pmatrix}
+$$
+其中 左下角的 $-CA^{-1}A + EC = 0$（因为 $E$ 是单位矩阵，而 $CA^{-1}A = C$， 右下角的 $-CA^{-1}B + ED = D - CA^{-1}B$.
+
+根据分块矩阵的行列式性质，当一个矩阵的左下角为零矩阵时，其行列式等于左上角与右下角子矩阵的行列式之积.因此：
+
+$$
+\det\left(\begin{pmatrix}
+A & B \\
+0 & D - CA^{-1}B
+\end{pmatrix}\right) = \det(A) \cdot \det(D - CA^{-1}B)
+$$
+
+
+由于左乘的矩阵 $\begin{pmatrix} E & 0 \\ -CA^{-1} & E \end{pmatrix}$ 的行列式为 1（对角矩阵，每个对角线元素都是 1），因此原始矩阵的行列式不变，即：
+
+$$
+\det\left(\begin{pmatrix}
+A & B \\
+C & D
+\end{pmatrix}\right) = \det(A) \cdot \det(D - CA^{-1}B)
+$$
+
+得证.
+
+\end{tcolorbox}
+
+
+
+\begin{tcolorbox}[enhanced,colback=10,colframe=9,breakable,coltitle=green!25!black,title=2024]
+  
+设方程组的系数矩阵 $ \boldsymbol{A} $ 为三对角阵, 即
+$
+\boldsymbol{A}=\left[\begin{array}{ccccccc}
+b_{1} & & c_{1} & & & & \\
+a_{2} & & b_{2} & & c_{2} & & \\
+& \ddots & & \ddots & & \ddots & \\
+& & a_{n-1} & & b_{n-1} & & c_{n-1} \\
+& & & & a_{n} & & b_{n}
+\end{array}\right] .
+$
+若
+$$
+\begin{array}{l}
+\left|b_{1}\right|>\left|c_{1}\right|>0, \\
+\left|b_{i}\right| \geqslant\left|a_{i}\right|+\left|c_{i}\right|, \quad a_{i} c_{i} \neq 0, \quad i=2, \cdots, n-1, \\
+\left|b_{n}\right|>\left|a_{n}\right|>0,
+\end{array}
+$$
+证明: $ \boldsymbol{A} $ 是非奇异矩阵.
+\tcblower
+用归纳法证明.显然, 当 $ n=2 $ 时有
+$$
+\operatorname{det}(\boldsymbol{A})=\left|\begin{array}{ll}
+b_{1} & c_{1} \\
+a_{2} & b_{2}
+\end{array}\right|=b_{1} b_{2}-c_{1} a_{2} \neq 0
+$$
+
+现设定理对 $ n-1 $ 阶满足条件 的三对角阵成立,求证对满足条件 的 $ n $ 阶三对角阵定理亦成立.由 $ b_{1} \neq 0 $ 和消去法, 有
+$$
+\boldsymbol{A} \rightarrow\left(\begin{array}{ccccc}
+b_{1} & c_{1} & 0 & \cdots & 0 \\
+0 & b_{2}-\frac{c_{1}}{b_{1}} a_{2} & c_{2} & \vdots & \\
+& a_{3} & b_{3} & c_{3} & \\
+& \ddots & & \ddots & \ddots \\
+& & & a_{n} & b_{n}
+\end{array}\right) \equiv \boldsymbol{A}^{(2)}
+$$
+
+显然, $ \operatorname{det}(\boldsymbol{A})=b_{1} \operatorname{det}(\boldsymbol{B}) $, 其中
+$$
+\boldsymbol{B}=\left(\begin{array}{cccc}
+\alpha_{2} & c_{2} & & \\
+a_{3} & b_{3} & c_{3} & \\
+& \ddots & \ddots & \ddots \\
+& & a_{n} & b_{n}
+\end{array}\right), \quad \alpha_{2}=b_{2}-\frac{c_{1}}{b_{1}} a_{2}
+$$
+
+且有
+$$
+\left|\boldsymbol{\alpha}_{2}\right|=\left|b_{2}-\frac{c_{1}}{b_{1}} a_{2}\right| \geqslant\left|b_{2}\right|-\left|\frac{c_{1}}{b_{1}}\right|\left|a_{2}\right|>\left|b_{2}\right|-\left|a_{2}\right| \geqslant\left|c_{2}\right| \neq 0
+$$
+于是, 由归纳法假定有 $ \operatorname{det}(\boldsymbol{B}) \neq 0 $, 故 $ \operatorname{det}(\boldsymbol{A}) \neq 0 $ .
+
+\end{tcolorbox}
+
+
+\begin{tcolorbox}[enhanced,colback=10,colframe=9,breakable,coltitle=green!25!black,title=2024]
+  
+证明正定矩阵的对角元素都是正的.
+\tcblower
+给定一个 \( n \times n \) 的正定矩阵 \( A \)，我们知道对于所有非零向量 \( \mathbf{x} \)，都有：
+\[
+\mathbf{x}^T A \mathbf{x} > 0
+\]
+
+为了证明 \( A \) 的每个对角元素 \( a_{ii} \) 都是正的，我们可以选择特殊的向量 \( \mathbf{x} \) 来构造证明.
+
+对于每个对角元素 \( a_{ii} \)，我们选择向量 \( \mathbf{x} \) 使得该向量的第 \( i \) 个分量为 1，其余分量为 0.具体来说，向量 \( \mathbf{e}_i \)（标准基向量）满足这个条件，其中 \( \mathbf{e}_i \) 的第 \( i \) 个分量为 1，其余为 0.
+
+将 \( \mathbf{e}_i \) 代入二次型 \( \mathbf{x}^T A \mathbf{x} \)，我们有：
+\[
+\mathbf{e}_i^T A \mathbf{e}_i = a_{ii}
+\]
+这是因为 \( A \mathbf{e}_i \) 将产生一个向量，其中仅第 \( i \) 个分量是非零的，即 \( a_{ii} \)，而 \( \mathbf{e}_i^T \) 将从这个结果向量中选择第 \( i \) 个分量.
+
+由于 \( A \) 是正定的，对于所有非零 \( \mathbf{x} \)，都有 \( \mathbf{x}^T A \mathbf{x} > 0 \).因此，对于每个 \( \mathbf{e}_i \)，都有：
+\[
+a_{ii} = \mathbf{e}_i^T A \mathbf{e}_i > 0
+\]
+
+因此，正定矩阵 \( A \) 的每个对角元素 \( a_{ii} \) 必须是正的.
+
+\end{tcolorbox}
+
+
+\begin{tcolorbox}[enhanced,colback=10,colframe=9,breakable,coltitle=green!25!black,title=2024]
+  
+设 $A$ 和 $B$ 是两个 $n\times n$ 矩阵，证明如果 $AB$ 是非奇异的，则 $A$ 和 $B$ 也是非奇异的.
+\tcblower
+矩阵 \(AB\) 是非奇异的，意味着 \(\det(AB) \neq 0\).根据行列式的乘积性质，我们有
+\[
+\det(AB) = \det(A) \det(B)
+\]
+因此，\(\det(A) \det(B) \neq 0\). 由于 \(\det(A) \det(B)\) 是一个乘积，且其结果不为零，这意味着 \(\det(A)\) 和 \(\det(B)\) 两者都不可能为零（因为零乘以任何数都是零）.因此，我们可以断定：
+\[
+\det(A) \neq 0 \quad \text{和} \quad \det(B) \neq 0
+\]
+
+根据非奇异矩阵的定义，如果一个矩阵的行列式不为零，则该矩阵是非奇异的，即它是可逆的.因此，由于 \(\det(A) \neq 0\) 和 \(\det(B) \neq 0\)，我们可以得出 \(A\) 和 \(B\) 都是非奇异的.
+
+\end{tcolorbox}
+
+\begin{tcolorbox}[enhanced,colback=10,colframe=9,breakable,coltitle=green!25!black,title=2024]
+ 说明用 Gauss 消去法解线性方程组
+$
+\left[\begin{array}{ll}
+a_{11} & a_{12} \\
+a_{21} & a_{22}
+\end{array}\right]\left[\begin{array}{l}
+x_{1} \\
+x_{2}
+\end{array}\right]=\left[\begin{array}{l}
+b_{1} \\
+b_{2}
+\end{array}\right], \quad a_{11} a_{22} \neq 0
+$
+时为什么要选主元. (其中系数矩阵为非奇异矩阵)
+ \tcblower
+ 设 $ a_{11} \neq 0 $. 记 $ l=\frac{a_{21}}{a_{11}} $, 则 Gauss 消去法如下:
+$$
+\left[\begin{array}{lll}
+a_{11} & a_{12} & b_{1} \\
+a_{21} & a_{22} & b_{2}
+\end{array}\right] \xrightarrow{r_{2}-l r_{1}}\left[\begin{array}{ccc}
+a_{11} & a_{12} & b_{1} \\
+0 & a_{22}-l a_{12} & b_{2}-l b_{1}
+\end{array}\right],
+$$
+
+如果 $ a_{12} $ 有一个误差 $ \varepsilon $, 则
+$
+\left[\begin{array}{ccc}
+a_{11} & a_{12}+\varepsilon & b_{1} \\
+a_{21} & a_{22} & b_{2}
+\end{array}\right] \xrightarrow{r_{2}-l r_{1}}\left[\begin{array}{ccc}
+a_{11} & a_{12}+\varepsilon & b_{1} \\
+0 & a_{22}-l a_{12}-l \varepsilon & b_{2}-l b_{1}
+\end{array}\right],
+$
+即 $ a_{12} $ 的误差 $ \varepsilon $ 放大了 $ l $ 倍传到第 2 行第 2 列元素. 如果 $ |l|>1 $, 则误差放大了, 且有可能造成 “大数” 吃掉 “小数” 的现象; 如果 $ |l| \leqslant 1 $, 则误差不放大. 因此在消元过程中, 我们要设法使得 $ |l| \leqslant 1 $. 具体来说, 在消元之前, 先计算 $ l=\frac{a_{21}}{a_{11}} $, 如果 $ |l|>1 $,将所给线性方程组的第一行和第二行相交换, 交换之后即有 $ |l| \leqslant 1 $, 再进行消元.
+
+ \end{tcolorbox}

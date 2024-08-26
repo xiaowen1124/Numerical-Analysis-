@@ -1,0 +1,1035 @@
+\section{常微分方程的数值解法练习题}
+\subsection{课后习题}
+   \begin{tcolorbox}[breakable,enhanced,arc=0mm,outer arc=0mm,
+		boxrule=0pt,toprule=1pt,leftrule=0pt,bottomrule=1pt, rightrule=0pt,left=0.2cm,right=0.2cm,
+		titlerule=0.5em,toptitle=0.1cm,bottomtitle=-0.1cm,top=0.2cm,
+		colframe=white!10!biru,colback=white!90!biru,coltitle=white,
+            coltext=black,title =2024-04, title style={white!10!biru}, before skip=8pt, after skip=8pt,before upper=\hspace{2em},
+		fonttitle=\bfseries,fontupper=\normalsize]
+
+ 设有常微分方程初值问题如下：
+$
+\left\{\begin{array}{c}
+y^{\prime}=f(x, y) \\
+y\left(x_{0}\right)=y_{0}
+\end{array}\right.
+$
+
+(1) 试推导数值求解公式 $ y_{i+1}=y_{i-1}+2 hf\left(x_{i}, y_{i}\right) $, 并验证公式的阶数
+
+(2) 在初值问题中取 $ f(x, y)=2 x+3 y, x_{0}=0, y_{0}=2, $试用改进欧拉方法求 $ y(0.1) $ 的近似值, 并利用 (1) 中的公式求 $ y(0.2) $ 的近似值
+
+(3) 求数值计算公式
+$y_{i+1}=y_{i}+\frac{h}{2}\left[f\left(x_{i}, y_{i}\right)+f\left(x_{i}+\frac{h}{2}, y_{i}+\frac{h}{2} f\left(x_{i}, y_{i}\right)\right)\right]$的阶数
+\tcblower
+(1) %使用中心差商$\frac{1}{2h}[y(x_{i+1})-y(x_{i-1})]$替代方程 $y^{\prime}(x_i)=f(x_i, y(x_i))$中的导数项
+中心差商近似导数：
+$$
+y'(x_i) \approx \frac{y(x_{i+1}) - y(x_{i-1})}{2h}
+$$
+将中心差商代入微分方程，得到：
+$$
+\frac{y(x_{i+1}) - y(x_{i-1})}{2h} = f(x_i, y(x_i))
+$$
+通过移项和整理，得到数值求解公式：
+$$
+y(x_{i+1}) = y(x_{i-1}) + 2hf(x_i, y(x_i))
+$$
+将 $ y(x_i) $ 用 $ y_i $ 表示，得到：
+$$
+y_{i+1} = y_{i-1} + 2hf(x_i, y_i)
+$$
+接下来我们验证公式的阶数.将 $ y = y(x) $ 在 $ x_{i+1} $ 和 $ x_{i-1} $ 点的函数值 $ y(x_{i+1}) $ 和 $ y(x_{i-1}) $ 展开为关于 $ x_i $ 点的泰勒级数：
+$$
+\begin{array}{l}
+y(x_{i+1}) = y(x_i) + hy'(x_i) + \frac{h^2}{2} y''(x_i) + \frac{h^3}{6} y'''(\xi_1), \quad x_i < \xi_1 < x_{i+1} \\
+y(x_{i-1}) = y(x_i) - hy'(x_i) + \frac{h^2}{2} y''(x_i) - \frac{h^3}{6} y'''(\xi_2), \quad x_{i-1} < \xi_2 < x_i
+\end{array}
+$$
+
+将这两个式子相减，得：
+$$
+y(x_{i+1}) - y(x_{i-1}) = 2h y'(x_i) + \frac{h^3}{6} \left( y'''(\xi_1) + y'''(\xi_2) \right)=2h y'(x_i) + \frac{h^3}{3} y'''(\xi),\quad x_{i-1} < \xi < x_{i+1}
+$$
+因此有
+$$
+y(x_{i+1}) = y(x_{i-1}) + 2h y'(x_i) + O(h^3)
+$$
+因此，局部截断误差为：
+$$y(x_{i+1})-y_{i+1}=[ y(x_{i-1}) + 2h y'(x_i) + O(h^3)]-[ y_{i-1} + 2hf(x_i, y_i)]=O(h^3)$$
+故该公式为二阶方法.
+
+(2)改进欧拉方法的公式为$\left\{\begin{array}{l}
+    \widetilde{y}_{i+1}= y_i + h f(x_i, y_i)  \\
+    y_{i+1} = y_i + \frac{h}{2} \left[ f(x_i, y_i) + f\left(x_{i + 1}, \widetilde{y}_{i+1} \right) \right]
+\end{array}\right.$或写成如下形式：
+
+
+$$y_{i+1} = y_i + \frac{h}{2} \left[ f(x_i, y_i) + f\left(x_{i + 1}, y_i + h f(x_i, y_i) \right) \right]
+$$
+
+给定初值问题：$\left\{
+\begin{array}{l}
+y' = 2x + 3y \\
+y(0) = 2
+\end{array}
+\right.$我们需要用改进欧拉方法求  $y(0.1)$ 的近似值，取步长 $h = 0.1$.初始条件：$x_0 = 0, \quad y_0 = 2$, $\quad x_1 = x_0 + h = 0 + 0.1 = 0.1$, $f(x_0, y_0) = 2x_0 + 3y_0 = 2(0) + 3(2) = 6$
+$$
+\begin{array}{c}
+      \widetilde{y}_{1} = y_0 + h f(x_0, y_0) = 2 + 0.1 \cdot 6 = 2 + 0.6 = 2.6 \\
+     f(x_1, \widetilde{y}_{1}) = 2x_1 + 3\widetilde{y}_{1} = 2(0.1) + 3(2.6) = 0.2 + 7.8 = 8
+\end{array}
+$$
+改进的 $y$ 值：
+$$
+   y_1 = y_0 + \frac{h}{2} \left[ f(x_0, y_0) + f(x_1, \widetilde{y}_{1}) \right] = 2 + \frac{0.1}{2} \left[ 6 + 8 \right] = 2 + 0.7 = 2.7
+$$
+
+因此，改进欧拉方法下 $ y(0.1) $ 的近似值为 2.7.
+
+我们使用公式 $ y_{i+1} = y_{i-1} + 2hf(x_i, y_i) $ 来求 $ y(0.2) $ 的近似值.
+
+%使用欧拉法计算 $ y_1 $:给定 $ x_0 = 0 $，$ y_0 = 2 $，步长 $ h = 0.1 $.
+
+%$$y_1 = y_0 + h f(x_0, y_0)$$
+
+%计算 $ f(x_0, y_0) $：$f(x_0, y_0) = 2x_0 + 3y_0 = 2 \cdot 0 + 3 \cdot 2 = 6$
+
+%因此，$$y_1 = 2 + 0.1 \cdot 6 = 2 + 0.6 = 2.6$$
+
+使用两步中点法计算 $ y_2 $：现在我们有两个初始点 $ y_0 = 2 $ 和 $ y_1 = 2.7 $.使用两步中点法公式来计算 $ y_2 $：
+$$
+y_2 = y_0 + 2hf(x_1, y_1)
+$$
+根据$x_1 = 0.1, \quad y_1 = 2.7$计算得
+$$
+f(x_1, y_1) = 2x_1 + 3y_1 = 2 \cdot 0.1 + 3 \cdot 2.7 = 0.2 +8.1 = 8.3
+$$
+因此，
+$$
+y_2 = y_0 + 2 \cdot 0.1 \cdot 8.3 = 2 + 1.66 = 3.66
+$$
+所以，使用两步中点法公式求得 $ y(0.2) $ 的近似值为 3.66.
+
+(3)
+对方程两边求导, 可得
+$$
+\begin{aligned}
+ y^{\prime}(x)=&f(x, y), \quad y^{\prime \prime}(x)=\frac{\partial f(x, y(x))}{\partial x}+y^{\prime}(x) \frac{\partial f(x, y(x))}{\partial y}, \\
+y^{\prime \prime \prime}(x)= & \frac{\partial^{2} f(x, y(x))}{\partial x^{2}}+y^{\prime}(x) \frac{\partial^{2} f(x, y(x))}{\partial x \partial y} \\
+& +y^{\prime}(x)\left[\frac{\partial^{2} f(x, y(x))}{\partial x \partial y}+y^{\prime}(x) \frac{\partial^{2} f(x, y(x))}{\partial y^{2}}\right]+y^{\prime \prime}(x) \frac{\partial f(x, y(x))}{\partial y},
+\end{aligned}
+$$
+
+则
+$$
+\begin{aligned}
+R_{i+1}= & y\left(x_{i+1}\right)-\left[y\left(x_{i}\right)+\frac h2 f(x_i,y_i)+\frac h2 f\left(x_{i}+\frac{h}{2}, y\left(x_{i}\right)+\frac{h}{2} f\left(x_{i}, y\left(x_{i}\right)\right)\right)\right] \\
+= & y\left(x_{i+1}\right)-y\left(x_{i}\right)-\frac h2 f(x_i,y_i)-\frac h2 f\left(x_{i}+\frac{h}{2}, y\left(x_{i}\right)+\frac{h}{2} y^{\prime}\left(x_{i}\right)\right) \\
+= & h y^{\prime}\left(x_{i}\right)+\frac{h^{2}}{2} y^{\prime \prime}\left(x_{i}\right)+\frac{h^{3}}{6} y^{\prime \prime \prime}\left(x_{i}\right)+O\left(h^{4}\right)-\frac h2 f(x_i,y_i) \\
+& -\frac h2\left\{f\left(x_{i}, y\left(x_{i}\right)\right)+\frac{h}{2} \frac{\partial f\left(x_{i}, y\left(x_{i}\right)\right)}{\partial x}+\frac{h}{2} y^{\prime}\left(x_{i}\right) \frac{\partial f\left(x_{i}, y\left(x_{i}\right)\right)}{\partial y}\right. \\
+& +\frac{1}{2}\left[\frac{h^{2}}{4} \frac{\partial^{2} f\left(x_{i}, y\left(x_{i}\right)\right)}{\partial x^{2}}+\frac{h^{2}}{2} y^{\prime}\left(x_{i}\right) \frac{\partial^{2} f\left(x_{i}, y\left(x_{i}\right)\right)}{\partial x \partial y}\right.  \left.\left.+\left(\frac{h}{2} y^{\prime}\left(x_{i}\right)\right)^{2} \frac{\partial^{2} f\left(x_{i}, y\left(x_{i}\right)\right)}{\partial y^{2}}\right]+O\left(h^{3}\right)\right\} \\
+= & \frac h2 y^{\prime}\left(x_{i}\right)+\frac{h^{2}}{2} y^{\prime \prime}\left(x_{i}\right)+\frac{h^{3}}{6} y^{\prime \prime \prime}\left(x_{i}\right)+O\left(h^{4}\right) \\
+& -\frac h2\left\{y^{\prime}\left(x_{i}\right)+\frac{h}{2} y^{\prime \prime}\left(x_{i}\right)+\frac{h^{2}}{8}\left[y^{\prime \prime \prime}\left(x_{i}\right)-y^{\prime \prime}\left(x_{i}\right) \frac{\partial f\left(x_{i}, y\left(x_{i}\right)\right)}{\partial y}\right]+O\left(h^{3}\right)\right\} \\
+= &\frac 14 h^2y^{\prime \prime}\left(x_{i}\right)+ \frac{5}{48}h^3 y^{\prime \prime \prime}\left(x_{i}\right)+\frac{1}{16}h^3 y^{\prime \prime}\left(x_{i}\right) \frac{\partial f\left(x_{i}, y\left(x_{i}\right)\right)}{\partial y}+O\left(h^{4}\right),
+\end{aligned}
+$$
+
+所给求解公式是一个 一阶公式.
+
+  \end{tcolorbox}
+
+
+     \begin{tcolorbox}[breakable,enhanced,arc=0mm,outer arc=0mm,
+		boxrule=0pt,toprule=1pt,leftrule=0pt,bottomrule=1pt, rightrule=0pt,left=0.2cm,right=0.2cm,
+		titlerule=0.5em,toptitle=0.1cm,bottomtitle=-0.1cm,top=0.2cm,
+		colframe=white!10!biru,colback=white!90!biru,coltitle=white,
+            coltext=black,title =2024-04, title style={white!10!biru}, before skip=8pt, after skip=8pt,before upper=\hspace{2em},
+		fonttitle=\bfseries,fontupper=\normalsize]
+用梯形方法解初值问题 $ \left\{\begin{array}{c}y^{\prime}+y=0 \\ y(0)=1\end{array}\right. $ 证明其近似解为 $ y_{n}=\left(\frac{2-h}{2+h}\right)^{n} $, 并证明: 当 $ h \rightarrow 0 $ 时, 它收敛于原初始问题的精确解 $ y=e^{-x} $
+\tcblower
+梯形方法是一个数值解常微分方程的方法，其迭代格式为：
+$$ y_{n+1} = y_n + \frac{h}{2}(f(x_n, y_n) + f(x_{n+1}, y_{n+1})) $$
+其中，$ h $ 是步长，$ f(x, y) $ 是微分方程 $ y' = f(x, y) $ 中的右端函数.
+
+对于给定的初值问题 $ \left\{\begin{array}{l}y^{\prime}+y=0 \\ y(0)=1\end{array}\right. $，我们有 $ f(x, y) = -y $.将其代入梯形方法的迭代格式中，得到：
+$$ y_{n+1} = y_n + \frac{h}{2}(-y_n - y_{n+1}) $$
+整理得到：$ y_{n+1} = \frac{2-h}{2+h}y_n $. 于是
+$$
+y_{n+1}=\left(\frac{2-h}{2+h}\right) y_{n}=\left(\frac{2-h}{2+h}\right)^{2} y_{n-1}=\cdots=\left(\frac{2-h}{2+h}\right)^{n+1} y_{0}
+$$
+因此，我们证明了 $ y_{n}=\left(\frac{2-h}{2+h}\right)^{n} $ 是给定初值问题的近似解.
+
+%另一方面，对$\forall x>0$, 以 $h$ 为步长经过 $n$ 步运算可求得$y(x_n)$的近似值 $y_n$,所以$x=nh,n=\frac xh$.
+因为 $ y_{0}=1 $, 故
+$$
+y_{n}=\left(\frac{2-h}{2+h}\right)^{n}
+$$
+
+对于给定的步长 $ h $，经过 $ n $ 步运算后，我们可以得到 $ y(x) $ 的近似值 $ y_n$.在每一步中，我们都会在 $ x $ 的位置上进行计算，因此总共进行 $ n $ 步运算后，我们得到的 $ x $ 的取值为 $ x = nh $.即 $ n=\dfrac{x}{h} $, 代入上式有:
+$$
+\begin{aligned}
+y_{n}&=\left(\frac{2-h}{2+h}\right)^{\frac x  h} \\
+\lim _{h \rightarrow 0} y_{n}&=\lim _{h \rightarrow 0}\left(\frac{2-h}{2+h}\right)^{\frac{x}{h}}=\lim _{h \rightarrow 0}\left(1-\frac{2 h}{2+h}\right)^{\frac{x}{h}} \\
+&=\lim _{h \rightarrow 0}\left[\left(1-\frac{2 h}{2+h}\right)^{\frac{2+h}{2 h}}\right]^{\frac{2 h}{2+h}\cdot \frac{x}{h}}=\mathrm{e}^{-x}
+\end{aligned}
+$$
+因此，当 $ h \rightarrow 0 $ 时，$ y_{n}=\left(\frac{2-h}{2+h}\right)^{n} $ 收敛于原初值问题的精确解 $ y=e^{-x} $.
+
+  \end{tcolorbox}
+
+
+     \begin{tcolorbox}[breakable,enhanced,arc=0mm,outer arc=0mm,
+		boxrule=0pt,toprule=1pt,leftrule=0pt,bottomrule=1pt, rightrule=0pt,left=0.2cm,right=0.2cm,
+		titlerule=0.5em,toptitle=0.1cm,bottomtitle=-0.1cm,top=0.2cm,
+		colframe=white!10!biru,colback=white!90!biru,coltitle=white,
+            coltext=black,title =2024-04, title style={white!10!biru}, before skip=8pt, after skip=8pt,before upper=\hspace{2em},
+		fonttitle=\bfseries,fontupper=\normalsize]
+ 应用 Taylor 定理构建求解常微分方程初值问题 $ \left\{\begin{array}{l}y^{\prime}=-y^{2} \\ y(0)=1\end{array}\right. $ 的 2 阶近似求解方法
+\tcblower
+
+对于给定的初值问题 $ y'(x) = -y(x)^2 $，我们可以对 $ y(x) $ 进行 Taylor 展开：
+$$
+y(x_{i+1}) = y(x_i) + hy'(x_i) + \frac{h^2}{2}y''(x_i) + O(h^3)
+$$
+
+其中，$ h $ 是步长，$ y'(x_i) $ 和 $ y''(x_i) $ 是 $ y(x) $ 在 $ x_i $ 处的导数和二阶导数.
+
+ 已知 $ y'(x) = -y^2 $,所以有$y'(x_i) = -y^2(x_i)$.对 $ y'(x) $ 再求导得到$ y''(x) $：
+$$
+y''(x) = \frac{d}{dx}(-y^2) = -2y \cdot y'(x)
+$$
+将 $ y'(x) = -y^2 $ 代入上式得到：$y''(x) = -2y \cdot (-y^2) = 2y^3$.
+
+利用 Taylor 展开式在$x_i$处展开：
+$$
+y(x_{i+1}) = y(x_i) + hy'(x_i) + \frac{h^2}{2}y''(x_i) + O(h^3)
+$$
+
+代入计算得到的 $ y'(x_i) $ 和 $ y''(x_i) $：
+$$\begin{aligned}
+    y(x_{i+1}) &= y(x_i) + h(-y^2(x_i)) + \frac{h^2}{2}(2y^3(x_i)) + O(h^3)\\&= y(x_i) - hy^2(x_i) + h^2y^3(x_i) + O(h^3)
+\end{aligned}
+$$
+
+因此，二阶近似求解方法为：
+$$
+y_{i+1} = y_i - hy_i^2 + h^2y_i^3
+$$
+
+  \end{tcolorbox}
+
+
+   \begin{tcolorbox}[breakable,enhanced,arc=0mm,outer arc=0mm,
+		boxrule=0pt,toprule=1pt,leftrule=0pt,bottomrule=1pt, rightrule=0pt,left=0.2cm,right=0.2cm,
+		titlerule=0.5em,toptitle=0.1cm,bottomtitle=-0.1cm,top=0.2cm,
+		colframe=white!10!biru,colback=white!90!biru,coltitle=white,
+            coltext=black,title =2024-04, title style={white!10!biru}, before skip=8pt, after skip=8pt,before upper=\hspace{2em},
+		fonttitle=\bfseries,fontupper=\normalsize]
+导出用 Euler 法求解 $ \left\{\begin{array}{l}y^{\prime}=\lambda y \\ y(0)=1\end{array} \quad(\lambda \neq 0)\right. $ 的公式, 并证明它收敛于初值问题的精确解.
+\tcblower
+
+令 $ x_i = i h $，根据欧拉法$ y_{i+1} = y_i + h f(x_i,y_i)$, 则 $ y_{i+1} = y_i + h y'(x_i) $. 对于 $ y'(x) = \lambda y $，有：
+$$
+y_{i+1} = y_i + h \lambda y_i = y_i (1 + h \lambda)
+$$
+初值条件为 $ y(0) = 1 $.因此，欧拉法的递推公式可以写成：$y_{i+1} = y_i (1 + h \lambda)$.
+
+我们从初始值 $ y_0 = 1 $ 开始，逐步计算 $ y_1, y_2, \ldots $，可以得到一般公式：
+$$
+\begin{array}{l}
+       y_1 = y_0 (1 + h \lambda) = 1 \cdot (1 + h \lambda)\\
+      y_2 = y_1 (1 + h \lambda) = (1 + h \lambda)^2\\
+      \cdots\cdots\\
+      y_n = (1 + h \lambda)^n
+\end{array}
+$$
+
+而易知初值问题的精确解为：$y(x) = e^{\lambda x}$, 
+%在 $ x = nh $ 处的精确解为：
+%$$
+%y(nh) = e^{\lambda nh} = \left(e^{\lambda h}\right)^n
+%$$
+为了证明欧拉法求解的数值解 $ y_n = (1 + h \lambda)^n $ 收敛于精确解 $y(x) = e^{\lambda x}$,我们需要分析 $ (1 + h \lambda)^n $ 和 $ \left(e^{\lambda x}\right)$ 之间的关系.由于$ x = nh $，
+%对于给定的步长 $ h $，经过 $ n $ 步运算后，我们可以得到 $ y(x) $ 的近似值 $ y_n$.在每一步中，我们都会在 $ x $ 的位置上进行计算，因此总共进行 $ n $ 步运算后，我们得到的 $ x $ 的取值为 $ x = nh $.即 $ n=\dfrac{x}{h} $, 代入上式有:
+利用指数函数的定义，我们知道当 $ h \to 0 $ 时，有：
+$$
+\lim_{h\to 0}\left(1 + \lambda h \right)^n =\lim_{h\to 0}\left(1 + \lambda h \right)^{\frac{1}{\lambda h}\cdot \lambda h\cdot \frac{x}{h}}= \lim_{h\to 0}\left(1 + \lambda h \right)^{\frac{1}{\lambda h}\cdot \lambda x}= e^{\lambda x} 
+$$
+
+因此，当步长 $ h \to 0 $ （即 $ n \to \infty $）时，欧拉法的数值解 $ y_n = (1 + h \lambda)^n $ 收敛于精确解 $ y(x) = e^{\lambda x} $.
+
+
+  \end{tcolorbox}
+
+%1. Find the exact solution of the initial value problem $u^{{\prime}} = {-} u^{2},u(0) = 1,$ and compare it to the approximate solutions obtained by successive approximations according to Corollary 10.6. Compute the third iterate $u_{2}$ and compare the exact error $u {-} u_{2}$ to the a posteriori error estimate from Corollary 10.6.
+
+%2. Show that the midpoint methpd for the solution of initial value problem $y_{n + 1} = y_{n {-} 1} + 2hf\left( x_{n},y_{n} \right)$ is convergent of order 2
+
+%3. Using the Taylor expansion to construct the approximation method for the initial value problem $\left\{\begin{array}{l} y^{{\prime}} = {-} y^{2} \\ y(0) = 1 \end{array} \right.$ such that the method is convergent of order 2
+
+%4. Using the trapezoidal (梯形) method to solve the initial value problem $\left\{\begin{matrix} y^{{\prime}} + y = 0 \\ y(0) = 1 \end{matrix} \right.$ ,show that the aproximation solution is $y_{n} = {\left( \frac{2 {-} h}{2 + h} \right)}^{n}$ and $\left\{y_{n} \right\}$ is convergent to the accurate solution $y = e^{{-}x}$ as $h {\rightarrow} 0$
+\subsection{补充习题}
+
+
+  \begin{tcolorbox}[enhanced,colback=8,colframe=7,breakable,coltitle=green!25!black,title=2024]
+证明中点公式
+$$
+y_{n+1}=y_{n-1}+2 h f\left(x_{n}, y_{n}\right)
+$$
+是二阶的, 并给出其局部截断误差.
+\tcblower
+ 考虑对应的离散关系式
+$$
+y\left(x_{n+1}\right) \approx y\left(x_{n-1}\right)+2 h y^{\prime}\left(x_{n}\right)
+$$
+泰勒展开有
+$$
+y\left(x_{n-1}\right)=y\left(x_{n}\right)-h y^{\prime}\left(x_{n}\right)+\frac{h^{2}}{2} y^{\prime \prime}\left(x_{n}\right)-\frac{h^{3}}{6} y^{\prime \prime \prime}\left(x_{n}\right)+O\left(h^{4}\right)
+$$
+代入离散关系式右端, 并记所得结果为 $ y_{n+1}^{*} $, 则有
+$$
+y_{n+1}^{*}=y\left(x_{n}\right)+h y^{\prime}\left(x_{n}\right)+\frac{h^{2}}{2} y^{\prime \prime}\left(x_{n}\right)-\frac{h^{3}}{6} y^{\prime \prime \prime}\left(x_{n}\right)+O\left(h^{4}\right)
+$$
+而
+$$
+y\left(x_{n+1}\right)=y\left(x_{n}\right)+h y^{\prime}\left(x_{n}\right)+\frac{h^{2}}{2} y^{\prime \prime}\left(x_{n}\right)+\frac{h^{3}}{6} y^{\prime \prime \prime}\left(x_{n}\right)+O\left(h^{4}\right)
+$$
+故局部截断误差
+$$
+\begin{aligned}
+y\left(x_{n+1}\right)-y_{n+1}^{*} & =\left(\frac{1}{6}+\frac{1}{6}\right) h^{3} y^{\prime \prime \prime}\left(x_{n}\right)+O\left(h^{4}\right) \\
+& = \frac{h^{3}}{3} y^{\prime \prime \prime}\left(x_{n}\right)+O\left(h^{4}\right)
+\end{aligned}
+$$
+可见中点方法是二阶的.
+
+ \end{tcolorbox}
+
+
+   \begin{tcolorbox}[enhanced,colback=8,colframe=7,breakable,coltitle=green!25!black,title=2024]
+给定常微分方程初值问题:
+$
+\left\{\begin{array}{l}
+y^{\prime}=-y, \quad 0<x \leqslant a, \\
+y(0)=1,
+\end{array}\right.
+$
+取正整数 $ n $, 并记 $ h=\frac a n, x_{i}=i h, 0 \leqslant i \leqslant n $. 证明: 用梯形公式求解该初值问题所得的数值解为
+$$
+y_{i}=\left(\frac{2-h}{2+h}\right)^{i}
+$$
+且当 $ h \rightarrow 0 $ 时, $ y_{n} $ 收敛于 $ y(a) $.
+ \tcblower
+ 梯形公式应用于方程有
+$$
+y_{i+1}=y_{i}+\frac{h}{2}\left(-y_{i}-y_{i+1}\right)
+$$
+
+即有
+$$
+\begin{array}{c}
+\left(1+\frac{h}{2}\right) y_{i+1}=\left(1-\frac{h}{2}\right) y_{i} \\
+y_{i+1}=\frac{2-h}{2+h} y_{i}=\left(\frac{2-h}{2+h}\right)^{2} y_{i-1}=\left(\frac{2-h}{2+h}\right)^{i+1} y_{0},
+\end{array}
+$$
+
+所以
+$$
+y_{i}=\left(\frac{2-h}{2+h}\right)^{i}, \quad i=1,2, \cdots .
+$$
+
+当 $ h \rightarrow 0 $ 时, $ n \rightarrow \infty $, 我们有
+$$
+\begin{aligned}
+\lim _{n \rightarrow \infty} y_{n} & =\lim _{n \rightarrow \infty}\left(\frac{2-h}{2+h}\right)^{n}=\lim _{h \rightarrow 0}\left(\frac{1-\frac{h}{2}}{1+\frac{h}{2}}\right)^{\frac{a}{h}} \\
+& =\lim _{h \rightarrow 0} \frac{\left(1-\frac{h}{2}\right)^{-\frac{2}{h}\left(-\frac{a}{2}\right)}}{\left(1+\frac{h}{2}\right)^{\frac{2}{h}\left(\frac{a}{2}\right)}}=\frac{\mathrm{e}^{-\frac{a}{2}}}{\mathrm{e}^{\frac{a}{2}}}=\mathrm{e}^{-a},
+\end{aligned}
+$$
+
+而由方程知解析解为 $ y=\mathrm{e}^{-x} $, 则 $ y(a)=\mathrm{e}^{-a} $, 所以
+$$
+\lim _{h \rightarrow 0} y_{n}=y(a) .
+$$
+ \end{tcolorbox}
+
+
+  \begin{tcolorbox}[enhanced,colback=8,colframe=7,breakable,coltitle=green!25!black,title=2024]
+ 利用欧拉方法解初值问题
+$
+\left\{\begin{array}{l}
+y^{\prime}=a x+b \\
+y(0)=0
+\end{array}\right.
+$
+其中 $ a, b $ 是常数. 求证其截断误差 $ y\left(x_{i}\right)-y_{i}=\frac{1}{2} a i h^{2} $.
+\tcblower
+% 对欧拉法, 将 $ y\left(x_{i+1}\right) $ 在 $ x_{i} $ 处进行泰勒展开,计算局部截断误差 $ y\left(x_{i+1}\right)-y_{i+1} $.
+
+ 初值问题的精确解为 $ y(x)=\frac{1}{2} a x^{2}+b x $.
+因为 $ x_{i}=i h $, 所以应用欧拉方法得
+$$
+\begin{aligned}
+y_{i+1} & =y_{i}+h f\left(x_{i}, y_{i}\right)=y_{i}+h\left(a x_{i}+b\right) =y_{i}+a i h^{2}+b h
+\end{aligned}
+$$
+逐次利用上式得
+$$
+\begin{array}{c}
+y_{i}=y_{i-1}+(i-1) a h^{2}+b h \\
+\ldots \ldots \\
+y_{2}=y_{1}+2 a h^{2}+b h \\
+y_{1}=y_{0}+a h^{2}+b h
+\end{array}
+$$
+又 $ y_{0}=0 $, 故
+$$
+y_{i}=y_{0}+a \frac{i(i-1)}{2} h^{2}+i b h=\frac{a i(i-1)}{2} h^{2}+b i h
+$$
+又因为
+$$
+y\left(x_{i}\right)=\frac{1}{2} a x_{i}^{2}+b x_{i}=\frac{1}{2} a i^{2} h^{2}+b i h
+$$
+所以截断误差
+$$
+R_{i}=y\left(x_{i}\right)-y_{i}=\frac{1}{2} a_{i h}^{2}
+$$
+ \end{tcolorbox}
+
+\begin{tcolorbox}[enhanced,colback=8,colframe=7,breakable,coltitle=green!25!black,title=2024]
+
+ 求证:改进的 Euler 格式能精确地解初值问题
+$
+\left\{\begin{array}{l}
+y^{\prime}=a x+b, \\
+y(0)=0,
+\end{array}\right.
+$
+其中 $ a, b $ 是常数.
+\tcblower
+容易求出初值问题的真解
+$$
+y(x)=\frac{1}{2} a x^{2}+b x .
+$$
+应用改进的 Euler 格式得
+$$
+\begin{aligned}
+y_{n+1} & =y_{n}+\frac{h}{2}\left(f\left(x_{n}, y_{n}\right)+f\left(x_{n}+h, y_{n}+h f\left(x_{n}, y_{n}\right)\right)\right) \\
+& =y_{n}+\frac{h}{2}\left(a x_{n}+b+a\left(x_{n}+h\right)+b\right)=y_{n}+a\left(n+\frac{1}{2}\right) h^{2}+b h .
+\end{aligned}
+$$
+逐次利用上式得
+$$
+\begin{array}{c}
+y_{n}=y_{n-1}+a\left(n-\frac{1}{2}\right) h^{2}+b h, \\
+\cdots \cdots \\
+y_{2}=y_{1}+a\left(2-\frac{1}{2}\right) h^{2}+b h, \\
+y_{1}=y_{0}+a\left(1-\frac{1}{2}\right) h^{2}+b h,
+\end{array}
+$$
+所以
+$$
+y_{n}=y_{0}+a\left(\frac{n(n+1)}{2}-\frac{n}{2}\right) h^{2}+n b h=\frac{1}{2} a n^{2} h^{2}+n b h .
+$$
+注意到
+$$
+y\left(x_{n}\right)=\frac{1}{2} a x_{n}^{2}+b x_{n}=\frac{1}{2} a n^{2} h^{2}+b n h,
+$$
+显然
+$y_{n}=y\left(x_{n}\right),$ 即改进的 Euler 法能精确地解该初值问题.
+ \end{tcolorbox}
+
+ 
+\begin{tcolorbox}[enhanced,colback=8,colframe=7,breakable,coltitle=green!25!black,title=2024]
+ 对于初值问题
+$
+\left\{\begin{array}{l}
+y^{\prime}+y=0, x>0 \\
+y(0)=1
+\end{array}\right.
+$
+试证明用改进欧拉方法所求近似解为 $ y_{i}=\left(1-h+h^{2} / 2\right)^{i}(i=0,1,2, \cdots) $.
+\tcblower
+ 改进的欧拉法表达式为
+$$
+\left\{\begin{array}{l}
+\bar{y}_{i+1}=y_{i}+h f\left(x_{i}, y_{i}\right) \\
+y_{i+1}=y_{i}+\frac{h}{2}\left[f\left(x_{i}, y_{i}\right)+f\left(x_{i+1}, \bar{y}_{i+1}\right)\right]
+\end{array}\right.
+$$
+将 $ f(x, y)=-y $ 代入得
+$$
+\begin{aligned}
+y_{i+1}&=y_{i}+\frac{h}{2}\left[f\left(x_{i}, y_{i}\right)+\right.\left.f\left(x_{i+1}, \bar{y}_{i+1}\right)\right]\\&=y_{i}+\frac{h}{2}\left[\left(-y_{i}\right)-(1-h) y_{i}\right]=\left(1-h+\frac{h^{2}}{2}\right) y_{i} \\
+&=\cdots=\left(1-h+\frac{h^{2}}{2}\right)^{i+1} y_{0}=\left(1-h+\frac{h^{2}}{2}\right)^{i+1}
+\end{aligned}
+$$
+所以可得 $ y_{i}=\left(1-h+\frac{h^{2}}{2}\right)^{i}(i=0,1,2, \cdots) $.
+\end{tcolorbox}
+  \begin{tcolorbox}[enhanced,colback=8,colframe=7,breakable,coltitle=green!25!black,title=2024]
+ 给定常微分方程初值问题:
+$
+\left\{\begin{array}{l}
+y^{\prime}=f(x, y), \quad a<x \leqslant b, \\
+y(a)=\eta,
+\end{array}\right.
+$
+取正整数 $ n $, 并记 $ h=(b-a) / n, x_{i}=a+i h, 0 \leqslant i \leqslant n $. 试分析求解公式
+$$
+y_{i+1}=y_{i}+h f\left(x_{i}+\frac{h}{2}, y_{i}+\frac{h}{2} f\left(x_{i}, y_{i}\right)\right)
+$$
+的局部截断误差, 并指出它是一个几阶的公式.
+ \tcblower
+
+ 对方程两边求导, 可得
+$$
+\begin{aligned}
+& y^{\prime}(x)=f(x, y), \quad y^{\prime \prime}(x)=\frac{\partial f(x, y(x))}{\partial x}+y^{\prime}(x) \frac{\partial f(x, y(x))}{\partial y}, \\
+y^{\prime \prime \prime}(x)= & \frac{\partial^{2} f(x, y(x))}{\partial x^{2}}+y^{\prime}(x) \frac{\partial^{2} f(x, y(x))}{\partial x \partial y} \\
+& +y^{\prime}(x)\left[\frac{\partial^{2} f(x, y(x))}{\partial x \partial y}+y^{\prime}(x) \frac{\partial^{2} f(x, y(x))}{\partial y^{2}}\right]+y^{\prime \prime}(x) \frac{\partial f(x, y(x))}{\partial y},
+\end{aligned}
+$$
+则
+$$
+\begin{aligned}
+R_{i+1}= & y\left(x_{i+1}\right)-\left[y\left(x_{i}\right)+h f\left(x_{i}+\frac{h}{2}, y\left(x_{i}\right)+\frac{h}{2} f\left(x_{i}, y\left(x_{i}\right)\right)\right)\right] \\
+= & y\left(x_{i+1}\right)-y\left(x_{i}\right)-h f\left(x_{i}+\frac{h}{2}, y\left(x_{i}\right)+\frac{h}{2} y^{\prime}\left(x_{i}\right)\right) \\
+= & h y^{\prime}\left(x_{i}\right)+\frac{h^{2}}{2} y^{\prime \prime}\left(x_{i}\right)+\frac{h^{3}}{6} y^{\prime \prime \prime}\left(x_{i}\right)+O\left(h^{4}\right) \\
+& -h\left\{f\left(x_{i}, y\left(x_{i}\right)\right)+\frac{h}{2} \frac{\partial f\left(x_{i}, y\left(x_{i}\right)\right)}{\partial x}+\frac{h}{2} y^{\prime}\left(x_{i}\right) \frac{\partial f\left(x_{i}, y\left(x_{i}\right)\right)}{\partial y}\right. \\
+& +\frac{1}{2}\left[\frac{h^{2}}{4} \frac{\partial^{2} f\left(x_{i}, y\left(x_{i}\right)\right)}{\partial x^{2}}+\frac{h^{2}}{2} y^{\prime}\left(x_{i}\right) \frac{\partial^{2} f\left(x_{i}, y\left(x_{i}\right)\right)}{\partial x \partial y}\right. \\
+& \left.\left.+\left(\frac{h}{2} y^{\prime}\left(x_{i}\right)\right)^{2} \frac{\partial^{2} f\left(x_{i}, y\left(x_{i}\right)\right)}{\partial y^{2}}\right]+O\left(h^{3}\right)\right\} \\
+= & h y^{\prime}\left(x_{i}\right)+\frac{h^{2}}{2} y^{\prime \prime}\left(x_{i}\right)+\frac{h^{3}}{6} y^{\prime \prime \prime}\left(x_{i}\right)+O\left(h^{4}\right) \\
+& -h\left\{y^{\prime}\left(x_{i}\right)+\frac{h}{2} y^{\prime \prime}\left(x_{i}\right)+\frac{h^{2}}{8}\left[y^{\prime \prime \prime}\left(x_{i}\right)-y^{\prime \prime}\left(x_{i}\right) \frac{\partial f\left(x_{i}, y\left(x_{i}\right)\right)}{\partial y}\right]+O\left(h^{3}\right)\right\} \\
+= & h^{3}\left[\frac{1}{24} y^{\prime \prime \prime}\left(x_{i}\right)+\frac{1}{8} y^{\prime \prime}\left(x_{i}\right) \frac{\partial f\left(x_{i}, y\left(x_{i}\right)\right)}{\partial y}\right]+O\left(h^{4}\right),
+\end{aligned}
+$$
+所给求解公式是一个 2 阶公式.
+ \end{tcolorbox}
+
+
+    \begin{tcolorbox}[enhanced,colback=8,colframe=7,breakable,coltitle=green!25!black,title=2024]
+ 已知微分方程初值问题 $ y^{\prime}=x+y-1, y(0)=1 $.
+ 
+(1) 取步长为 $ h=0.1 $, 试用 Euler 方法计算在 $ x=0.4 $ 处的近似值;
+
+(2) 试用 Taylor 展开估计改进 Euler 方法的局部截断误差.
+ \tcblower
+
+ (1) 由题意可知, Euler 方法为
+$$
+y_{n+1}=y_{n}+h f\left(x_{n}, y_{n}\right)=y_{n}+h\left(x_{n}+y_{n}-1\right), \quad n=0,1,2, \cdots
+$$
+步长为 $ h=0.1 $, 初值 $ y(0)=1 $, 计算结果为
+$$
+\begin{array}{l}
+y_{1}=y_{0}+0.1\left(x_{0}+y_{0}-1\right)=1 \\
+y_{2}=y_{1}+0.1\left(x_{1}+y_{1}-1\right)=1.01 \\
+y_{3}=y_{2}+0.1\left(x_{2}+y_{2}-1\right)=1.031 \\
+y_{4}=y_{3}+0.1\left(x_{3}+y_{3}-1\right)=1.0641
+\end{array}
+$$
+因此在 $ x=0.4 $ 处的近似值为 1.0641 .
+
+
+(2) 由改进 Euler 方法的局部截断误差
+$$
+\begin{aligned}
+R_{n+1} & =y\left(x_{n+1}\right)-y\left(x_{n}\right)-\frac{h}{2}\left[f\left(x_{n}, y_{n}\right)+f\left(x_{n+1}, y_{n+1}\right)\right] \\
+& =y\left(x_{n+1}\right)-y\left(x_{n}\right)-\frac{h}{2}\left[y^{\prime}\left(x_{n}\right)+y^{\prime}\left(x_{n+1}\right)\right]
+\end{aligned}
+$$
+又由
+$$
+\begin{array}{l}
+y\left(x_{n+1}\right)=y\left(x_{n}\right)+h y^{\prime}\left(x_{n}\right)+\frac{h^{2}}{2} y^{\prime \prime}\left(x_{n}\right)+\frac{h^{3}}{3!} y^{\prime \prime \prime}\left(x_{n}\right)+\cdots \\
+y^{\prime}\left(x_{n+1}\right)=y^{\prime}\left(x_{n}\right)+h y^{\prime \prime}\left(x_{n}\right)+\frac{h^{2}}{2} y^{\prime \prime \prime}\left(x_{n}\right)+\cdots
+\end{array}
+$$
+整理得到
+$$
+R_{n+1}=\frac{h^{3}}{3!} y^{\prime \prime \prime}\left(x_{n}\right)-\frac{h}{2}\left[\frac{h^{2}}{2} y^{\prime \prime \prime}\left(x_{n}\right)+\cdots\right]=-\frac{h^{3}}{12} y^{\prime \prime \prime}\left(x_{n}\right)+O\left(h^{4}\right)
+$$
+所以改进 Euler 方法是 2 阶的, 其局部误差主项为 $ -\frac{h^{3}}{12} y^{\prime \prime \prime}\left(x_{n}\right) $.
+ \end{tcolorbox}
+
+
+    \begin{tcolorbox}[enhanced,colback=8,colframe=7,breakable,coltitle=green!25!black,title=2024]
+ 已知微分方程初值问题 $ y^{\prime}=e^{-x-y}, y(0)=0 $.
+
+(1) 取步长为 $ h=0.1 $, 试用改进 Euler 方法计算在 $ x=0.3 $ 处的近似值;
+
+(2) 试用 Taylor 展开估计改进 Euler 方法的局部截断误差.
+ \tcblower
+ (1) 由题意可知, $ f(x, y)=e^{-x-y} $, 步长为 $ h=0.1 $, 因此改进 Euler 方法,
+$$
+\begin{array}{c}
+\bar{y}_{n+1}=y_{n}+h f\left(x_{n}, y_{n}\right)=y_{n}+0.1 e^{-x_{n}-y_{n}} \\
+y_{n+1}=y_{n}+\frac{h}{2}\left(f\left(x_{n}, y_{n}\right)+f\left(x_{n+1}, \bar{y}_{n+1}\right)\right)=y_{n}+0.05\left(e^{-x_{n}-y_{n}}+e^{-x_{n+1}-\bar{y}_{n+1}}\right) \\
+n=0,1,2, \cdots
+\end{array}
+$$
+由初值 $ y(0)=0 $, 计算可得
+$$
+\begin{array}{l}
+\left\{\begin{array}{l}
+\bar{y}_{1}=y_{0}+0.1 e^{-x_{0}-y_{0}}=0.1 \\
+y_{1}=y_{0}+0.05\left(e^{-x_{0}-y_{0}}+e^{-x_{1}-\bar{y}_{1}}\right) \approx 0.0952
+\end{array}\right. \\
+\left\{\begin{array}{l}
+\bar{y}_{2}=y_{1}+0.1 e^{-x_{1}-y_{1}} \approx 0.1775 \\
+y_{2}=y_{1}+0.05\left(e^{-x_{1}-y_{1}}+e^{-x_{2}-\bar{y}_{2}}\right) \approx 0.1706
+\end{array}\right. \\
+\left\{\begin{array}{l}
+\bar{y}_{3}=y_{2}+0.1 e^{-x_{2}-y_{2}} \approx 0.2396 \\
+y_{3}=y_{2}+0.05\left(e^{-x_{2}-y_{2}}+e^{-x_{3}-\bar{y}_{3}}\right) \approx 0.2343
+\end{array}\right. \\
+\end{array}
+$$
+因此计算在 $ x=0.3 $ 处的近似值 $ y_{3} \approx 0.2343 $.
+
+(2) 由改进 Euler 方法格式
+$$
+\left\{\begin{array}{ll}
+y_{n+1}=y_{n}+\frac{h}{2}\left[k_{1}+k_{2}\right], \\
+k_{1}=f\left(x_{n}, y_{n}\right), & \\
+k_{2}=f\left(x_{n}+h, y_{n}+h k_{1}\right), &
+\end{array}\right.
+$$
+这里 $ k_{1}=f\left(x_{n}, y_{n}\right)=y^{\prime}\left(x_{n}\right) $. 由局部截断误差, 假设 $ y^{\prime}\left(x_{n}\right)=y_{n} $, 且
+$$
+y^{\prime \prime}\left(x_{n}\right)=f_{x}^{\prime}\left(x_{n}, y_{n}\right)+f_{y}^{\prime}\left(x_{n}, y_{n}\right) y^{\prime}\left(x_{n}\right)=f_{x}^{\prime}\left(x_{n}, y_{n}\right)+f_{y}^{\prime}\left(x_{n}, y_{n}\right) k_{1}
+$$
+由 Taylor 展开
+$$
+\begin{aligned}
+k_{2}=&f\left(x_{n}+h, y_{n}+h k_{1}\right)=f\left(x_{n}, y_{n}\right)+h f_{x}^{\prime}\left(x_{n}, y_{n}\right)+h k_{1} f_{y}^{\prime}\left(x_{n}, y_{n}\right)\\
+& +\frac{1}{2!}\left[h^{2} f_{x x}^{\prime \prime}\left(x_{n}, y_{n}\right)+2 h^{2} k_{1} f_{x y}^{\prime \prime}\left(x_{n}, y_{n}\right)+h^{2} k_{1}^{2} f_{y y}^{\prime \prime}\left(x_{n}, y_{n}\right)\right]+O\left(h^{3}\right) \\
+= & y^{\prime}\left(x_{n}\right)+h y^{\prime \prime}\left(x_{n}\right)+\frac{h^{2}}{2!}\left[f_{x x}^{\prime \prime}\left(x_{n}, y_{n}\right)+2 k_{1} f_{x y}^{\prime \prime}\left(x_{n}, y_{n}\right)+k_{1}^{2} f_{y y}^{\prime \prime}\left(x_{n}, y_{n}\right)\right]+O\left(h^{3}\right)
+\end{aligned}
+$$
+分别代入 $y_{n+1}=  y_{n}+\frac{h}{2}\left[k_{1}+k_{2}\right]$,整理得
+$$
+\begin{aligned}
+y_{n+1}=  y_{n}+h y^{\prime}\left(x_{n}\right)+\frac{h^{2}}{2} y^{\prime \prime}\left(x_{n}\right)+\frac{h^{3}}{4}\left[f_{x x}^{\prime \prime}\left(x_{n}, y_{n}\right)\right.  \left.+2 k_{1} f_{x y}^{\prime \prime}\left(x_{n}, y_{n}\right)+k_{1}^{2} f_{y y}^{\prime \prime}\left(x_{n}, y_{n}\right)\right]+O\left(h^{4}\right)
+\end{aligned}
+$$
+
+又由 $ y\left(x_{n+1}\right)=y\left(x_{n}+h\right)=y\left(x_{n}\right)+h y^{\prime}\left(x_{n}\right)+\frac{h^{2}}{2!} y^{\prime \prime}\left(x_{n}\right)+\frac{h^{3}}{3!} y^{\prime \prime \prime}\left(x_{n}\right)+O\left(h^{4}\right) $, 因此整理后局部截断误差
+$$
+\begin{aligned}
+y\left(x_{n+1}\right)-y\left(x_{n}\right) \approx & \frac{h^{3}}{4}\left[f_{x x}^{\prime \prime}\left(x_{n}, y_{n}\right)+2 k_{1} f_{x y}^{\prime \prime}\left(x_{n}, y_{n}\right)+k_{1}^{2} f_{y y}^{\prime \prime}\left(x_{n}, y_{n}\right)\right]-\frac{h^{3}}{3!} y^{\prime \prime \prime}\left(x_{n}\right)=O\left(h^{3}\right)
+\end{aligned}
+$$
+ \end{tcolorbox}
+ 
+\begin{tcolorbox}[enhanced,colback=8,colframe=7,breakable,coltitle=green!25!black,title=2024]
+对于求解初值问题
+$
+\left\{\begin{array}{l}
+y^{\prime}=f(x, y) \\
+y\left(x_{0}\right)=y_{0}
+\end{array}\right.
+$
+的数值方法 $ y_{i+1}=y_{i}+\frac{h}{3}\left[f\left(x_{i}, y_{i}\right)+2 f\left(x_{i+1}, y_{i+1}\right)\right] $, 试求其局部截断误差和阶数.
+
+%分析: 将 $ y\left(x_{i+1}\right) $ 在 $ x_{i} $ 处进行泰勒展开,可求得该方法的局部截断误差和阶数. 再将该方法应用于模型方程, 求得其绝对稳定应满足的条件.
+\tcblower
+ 当 $ y_{i}=y\left(x_{i}\right) $ 时, 将 $ y\left(x_{i+1}\right) $ 在 $ x_{i} $ 处泰勒展开得
+$$
+y\left(x_{i+1}\right)=y\left(x_{i}\right)+y^{\prime}\left(x_{i}\right) h+\frac{1}{2!} y^{\prime \prime}\left(x_{i}\right) h^{2}+O\left(h^{3}\right)
+$$
+将该初值问题的数值解 $ y_{i+1} $ 在 $ x_{i} $ 处泰勒展开:
+因为 $ f\left(x_{i+1}, y_{i+1}\right)=y^{\prime}\left(x_{i+1}\right)=y^{\prime}\left(x_{i}\right)+y^{\prime \prime}\left(x_{i}\right) h+O\left(h^{2}\right) $, 所以
+$$
+\begin{aligned}
+y_{i+1} & =y_{i}+\frac{h}{3}\left[f\left(x_{i}, y_{i}\right)+2 f\left(x_{i+1}, y_{i+1}\right)\right] \\
+& =y\left(x_{i}\right)+\frac{h}{3}\left\{y^{\prime}\left(x_{i}\right)+2\left[y^{\prime}\left(x_{i}\right)+y^{\prime \prime}\left(x_{i}\right) h+O\left(h^{2}\right)\right]\right\}\\
+&=y\left(x_{i}\right)+\frac{h}{3}\left[y^{\prime}\left(x_{i}\right)+2 y^{\prime}\left(x_{i}\right)+2 h y^{\prime \prime}\left(x_{i}\right)+O\left(h^{3}\right)\right]
+\end{aligned}
+$$
+于是得局部截断误差
+$$
+R_{i+1}  =y\left(x_{i+1}\right)-y_{i+1}  =-\frac{1}{6} h^{2} y^{\prime \prime}\left(x_{i}\right)+O\left(h^{3}\right)
+$$
+即 $ R_{i+1}=O\left(h^{2}\right) $, 因此该方法是一阶的.
+\end{tcolorbox}
+
+
+  \begin{tcolorbox}[enhanced,colback=8,colframe=7,breakable,coltitle=green!25!black,title=2024]
+ 建立求解初值问题
+$
+\left\{\begin{array}{l}
+y^{\prime}=f(x, y) \\
+y\left(x_{0}\right)=y_{0}
+\end{array}\right.
+$
+的数值方法
+$$
+y_{n+1}=y_{n}+\frac{h}{2}\left(3 f_{n}-f_{n-1}\right)
+$$
+其中 $ f_{n}=f\left(x_{n}, y_{n}\right), f_{n-1}=f\left(x_{n-1}, y_{n-1}\right) $,并说明这是几阶格式.
+\tcblower
+ 对 $ y\left(x_{n+1}\right) $ 在 $ x_{n} $ 处泰勒展开
+$$
+y\left(x_{n+1}\right)=y\left(x_{n}\right)+y^{\prime}\left(x_{n}\right) h+\frac{1}{2!} y^{\prime \prime}\left(x_{n}\right) h^{2}+\frac{1}{3!} y^{m \prime}\left(\xi_{n}\right) h^{3}
+$$
+再把 $ f\left(x_{n-1}, y\left(x_{n-1}\right)\right)=y^{\prime}\left(x_{n-1}\right) $ 在 $ x_{n} $ 处泰勒展开
+$$
+y^{\prime}\left(x_{n-1}\right)=y^{\prime}\left(x_{n}\right)+y^{\prime \prime}\left(x_{n}\right)(-h)+\frac{1}{2!} y^{\prime \prime}\left(\eta_{n}\right)(-h)^{2}
+$$
+于是
+$$
+\begin{aligned}
+& y\left(x_{n}\right)+\frac{h}{2}\left[3 y^{\prime}\left(x_{n}\right)-y^{\prime}\left(x_{n-1}\right)\right] \\
+= & y\left(x_{n}\right)+\frac{h}{2}\left\{\left.3 y^{\prime}\left(x_{n}\right)-\left[y^{\prime}\left(x_{n}\right)-h y^{\prime \prime}\left(x_{n}\right)+\frac{h^{2}}{2} y^{\prime \prime \prime}\left(\eta_{n}\right)\right] \right\rvert\,\right. \\
+= & y\left(x_{n}\right)+h y^{\prime}\left(x_{n}\right)+\frac{h^{2}}{2} y^{\prime \prime}\left(x_{n}\right)-\frac{1}{4} h^{3} y^{\prime \prime}\left(\eta_{n}\right)
+\end{aligned}
+$$
+与 $ y\left(x_{n+1}\right) $ 在 $ x_{n} $ 处泰勒展开式相比较有
+$$
+y\left(x_{n+1}\right)=y\left(x_{n}\right)+\frac{h}{2}\left[3 y^{\prime}\left(x_{n}\right)-y^{\prime}\left(x_{n-1}\right)\right]+O\left(h^{3}\right)
+$$
+对上式略去 $ O\left(h^{3}\right) $, 则有
+$$
+y_{n+1}=y_{n}+\frac{h}{2}\left[3 f\left(x_{n}, y_{n}\right)-f\left(x_{n-1}, y_{n-1}\right)\right]
+$$
+ 为考虑局部截断误差, 设 $ y\left(x_{n}\right)=y_{n}, y\left(x_{n-1}\right)=y_{n+1} $, 于是所建立格式
+$$
+y_{n+1}=y\left(x_{n}\right)+\frac{h}{2}\left[3 y^{\prime}\left(x_{n}\right)-y^{\prime}\left(x_{n-1}\right)\right]
+$$
+从而局部截断误差
+$$
+y\left(x_{n+1}\right)-y_{n+1}=O\left(h^{3}\right)
+$$
+因此是二阶格式.
+ \end{tcolorbox}
+
+    \begin{tcolorbox}[enhanced,colback=8,colframe=7,breakable,coltitle=green!25!black,title=2024]
+    
+ 初值问题
+$
+\left\{\begin{array}{l}
+y^{\prime}=x^{2}, \quad x>0 \\
+y(0)=0
+\end{array}\right.
+$
+的解为 $ y(x)=\frac{1}{3} x^{3} $. 若 $ x_{i}=i h, y_{i} $ 是用改进欧拉公式得到的 $ y(x) $ 在 $ x_{i} $ 处的近似值, 证明
+$$
+y\left(x_{i}\right)-y_{i}=-\frac{1}{6} x_{i} h^{2}, \quad i=1,2,3, \cdots .
+$$
+\tcblower
+
+ 方法 1. 设 $ f(x, y)=x^{2} $. 改进欧拉公式为
+$$
+\left\{\begin{aligned}
+y_{i+1} & =y_{i}+\frac{h}{2}\left[f\left(x_{i}, y_{i}\right)+f\left(x_{i+1}, y_{i}+h f\left(x_{i}, y_{i}\right)\right)\right] \\
+& =y_{i}+\frac{h}{2}\left(x_{i}^{2}+x_{i+1}^{2}\right), \quad i=0,1,2, \cdots, \\
+y_{0} & =0 .
+\end{aligned}\right.
+$$
+将 $y_{i+1}==y_{i}+\frac{h}{2}\left(x_{i}^{2}+x_{i+1}^{2}\right) $的两边对 $ i $ 从 0 到 $ m-1 $ 求和,并利用 $y_0=0$ 得 
+$$
+\begin{aligned}
+y_{m} & =\frac{h}{2} \sum_{i=0}^{m-1}\left(x_{i}^{2}+x_{i+1}^{2}\right) \\
+& =\frac{h^{3}}{2} \sum_{i=0}^{m-1}\left[i^{2}+(i+1)^{2}\right]=\frac{h^{3}}{2}\left(\sum_{i=1}^{m-1} i^{2}+\sum_{i=1}^{m} i^{2}\right) \\
+& =\frac{h^{3}}{2}\left[\frac{1}{6} m(m-1)(2 m-1)+\frac{1}{6} m(m+1)(2 m+1)\right] \\
+& =\frac{m h^{3}}{12}[(m-1)(2 m-1)+(m+1)(2 m+1)] \\
+& =\frac{m h^{3}}{6}\left(2 m^{2}+1\right)=\frac{1}{3}(m h)^{3}+\frac{1}{6}(m h) h^{2} \\
+& =\frac{1}{3} x_{m}^{3}+\frac{1}{6} x_{m} h^{2}=y\left(x_{m}\right)+\frac{1}{6} x_{m} h^{2}, \quad m=1,2, \cdots
+\end{aligned}
+$$
+即
+$$
+y\left(x_{m}\right)-y_{m}=-\frac{1}{6} x_{m} h^{2}, \quad m=1,2, \cdots .
+$$
+
+方法 2. 记 $ f(x, y)=x^{2} $. 改进欧拉公式为
+$$
+\begin{array}{l}
+\left\{\begin{aligned}
+y_{i+1} & =y_{i}+\frac{h}{2}\left[f\left(x_{i}, y_{i}\right)+f\left(x_{i+1}, y_{i}+h f\left(x_{i}, y_{i}\right)\right)\right] \\
+& =y_{i}+\frac{h}{2}\left(x_{i}^{2}+x_{i+1}^{2}\right), \quad i=0,1,2, \cdots, \\
+y_{0} & =0 .
+\end{aligned}\right.
+\end{array}
+$$
+由方程 $ y^{\prime}=x^{2} $ 可得 $ y^{\prime \prime}(x)=2 x, y^{\prime \prime \prime}(x)=2, y^{(4)}(x)=0 $. 因而
+$$
+\begin{aligned}
+y\left(x_{i+1}\right) & =y\left(x_{i}\right)+h y^{\prime}\left(x_{i}\right)+\frac{h^{2}}{2} y^{\prime \prime}\left(x_{i}\right)+\frac{h^{3}}{6} y y^{\prime \prime}\left(x_{i}\right) \\
+& =y\left(x_{i}\right)+h x_{i}^{2}+h^{2} x_{i}+\frac{h^{3}}{3} \\
+& =y\left(x_{i}\right)+\frac{h}{2}\left(x_{i}^{2}+x_{i+1}^{2}\right)-\frac{h^{3}}{6}, \quad i=0,1,2, \cdots
+\end{aligned}
+$$
+此外有$y\left(x_{0}\right)=0 .$ 相减得
+$$
+\left\{\begin{array}{l}
+y\left(x_{i+1}\right)-y_{i+1}=y\left(x_{i}\right)-y_{i}-\frac{h^{3}}{6}, \quad i=0,1,2, \cdots, \\
+y\left(x_{0}\right)-y_{0}=0 .
+\end{array}\right.
+$$
+递推可得
+$$
+y\left(x_{i}\right)-y_{i}-\frac{i h^{3}}{6}=-\frac{1}{6} x_{i} h^{2}, \quad i=1,2,3, \cdots .
+$$
+\end{tcolorbox}
+    \begin{tcolorbox}[enhanced,colback=8,colframe=7,breakable,coltitle=green!25!black,title=2024]
+证明求解常微分方程初值问题 $ y^{\prime}=f(x, y), y\left(x_{0}\right)=\eta $ 的隐式单步法
+$$
+y_{n+1}=y_{n}+\frac{h}{6}\left[4 f\left(x_{n}, y_{n}\right)+2 f\left(x_{n+1}, y_{n+1}\right)+h f^{\prime}\left(x_{n}, y_{n}\right)\right]
+$$
+为三阶收敛方法.
+ \tcblower
+
+ 由题意可知, $ f\left(x_{n}, y_{n}\right)=y^{\prime}\left(x_{n}\right), f^{\prime}\left(x_{n}, y_{n}\right)=y^{\prime \prime}\left(x_{n}\right) $, 由 Taylor 展开可得
+$$
+f\left(x_{n+1}, y_{n+1}\right)=y^{\prime}\left(x_{n+1}\right)=y^{\prime}\left(x_{n}\right)+h y^{\prime \prime}\left(x_{n}\right)+\frac{h^{2}}{2} y^{\prime \prime \prime}\left(x_{n}\right)+\frac{h^{3}}{6} y^{(4)}\left(x_{n}\right)+O\left(h^{4}\right) \text {, }
+$$
+代入隐式单步法整理可得
+$$
+\begin{aligned}
+y_{n+1}= & y_{n}+\frac{h}{6}\left[4 f\left(x_{n}, y_{n}\right)+2 f\left(x_{n+1}, y_{n+1}\right)+h f^{\prime}\left(x_{n}, y_{n}\right)\right] \\
+= & y_{n}+\frac{h}{6}\left\{4 y^{\prime}\left(x_{n}\right)+2\left[y^{\prime}\left(x_{n}\right)+h y^{\prime \prime}\left(x_{n}\right)+\frac{h^{2}}{2} y^{\prime \prime \prime}\left(x_{n}\right)+\frac{h^{3}}{6} y^{(4)}\left(x_{n}\right)+O\left(h^{4}\right)\right]+h y^{\prime \prime}\left(x_{n}\right)\right\} \\
+= & y_{n}+h y^{\prime}\left(x_{n}\right)+\frac{h^{2}}{2} y^{\prime \prime}\left(x_{n}\right)+\frac{h^{3}}{6} y^{\prime \prime \prime}\left(x_{n}\right)+\frac{h^{4}}{18} y^{(4)}\left(x_{n}\right)+O\left(h^{5}\right)
+\end{aligned}
+$$
+另一方面
+$$
+y\left(x_{n+1}\right)=y\left(x_{n}\right)+h y^{\prime}\left(x_{n}\right)+\frac{h^{2}}{2} y^{\prime \prime}\left(x_{n}\right)+\frac{h^{3}}{6} y^{(3)}\left(x_{n}\right)+\frac{h^{4}}{24} y^{(4)}\left(x_{n}\right)+O\left(h^{5}\right)
+$$
+因此局部截断误差, $ y\left(x_{n}\right)=y_{n} $, 且
+$$
+R_{n+1}=y\left(x_{n+1}\right)-y_{n+1}=-\frac{h^{4}}{72} y^{(4)}\left(x_{n}\right)+O\left(h^{5}\right)
+$$
+即隐式单步法为三阶方法.
+
+ \end{tcolorbox}
+
+    \begin{tcolorbox}[enhanced,colback=8,colframe=7,breakable,coltitle=green!25!black,title=2024]
+设用 $ x_{n-1}, x_{n} $ 两点的斜率值加权平均作为区间 $ \left[x_{n}, x_{n+1}\right] $ 上的平均斜率, 则有计算公式
+$$
+\left\{\begin{array}{l}
+y_{n+1}=y_{n}+h\left(\beta_{0} y_{n}^{\prime}+\beta_{1} y_{n-1}^{\prime}\right) \\
+y_{n}^{\prime}=f\left(x_{n}, y_{n}\right) \\
+y_{n-1}^{\prime}=f\left(x_{n-1}, y_{n-1}\right)
+\end{array}\right.
+$$
+确定参数 $ \beta_{0}, \beta_{1} $, 使上述公式有二阶精度.
+ \tcblower
+将 $ y_{n-1}^{\prime} $ 在 $ x_{n} $ 点泰勒展开
+$$
+y_{n-1}^{\prime}=y_{n}^{\prime}+y_{n}^{\prime \prime}(-h)+\frac{1}{2!} y_{n}^{\prime \prime \prime}(-h)^{2}+\cdots
+$$
+代入计算公式化简, 并假设 $ y_{n}=y\left(x_{n}\right), y_{n-1}=y\left(x_{n-1}\right) $, 因此有
+$$
+y_{n+1}=y_{n}+h \beta_{0} y_{n}^{\prime}+h \beta_{1} y_{n}^{\prime}-h^{2} \beta_{1} y_{n}^{\prime}-\frac{1}{2} h^{3} \beta_{1} y_{n}^{\prime \prime \prime}-\cdots
+$$
+和 $ y\left(x_{n+1}\right) $ 在 $ x_{n+1} $ 处的泰勒展开式
+$$
+y\left(x_{n+1}\right)=y\left(x_{n}\right)+h y^{\prime}\left(x_{n}\right)+\frac{1}{2} h^{2} y^{\prime \prime}\left(x_{n}\right)+\cdots
+$$
+相比较, 需取
+$$
+\left\{\begin{array} { l } 
+{ \beta _ { 0 } + \beta _ { 1 } = 1 } \\
+{ \beta _ { 1 } = - \frac { 1 } { 2 } }
+\end{array} \quad \left\{\begin{array}{l}
+\beta_{0}=\frac{3}{2} \\
+\beta_{1}=-\frac{1}{2}
+\end{array}\right.\right.
+$$
+ \end{tcolorbox}
+
+\begin{tcolorbox}[enhanced,colback=8,colframe=7,breakable,coltitle=green!25!black,title=2024]
+ 设常微分方程初值问题
+$
+\left\{\begin{array}{l}
+y^{\prime}=f(x, y) \\
+y\left(x_{0}\right)=y_{0}
+\end{array}\right.
+$
+的线性多步公式 $ y_{n+1}=y_{n-3}+4 h f\left(x_{n-1}, y_{n-1}\right) $, 试求该多步公式的局部截断误差并回答它有几阶精度。
+\tcblower
+ 由已知 $ y_{n+1}=y_{n-3}+4 h f\left(x_{n-1}, y_{n-1}\right) $ 有局部截断误差
+$$
+\begin{aligned}
+T_{n+1}= & y\left(x_{n+1}\right)-y_{n+1} \\
+= & y\left(x_{n+1}\right)-y\left(x_{n-3}\right)-4 h f\left(x_{n-1}, y\left(x_{n-1}\right)\right) \\
+= & y\left(x_{n+1}\right)-y\left(x_{n-3}\right)-4 h y^{\prime}\left(x_{n-1}\right) \\
+= & y\left(x_{n}\right)+h y^{\prime}\left(x_{n}\right)+\frac{h^{2}}{2} y^{\prime \prime}\left(x_{n}\right)+\frac{h^{3}}{6} y^{\prime \prime \prime}\left(x_{n}\right) \\
+& -\left[y\left(x_{n}\right)-3 h y^{\prime}\left(x_{n}\right)+\frac{9}{2} h^{2} y^{\prime \prime}\left(x_{n}\right)-\frac{27}{6} h^{3} y^{\prime \prime}\left(x_{n}\right)\right] \\
+& -4 h\left[y^{\prime}\left(x_{n}\right)-h y^{\prime \prime}\left(x_{n}\right)+\frac{h^{2}}{2} y^{\prime \prime \prime}\left(x_{n}\right)\right]+O\left(h^{4}\right) \\
+= & \frac{8}{3} h^{3} y^{\prime \prime \prime}\left(x_{n}\right)+O\left(h^{4}\right)=O\left(h^{3}\right)
+\end{aligned}
+$$
+因此该多步公式的局部截断误差 $ O\left(h^{3}\right) $ 有二阶精度。
+ \end{tcolorbox}
+
+ 
+    \begin{tcolorbox}[enhanced,colback=8,colframe=7,breakable,coltitle=green!25!black,title=2024]
+ 证明求解常微分方程初值问题 $ y^{\prime}=f(x, y) $ 的差分公式
+$$
+y_{n+1}=\frac{1}{2}\left(y_{n}+y_{n-1}\right)+\frac{h}{4}\left(4 y_{n+1}^{\prime}-y_{n}^{\prime}+3 y_{n-1}^{\prime}\right)
+$$
+是二阶收敛的, 并求出截断误差的首项.
+ \tcblower
+
+ 由题意可知, 分别利用 Taylor 展开可得
+$$
+\begin{array}{l}
+y_{n+1}=y_{n}+h y_{n}^{\prime}+\frac{h^{2}}{2} y_{n}^{\prime \prime}+\frac{h^{3}}{6} y_{n}^{\prime \prime \prime}+\cdots \\
+y_{n-1}=y_{n}-h y_{n}^{\prime}+\frac{h^{2}}{2} y_{n}^{\prime \prime}-\frac{h^{3}}{6} y_{n}^{\prime \prime \prime}+\cdots
+\end{array}
+$$
+因此 $ y_{n+1}^{\prime}=y_{n}^{\prime}+h y_{n}^{\prime \prime}+\frac{h^{2}}{2} y_{n}^{\prime \prime \prime}+\cdots, y_{n-1}^{\prime}=y_{n}^{\prime}-h y_{n}^{\prime \prime}+\frac{h^{2}}{2} y_{n}^{\prime \prime \prime}+\cdots $, 整理可得
+$$
+\begin{aligned}
+y_{n+1}=&\frac{1}{2}\left(y_{n}+y_{n-1}\right)+\frac{h}{4}\left(4 y_{n+1}^{\prime}-y_{n}^{\prime}+3 y_{n-1}^{\prime}\right)\\
+= & \frac{1}{2}\left(y_{n}+y_{n}-h y_{n}^{\prime}+\frac{h^{2}}{2} y_{n}^{\prime \prime}-\frac{h^{3}}{6} y_{n}^{\prime \prime \prime}+\cdots\right) \\
+& +\frac{h}{4}\left[4\left(y_{n}^{\prime}+h y_{n}^{\prime \prime}+\frac{h^{2}}{2} y_{n}^{\prime \prime \prime}+\cdots\right)-y_{n}^{\prime}+3\left(y_{n}^{\prime}-h y_{n}^{\prime \prime}+\frac{h^{2}}{2} y^{\prime \prime \prime}+\cdots\right)\right] \\
+= & \frac{1}{2}\left(2 y_{n}-h y_{n}^{\prime}+\frac{h^{2}}{2} y_{n}^{\prime \prime}-\frac{h^{3}}{6} y_{n}^{\prime \prime \prime}+\cdots\right)+\frac{h}{4}\left(6 y_{n}^{\prime}+h y_{n}^{\prime \prime}+\frac{7 h^{2}}{2} y_{n}^{\prime \prime \prime}+\cdots\right) \\
+= & y_{n}+h y_{n}^{\prime}+\frac{h^{2}}{2} y_{n}^{\prime \prime}+\frac{19 h^{3}}{24} y_{n}^{\prime \prime \prime}+\cdots
+\end{aligned}
+$$
+另一方面
+$$
+y\left(x_{n+1}\right)=y\left(x_{n}\right)+h y^{\prime}\left(x_{n}\right)+\frac{h^{2}}{2} y^{\prime \prime}\left(x_{n}\right)+\frac{h^{3}}{6} y^{(3)}\left(x_{n}\right)+\frac{h^{4}}{24} y^{(4)}\left(x_{n}\right)+O\left(h^{5}\right)
+$$
+因此由局部截断误差, 设 $ y\left(x_{n}\right)=y_{n} $, 且
+$$
+R_{n+1}=y\left(x_{n+1}\right)-y_{n+1}=\frac{h^{3}}{6} y_{n}^{\prime \prime \prime}-\frac{19 h^{3}}{24} y_{n}^{\prime \prime \prime}+O\left(h^{4}\right)=-\frac{5}{8} h^{3} y_{n}^{\prime \prime \prime}+O\left(h^{4}\right)
+$$
+差分公式具有二阶收敛, 并且截断误差首项为 $ -\frac{5}{8} h^{3} y_{n}^{\prime \prime \prime} $.
+ \end{tcolorbox}
+
+
+ \begin{tcolorbox}[enhanced,colback=8,colframe=7,breakable,coltitle=green!25!black,title=2024]
+证明对任意参数 $ t $, 下列 Runge-Kutta 方法是二阶收敛的.
+$$
+\left\{\begin{array}{l}
+y_{n+1}=y_{n}+\frac{h}{2}\left(K_{2}+K_{3}\right), \\
+K_{1}=f\left(x_{n}, y_{n}\right), \\
+K_{2}=f\left(x_{n}+t h, y_{n}+t h K_{1}\right), \\
+K_{3}=f\left(x_{n}+(1-t) h, y_{n}+(1-t) h K_{1}\right)
+\end{array}\right.
+$$
+ \tcblower
+ 由题意可知, $ K_{1}=f\left(x_{n}, y_{n}\right)=y^{\prime}\left(x_{n}\right), y^{\prime \prime}\left(x_{n}\right)=f_{x}^{\prime}+y_{n}^{\prime} f_{x}^{\prime} $, 下面利用 Taylor 展开可得
+$$
+\begin{array}{c}
+K_{2}=f\left(x_{n}, y_{n}\right)+t h f_{x}^{\prime}+t h f\left(x_{n}, y_{n}\right) f_{y}^{\prime}+\cdots \\
+K_{3}=f\left(x_{n}, y_{n}\right)+(1-t) h f_{x}^{\prime}+(1-t) h f\left(x_{n}, y_{n}\right) f_{y}^{\prime}+\cdots
+\end{array}
+$$
+所以
+$$
+\begin{aligned}
+y_{n+1} & =y_{n}+\frac{h}{2}\left(K_{2}+K_{3}\right)=y_{n}+\frac{h}{2}\left[2 f\left(x_{n}, y_{n}\right)+h\left(f_{x}^{\prime}+h f\left(x_{n}, y_{n}\right) f_{y}^{\prime}\right) \cdots\right] \\
+& =y_{n}+h f\left(x_{n}, y_{n}\right)+\frac{h^{2}}{2}\left(f_{x}^{\prime}+h f\left(x_{n}, y_{n}\right) f_{y}^{\prime}\right)+\cdots\\
+=&y_{n}+h y^{\prime}\left(x_{n}\right)+\frac{h^{2}}{2} y^{\prime \prime}\left(x_{n}\right)+\cdots
+\end{aligned}
+$$
+另一方面
+$$
+y\left(x_{n+1}\right)=y\left(x_{n}\right)+h y^{\prime}\left(x_{n}\right)+\frac{h^{2}}{2} y^{\prime \prime}\left(x_{n}\right)+\frac{h^{3}}{6} y^{(3)}\left(x_{n}\right)+O\left(h^{5}\right)
+$$
+因此由局部截断误差, 设 $ y\left(x_{n}\right)=y_{n} $, 且
+$$
+R_{n+1}=y\left(x_{n+1}\right)-y_{n+1}=O\left(h^{3}\right)
+$$
+比较系数可知, 所给 Runge-Kutta 方法是二阶收敛的.
+ \end{tcolorbox}
+
+
+
+    \begin{tcolorbox}[enhanced,colback=8,colframe=7,breakable,coltitle=green!25!black,title=2024]
+ 证明下列两种 Runge-Kutta 方法是三阶收敛的:
+ $$(1) \left\{\begin{array}{l}y_{n+1}=y_{n}+\frac{h}{4}\left(K_{1}+3 K_{3}\right), \\ K_{1}=f\left(x_{n}, y_{n}\right), \\ K_{2}=f\left(x_{n}+\frac{h}{3}, y_{n}+\frac{h}{3} K_{1}\right), \\ K_{3}=f\left(x_{n}+\frac{2}{3} h, y_{n}+\frac{2}{3} h K_{2}\right) ;\end{array} \quad(2)\left\{\begin{array}{l}y_{n+1}=y_{n}+\frac{h}{9}\left(2 K_{1}+3 K_{2}+4 K_{3}\right), \\ K_{1}=f\left(x_{n}, y_{n}\right), \\ K_{2}=f\left(x_{n}+\frac{h}{2}, y_{n}+\frac{h}{2} K_{1}\right), \\ K_{3}=f\left(x_{n}+\frac{3}{4} h, y_{n}+\frac{3}{4} h K_{2}\right) .\end{array}\right.\right. $$
+ \tcblower
+ (1) 由题意可知, $ K_{1}=f\left(x_{n}, y_{n}\right)=y^{\prime}\left(x_{n}\right), y^{\prime \prime}\left(x_{n}\right)=f_{x}^{\prime}+y_{n}^{\prime} f_{y}^{\prime} $,
+$$
+y^{\prime \prime \prime}\left(x_{n}\right)=f_{x x}^{\prime \prime}+2 y_{n}^{\prime} f_{x y}^{\prime \prime}+\left(y_{n}^{\prime}\right)^{2} f_{y y}^{\prime \prime}
+$$
+
+下面利用 Taylor 展开并整理得
+$$
+\begin{array}{c}
+K_{2}=y^{\prime}\left(x_{n}\right)+\frac{h}{3} y^{\prime \prime}\left(x_{n}\right)+\frac{h^{2}}{18} y^{\prime \prime \prime}\left(x_{n}\right)+\cdots \\
+K_{3}=y^{\prime}\left(x_{n}\right)+\frac{2 h}{3} f_{x}^{\prime}+\frac{2 h}{3} K_{2} f_{y}^{\prime}+\cdots \\
+=y^{\prime}\left(x_{n}\right)+\frac{2 h}{3} y^{\prime \prime}\left(x_{n}\right)+\frac{2 h^{2}}{9} y^{\prime \prime \prime}\left(x_{n}\right)+\cdots
+\end{array}
+$$
+
+所以
+$$
+\begin{aligned}
+y_{n+1} & =y_{n}+\frac{h}{4}\left(K_{1}+3 K_{3}\right) \\
+& =y_{n}+\frac{h}{4}\left\{y^{\prime}\left(x_{n}\right)+3\left[y^{\prime}\left(x_{n}\right)+\frac{2 h}{3} y^{\prime \prime}\left(x_{n}\right)+\frac{2 h^{2}}{9} y^{\prime \prime \prime}\left(x_{n}\right)+\cdots\right]\right\}\\
+& =y_{n}+h y^{\prime}\left(x_{n}\right)+\frac{h^{2}}{2} y^{\prime \prime}\left(x_{n}\right)+\frac{h^{3}}{6} y^{\prime \prime \prime}\left(x_{n}\right)+\cdots 
+\end{aligned}
+$$
+
+另外一方面
+$$
+y\left(x_{n+1}\right)=y\left(x_{n}\right)+h y^{\prime}\left(x_{n}\right)+\frac{h^{2}}{2} y^{\prime \prime}\left(x_{n}\right)+\frac{h^{3}}{6} y^{(3)}\left(x_{n}\right)+O\left(h^{4}\right)
+$$
+
+因此由局部截断误差, 设 $ y\left(x_{n}\right)=y_{n} $, 且
+$$
+R_{n+1}=y\left(x_{n+1}\right)-y_{n+1}=O\left(h^{4}\right)
+$$
+
+比较系数可知, 所给 Runge-Kutta 方法是三阶收敛的.
+另一方面, 在三阶 Runge-Kutta 公式 $ \left\{\begin{array}{l}y_{n+1}=y_{n}+h\left(\lambda_{1} K_{1}+\lambda_{2} K_{2}+\lambda_{3} K_{3}\right), \\ K_{1}=f\left(x_{n}, y_{n}\right), \\ K_{2}=f\left(x_{n}+p h, y_{n}+p h K_{1}\right), \\ K_{3}=f\left(x_{n}+q h, y_{n}+q h\left(r K_{1}+s K_{2}\right)\right)\end{array}\right. $
+中, 若取 $ \lambda_{1}=\frac{1}{4}, \lambda_{2}=0, \lambda_{3}=\frac{3}{4}, p=\frac{1}{3}, q=\frac{2}{3}, r=0, s=1 $, 即为所给方法, 且
+满足 $ r+s=1 ; \lambda_{1}+\lambda_{2}+\lambda_{3}=1 ; \lambda_{2} p+\lambda_{3} q=\frac{1}{2} ; \lambda_{2} p^{2}+\lambda_{3} q^{2}=\frac{1}{3} ; \lambda_{3} p q s=\frac{1}{6} $,因而三阶收敛.
+
+(2) 由题意可知,
+$$
+\begin{array}{c}
+K_{1}=f\left(x_{n}, y_{n}\right)=y^{\prime}\left(x_{n}\right) \\
+y^{\prime \prime}\left(x_{n}\right)=f_{x}^{\prime}+y_{n}^{\prime} f_{y}^{\prime} \\
+y^{\prime \prime \prime}\left(x_{n}\right)=f_{x x}^{\prime \prime}+2 y_{n}^{\prime} f_{x y}^{\prime \prime}+\left(y_{n}^{\prime}\right)^{2} f_{y y}^{\prime \prime}
+\end{array}
+$$
+
+下面利用 Taylor 展开并整理得
+$$
+\begin{aligned}
+K_{2} & =y^{\prime}\left(x_{n}\right)+\frac{h}{2} y^{\prime \prime}\left(x_{n}\right)+\frac{h^{2}}{8} y^{\prime \prime \prime}\left(x_{n}\right)+\cdots \\
+K_{3} & =y^{\prime}\left(x_{n}\right)+\frac{3 h}{4} f_{x}^{\prime}+\frac{3 h}{4} K_{2} f_{y}^{\prime}+\cdots \\
+& =y^{\prime}\left(x_{n}\right)+\frac{3 h}{4} y^{\prime \prime}\left(x_{n}\right)+\frac{9 h^{2}}{32} y^{\prime \prime \prime}\left(x_{n}\right)+\cdots
+\end{aligned}
+$$
+
+所以
+$$
+\begin{aligned}
+y_{n+1} & =y_{n}+\frac{h}{9}\left(2 K_{1}+3 K_{2}+4 K_{3}\right) \\
+& =y_{n}+\frac{h}{9}\left\{2 y^{\prime}\left(x_{n}\right)+3\left[y^{\prime}\left(x_{n}\right)+\frac{h}{2} y^{\prime \prime}\left(x_{n}\right)+\frac{h^{2}}{8} y^{\prime \prime \prime}\left(x_{n}\right)+\cdots\right]\right.\\
+& \left.+4\left[y^{\prime}\left(x_{n}\right)+\frac{3 h}{4} y^{\prime \prime}\left(x_{n}\right)+\frac{9 h^{2}}{32} y^{\prime \prime \prime}\left(x_{n}\right)+\cdots\right]\right\} \\
+&=  y_{n}+h y^{\prime}\left(x_{n}\right)+\frac{h^{2}}{2} y^{\prime \prime}\left(x_{n}\right)+\frac{h^{3}}{6} y^{\prime \prime \prime}\left(x_{n}\right)+\cdots
+\end{aligned}
+$$
+
+
+另一方面
+$$
+y\left(x_{n+1}\right)=y\left(x_{n}\right)+h y^{\prime}\left(x_{n}\right)+\frac{h^{2}}{2} y^{\prime \prime}\left(x_{n}\right)+\frac{h^{3}}{6} y^{(3)}\left(x_{n}\right)+O\left(h^{4}\right)
+$$
+因此由局部截断误差, 设 $ y\left(x_{n}\right)=y_{n} $, 且
+$$
+R_{n+1}=y\left(x_{n+1}\right)-y_{n+1}=O\left(h^{4}\right)
+$$
+比较系数可知, 所给 Runge-Kutta 方法是三阶收敛的.
+同样在三阶 Runge-Kutta 公式中取 $ \lambda_{1}=\frac{2}{9}, \lambda_{2}=\frac{1}{3}, \lambda_{3}=\frac{4}{9}, p=\frac{1}{2}, q=\frac{3}{4} $, $ r=0, s=1 $, 即为所给方法, 并且满足 $ r+s=1 ; \lambda_{1}+\lambda_{2}+\lambda_{3}=1 ; \lambda_{2} p+\lambda_{3} q=\frac{1}{2} $; $ \lambda_{2} p^{2}+\lambda_{3} q^{2}=\frac{1}{3} ; \lambda_{3} p q s=\frac{1}{6} $, 因而三阶收敛.
+
+
+ \end{tcolorbox}
+
+
+  \begin{tcolorbox}[enhanced,colback=8,colframe=7,breakable,coltitle=green!25!black,title=2024]
+ 
+ \end{tcolorbox}
+
+

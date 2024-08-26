@@ -1,0 +1,234 @@
+\documentclass{article}
+\usepackage[paperwidth=210mm, paperheight=297mm, margin=2cm]{geometry}
+%\usepackage[utf8]{inputenc}
+%\usepackage{ebgaramond-maths}
+\usepackage{ctex}
+%==Math & Physics Packages==
+\usepackage{amsmath, amsthm, amsfonts, amssymb,bm}
+\usepackage{setspace}
+\usepackage{physics}
+\usepackage{cancel}
+\usepackage{nicefrac}
+
+\usepackage{picinpar}%处理图文混排
+
+
+
+%==Image-related Packages==
+\usepackage{graphics, graphicx}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+\usepackage{fourier-orns}
+\usepackage{lipsum}
+%==Colour Palette==
+\definecolor{merah}{HTML}{F4564E}
+\definecolor{merahtua}{HTML}{89313E}
+\definecolor{biru}{HTML}{60BBE5}
+\definecolor{birutua}{HTML}{412F66}
+\definecolor{hijau}{HTML}{59CC78}
+\definecolor{hijautua}{HTML}{366D5B}
+\definecolor{kuning}{HTML}{FFD56B}
+\definecolor{jingga}{HTML}{FBA15F}
+\definecolor{ungu}{HTML}{8C5FBF}
+\definecolor{lavender}{HTML}{CBA5E8}
+\definecolor{merjamb}{HTML}{FFB6E0}
+
+
+\definecolor{1}{RGB}{163,187,219}
+\definecolor{2}{RGB}{239,239,239}
+
+\definecolor{3}{RGB}{65,222,183}
+\definecolor{4}{RGB}{237,241,187}
+
+\definecolor{5}{RGB}{129,227,247}
+\definecolor{6}{RGB}{236,239,244}
+
+\definecolor{7}{RGB}{195,217,78}
+\definecolor{8}{RGB}{245,243,242}
+
+\definecolor{9}{RGB}{240,145,161}
+\definecolor{10}{RGB}{245,242,233}
+
+
+\definecolor{mycolor1}{RGB}{185,227,251}
+\definecolor{mycolor2}{RGB}{252,204,203}
+\definecolor{mycolor3}{RGB}{250,230,233}
+\definecolor{mycolor4}{RGB}{220,238,248}
+\definecolor{mycolor5}{RGB}{131,203,172}
+\definecolor{mycolor6}{RGB}{185,222,201}
+\definecolor{mycolor7}{RGB}{233,215,223}
+\definecolor{mycolor8}{RGB}{200,173,196}
+\definecolor{mycolor9}{RGB}{92,197,204}
+\definecolor{mycolor10}{RGB}{236,138,164}
+%==Theorems==
+\usepackage{xcolor}
+\usepackage{tcolorbox}
+\tcbuselibrary{skins,breakable,theorems}
+\usepackage{changepage}%用于调整页面布局，例如改变页面的宽度或高度。
+\renewcommand{\thesection}{\arabic{section}}
+
+%\usepackage{titlesec}
+% 重新定义subsection标题格式
+%\titleformat{\subsection}[hang]{\bfseries}{\thesubsection}{1em}{}
+
+
+\makeatletter
+
+        % Definition
+%	\newtcbtheorem{dfn}{1}
+%	{breakable,enhanced,arc=0mm,outer arc=0mm,
+%		boxrule=0pt,toprule=1pt,leftrule=0pt,bottomrule=1pt, rightrule=0pt,left=0.2cm,right=0.2cm,
+	%	titlerule=0.5em,toptitle=0.1cm,bottomtitle=-0.1cm,top=0.2cm,
+	%	colframe=white!10!biru,colback=white!90!biru,coltitle=white,
+     %       coltext=birutua!60!gray, title style={white!10!biru}, before skip=8pt, after skip=8pt,
+		%fonttitle=\bfseries,fontupper=\normalsize}{dfn}
+ 
+%==Formatting Packages==
+\usepackage{multicol}
+\usepackage{multirow}
+
+\usepackage{enumitem}
+\usepackage{indentfirst}
+\usepackage[toc]{multitoc}
+
+%==Layouting Packages==
+\usepackage{titlesec}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\setlength{\headheight}{15pt}
+% Uncomment jika perlu
+\fancyhead[L]{Numerical Analysis}
+\fancyhead[R]{xiaowen}
+%\fancyfoot[L]{}
+\fancyfoot[C]{\thepage}
+%\fancyfoot[R]{\thepage}
+
+
+\newcommand{\myboxblue}[1]{
+\begin{tcolorbox}[breakable,enhanced,arc=0mm,outer arc=0mm,
+		boxrule=0pt,toprule=1pt,leftrule=0pt,bottomrule=1pt, rightrule=0pt,left=0.2cm,right=0.2cm,
+		titlerule=0.5em,toptitle=0.1cm,bottomtitle=-0.1cm,top=0.2cm,
+		colframe=white!10!biru,colback=white!90!biru,coltitle=white,
+        coltext=black,title =#1, title style={white!10!biru}, before skip=8pt, after skip=8pt,before upper=\hspace{2em},
+		fonttitle=\bfseries,fontupper=\normalsize]
+  
+
+ \tcblower
+
+\end{tcolorbox}
+}
+
+
+\newcounter{woes}
+\renewcommand{\thewoes}{\arabic{woes}}
+\newcommand{\woe}{\par\noindent\refstepcounter{woes}\textbf{\thewoes.}\hspace{0.5em}}
+\newcommand{\woestar}{\par\noindent\refstepcounter{woes}\(\boldsymbol{\thewoes^*.}\)\hspace{0.5em}}
+
+\newtcolorbox{questionA}{
+    colback=green!5!white,colframe=green!30!white,
+    parbox=false,before upper=\par,before lower=\par,
+    coltitle=green!25!black,breakable,
+    title={\thesection \(\,\boldsymbol{\mathcal{A} }\)},fonttitle=\bfseries}
+\newenvironment{quiza}{\begin{questionA}\setcounter{woes}{0}}{\end{questionA}}
+
+\newtcolorbox{questionB}{
+    colback=blue!5!white,colframe=blue!30!white,
+    parbox=false,before upper=\par,before lower=\par,
+    coltitle=blue!25!black,breakable,
+    title={\thesection \(\,\boldsymbol{\mathcal{B}}\)},fonttitle=\bfseries}
+\newenvironment{quizb}{\begin{questionB}\setcounter{woes}{0}}{\end{questionB}}
+
+
+
+
+
+
+\renewcommand\headrule{%定义页眉中的水平线样式的
+	\vspace{-1pt}%-1pt表示向上调整1个点的垂直间距
+	\hrulefill
+	\raisebox{-2.1pt}
+	\hrulefill}
+
+\renewcommand\footrule{%
+	\hrulefill
+	\raisebox{-2.1pt}
+	%{\quad\floweroneleft\decoone\floweroneright\quad}%
+	\hrulefill}
+  
+%Reference and Bibliography Packages==设置超链接的样式和颜色
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor={black},
+    citecolor={biru!70!black},
+    urlcolor={biru!80!black}
+}
+
+\numberwithin{equation}{section}%用于在 LaTeX 中设置公式编号的格式。具体来说，这行代码将使公式编号包含章节号，例如“1.1”表示第一章的第一个公式，以此类推。
+%这行代码的作用是将公式编号设置为按节（section）进行编号，即每个节开始时公式编号会重新计数。这样可以更清晰地显示公式的编号，使其与章节结构相对应。
+
+
+\usepackage{multicol}
+\usepackage{multirow}
+
+\setlength\columnsep{0.6cm}  % 设置两栏之间的间距为0.6cm
+\columnseprule=1pt           % 实现插入分隔线，用于分栏
+
+
+\usepackage{tocloft} % 导入 tocloft 宏包
+
+% 设置目录项之间的虚线
+\renewcommand{\cftsecleader}{\cftdotfill{2}} % 为节添加虚线
+\renewcommand{\cftsubsecleader}{\cftdotfill{2}} % 为小节添加虚线
+\renewcommand{\cftsubsubsecleader}{\cftdotfill{2}} % 为子小节添加虚线
+
+
+
+% 重新定义目录标题为“目   录”，并在两个字之间添加水平间距
+\renewcommand{\contentsname}{目\hspace{2em}录}
+
+
+
+
+
+
+
+\begin{document}
+{\centering\tableofcontents}
+%\tableofcontents
+
+
+
+\thispagestyle{empty} % 取消目录页的页眉和页脚
+
+\clearpage
+% 从这里开始正文
+\pagenumbering{arabic} % 设置页码格式为阿拉伯数字
+\setcounter{page}{1} % 从1开始页码
+
+\input{1}
+\input{2}
+\input{插值法与曲线拟合}
+\input{3}
+\input{解线性方程组的直接法}
+\input{4}
+\input{解线性方程组的迭代法}
+\input{非线性方程求根}
+\input{5}
+%
+
+%\input{0}
+%\input{box}
+%\input{w}
+\input{数值积分与数值微分}
+
+\input{6}
+\input{常微分方程初值问题的数值解法}
+\input{期中小测}
+\input{exam1}
+\input{exam2}
+\input{exam3}
+\input{补充一些填空题}
+\end{document}
